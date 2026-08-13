@@ -20,11 +20,12 @@ export default async function handler(req, res) {
       }
     );
     const data = await r.json();
+    if (data.error) return res.status(200).json({ text: "Gemini error: " + data.error.message });
     const text =
       data?.candidates?.[0]?.content?.parts?.map((p) => p.text).join("") ||
-      "Sorry, I could not respond right now.";
+      "No response from Gemini";
     return res.status(200).json({ text });
   } catch (e) {
-    return res.status(500).json({ error: "AI request failed" });
+    return res.status(500).json({ error: e.message });
   }
 }
