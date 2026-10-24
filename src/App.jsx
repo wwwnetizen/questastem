@@ -7925,7 +7925,7 @@ function CompetitionsPage() {
           {o.link && <a href={o.link} target="_blank" rel="noreferrer" style={{ display: "block", padding: "14px 0", border: "1.5px solid rgba(43,54,52,.35)", borderRadius: 14, textAlign: "center", fontFamily: mono, fontSize: 13, color: "#2b3634", background: "rgba(43,54,52,.08)", textDecoration: "none", letterSpacing: "0.05em", fontWeight: 600, transition: "all .2s" }}
                     onMouseOver={e => { e.currentTarget.style.background = "rgba(43,54,52,.14)"; e.currentTarget.style.borderColor = "rgba(43,54,52,.5)"; }}
                     onMouseOut={e => { e.currentTarget.style.background = "rgba(43,54,52,.08)"; e.currentTarget.style.borderColor = "rgba(43,54,52,.35)"; }}>{t.view || "Register here"}</a>}
-          <button onClick={() => { const rm = { id: "rm-" + Date.now(), title: (lang === "mn" ? "Бэлтгэл: " : "Preparation: ") + (o.name[lang] || o.name.en), created: new Date().toISOString(), type: "competition", targetId: o.id }; setRoadmaps(prev => [...(prev||[]), rm]); setSelected(null); go("roadmap"); }}
+          <button onClick={() => { const rmId = "rm-" + Date.now(); const rm = { id: rmId, title: (lang === "mn" ? "Бэлтгэл: " : "Preparation: ") + (o.name[lang] || o.name.en), created: new Date().toISOString(), type: "competition", targetId: o.id }; setRoadmaps(prev => [...(prev||[]), rm]); setSelected(null); openRoadmap(rmId); }}
             style={{ padding: "14px 0", border: "1.5px solid rgba(43,54,52,.35)", borderRadius: 14, background: "rgba(43,54,52,.08)", cursor: "pointer", fontFamily: mono, fontSize: 13, color: "#2b3634", letterSpacing: "0.05em", width: "100%", fontWeight: 600, transition: "all .2s" }}
                     onMouseOver={e => { e.currentTarget.style.background = "rgba(43,54,52,.14)"; e.currentTarget.style.borderColor = "rgba(43,54,52,.5)"; }}
                     onMouseOut={e => { e.currentTarget.style.background = "rgba(43,54,52,.08)"; e.currentTarget.style.borderColor = "rgba(43,54,52,.35)"; }}>{t.prepBtn || "Prepare for this"}</button>
@@ -8014,7 +8014,7 @@ function ResearchPage() {
           {o.link && <a href={o.link} target="_blank" rel="noreferrer" style={{ display: "block", padding: "14px 0", border: "1.5px solid rgba(43,54,52,.35)", borderRadius: 14, textAlign: "center", fontFamily: mono, fontSize: 13, color: "#2b3634", background: "rgba(43,54,52,.08)", textDecoration: "none", letterSpacing: "0.05em", fontWeight: 600, transition: "all .2s" }}
                     onMouseOver={e => { e.currentTarget.style.background = "rgba(43,54,52,.14)"; e.currentTarget.style.borderColor = "rgba(43,54,52,.5)"; }}
                     onMouseOut={e => { e.currentTarget.style.background = "rgba(43,54,52,.08)"; e.currentTarget.style.borderColor = "rgba(43,54,52,.35)"; }}>{t.view || "Register here"}</a>}
-          <button onClick={() => { const rm = { id: "rm-" + Date.now(), title: (lang === "mn" ? "Бэлтгэл: " : "Preparation: ") + (o.name[lang] || o.name.en), created: new Date().toISOString(), type: "research" }; setRoadmaps(prev => [...(prev||[]), rm]); setSelectedProg(null); go("roadmap"); }}
+          <button onClick={() => { const rmId = "rm-" + Date.now(); const rm = { id: rmId, title: (lang === "mn" ? "Бэлтгэл: " : "Preparation: ") + (o.name[lang] || o.name.en), created: new Date().toISOString(), type: "research" }; setRoadmaps(prev => [...(prev||[]), rm]); setSelectedProg(null); openRoadmap(rmId); }}
             style={{ padding: "14px 0", border: "1.5px solid rgba(43,54,52,.35)", borderRadius: 14, background: "rgba(43,54,52,.08)", cursor: "pointer", fontFamily: mono, fontSize: 13, color: "#2b3634", letterSpacing: "0.05em", width: "100%", fontWeight: 600, transition: "all .2s" }}
                     onMouseOver={e => { e.currentTarget.style.background = "rgba(43,54,52,.14)"; e.currentTarget.style.borderColor = "rgba(43,54,52,.5)"; }}
                     onMouseOut={e => { e.currentTarget.style.background = "rgba(43,54,52,.08)"; e.currentTarget.style.borderColor = "rgba(43,54,52,.35)"; }}>{t.prepBtn || "Prepare for this"}</button>
@@ -9189,7 +9189,6 @@ function Toasts({ toasts }) {
 /* ═══ MODULE: pages/Roadmaps ═══ */
 function RoadmapsPage() {
   const { t, lang, roadmaps, deleteRoadmap, openRoadmap, setRoadmaps, go, user, setObOpen } = useQ();
-  const [creating, setCreating] = useState(false);
   const [newTitle, setNewTitle] = useState("");
   const [newType, setNewType] = useState("general");
   const mono = "'Space Grotesk', ui-monospace, monospace";
@@ -9198,7 +9197,6 @@ function RoadmapsPage() {
     if (!newTitle.trim()) return;
     const rm = { id: "rm-" + Date.now(), title: newTitle.trim(), type: newType, created: new Date().toISOString() };
     setRoadmaps(prev => [rm, ...(prev || [])]);
-    setCreating(false);
     setNewTitle("");
     setNewType("general");
     openRoadmap(rm.id);
@@ -9216,83 +9214,64 @@ function RoadmapsPage() {
 
   return (
     <div className="max-w-3xl mx-auto px-6 py-8">
-      <div style={{ display: "flex", alignItems: "baseline", justifyContent: "space-between", marginBottom: 20 }}>
-        <h1 className="q-display" style={{ fontSize: "clamp(32px,5vw,52px)", fontWeight: 800, color: "#2b3634", letterSpacing: "-0.04em" }}>{t.rmTitle || "My Roadmaps"}</h1>
-        <button onClick={() => setCreating(true)} style={{ fontFamily: mono, fontSize: 12, color: "#2b3634", background: "rgba(43,54,52,.08)", border: "1.5px solid rgba(43,54,52,.35)", borderRadius: 12, padding: "9px 18px", cursor: "pointer", letterSpacing: "0.04em", flexShrink: 0, fontWeight: 600, transition: "all .2s" }}
-          onMouseOver={e => { e.currentTarget.style.background = "rgba(43,54,52,.14)"; e.currentTarget.style.borderColor = "rgba(43,54,52,.5)"; }}
-          onMouseOut={e => { e.currentTarget.style.background = "rgba(43,54,52,.08)"; e.currentTarget.style.borderColor = "rgba(43,54,52,.35)"; }}>{t.rmNew || "+ New roadmap"}</button>
-      </div>
+      <h1 className="q-display" style={{ fontSize: "clamp(32px,5vw,52px)", fontWeight: 800, color: "#2b3634", letterSpacing: "-0.04em", marginBottom: 8 }}>{t.rmTitle || "My Roadmaps"}</h1>
+      <p style={{ fontSize: 14, color: "#2b3634", marginBottom: 32, lineHeight: 1.6 }}>{t.rmSub || "A personal learning path tailored to each goal."}</p>
 
-      {/* Create roadmap modal */}
-      {creating && (
-        <div style={{ position: "fixed", inset: 0, zIndex: 60, display: "flex", alignItems: "center", justifyContent: "center" }}>
-          <div style={{ position: "absolute", inset: 0, background: "rgba(43,54,52,.25)", backdropFilter: "blur(4px)" }} onClick={() => setCreating(false)} />
-          <div className="q-card" style={{ position: "relative", borderRadius: 20, padding: "36px 32px", width: "min(480px, 90vw)", boxShadow: "0 20px 60px rgba(43,54,52,.25)" }}>
-            <h2 style={{ fontSize: 22, fontWeight: 800, color: "#2b3634", letterSpacing: "-0.03em", marginBottom: 24 }}>{t.rmNewRoadmap || "New Roadmap"}</h2>
+      {/* Inline create form — always visible */}
+      <div style={{ border: "1.5px solid rgba(43,54,52,.35)", borderRadius: 20, padding: "28px 24px", marginBottom: 40, background: "rgba(43,54,52,.02)" }}>
+        <div style={{ fontFamily: mono, fontSize: 10, letterSpacing: "0.18em", color: "#2b3634", marginBottom: 16 }}>{t.rmNewRoadmap || "New Roadmap"}</div>
 
-            <div style={{ marginBottom: 20 }}>
-              <label style={{ fontFamily: mono, fontSize: 10, letterSpacing: "0.18em", color: "#2b3634", display: "block", marginBottom: 8 }}>{t.rmRoadmapTitle || "ROADMAP TITLE"}</label>
-              <input
-                autoFocus
-                value={newTitle}
-                onChange={e => setNewTitle(e.target.value)}
-                onKeyDown={e => { if (e.key === "Enter") handleCreate(); if (e.key === "Escape") setCreating(false); }}
-                placeholder="e.g. IMO 2026 Prep, ML Fundamentals..."
-                style={{ width: "100%", padding: "13px 16px", border: "1.5px solid rgba(43,54,52,.35)", borderRadius: 12, background: "transparent", fontSize: 14, color: "#2b3634", outline: "none", fontFamily: "inherit", boxSizing: "border-box" }}
-              />
-            </div>
+        <div style={{ marginBottom: 16 }}>
+          <label style={{ fontFamily: mono, fontSize: 10, letterSpacing: "0.18em", color: "#2b3634", display: "block", marginBottom: 8 }}>{t.rmRoadmapTitle || "ROADMAP TITLE"}</label>
+          <input
+            value={newTitle}
+            onChange={e => setNewTitle(e.target.value)}
+            onKeyDown={e => { if (e.key === "Enter") handleCreate(); }}
+            placeholder={lang === "mn" ? "жнь. ОУФО 2026 бэлтгэл, ML суурь..." : "e.g. IMO 2026 Prep, ML Fundamentals..."}
+            style={{ width: "100%", padding: "13px 16px", border: "1.5px solid rgba(43,54,52,.35)", borderRadius: 12, background: "transparent", fontSize: 14, color: "#2b3634", outline: "none", fontFamily: "inherit", boxSizing: "border-box" }}
+          />
+        </div>
 
-            <div style={{ marginBottom: 28 }}>
-              <label style={{ fontFamily: mono, fontSize: 10, letterSpacing: "0.18em", color: "#2b3634", display: "block", marginBottom: 8 }}>{t.rmType || "TYPE"}</label>
-              <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
-                {[["general", t.rmTypeGeneral || "General learning"],["competition", t.rmTypeComp || "Competition prep"],["research", t.rmTypeResearch || "Research project"],["skill", t.rmTypeSkill || "Skill building"]].map(([val, label]) => (
-                  <button key={val} onClick={() => setNewType(val)}
-                    style={{ padding: "7px 16px", borderRadius: 10, border: `1.5px solid ${newType === val ? "rgba(43,54,52,.5)" : "rgba(43,54,52,.35)"}`, background: newType === val ? "rgba(43,54,52,.14)" : "rgba(43,54,52,.08)", cursor: "pointer", fontFamily: mono, fontSize: 11, color: "#2b3634", fontWeight: newType === val ? 600 : 400, transition: "all .2s" }}
-                    onMouseOver={e => { e.currentTarget.style.background = "rgba(43,54,52,.14)"; e.currentTarget.style.borderColor = "rgba(43,54,52,.5)"; }}
-                    onMouseOut={e => { e.currentTarget.style.background = newType === val ? "rgba(43,54,52,.14)" : "rgba(43,54,52,.08)"; e.currentTarget.style.borderColor = newType === val ? "rgba(43,54,52,.5)" : "rgba(43,54,52,.35)"; }}>
-                    {label}
-                  </button>
-                ))}
-              </div>
-            </div>
-
-            <div style={{ display: "flex", gap: 10 }}>
-              <button onClick={() => setCreating(false)} style={{ flex: 1, padding: "12px 0", border: "1.5px solid rgba(43,54,52,.35)", borderRadius: 12, background: "rgba(43,54,52,.08)", cursor: "pointer", fontFamily: mono, fontSize: 13, color: "#2b3634", fontWeight: 600, transition: "all .2s" }}
+        <div style={{ marginBottom: 20 }}>
+          <label style={{ fontFamily: mono, fontSize: 10, letterSpacing: "0.18em", color: "#2b3634", display: "block", marginBottom: 8 }}>{t.rmType || "TYPE"}</label>
+          <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
+            {[["general", t.rmTypeGeneral || "General learning"],["competition", t.rmTypeComp || "Competition prep"],["research", t.rmTypeResearch || "Research project"],["skill", t.rmTypeSkill || "Skill building"]].map(([val, label]) => (
+              <button key={val} onClick={() => setNewType(val)}
+                style={{ padding: "7px 16px", borderRadius: 10, border: `1.5px solid ${newType === val ? "rgba(43,54,52,.5)" : "rgba(43,54,52,.35)"}`, background: newType === val ? "rgba(43,54,52,.14)" : "rgba(43,54,52,.08)", cursor: "pointer", fontFamily: mono, fontSize: 11, color: "#2b3634", fontWeight: newType === val ? 600 : 400, transition: "all .2s" }}
                 onMouseOver={e => { e.currentTarget.style.background = "rgba(43,54,52,.14)"; e.currentTarget.style.borderColor = "rgba(43,54,52,.5)"; }}
-                onMouseOut={e => { e.currentTarget.style.background = "rgba(43,54,52,.08)"; e.currentTarget.style.borderColor = "rgba(43,54,52,.35)"; }}>{t.rmCancel || "Cancel"}</button>
-              <button onClick={handleCreate} disabled={!newTitle.trim()} style={{ flex: 2, padding: "12px 0", border: "none", borderRadius: 12, background: newTitle.trim() ? "#2b3634" : "rgba(43,54,52,.35)", cursor: newTitle.trim() ? "pointer" : "default", fontFamily: mono, fontSize: 13, color: newTitle.trim() ? "#f0f2ee" : "rgba(43,54,52,.3)", fontWeight: 600, letterSpacing: "0.04em" }}>{t.rmCreateGen || "Create & generate"} →</button>
-            </div>
+                onMouseOut={e => { e.currentTarget.style.background = newType === val ? "rgba(43,54,52,.14)" : "rgba(43,54,52,.08)"; e.currentTarget.style.borderColor = newType === val ? "rgba(43,54,52,.5)" : "rgba(43,54,52,.35)"; }}>
+                {label}
+              </button>
+            ))}
           </div>
         </div>
-      )}
 
-      {roadmaps.length === 0 ? (
-        <div style={{ textAlign: "center", padding: "80px 0" }}>
-          <div style={{ fontSize: 16, fontWeight: 600, color: "#2b3634", marginBottom: 8 }}>{t.rmNoneTitle || "No roadmaps yet"}</div>
-          <div style={{ fontSize: 14, color: "#2b3634", marginBottom: 32, lineHeight: 1.6 }}>{t.rmNoneDesc || 'Create one from scratch, or click "Prepare for this" on any competition or research program.'}</div>
-          <button onClick={() => setCreating(true)} style={{ fontFamily: mono, fontSize: 12, color: "#2b3634", background: "rgba(43,54,52,.08)", border: "1.5px solid rgba(43,54,52,.35)", borderRadius: 12, padding: "11px 22px", cursor: "pointer", fontWeight: 600, transition: "all .2s" }}
-            onMouseOver={e => { e.currentTarget.style.background = "rgba(43,54,52,.14)"; e.currentTarget.style.borderColor = "rgba(43,54,52,.5)"; }}
-            onMouseOut={e => { e.currentTarget.style.background = "rgba(43,54,52,.08)"; e.currentTarget.style.borderColor = "rgba(43,54,52,.35)"; }}>{t.rmNew || "+ New roadmap"}</button>
-        </div>
-      ) : (
-        <div style={{ display: "flex", flexDirection: "column" }}>
-          {roadmaps.map((rm, i) => (
-            <div key={rm.id} style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "clamp(20px,3vh,28px) 0", borderBottom: i < roadmaps.length - 1 ? "1px solid rgba(43,54,52,.08)" : "none" }}>
-              <button onClick={() => openRoadmap(rm.id)} style={{ flex: 1, textAlign: "left", background: "none", border: "none", cursor: "pointer", padding: 0 }}
-                onMouseOver={e => e.currentTarget.style.opacity = "0.6"}
-                onMouseOut={e => e.currentTarget.style.opacity = "1"}>
-                <div style={{ fontSize: 16, fontWeight: 700, color: "#2b3634" }}>{rm.title || rm.name || (lang === "mn" ? "Зам" : "Roadmap")}</div>
-                <div style={{ display: "flex", gap: 12, marginTop: 4, alignItems: "center" }}>
-                  {rm.type && <span style={{ fontFamily: mono, fontSize: 10, color: "#2b3634", letterSpacing: "0.1em" }}>{({ general: t.rmTypeGeneral, competition: t.rmTypeComp, research: t.rmTypeResearch, skill: t.rmTypeSkill, internship: lang === "mn" ? "Дадлага" : "Internship" }[rm.type] || rm.type).toUpperCase()}</span>}
-                  {rm.created && <span style={{ fontFamily: mono, fontSize: 11, color: "#2b3634" }}>{new Date(rm.created).toLocaleDateString()}</span>}
-                  {rm.content && <span style={{ fontFamily: mono, fontSize: 10, color: "#2b3634", background: "rgba(43,54,52,.25)", borderRadius: 6, padding: "2px 7px" }}>{t.rmGenerated || "Generated"}</span>}
-                </div>
-              </button>
-              <button onClick={() => deleteRoadmap(rm.id)} style={{ fontFamily: mono, fontSize: 11, color: "#2b3634", background: "rgba(43,54,52,.08)", border: "1.5px solid rgba(43,54,52,.35)", borderRadius: 8, cursor: "pointer", padding: "4px 12px", marginLeft: 16, flexShrink: 0, fontWeight: 600, transition: "all .2s" }}
-                onMouseOver={e => { e.currentTarget.style.background = "rgba(43,54,52,.14)"; e.currentTarget.style.borderColor = "rgba(43,54,52,.5)"; }}
-                onMouseOut={e => { e.currentTarget.style.background = "rgba(43,54,52,.08)"; e.currentTarget.style.borderColor = "rgba(43,54,52,.35)"; }}>{t.rmRemove || "Remove"}</button>
-            </div>
-          ))}
+        <button onClick={handleCreate} disabled={!newTitle.trim()} style={{ width: "100%", padding: "13px 0", border: "none", borderRadius: 12, background: newTitle.trim() ? "#2b3634" : "rgba(43,54,52,.35)", cursor: newTitle.trim() ? "pointer" : "default", fontFamily: mono, fontSize: 13, color: newTitle.trim() ? "#f0f2ee" : "rgba(43,54,52,.3)", fontWeight: 600, letterSpacing: "0.04em" }}>{t.rmCreateGen || "Create & generate"} →</button>
+      </div>
+
+      {/* Existing roadmaps list */}
+      {roadmaps.length > 0 && (
+        <div>
+          <div style={{ fontFamily: mono, fontSize: 10, letterSpacing: "0.2em", color: "#2b3634", marginBottom: 16 }}>{lang === "mn" ? "МИНИЙ ЗАМУУД" : "MY ROADMAPS"}</div>
+          <div style={{ display: "flex", flexDirection: "column" }}>
+            {roadmaps.map((rm, i) => (
+              <div key={rm.id} style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "clamp(16px,2.5vh,24px) 0", borderBottom: i < roadmaps.length - 1 ? "1px solid rgba(43,54,52,.08)" : "none" }}>
+                <button onClick={() => openRoadmap(rm.id)} style={{ flex: 1, textAlign: "left", background: "none", border: "none", cursor: "pointer", padding: 0 }}
+                  onMouseOver={e => e.currentTarget.style.opacity = "0.6"}
+                  onMouseOut={e => e.currentTarget.style.opacity = "1"}>
+                  <div style={{ fontSize: 15, fontWeight: 700, color: "#2b3634" }}>{rm.title || rm.name || (lang === "mn" ? "Зам" : "Roadmap")}</div>
+                  <div style={{ display: "flex", gap: 12, marginTop: 4, alignItems: "center" }}>
+                    {rm.type && <span style={{ fontFamily: mono, fontSize: 10, color: "#2b3634", letterSpacing: "0.1em" }}>{({ general: t.rmTypeGeneral, competition: t.rmTypeComp, research: t.rmTypeResearch, skill: t.rmTypeSkill, internship: lang === "mn" ? "Дадлага" : "Internship" }[rm.type] || rm.type).toUpperCase()}</span>}
+                    {rm.created && <span style={{ fontFamily: mono, fontSize: 11, color: "#2b3634" }}>{new Date(rm.created).toLocaleDateString()}</span>}
+                    {rm.content && <span style={{ fontFamily: mono, fontSize: 10, color: "#2b3634", background: "rgba(43,54,52,.25)", borderRadius: 6, padding: "2px 7px" }}>{t.rmGenerated || "Generated"}</span>}
+                  </div>
+                </button>
+                <button onClick={() => deleteRoadmap(rm.id)} style={{ fontFamily: mono, fontSize: 11, color: "#2b3634", background: "rgba(43,54,52,.08)", border: "1.5px solid rgba(43,54,52,.35)", borderRadius: 8, cursor: "pointer", padding: "4px 12px", marginLeft: 16, flexShrink: 0, fontWeight: 600, transition: "all .2s" }}
+                  onMouseOver={e => { e.currentTarget.style.background = "rgba(43,54,52,.14)"; e.currentTarget.style.borderColor = "rgba(43,54,52,.5)"; }}
+                  onMouseOut={e => { e.currentTarget.style.background = "rgba(43,54,52,.08)"; e.currentTarget.style.borderColor = "rgba(43,54,52,.35)"; }}>{t.rmRemove || "Remove"}</button>
+              </div>
+            ))}
+          </div>
         </div>
       )}
     </div>
@@ -9523,8 +9502,8 @@ QUALITY REQUIREMENTS
 - The roadmap should read like a clean, organized course catalog -- not a wall of text.`;
 
       const reply = await callAI(isMn
-        ? "Та STEM боловсролын ахлах зөвлөх юм. Зохион байгуулалттай, товч, практик суралцах зам бичнэ. Хичээл бүрт 1-2 өгүүлбэрээр тайлбар бичиж, нөөцийн линкүүдийг оруулна. Урт эссэ БҮҮ бич. БҮГДИЙГ МОНГОЛ ХЭЛЭЭР БИЧНЭ. ЧУХАЛ: Markdown тэмдэгт ОГТХОН ашиглахгүй -- ###, **, *, ---, - гэх мэт тэмдэгт бүү хэрэглэ. Гарчгийг ТОМ ҮСГЭЭР бич, хоосон мөрөөр салга. Жагсаалтад тоо (1. 2. 3.) эсвэл хоосон мөр ашигла."
-        : "You are a precise STEM education advisor. Write organized, concise, actionable preparation roadmaps. Keep explanations to 1-2 sentences per course/topic -- the value is in the organized course sequence and resource links, not long paragraphs. CRITICAL: Do NOT use any markdown formatting symbols -- no ###, no **, no *, no ---, no bullet dashes. Write headings in UPPERCASE and separate sections with blank lines. Use numbered lists (1. 2. 3.) instead of bullet points.", [{ role: "user", content: prompt }], { maxTokens: 8192 });
+        ? "Та STEM боловсролын ахлах зөвлөх юм. Зохион байгуулалттай, товч, практик суралцах зам бичнэ. Хичээл бүрт 1-2 өгүүлбэрээр тайлбар бичиж, нөөцийн линкүүдийг оруулна. Урт эссэ БҮҮ бич. БҮГДИЙГ МОНГОЛ ХЭЛЭЭР БИЧНЭ. ЧУХАЛ: Markdown тэмдэгт ОГТХОН ашиглахгүй -- ###, **, *, ---, - гэх мэт тэмдэгт бүү хэрэглэ. Гарчгийг ТОМ ҮСГЭЭР бич, хоосон мөрөөр салга. Жагсаалтад тоо (1. 2. 3.) эсвэл хоосон мөр ашигла. ЧУХАЛ: Нийт хариултаа 2500 үгэнд багтааж бичнэ үү. Бүх хэсгийг бүрэн дуусгах нь чухал -- дундаас нь таслахгүй."
+        : "You are a precise STEM education advisor. Write organized, concise, actionable preparation roadmaps. Keep explanations to 1-2 sentences per course/topic -- the value is in the organized course sequence and resource links, not long paragraphs. CRITICAL: Do NOT use any markdown formatting symbols -- no ###, no **, no *, no ---, no bullet dashes. Write headings in UPPERCASE and separate sections with blank lines. Use numbered lists (1. 2. 3.) instead of bullet points. IMPORTANT: Keep your TOTAL response under 2500 words. Complete ALL sections fully -- never stop mid-sentence or mid-section. Prioritize finishing every section over adding extra detail to any one section.", [{ role: "user", content: prompt }], { maxTokens: 16384 });
       setContent(reply);
       setPhase("done");
       // persist content + all intake fields into roadmap object
@@ -9553,7 +9532,12 @@ QUALITY REQUIREMENTS
 
   return (
     <div className="max-w-3xl mx-auto px-6 py-8">
-      <button onClick={() => go("roadmaps")} style={{ fontFamily: mono, fontSize: 12, color: "#2b3634", background: "none", border: "none", cursor: "pointer", marginBottom: 40, padding: 0, letterSpacing: "0.1em" }}>{String.fromCharCode(8592)} ROADMAPS</button>
+      <div style={{ display: "flex", alignItems: "center", gap: 16, marginBottom: 40 }}>
+        <button onClick={() => go("home")} style={{ fontFamily: mono, fontSize: 12, color: "#2b3634", background: "rgba(43,54,52,.08)", border: "1.5px solid rgba(43,54,52,.35)", borderRadius: 10, cursor: "pointer", padding: "8px 16px", letterSpacing: "0.1em", fontWeight: 600, transition: "all .2s" }}
+          onMouseOver={e => { e.currentTarget.style.background = "rgba(43,54,52,.14)"; e.currentTarget.style.borderColor = "rgba(43,54,52,.5)"; }}
+          onMouseOut={e => { e.currentTarget.style.background = "rgba(43,54,52,.08)"; e.currentTarget.style.borderColor = "rgba(43,54,52,.35)"; }}>{lang === "mn" ? "НҮҮР" : "HOME"}</button>
+        <button onClick={() => go("roadmaps")} style={{ fontFamily: mono, fontSize: 12, color: "#2b3634", background: "none", border: "none", cursor: "pointer", padding: 0, letterSpacing: "0.1em" }}>{String.fromCharCode(8592)} {lang === "mn" ? "ЗАМУУД" : "ROADMAPS"}</button>
+      </div>
       <h1 className="q-display" style={{ fontSize: "clamp(28px,5vw,44px)", fontWeight: 800, color: "#2b3634", letterSpacing: "-0.04em", marginBottom: 8 }}>{rm.title || "Roadmap"}</h1>
       {rm.created && <div style={{ fontFamily: mono, fontSize: 12, color: "#2b3634", marginBottom: 40 }}>{new Date(rm.created).toLocaleDateString()}</div>}
 
@@ -9565,7 +9549,7 @@ QUALITY REQUIREMENTS
           {/* Profile preview — show what AI will read */}
           {(user?.grade || user?.school || user?.bio) && (
             <div style={{ background: "rgba(43,54,52,.03)", border: "1.5px solid rgba(43,54,52,.35)", borderRadius: 14, padding: "16px 20px" }}>
-              <div style={{ fontFamily: mono, fontSize: 10, letterSpacing: "0.15em", color: "#2b3634", marginBottom: 10 }}>YOUR PROFILE — THE AI WILL READ THIS</div>
+              <div style={{ fontFamily: mono, fontSize: 10, letterSpacing: "0.15em", color: "#2b3634", marginBottom: 10 }}>{lang === "mn" ? "ТАНЫ ПРОФАЙЛ" : "YOUR PROFILE"}</div>
               {user.grade && <div style={{ fontSize: 13, color: "#2b3634", marginBottom: 4 }}>Grade: <strong>{user.grade}</strong></div>}
               {user.school && <div style={{ fontSize: 13, color: "#2b3634", marginBottom: 4 }}>School: <strong>{user.school}</strong></div>}
               {user.country && <div style={{ fontSize: 13, color: "#2b3634", marginBottom: 4 }}>Country: <strong>{user.country}</strong></div>}
@@ -9577,7 +9561,9 @@ QUALITY REQUIREMENTS
 
           {/* Q1: Current level */}
           <div>
-            <label style={labelStyle}>{lang === "mn" ? "ЭНЭ ХИЧЭЭЛЭЭР ТАНЫ ТҮВШИН" : "YOUR LEVEL IN THIS SUBJECT"}</label>
+            <label style={labelStyle}>{lang === "mn"
+              ? (rm?.type === "competition" ? "ТЭМЦЭЭНИЙ ЧИГЛЭЛЭЭР ТАНЫ ТҮВШИН" : rm?.type === "research" ? "СУДАЛГААНЫ ЧИГЛЭЛЭЭР ТАНЫ ТҮВШИН" : rm?.type === "skill" ? "ЭНЭ УР ЧАДВАРААР ТАНЫ ТҮВШИН" : "ЭНЭ ХИЧЭЭЛЭЭР ТАНЫ ТҮВШИН")
+              : (rm?.type === "competition" ? "YOUR LEVEL IN THIS COMPETITION AREA" : rm?.type === "research" ? "YOUR LEVEL IN THIS RESEARCH AREA" : rm?.type === "skill" ? "YOUR LEVEL IN THIS SKILL" : "YOUR LEVEL IN THIS SUBJECT")}</label>
             <div style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>
               {(lang === "mn" ? ["Огт мэдэхгүй", "Бага зэрэг мэднэ", "Дунд зэрэг", "Сайн суурьтай", "Гүнзгий мэдлэгтэй"] : ["Complete beginner", "Some basics", "Intermediate", "Strong foundation", "Advanced"]).map(l => (
                 <button key={l} onClick={() => setLevel(l)}
@@ -9603,17 +9589,25 @@ QUALITY REQUIREMENTS
 
           {/* Q3: Prior knowledge */}
           <div>
-            <label style={labelStyle}>{lang === "mn" ? "ТА ЮУ МЭДЭЖ БАЙГАА ВЭ?" : "WHAT DO YOU ALREADY KNOW?"}</label>
+            <label style={labelStyle}>{lang === "mn"
+              ? (rm?.type === "competition" ? "ТЭМЦЭЭНТЭЙ ХОЛБООТОЙ ЮУ МЭДЭЖ БАЙГАА ВЭ?" : rm?.type === "research" ? "СУДАЛГААНЫ ЧИГЛЭЛЭЭР ЮУ МЭДЭЖ БАЙГАА ВЭ?" : rm?.type === "skill" ? "ЭНЭ УР ЧАДВАРААР ЮУ МЭДЭЖ БАЙГАА ВЭ?" : "ТА ЮУ МЭДЭЖ БАЙГАА ВЭ?")
+              : (rm?.type === "competition" ? "WHAT DO YOU KNOW RELATED TO THIS COMPETITION?" : rm?.type === "research" ? "WHAT DO YOU KNOW IN THIS RESEARCH AREA?" : rm?.type === "skill" ? "WHAT DO YOU ALREADY KNOW IN THIS SKILL?" : "WHAT DO YOU ALREADY KNOW?")}</label>
             <input value={priorKnowledge} onChange={e => setPriorKnowledge(e.target.value)}
-              placeholder={lang === "mn" ? "Жнь. Би calculus, Python-ий үндсийг мэднэ, гэхдээ шугаман алгебр, алгоритмыг мэдэхгүй..." : "e.g. I know calculus and basic Python, but not linear algebra or algorithms..."}
+              placeholder={lang === "mn"
+                ? (rm?.type === "competition" ? "Жнь. Би алгебр, комбинаторикийн суурийг мэднэ, тооны онолыг мэдэхгүй..." : rm?.type === "research" ? "Жнь. Би статистик, лабораторийн аргачлалын суурийг мэднэ..." : rm?.type === "skill" ? "Жнь. Би Python-ий үндсийг мэднэ, гэхдээ ML-ийг мэдэхгүй..." : "Жнь. Би calculus, Python-ий үндсийг мэднэ, гэхдээ шугаман алгебр, алгоритмыг мэдэхгүй...")
+                : (rm?.type === "competition" ? "e.g. I know algebra and basic combinatorics, but not number theory..." : rm?.type === "research" ? "e.g. I know statistics basics and some lab methodology..." : rm?.type === "skill" ? "e.g. I know basic Python but not machine learning..." : "e.g. I know calculus and basic Python, but not linear algebra or algorithms...")}
               style={inputStyle} />
           </div>
 
           {/* Q4: Competition / program experience */}
           <div>
-            <label style={labelStyle}>{lang === "mn" ? "ӨМНӨ НЬ ТЭМЦЭЭН, ХӨТӨЛБӨРТ ОРОЛЦОЖ БАЙСАН УУ?" : "HAVE YOU DONE ANY COMPETITIONS OR PROGRAMS BEFORE?"}</label>
+            <label style={labelStyle}>{lang === "mn"
+              ? (rm?.type === "competition" ? "ЭНЭ ТЭМЦЭЭНД ӨМНӨ НЬ ОРОЛЦОЖ БАЙСАН УУ?" : rm?.type === "research" ? "СУДАЛГААНЫ ТУРШЛАГА БАЙГАА ЮУ?" : rm?.type === "skill" ? "ЭНЭ ЧИГЛЭЛЭЭР БОДИТ ТУРШЛАГА БАЙГАА ЮУ?" : "ӨМНӨ НЬ ТЭМЦЭЭН, ХӨТӨЛБӨРТ ОРОЛЦОЖ БАЙСАН УУ?")
+              : (rm?.type === "competition" ? "HAVE YOU COMPETED IN THIS BEFORE?" : rm?.type === "research" ? "DO YOU HAVE ANY RESEARCH EXPERIENCE?" : rm?.type === "skill" ? "DO YOU HAVE ANY PRACTICAL EXPERIENCE IN THIS?" : "HAVE YOU DONE ANY COMPETITIONS OR PROGRAMS BEFORE?")}</label>
             <div style={{ display: "flex", flexWrap: "wrap", gap: 8, marginBottom: 10 }}>
-              {(lang === "mn" ? ["Оролцоогүй", "Сургуулийн түвшинд", "Үндэсний түвшинд", "Олон улсын түвшинд"] : ["None yet", "School level only", "National level", "International level"]).map(e => (
+              {(lang === "mn"
+                ? (rm?.type === "research" ? ["Туршлагагүй", "Сургуулийн төсөл хийсэн", "Ментортой судалгаа хийсэн", "Нийтлэл бичсэн"] : rm?.type === "skill" ? ["Туршлагагүй", "Хувийн төсөл хийсэн", "Курс дуусгасан", "Ажлын туршлагатай"] : ["Оролцоогүй", "Сургуулийн түвшинд", "Үндэсний түвшинд", "Олон улсын түвшинд"])
+                : (rm?.type === "research" ? ["No experience", "School projects only", "Mentored research", "Published work"] : rm?.type === "skill" ? ["No experience", "Personal projects", "Completed courses", "Work experience"] : ["None yet", "School level only", "National level", "International level"])).map(e => (
                 <button key={e} onClick={() => setCompExp(e)}
                   style={{ padding: "9px 18px", border: `1.5px solid ${compExp === e ? "rgba(43,54,52,.5)" : "rgba(43,54,52,.35)"}`, borderRadius: 10, background: compExp === e ? "rgba(43,54,52,.14)" : "rgba(43,54,52,.08)", cursor: "pointer", fontFamily: mono, fontSize: 12, color: "#2b3634", fontWeight: compExp === e ? 600 : 400, transition: "all .2s" }}>
                   {e}
@@ -9650,9 +9644,13 @@ QUALITY REQUIREMENTS
 
           {/* Q7: Goal */}
           <div>
-            <label style={labelStyle}>{lang === "mn" ? "ТАНЫ ЗОРИЛГО ЮУ ВЭ? АМЖИЛТ ГЭЖ ЮУГ ХЭЛЭХ ВЭ?" : "WHAT IS YOUR GOAL? WHAT WOULD SUCCESS LOOK LIKE?"}</label>
+            <label style={labelStyle}>{lang === "mn"
+              ? (rm?.type === "competition" ? "ТЭМЦЭЭНИЙ ЗОРИЛГО ЮУ ВЭ? АМЖИЛТ ГЭЖ ЮУГ ХЭЛЭХ ВЭ?" : rm?.type === "research" ? "СУДАЛГААНЫ ЗОРИЛГО ЮУ ВЭ? ЮУ ХИЙХИЙГ ХҮСЭЖ БАЙНА ВЭ?" : rm?.type === "skill" ? "ЭНЭ УР ЧАДВАРААР ЯМАР ЗОРИЛГОД ХҮРЭХИЙГ ХҮСЭЖ БАЙНА ВЭ?" : "ТАНЫ ЗОРИЛГО ЮУ ВЭ? АМЖИЛТ ГЭЖ ЮУГ ХЭЛЭХ ВЭ?")
+              : (rm?.type === "competition" ? "WHAT IS YOUR COMPETITION GOAL? WHAT WOULD SUCCESS LOOK LIKE?" : rm?.type === "research" ? "WHAT IS YOUR RESEARCH GOAL? WHAT DO YOU WANT TO ACHIEVE?" : rm?.type === "skill" ? "WHAT DO YOU WANT TO ACHIEVE WITH THIS SKILL?" : "WHAT IS YOUR GOAL? WHAT WOULD SUCCESS LOOK LIKE?")}</label>
             <textarea value={goal} onChange={e => setGoal(e.target.value)}
-              placeholder={lang === "mn" ? "Жнь. Би ирэх жил IMO-д шалгарахыг хүсэж байна. Комбинаторик, тооны онолыг эхнээс нь сурч, хамгийн багадаа 2 бодлого бодож чаддаг болмоор байна." : "e.g. I want to qualify for IMO next year. I need to learn combinatorics and number theory from scratch and be able to solve at least 2 problems."}
+              placeholder={lang === "mn"
+                ? (rm?.type === "competition" ? "Жнь. Би ирэх жил IMO-д шалгарахыг хүсэж байна. Комбинаторик, тооны онолыг сурч, хамгийн багадаа 2 бодлого бодож чаддаг болмоор байна." : rm?.type === "research" ? "Жнь. Би биоинформатикийн чиглэлээр судалгааны өгүүлэл бичиж, олон улсын сэтгүүлд нийтлүүлэхийг хүсэж байна." : rm?.type === "skill" ? "Жнь. Би Python дээр ML загвар бүтээж, бодит төсөлд ашиглаж чаддаг болохыг хүсэж байна." : "Жнь. Би ирэх жил IMO-д шалгарахыг хүсэж байна. Комбинаторик, тооны онолыг эхнээс нь сурч, хамгийн багадаа 2 бодлого бодож чаддаг болмоор байна.")
+                : (rm?.type === "competition" ? "e.g. I want to qualify for IMO next year. I need to learn combinatorics and number theory from scratch and be able to solve at least 2 problems." : rm?.type === "research" ? "e.g. I want to write a bioinformatics research paper and publish it in a peer-reviewed journal." : rm?.type === "skill" ? "e.g. I want to build ML models in Python and apply them to real projects." : "e.g. I want to qualify for IMO next year. I need to learn combinatorics and number theory from scratch and be able to solve at least 2 problems.")}
               rows={3}
               style={{ ...inputStyle, resize: "vertical", lineHeight: 1.6 }} />
           </div>
@@ -9676,10 +9674,19 @@ QUALITY REQUIREMENTS
       {/* DONE */}
       {phase === "done" && content && (() => {
         const target = rm?.targetId ? comps.find(c => c.id === rm.targetId) : null;
-        const reqIds = target ? [...(target.reqs || [])] : [];
         const collected = {};
         const addN = (id) => { if (collected[id] || !ALL_NODES[id]) return; collected[id] = ALL_NODES[id]; (ALL_NODES[id].prereqs || []).forEach(addN); };
-        reqIds.forEach(addN);
+        if (target) {
+          // Competition-specific: use target's required courses
+          const reqIds = [...(target.reqs || [])];
+          reqIds.forEach(addN);
+        } else {
+          // For general/research/skill roadmaps: show all foundation and core courses from ALL_NODES
+          Object.keys(ALL_NODES).forEach(id => {
+            const n = ALL_NODES[id];
+            if (n && (n.stage === "f" || n.stage === "a")) addN(id);
+          });
+        }
         const courseNodes = Object.values(collected);
         const byStage = { f: [], a: [], o: [] };
         courseNodes.forEach(n => { if (byStage[n.stage]) byStage[n.stage].push(n); });
@@ -9767,7 +9774,7 @@ function InternshipsPage() {
           <a href={pr.url} target="_blank" rel="noreferrer" style={{ display: "block", padding: "14px 0", border: "1.5px solid rgba(43,54,52,.35)", borderRadius: 14, textAlign: "center", fontFamily: mono, fontSize: 13, color: "#2b3634", background: "rgba(43,54,52,.08)", textDecoration: "none", letterSpacing: "0.05em", fontWeight: 600, transition: "all .2s" }}
                     onMouseOver={e => { e.currentTarget.style.background = "rgba(43,54,52,.14)"; e.currentTarget.style.borderColor = "rgba(43,54,52,.5)"; }}
                     onMouseOut={e => { e.currentTarget.style.background = "rgba(43,54,52,.08)"; e.currentTarget.style.borderColor = "rgba(43,54,52,.35)"; }}>{t.view || "Register here"}</a>
-          <button onClick={() => { const rm = { id: "rm-" + Date.now(), title: (lang === "mn" ? "Бэлтгэл: " : "Preparation: ") + pr.name, created: new Date().toISOString(), type: "internship" }; setRoadmaps(prev => [...(prev||[]), rm]); setSelected(null); go("roadmap"); }}
+          <button onClick={() => { const rmId = "rm-" + Date.now(); const rm = { id: rmId, title: (lang === "mn" ? "Бэлтгэл: " : "Preparation: ") + pr.name, created: new Date().toISOString(), type: "internship" }; setRoadmaps(prev => [...(prev||[]), rm]); setSelected(null); openRoadmap(rmId); }}
             style={{ padding: "14px 0", border: "1.5px solid rgba(43,54,52,.35)", borderRadius: 14, background: "rgba(43,54,52,.08)", cursor: "pointer", fontFamily: mono, fontSize: 13, color: "#2b3634", letterSpacing: "0.05em", width: "100%", fontWeight: 600, transition: "all .2s" }}
                     onMouseOver={e => { e.currentTarget.style.background = "rgba(43,54,52,.14)"; e.currentTarget.style.borderColor = "rgba(43,54,52,.5)"; }}
                     onMouseOut={e => { e.currentTarget.style.background = "rgba(43,54,52,.08)"; e.currentTarget.style.borderColor = "rgba(43,54,52,.35)"; }}>{t.prepBtn || "Prepare for this"}</button>
