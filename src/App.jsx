@@ -92,13 +92,20 @@ const BRAND = {
   logoUrlLight: "data:image/png;base64,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",
 };
 
-async function callAI(system, messages) {
+async function callAI(system, messages, opts = {}) {
   const r = await fetch("/api/chat", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ system, messages }),
+    body: JSON.stringify({ system, messages, ...(opts.maxTokens ? { maxTokens: opts.maxTokens } : {}) }),
   });
-  if (!r.ok) throw new Error("AI request failed");
+  if (!r.ok) {
+    if (r.status === 429 || r.status === 503) {
+      const err = new Error("TRAFFIC_HIGH");
+      err.traffic = true;
+      throw err;
+    }
+    throw new Error("AI request failed");
+  }
   const data = await r.json();
   return data.text;
 }
@@ -565,13 +572,13 @@ mn: {
     annNew: "+ Шинэ мэдэгдэл", annTitlePh: "Гарчиг...", annPublish: "Нийтлэх", annNone: "Мэдэгдэл байхгүй",
     annToolbar: "Формат: тод, жагсаалт, холбоос, HTML шаардлагагүй",
     adminSearch: "Хайх...",
-    rmTitle: "Миний сургалтын замууд", rmSub: "Зорилго бүрд тохирсон хувийн суралцах зам.", rmNew: "+ Шинэ зам үүсгэх", rmNone: "Одоогоор зам байхгүй, эхнийхээ үүсгээрэй.", rmNoneTitle: "Одоогоор зам байхгүй", rmNoneDesc: "Шинээр үүсгэ, эсвэл тэмцээн, судалгааны хөтөлбөр дээрх \"Бэлтгэл хийх\" товч дар.", rmCreate: "Зам үүсгэх", rmOpen: "Нээх", rmDelete: "Устгах",
+    rmTitle: "Миний суралцах замууд", rmSub: "Зорилго бүрд тохирсон хувийн суралцах зам.", rmNew: "+ Шинэ зам үүсгэх", rmNone: "Одоогоор зам байхгүй, эхнийхээ үүсгээрэй.", rmNoneTitle: "Одоогоор зам байхгүй", rmNoneDesc: "Шинээр үүсгэ, эсвэл тэмцээн, судалгааны хөтөлбөр дээрх \"Бэлтгэл хийх\" товч дар.", rmCreate: "Зам үүсгэх", rmOpen: "Нээх", rmDelete: "Устгах",
     rmOverview: "Тойм", rmGoal: "Зорилго", rmCareer: "Мэргэжил", rmDreamUni: "Мөрөөдлийн их сургууль", rmLevel: "Одоогийн түвшин", rmTarget: "Зорилтот түвшин", rmProgress: "Ахиц", rmCourses: "Хичээлүүд", rmDone: "Гүйцээсэн", rmNext: "Дараагийн хичээл", rmStartNext: "Дараагийг эхлэх", rmComps: "Холбоотой тэмцээнүүд", rmMilestones: "Чухал алхмууд", rmNoComps: "Тохирох тэмцээн одоогоор байхгүй.", rmPhaseCourses: "хичээл", rmAllDone: "Та энэ сургалтын замыг дуусгалаа.",
     phaseT: { foundation: "Суурь", core: "Үндсэн мэдлэг", advanced: "Гүнзгийрүүлсэн", research: "Судалгаа ба Төсөл" },
     phaseWhy: { foundation: "Бүх зам энэ суурин дээр баригддаг.", core: "Таны чиглэлийн үндсэн онол.", advanced: "Гүнзгий, мэргэшсэн сэдвүүд.", research: "Мэдлэгээ хэрэглэ, судалгааны ур чадвар, төсөл, боломжууд." },
     lvlLbl: { beginner: "Анхлан суралцагч", intermediate: "Дунд шат", advanced: "Ахисан шат", competition: "Тэмцээн", university: "Их сургууль", olympiad: "Олимпиад", research: "Судалгаа", balanced: "Тэнцвэртэй", easy: "Хөнгөн", rigorous: "Хатуу" },
     legalTerms: "Үйлчилгээний нөхцөл", legalPrivacy: "Нууцлалын бодлого", legalClose: "ХААХ", legalApplies: "Хамаарах", legalContact: "Холбоо барих", allRights: "Бүх эрх хуулиар хамгаалагдсан",
-    navProfile: "Профайл", navRoadmaps: "Сургалтын зам", backHome: "НҮҮР",
+    navProfile: "Профайл", navRoadmaps: "Суралцах зам", backHome: "НҮҮР",
     searchStartTyping: "Хайлтаа бичнэ үү", searchPages: { learning: "Сургалт", research: "Судалгаа", competitions: "Тэмцээн", internships: "Дадлага" },
     obGetStarted: "Эхлэх", obJoinSub: "Questa-д нэгдэж, STEM-ийн аялалаа эхлүүл",
     obGoogle: "Google-ээр үргэлжлүүлэх", obGithub: "GitHub-ээр үргэлжлүүлэх", obOr: "ЭСВЭЛ", obEmail: "Имэйлээр үргэлжлүүлэх",
@@ -7870,7 +7877,7 @@ function NodeDrawer() {
 
 /* ═══ MODULE: components/CompetitionsPage.jsx ═══ */
 function CompetitionsPage() {
-  const { t, lang, comps, go, roadmaps, setRoadmaps } = useQ();
+  const { t, lang, comps, go, roadmaps, setRoadmaps, saved, toggleSaved } = useQ();
   const [selected, setSelected] = useState(null);
   const [activeCat, setActiveCat] = useState("all");
   const mono = "'Space Grotesk', ui-monospace, monospace";
@@ -7895,24 +7902,33 @@ function CompetitionsPage() {
           {bSep}<button onClick={() => setSelected(null)} className="q-mono" style={{ fontSize: 11, color: "#2b3634", background: "none", border: "none", cursor: "pointer", letterSpacing: "0.1em", padding: 0 }}>COMPETITIONS</button>
           {bSep}<span className="q-mono" style={{ fontSize: 11, color: "#2b3634", letterSpacing: "0.1em" }}>{(o.name[lang] || o.name.en).toUpperCase()}</span>
         </div>
-        <h1 className="q-display" style={{ fontSize: "clamp(28px,5vw,44px)", fontWeight: 800, color: "#2b3634", letterSpacing: "-0.04em", marginBottom: 8 }}>{o.name[lang] || o.name.en}</h1>
+        <div style={{ display: "flex", alignItems: "flex-start", justifyContent: "space-between", gap: 16 }}>
+          <h1 className="q-display" style={{ fontSize: "clamp(28px,5vw,44px)", fontWeight: 800, color: "#2b3634", letterSpacing: "-0.04em", marginBottom: 8 }}>{o.name[lang] || o.name.en}</h1>
+          <button onClick={() => toggleSaved(o.id)} style={{ flexShrink: 0, marginTop: 8, padding: "8px 16px", border: `1.5px solid ${saved.includes(o.id) ? "rgba(43,54,52,.5)" : "rgba(43,54,52,.35)"}`, borderRadius: 10, background: saved.includes(o.id) ? "rgba(43,54,52,.14)" : "rgba(43,54,52,.08)", cursor: "pointer", fontFamily: mono, fontSize: 11, color: "#2b3634", letterSpacing: "0.1em", fontWeight: 600, transition: "all .2s" }}
+            onMouseOver={e => { e.currentTarget.style.background = "rgba(43,54,52,.18)"; e.currentTarget.style.borderColor = "rgba(43,54,52,.5)"; }}
+            onMouseOut={e => { e.currentTarget.style.background = saved.includes(o.id) ? "rgba(43,54,52,.14)" : "rgba(43,54,52,.08)"; e.currentTarget.style.borderColor = saved.includes(o.id) ? "rgba(43,54,52,.5)" : "rgba(43,54,52,.35)"; }}>{saved.includes(o.id) ? (lang === "mn" ? "ХАДГАЛСАН" : "SAVED") : (lang === "mn" ? "ХАДГАЛАХ" : "SAVE")}</button>
+        </div>
         {fields && <div style={{ fontFamily: mono, fontSize: 13, color: "#2b3634", marginBottom: 24 }}>{fields}</div>}
         <p style={{ fontSize: 15, color: "#2b3634", lineHeight: 1.7, marginBottom: 40 }}>{o.desc[lang] || o.desc.en}</p>
         <div style={{ height: 1, background: "rgba(43,54,52,.08)", marginBottom: 32 }} />
 
-        {o.elig && o.elig.note && <><div style={{ fontFamily: mono, fontSize: 11, letterSpacing: "0.2em", color: "#2b3634", marginBottom: 10 }}>ELIGIBILITY</div><p style={{ fontSize: 14, color: "#2b3634", lineHeight: 1.7, marginBottom: 28 }}>{o.elig.ok ? "Open to Mongolia" : "Check eligibility"}{o.elig.note ? " " + (o.elig.note[lang] || o.elig.note.en || o.elig.note) : ""}</p></>}
+        {o.elig && o.elig.note && <><div style={{ fontFamily: mono, fontSize: 11, letterSpacing: "0.2em", color: "#2b3634", marginBottom: 10 }}>{lang === "mn" ? "ТОХИРОХ ЭСЭХ" : "ELIGIBILITY"}</div><p style={{ fontSize: 14, color: "#2b3634", lineHeight: 1.7, marginBottom: 28 }}>{o.elig.ok ? (lang === "mn" ? "Монголоос оролцох боломжтой" : "Open to Mongolia") : (lang === "mn" ? "Тохирох эсэхийг шалгах" : "Check eligibility")}{o.elig.note ? " " + (o.elig.note[lang] || o.elig.note.en || o.elig.note) : ""}</p></>}
 
-        {o.timeline && <><div style={{ fontFamily: mono, fontSize: 11, letterSpacing: "0.2em", color: "#2b3634", marginBottom: 10 }}>PATH</div><p style={{ fontSize: 14, color: "#2b3634", lineHeight: 1.7, marginBottom: 28 }}>{o.timeline[lang] || o.timeline.en || o.timeline}</p></>}
+        {o.timeline && <><div style={{ fontFamily: mono, fontSize: 11, letterSpacing: "0.2em", color: "#2b3634", marginBottom: 10 }}>{lang === "mn" ? "ЗАМ" : "PATH"}</div><p style={{ fontSize: 14, color: "#2b3634", lineHeight: 1.7, marginBottom: 28 }}>{o.timeline[lang] || o.timeline.en || o.timeline}</p></>}
 
-        {o.win && o.win.note && <><div style={{ fontFamily: mono, fontSize: 11, letterSpacing: "0.2em", color: "#2b3634", marginBottom: 10 }}>TIMELINE</div><p style={{ fontSize: 14, color: "#2b3634", lineHeight: 1.7, marginBottom: 28 }}>{o.win.note[lang] || o.win.note.en || o.win.note}</p></>}
+        {o.win && o.win.note && <><div style={{ fontFamily: mono, fontSize: 11, letterSpacing: "0.2em", color: "#2b3634", marginBottom: 10 }}>{lang === "mn" ? "ХУГАЦАА" : "TIMELINE"}</div><p style={{ fontSize: 14, color: "#2b3634", lineHeight: 1.7, marginBottom: 28 }}>{o.win.note[lang] || o.win.note.en || o.win.note}</p></>}
 
-        {o.prep && <><div style={{ fontFamily: mono, fontSize: 11, letterSpacing: "0.2em", color: "#2b3634", marginBottom: 10 }}>PREPARATION</div><p style={{ fontSize: 14, color: "#2b3634", lineHeight: 1.7, marginBottom: 28 }}>Approximately {o.prep} months</p></>}
+        {o.prep && <><div style={{ fontFamily: mono, fontSize: 11, letterSpacing: "0.2em", color: "#2b3634", marginBottom: 10 }}>{lang === "mn" ? "БЭЛТГЭЛ" : "PREPARATION"}</div><p style={{ fontSize: 14, color: "#2b3634", lineHeight: 1.7, marginBottom: 28 }}>{lang === "mn" ? `Ойролцоогоор ${o.prep} сар` : `Approximately ${o.prep} months`}</p></>}
 
         <div style={{ height: 1, background: "rgba(43,54,52,.08)", marginBottom: 32 }} />
         <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
-          {o.link && <a href={o.link} target="_blank" rel="noreferrer" style={{ display: "block", padding: "14px 0", border: "1.5px solid #2b3634", borderRadius: 14, textAlign: "center", fontFamily: mono, fontSize: 13, color: "#2b3634", textDecoration: "none", letterSpacing: "0.05em", fontWeight: 700 }}>{t.view || "Register here"}</a>}
+          {o.link && <a href={o.link} target="_blank" rel="noreferrer" style={{ display: "block", padding: "14px 0", border: "1.5px solid rgba(43,54,52,.35)", borderRadius: 14, textAlign: "center", fontFamily: mono, fontSize: 13, color: "#2b3634", background: "rgba(43,54,52,.08)", textDecoration: "none", letterSpacing: "0.05em", fontWeight: 600, transition: "all .2s" }}
+                    onMouseOver={e => { e.currentTarget.style.background = "rgba(43,54,52,.14)"; e.currentTarget.style.borderColor = "rgba(43,54,52,.5)"; }}
+                    onMouseOut={e => { e.currentTarget.style.background = "rgba(43,54,52,.08)"; e.currentTarget.style.borderColor = "rgba(43,54,52,.35)"; }}>{t.view || "Register here"}</a>}
           <button onClick={() => { const rm = { id: "rm-" + Date.now(), title: (lang === "mn" ? "Бэлтгэл: " : "Preparation: ") + (o.name[lang] || o.name.en), created: new Date().toISOString(), type: "competition", targetId: o.id }; setRoadmaps(prev => [...(prev||[]), rm]); setSelected(null); go("roadmap"); }}
-            style={{ padding: "14px 0", border: "1.5px solid #2b3634", borderRadius: 14, background: "transparent", cursor: "pointer", fontFamily: mono, fontSize: 13, color: "#2b3634", letterSpacing: "0.05em", width: "100%", fontWeight: 700 }}>{t.prepBtn || "Prepare for this"}</button>
+            style={{ padding: "14px 0", border: "1.5px solid rgba(43,54,52,.35)", borderRadius: 14, background: "rgba(43,54,52,.08)", cursor: "pointer", fontFamily: mono, fontSize: 13, color: "#2b3634", letterSpacing: "0.05em", width: "100%", fontWeight: 600, transition: "all .2s" }}
+                    onMouseOver={e => { e.currentTarget.style.background = "rgba(43,54,52,.14)"; e.currentTarget.style.borderColor = "rgba(43,54,52,.5)"; }}
+                    onMouseOut={e => { e.currentTarget.style.background = "rgba(43,54,52,.08)"; e.currentTarget.style.borderColor = "rgba(43,54,52,.35)"; }}>{t.prepBtn || "Prepare for this"}</button>
         </div>
       </div>
     );
@@ -7968,7 +7984,7 @@ function CompetitionsPage() {
 
 /* ═══ MODULE: components/ResearchPage.jsx ═══ */
 function ResearchPage() {
-  const { t, lang, go, finderOpen, setFinderOpen, comps, roadmaps, setRoadmaps } = useQ();
+  const { t, lang, go, finderOpen, setFinderOpen, comps, roadmaps, setRoadmaps, saved, toggleSaved } = useQ();
   const [view, setView] = useState("main");
   const [selectedProg, setSelectedProg] = useState(null);
   const mono = "'Space Grotesk', ui-monospace, monospace";
@@ -7985,14 +8001,23 @@ function ResearchPage() {
         <div style={{ display: "flex", alignItems: "center", gap: 0, flexWrap: "wrap", marginBottom: 16 }}>
           {crumbBtn((t.nav?.home || "Home").toUpperCase(), () => go("home"))}{sep}{crumbBtn((t.nav?.research || "Research").toUpperCase(), () => { setSelectedProg(null); setView("main"); })}{sep}{crumbBtn((t.resPrograms || "Programs").toUpperCase(), () => setSelectedProg(null))}{sep}<span className="q-mono" style={{ fontSize: 11, color: "#2b3634", letterSpacing: "0.1em" }}>{(o.name[lang] || o.name.en).toUpperCase()}</span>
         </div>
-        <h1 className="q-display" style={{ fontSize: "clamp(28px,5vw,44px)", fontWeight: 800, color: "#2b3634", letterSpacing: "-0.04em", marginBottom: 8 }}>{o.name[lang] || o.name.en}</h1>
+        <div style={{ display: "flex", alignItems: "flex-start", justifyContent: "space-between", gap: 16 }}>
+          <h1 className="q-display" style={{ fontSize: "clamp(28px,5vw,44px)", fontWeight: 800, color: "#2b3634", letterSpacing: "-0.04em", marginBottom: 8 }}>{o.name[lang] || o.name.en}</h1>
+          <button onClick={() => toggleSaved(o.id)} style={{ flexShrink: 0, marginTop: 8, padding: "8px 16px", border: `1.5px solid ${saved.includes(o.id) ? "rgba(43,54,52,.5)" : "rgba(43,54,52,.35)"}`, borderRadius: 10, background: saved.includes(o.id) ? "rgba(43,54,52,.14)" : "rgba(43,54,52,.08)", cursor: "pointer", fontFamily: mono, fontSize: 11, color: "#2b3634", letterSpacing: "0.1em", fontWeight: 600, transition: "all .2s" }}
+            onMouseOver={e => { e.currentTarget.style.background = "rgba(43,54,52,.18)"; e.currentTarget.style.borderColor = "rgba(43,54,52,.5)"; }}
+            onMouseOut={e => { e.currentTarget.style.background = saved.includes(o.id) ? "rgba(43,54,52,.14)" : "rgba(43,54,52,.08)"; e.currentTarget.style.borderColor = saved.includes(o.id) ? "rgba(43,54,52,.5)" : "rgba(43,54,52,.35)"; }}>{saved.includes(o.id) ? (lang === "mn" ? "ХАДГАЛСАН" : "SAVED") : (lang === "mn" ? "ХАДГАЛАХ" : "SAVE")}</button>
+        </div>
         {fields && <div style={{ fontFamily: mono, fontSize: 13, color: "#2b3634", marginBottom: 24 }}>{fields}</div>}
         <p style={{ fontSize: 15, color: "#2b3634", lineHeight: 1.7, marginBottom: 40 }}>{o.desc[lang] || o.desc.en}</p>
         <div style={{ height: 1, background: "rgba(43,54,52,.08)", marginBottom: 32 }} />
         <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
-          {o.link && <a href={o.link} target="_blank" rel="noreferrer" style={{ display: "block", padding: "14px 0", border: "1.5px solid #2b3634", borderRadius: 14, textAlign: "center", fontFamily: mono, fontSize: 13, color: "#2b3634", textDecoration: "none", letterSpacing: "0.05em", fontWeight: 700 }}>{t.view || "Register here"}</a>}
+          {o.link && <a href={o.link} target="_blank" rel="noreferrer" style={{ display: "block", padding: "14px 0", border: "1.5px solid rgba(43,54,52,.35)", borderRadius: 14, textAlign: "center", fontFamily: mono, fontSize: 13, color: "#2b3634", background: "rgba(43,54,52,.08)", textDecoration: "none", letterSpacing: "0.05em", fontWeight: 600, transition: "all .2s" }}
+                    onMouseOver={e => { e.currentTarget.style.background = "rgba(43,54,52,.14)"; e.currentTarget.style.borderColor = "rgba(43,54,52,.5)"; }}
+                    onMouseOut={e => { e.currentTarget.style.background = "rgba(43,54,52,.08)"; e.currentTarget.style.borderColor = "rgba(43,54,52,.35)"; }}>{t.view || "Register here"}</a>}
           <button onClick={() => { const rm = { id: "rm-" + Date.now(), title: (lang === "mn" ? "Бэлтгэл: " : "Preparation: ") + (o.name[lang] || o.name.en), created: new Date().toISOString(), type: "research" }; setRoadmaps(prev => [...(prev||[]), rm]); setSelectedProg(null); go("roadmap"); }}
-            style={{ padding: "14px 0", border: "1.5px solid #2b3634", borderRadius: 14, background: "transparent", cursor: "pointer", fontFamily: mono, fontSize: 13, color: "#2b3634", letterSpacing: "0.05em", width: "100%", fontWeight: 700 }}>{t.prepBtn || "Prepare for this"}</button>
+            style={{ padding: "14px 0", border: "1.5px solid rgba(43,54,52,.35)", borderRadius: 14, background: "rgba(43,54,52,.08)", cursor: "pointer", fontFamily: mono, fontSize: 13, color: "#2b3634", letterSpacing: "0.05em", width: "100%", fontWeight: 600, transition: "all .2s" }}
+                    onMouseOver={e => { e.currentTarget.style.background = "rgba(43,54,52,.14)"; e.currentTarget.style.borderColor = "rgba(43,54,52,.5)"; }}
+                    onMouseOut={e => { e.currentTarget.style.background = "rgba(43,54,52,.08)"; e.currentTarget.style.borderColor = "rgba(43,54,52,.35)"; }}>{t.prepBtn || "Prepare for this"}</button>
         </div>
       </div>
     );
@@ -8090,7 +8115,7 @@ function ProfessorFinder({ unlocked, open, setOpen }) {
     if (query) setInterest(query);
     setLoading(true); setErr(""); setData(null); setRaw("");
     try {
-      const sys = `You are a research-opportunity scout helping ambitious Mongolian students. Find REAL, currently active professors or researchers matching the student's interest. NEVER invent names or affiliations. Respond with ONLY a raw JSON object: {"summary":"...","results":[{"name":"...","affiliation":"...","area":"...","areas":["..."],"note":"...","link":"https://scholar.google.com/..."}]}. Provide 3 to 6 results. "summary" = 1-2 sentences naming who fits best. "note" = one sentence on why this person fits. "link" = real Google Scholar URL. If relevant researchers exist at Mongolian universities (NUM/МУИС, MUST/ШУТИС), include at least one.`;
+      const sys = `You are a research-opportunity scout helping ambitious Mongolian students. Find REAL, currently active professors or researchers matching the student's interest. NEVER invent names or affiliations. Respond with ONLY a raw JSON object: {"summary":"...","results":[{"name":"...","affiliation":"...","area":"...","areas":["..."],"note":"...","link":"https://..."}]}. Provide 3 to 6 results. "summary" = 1-2 sentences naming who fits best. "note" = one sentence on why this person fits. "link" = the professor's official university profile page or personal homepage URL (NOT Google Scholar). If you cannot find a profile page, use their university department page. If relevant researchers exist at Mongolian universities (NUM/МУИС, MUST/ШУТИС), include at least one.`;
       const text = await callAI(sys, [{ role: "user", content: `Interest: ${q}. ${org ? "Preferred university/region: " + org + "." : ""}` }], true);
       const a = text.indexOf("{"), b = text.lastIndexOf("}");
       if (a !== -1 && b > a) { const obj = JSON.parse(text.slice(a, b + 1)); obj.results ? setData(obj) : setRaw(text); }
@@ -8162,14 +8187,16 @@ function ProfessorFinder({ unlocked, open, setOpen }) {
             <div style={{ height: 1, background: "rgba(43,54,52,.22)", marginBottom: 28 }} />
             {data.results.map((r, i) => {
               const areas = r.areas && r.areas.length ? r.areas : (r.area ? [r.area] : []);
-              const scholar = r.link || `https://scholar.google.com/scholar?q=${encodeURIComponent(r.name + " " + (r.area || ""))}`;
+              const scholar = r.link || `https://www.google.com/search?q=${encodeURIComponent(r.name + " " + (r.affiliation || "") + " professor profile")}`;
               const on = savedProfs.some(p => p.name === r.name);
               return (
                 <div key={i} style={{ paddingBottom: 28, marginBottom: 28, borderBottom: i < data.results.length - 1 ? "1px solid rgba(43,54,52,.08)" : "none" }}>
                   <div style={{ display: "flex", alignItems: "flex-start", justifyContent: "space-between", gap: 12, marginBottom: 4 }}>
                     <div style={{ fontSize: 16, fontWeight: 700, color: "#2b3634" }}>{r.name}</div>
-                    <button onClick={() => toggleProf(r)} style={{ background: "none", border: "none", cursor: "pointer", color: on ? "#2b3634" : "rgba(43,54,52,.2)", fontFamily: mono, fontSize: 11, flexShrink: 0, marginTop: 4 }}>
-                      {on ? "SAVED" : "SAVE"}
+                    <button onClick={() => toggleProf(r)} style={{ padding: "6px 14px", border: `1.5px solid ${on ? "rgba(43,54,52,.5)" : "rgba(43,54,52,.35)"}`, borderRadius: 8, background: on ? "rgba(43,54,52,.14)" : "rgba(43,54,52,.08)", cursor: "pointer", color: "#2b3634", fontFamily: mono, fontSize: 11, fontWeight: 600, letterSpacing: "0.1em", flexShrink: 0, marginTop: 4, transition: "all .2s" }}
+                      onMouseOver={e => { e.currentTarget.style.background = "rgba(43,54,52,.18)"; e.currentTarget.style.borderColor = "rgba(43,54,52,.5)"; }}
+                      onMouseOut={e => { e.currentTarget.style.background = on ? "rgba(43,54,52,.14)" : "rgba(43,54,52,.08)"; e.currentTarget.style.borderColor = on ? "rgba(43,54,52,.5)" : "rgba(43,54,52,.35)"; }}>
+                      {on ? (lang === "mn" ? "ХАДГАЛСАН" : "SAVED") : (lang === "mn" ? "ХАДГАЛАХ" : "SAVE")}
                     </button>
                   </div>
                   <div style={{ fontFamily: mono, fontSize: 12, color: "#2b3634", marginBottom: 10 }}>{r.affiliation}</div>
@@ -8178,7 +8205,7 @@ function ProfessorFinder({ unlocked, open, setOpen }) {
                   )}
                   {r.note && <p style={{ fontSize: 13, color: "#2b3634", lineHeight: 1.6, marginBottom: 10 }}>{r.note}</p>}
                   <a href={scholar} target="_blank" rel="noopener noreferrer" style={{ fontFamily: mono, fontSize: 12, color: "#2b3634", textDecoration: "none" }}>
-                    Google Scholar
+                    {lang === "mn" ? "Профайл харах" : "View Profile"}
                   </a>
                 </div>
               );
@@ -8223,15 +8250,19 @@ function NasaPage() {
       </div>
       <p style={{ fontSize: 15, color: "#2b3634", lineHeight: 1.7, marginBottom: 40 }}>{nasa.desc[lang] || nasa.desc.en}</p>
       <div style={{ height: 1, background: "rgba(43,54,52,.08)", marginBottom: 32 }} />
-      {nasa.elig && nasa.elig.note && <><div style={{ fontFamily: mono, fontSize: 11, letterSpacing: "0.2em", color: "#2b3634", marginBottom: 10 }}>ELIGIBILITY</div><p style={{ fontSize: 14, color: "#2b3634", lineHeight: 1.7, marginBottom: 28 }}>{nasa.elig.ok ? "Open to Mongolia" : "Check eligibility"}{nasa.elig.note ? " " + (nasa.elig.note[lang] || nasa.elig.note.en || "") : ""}</p></>}
+      {nasa.elig && nasa.elig.note && <><div style={{ fontFamily: mono, fontSize: 11, letterSpacing: "0.2em", color: "#2b3634", marginBottom: 10 }}>{lang === "mn" ? "ТОХИРОХ ЭСЭХ" : "ELIGIBILITY"}</div><p style={{ fontSize: 14, color: "#2b3634", lineHeight: 1.7, marginBottom: 28 }}>{nasa.elig.ok ? (lang === "mn" ? "Монголоос оролцох боломжтой" : "Open to Mongolia") : (lang === "mn" ? "Тохирох эсэхийг шалгах" : "Check eligibility")}{nasa.elig.note ? " " + (nasa.elig.note[lang] || nasa.elig.note.en || "") : ""}</p></>}
       {nasa.timeline && <><div style={{ fontFamily: mono, fontSize: 11, letterSpacing: "0.2em", color: "#2b3634", marginBottom: 10 }}>PATH</div><p style={{ fontSize: 14, color: "#2b3634", lineHeight: 1.7, marginBottom: 28 }}>{nasa.timeline[lang] || nasa.timeline.en}</p></>}
       {nasa.win && nasa.win.note && <><div style={{ fontFamily: mono, fontSize: 11, letterSpacing: "0.2em", color: "#2b3634", marginBottom: 10 }}>TIMELINE</div><p style={{ fontSize: 14, color: "#2b3634", lineHeight: 1.7, marginBottom: 28 }}>{nasa.win.note[lang] || nasa.win.note.en || ""}</p></>}
-      {nasa.prep && <><div style={{ fontFamily: mono, fontSize: 11, letterSpacing: "0.2em", color: "#2b3634", marginBottom: 10 }}>PREPARATION</div><p style={{ fontSize: 14, color: "#2b3634", lineHeight: 1.7, marginBottom: 28 }}>Approximately {nasa.prep} months</p></>}
+      {nasa.prep && <><div style={{ fontFamily: mono, fontSize: 11, letterSpacing: "0.2em", color: "#2b3634", marginBottom: 10 }}>{lang === "mn" ? "БЭЛТГЭЛ" : "PREPARATION"}</div><p style={{ fontSize: 14, color: "#2b3634", lineHeight: 1.7, marginBottom: 28 }}>{lang === "mn" ? `Ойролцоогоор ${nasa.prep} сар` : `Approximately ${nasa.prep} months`}</p></>}
       <div style={{ height: 1, background: "rgba(43,54,52,.08)", marginBottom: 32 }} />
       <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
         <a href="https://www.spaceappsulaanbaatar.com/" target="_blank" rel="noreferrer" style={{ display: "block", padding: "14px 0", border: "1.5px solid #2b3634", borderRadius: 14, textAlign: "center", fontFamily: mono, fontSize: 13, color: "#f0f2ee", background: "#2b3634", textDecoration: "none", letterSpacing: "0.05em", fontWeight: 700 }}>Space Apps Ulaanbaatar</a>
-        {nasa.link && <a href={nasa.link} target="_blank" rel="noreferrer" style={{ display: "block", padding: "14px 0", border: "1.5px solid #2b3634", borderRadius: 14, textAlign: "center", fontFamily: mono, fontSize: 13, color: "#2b3634", textDecoration: "none", letterSpacing: "0.05em", fontWeight: 700 }}>{t.view || "Register here"}</a>}
-        <button style={{ padding: "14px 0", border: "1.5px solid #2b3634", borderRadius: 14, background: "transparent", cursor: "pointer", fontFamily: mono, fontSize: 13, color: "#2b3634", letterSpacing: "0.05em", width: "100%", fontWeight: 700 }}>{t.prepBtn || "Prepare for this"}</button>
+        {nasa.link && <a href={nasa.link} target="_blank" rel="noreferrer" style={{ display: "block", padding: "14px 0", border: "1.5px solid rgba(43,54,52,.35)", borderRadius: 14, textAlign: "center", fontFamily: mono, fontSize: 13, color: "#2b3634", background: "rgba(43,54,52,.08)", textDecoration: "none", letterSpacing: "0.05em", fontWeight: 600, transition: "all .2s" }}
+                    onMouseOver={e => { e.currentTarget.style.background = "rgba(43,54,52,.14)"; e.currentTarget.style.borderColor = "rgba(43,54,52,.5)"; }}
+                    onMouseOut={e => { e.currentTarget.style.background = "rgba(43,54,52,.08)"; e.currentTarget.style.borderColor = "rgba(43,54,52,.35)"; }}>{t.view || "Register here"}</a>}
+        <button style={{ padding: "14px 0", border: "1.5px solid rgba(43,54,52,.35)", borderRadius: 14, background: "rgba(43,54,52,.08)", cursor: "pointer", fontFamily: mono, fontSize: 13, color: "#2b3634", letterSpacing: "0.05em", width: "100%", fontWeight: 600, transition: "all .2s" }}
+                    onMouseOver={e => { e.currentTarget.style.background = "rgba(43,54,52,.14)"; e.currentTarget.style.borderColor = "rgba(43,54,52,.5)"; }}
+                    onMouseOut={e => { e.currentTarget.style.background = "rgba(43,54,52,.08)"; e.currentTarget.style.borderColor = "rgba(43,54,52,.35)"; }}>{t.prepBtn || "Prepare for this"}</button>
       </div>
     </div>
   );
@@ -9242,61 +9273,215 @@ function RoadmapDetail() {
         u.bio ? `About them: ${u.bio}` : null,
       ].filter(Boolean).join("\n");
 
-      const prompt = `You are a senior STEM education advisor creating a deeply personalized preparation roadmap for a student.
+      // Build knowledge tree course catalog for this target
+      let coursesCatalog = "";
+      if (target) {
+        const reqIds = [...(target.reqs || [])];
+        const collected = {};
+        const addNode = (id) => { if (collected[id] || !ALL_NODES[id]) return; collected[id] = ALL_NODES[id]; (ALL_NODES[id].prereqs || []).forEach(addNode); };
+        reqIds.forEach(addNode);
+        const nodes = Object.values(collected);
+        if (nodes.length > 0) {
+          const byStage = { f: [], a: [], o: [] };
+          nodes.forEach(n => { if (byStage[n.stage]) byStage[n.stage].push(n); });
+          const formatNode = (n) => {
+            const prereqNames = (n.prereqs || []).filter(p => ALL_NODES[p]).map(p => ALL_NODES[p].name.en).join(", ");
+            const resources = (n.res || []).map(r => `  - ${r.l.en} → ${r.u}`).join("\n");
+            const desc = n.desc?.en || n.why?.en || "";
+            const mnName = n.name?.mn || "";
+            return `• ${n.name.en}${mnName ? ` (${mnName})` : ""} -- ${n.weeks} weeks, ~${n.h} hours${prereqNames ? `\n  Prerequisites: ${prereqNames}` : ""}\n  Description: ${desc}${resources ? "\n  Resources:\n" + resources : ""}`;
+          };
+          coursesCatalog = `\n\n═══ QUESTA KNOWLEDGE TREE COURSES ═══
+These are the EXACT courses on the Questa platform for this target. You MUST build the roadmap as a clear sequence of these courses in prerequisite order. Reference each course by name, include its resources and URLs, and explain how each connects to the next.
 
+STEP 1 -- FOUNDATION COURSES (start here):
+${byStage.f.map(formatNode).join("\n\n") || "None"}
+
+STEP 2 -- CORE COURSES (after completing foundations):
+${byStage.a.map(formatNode).join("\n\n") || "None"}
+
+STEP 3 -- ADVANCED COURSES (after completing core):
+${byStage.o.map(formatNode).join("\n\n") || "None"}
+
+Present these as a clear LEARNING PATH: Course A → Course B → Course C, showing why each leads to the next.`;
+        }
+      }
+
+      // Also gather relevant subject courses if no target-specific courses
+      if (!coursesCatalog) {
+        const relevantSubjects = [];
+        if (rm?.type === "competition" || rm?.type === "research") {
+          DB.subjects.forEach(s => {
+            const branches = s.branches || [];
+            branches.forEach(b => {
+              const foundationNodes = (b.nodes || []).filter(n => n.stage === "f").slice(0, 3);
+              if (foundationNodes.length > 0) {
+                relevantSubjects.push(`${s.name.en} → ${b.name.en}: ${foundationNodes.map(n => n.name.en + " (" + n.weeks + " weeks)").join(", ")}`);
+              }
+            });
+          });
+          if (relevantSubjects.length) {
+            coursesCatalog = `\n\nAVAILABLE QUESTA COURSES (reference these in your roadmap):
+${relevantSubjects.join("\n")}`;
+          }
+        }
+      }
+
+      const isMn = lang === "mn";
+      const langInstruction = isMn
+        ? `\n\nLANGUAGE REQUIREMENT (STRICT): The student is using the Mongolian version of Questa. You MUST write your ENTIRE response in Mongolian (монгол хэлээр бүгдийг бичнэ үү). Every heading, every sentence, every explanation -- all in Mongolian. Only keep proper nouns in English (course names like "Khan Academy", "MIT OCW", URLs). If you write in English, the student cannot read it. This is non-negotiable.`
+        : "\n\nLANGUAGE: Write your entire response in English.";
+
+      const prompt = `You are a world-class STEM education advisor building a comprehensive, highly organized preparation roadmap for a student on the Questa platform (questastem.com).
+
+YOUR RESPONSE MUST BE AT LEAST 3000 WORDS. This is the student's complete study guide -- they will follow it for months. Short or vague responses are useless. Be extremely thorough.
+
+═══════════════════════════════════
 STUDENT PROFILE
+═══════════════════════════════════
 ${profileSection || "Student (no profile provided)"}
 
+═══════════════════════════════════
 INTAKE ANSWERS
-Current level in this subject: ${level || "not specified"}
-Hours available per week: ${hoursPerWeek || "not specified"}
-Prior knowledge and background: ${priorKnowledge || "not specified"}
-Competition or program experience: ${compExp || "none specified"}
-Timeline / target date: ${timeline || "not specified"}
-Biggest challenge or concern: ${biggestChallenge || "not specified"}
-Personal goal and motivation: ${goal || "not specified"}
+═══════════════════════════════════
+Current level: ${level || "not specified"}
+Weekly study hours: ${hoursPerWeek || "not specified"}
+Prior knowledge: ${priorKnowledge || "not specified"}
+Competition/program experience: ${compExp || "none specified"}
+Timeline: ${timeline || "not specified"}
+Biggest challenge: ${biggestChallenge || "not specified"}
+Personal goal: ${goal || "not specified"}
 
+═══════════════════════════════════
 TARGET
+═══════════════════════════════════
 ${rm?.title || "General STEM preparation"}
 ${target ? `Program / competition: ${target.name?.en || target.title}` : ""}
-${target?.desc ? `About this target: ${target.desc?.en || target.desc}` : ""}
-${target?.prep ? `Typical preparation time: approximately ${target.prep} months` : ""}
+${target?.desc ? `About: ${target.desc?.en || target.desc}` : ""}
+${target?.prep ? `Typical prep time: ~${target.prep} months` : ""}
+${coursesCatalog}
+${langInstruction}
 
-Using everything above, create a highly personalized roadmap with these sections:
+═══════════════════════════════════
+OUTPUT FORMAT (follow exactly)
+═══════════════════════════════════
+
+IMPORTANT: Do NOT use any markdown symbols in your response. No ###, no **, no *, no ---, no - bullets, no | tables. Write section headings in UPPERCASE LETTERS. Separate sections with blank lines. Use numbered lists (1. 2. 3.) for items. The output is displayed as plain text, so markdown symbols will appear literally and look broken.
 
 OVERVIEW
-Two paragraphs. First: assess this specific student based on their profile, level, and background. Second: what this roadmap achieves and a realistic timeline given their hours and target date.
 
-PHASE 1 — FOUNDATION
-Topics to cover first tailored to their existing background. Explain why each matters for their specific goal. Include 2 to 3 real free resources with URLs (MIT OCW, Khan Academy, OpenStax, Paul's Online Math Notes, Brilliant, Art of Problem Solving, etc.)
+Write 3 substantial paragraphs:
+1. Honest student assessment: Analyze their specific advantages and gaps based on level, prior knowledge, experience. Be personal -- reference their exact answers. What foundations do they have? What are they missing?
+2. Strategic approach: Why this roadmap follows this particular path. How it adapts to their hours (${hoursPerWeek}), timeline (${timeline}), location (Mongolia), and biggest challenge (${biggestChallenge}). Explain the methodology.
+3. Expected outcomes: Month-by-month timeline of what they will achieve. Concrete, measurable results by the end.
 
-PHASE 2 — CORE SKILLS
-The main technical content in order, specific to this competition or program. 2 to 3 resources per topic. Be precise about which chapters, problem sets, or modules.
 
-PHASE 3 — ADVANCED AND APPLICATION
-Problem-solving strategy, past papers, research papers, or project work depending on their goal. Name specific past paper sources or project ideas relevant to them.
+PHASE 1 -- FOUNDATION (Months 1-${timeline === "Under 3 months" || timeline === "3 сараас бага" ? "1" : timeline === "3–6 months" || timeline === "3-6 сар" ? "2" : "3"})
+Goal: [specific one-line goal]
 
-PHASE 4 — COMPETITION / PROGRAM READY
-Final preparation: mock tests, application essays, or research output. Include specific timelines based on their target date if given.
+${coursesCatalog ? `CRITICAL: Structure this phase using the Questa Knowledge Tree courses listed above. Present them as a clear learning sequence:
+
+Course 1: [Questa Course Name] (~X hours, Y weeks)
+1. Why this course matters for their goal (2-3 sentences connecting it to their target)
+2. Specific modules/chapters to focus on
+3. Resources from the course listing above
+4. Checkpoint: "You are ready for the next course when you can..."
+
+Course 2: [Next Questa Course Name] (~X hours, Y weeks)
+(same format)
+
+Continue for all relevant foundation courses. Show the prerequisite chain clearly -- which courses must come before others.` : `For each topic:
+1. Topic name with estimated hours
+2. Why it matters for their specific goal (2-3 sentences)
+3. Specific chapters, modules, problem sets
+4. 3+ real free resources with direct URLs (Khan Academy, MIT OCW, OpenStax, AoPS, Brilliant, etc.)
+5. Checkpoint: "You are ready to move on when you can..."`}
+
+
+PHASE 2 -- CORE KNOWLEDGE (Months ${timeline === "Under 3 months" || timeline === "3 сараас бага" ? "1-2" : timeline === "3–6 months" || timeline === "3-6 сар" ? "2-4" : "3-6"})
+Goal: [specific one-line goal]
+
+${coursesCatalog ? "Continue with the Questa Knowledge Tree core courses in prerequisite order. Same detailed format as Phase 1." : "Same detailed format. Name exact problem sets, specific textbook chapters, particular lecture numbers."}
+
+
+
+PHASE 3 -- ADVANCED & APPLICATION (Months ${timeline === "Under 3 months" || timeline === "3 сараас бага" ? "2-3" : timeline === "3–6 months" || timeline === "3-6 сар" ? "4-5" : "6-9"})
+Goal: [specific one-line goal]
+
+${coursesCatalog ? "Continue with advanced Questa courses. Also add:" : "Include:"}
+1. Problem-solving strategies specific to their target
+2. Past papers / competition archives with URLs
+3. Research methodology or project work
+4. Specific problem databases and repositories
+
+
+PHASE 4 -- COMPETITION/PROGRAM READY (Final ${timeline === "Under 3 months" || timeline === "3 сараас бага" ? "2 weeks" : "month"})
+Goal: [specific one-line goal]
+
+1. Mock tests with specific sources and URLs
+2. Application/essay guidance if relevant
+3. Portfolio or research output preparation
+4. Final review strategy
+5. Specific deadlines and deliverables
+
 
 WEEKLY SCHEDULE
-A concrete sample week breakdown given ${hoursPerWeek || "their available"} hours per week. List actual study sessions with topics.
+
+Create a detailed, realistic weekly plan for ${hoursPerWeek || "their available"} hours. Format each day on its own line:
+
+Monday: 1.5h -- [Topic] -- [Specific activity: solve problems 1-15 from X, watch lecture Y]
+Wednesday: 1.5h -- [Topic] -- [Specific activity]
+(continue for all study days)
+
+Include what to do on rest days (light review, reading).
+
 
 MILESTONES
-5 concrete, measurable checkpoints to track real progress. Each milestone should be specific enough that the student knows exactly when they have hit it.
+
+8-10 concrete, measurable checkpoints with target dates:
+
+1. Week 2: [Specific measurable achievement -- e.g. "Complete all Khan Academy Algebra II exercises with 90%+ score"]
+2. Month 1: [Specific measurable achievement]
+3. Month 2: [Specific measurable achievement]
+(continue through their timeline)
+
 
 RESOURCES LIST
-A curated list of the 6 to 8 best free resources for this exact goal, with URLs.
 
-Be direct, specific, and honest. Name real resources. Account for the fact that this student is in ${u.country || "Mongolia"} and may have limited access to expensive materials, so prioritize free and online resources.`;
+Top 12-15 free resources organized by phase. For each:
+1. Resource name -- direct URL
+2. What to use it for specifically
+3. Which phase it belongs to
 
-      const reply = await callAI("You are a precise STEM education advisor. Write detailed, actionable preparation roadmaps.", [{ role: "user", content: prompt }]);
+Prioritize resources accessible from Mongolia (no geo-restricted content).
+
+═══════════════════════════════════
+QUALITY REQUIREMENTS
+═══════════════════════════════════
+- MINIMUM 3000 WORDS. The student needs depth, not brevity.
+- Every recommendation must be specific: exact course names, chapter numbers, problem set ranges, URLs.
+- Never say "find resources online" -- name the exact resource.
+- Never be generic. Every sentence should reference this student's specific situation.
+- ${coursesCatalog ? "Present Questa courses as a clear sequential learning path. Show which course leads to which." : "Create a clear course sequence the student can follow step by step."}
+- This roadmap should feel like it was written by a personal tutor who deeply knows this student.`;
+
+      const reply = await callAI(isMn
+        ? "Та STEM боловсролын ахлах зөвлөх юм. Маш нарийвчилсан, зохион байгуулалттай, практик суралцах зам бичнэ. Таны хариулт дор хаяж 3000 үгтэй байх ёстой. БҮГДИЙГ МОНГОЛ ХЭЛЭЭР БИЧНЭ. ЧУХАЛ: Markdown тэмдэгт ОГТХОН ашиглахгүй -- ###, **, *, ---, - гэх мэт тэмдэгт бүү хэрэглэ. Гарчгийг ТОМ ҮСГЭЭР бич, хоосон мөрөөр салга. Жагсаалтад тоо (1. 2. 3.) эсвэл хоосон мөр ашигла."
+        : "You are a precise, thorough STEM education advisor. Write extremely detailed, actionable, highly organized preparation roadmaps. Your responses must be comprehensive -- at minimum 3000 words. Every recommendation must be specific and actionable. CRITICAL: Do NOT use any markdown formatting symbols -- no ###, no **, no *, no ---, no bullet dashes. Write headings in UPPERCASE and separate sections with blank lines. Use numbered lists (1. 2. 3.) instead of bullet points.", [{ role: "user", content: prompt }], { maxTokens: 8192 });
       setContent(reply);
       setPhase("done");
       // persist content + all intake fields into roadmap object
       setRoadmaps(prev => prev.map(r => r.id === rm.id ? { ...r, content: reply, level, hoursPerWeek, goal, priorKnowledge, compExp, timeline, biggestChallenge } : r));
-    } catch {
-      setContent("Could not generate roadmap. Please try again.");
+    } catch (err) {
+      if (err?.traffic) {
+        setContent(lang === "mn"
+          ? "Одоогоор хандалт ихтэй байна. Энэ нь түр зуурынх тул дахин оролдоно уу."
+          : "Traffic is high right now. This is temporary -- please try again in a moment.");
+      } else {
+        setContent(lang === "mn"
+          ? "Суралцах зам үүсгэхэд алдаа гарлаа. Дахин оролдоно уу."
+          : "Could not generate roadmap. Please try again.");
+      }
       setPhase("done");
     }
   };
@@ -9331,15 +9516,15 @@ Be direct, specific, and honest. Name real resources. Account for the fact that 
             </div>
           )}
 
-          <p style={{ fontSize: 14, color: "#2b3634", lineHeight: 1.7, margin: 0 }}>Answer these questions so the roadmap is built around your exact situation. The more you share, the more specific and useful the plan.</p>
+          <p style={{ fontSize: 14, color: "#2b3634", lineHeight: 1.7, margin: 0 }}>{lang === "mn" ? "Эдгээр асуултад хариулснаар таны нөхцөл байдалд тохирсон суралцах зам бүтээнэ. Дэлгэрэнгүй хариулах тусам төлөвлөгөө илүү нарийвчлалтай болно." : "Answer these questions so the roadmap is built around your exact situation. The more you share, the more specific and useful the plan."}</p>
 
           {/* Q1: Current level */}
           <div>
-            <label style={labelStyle}>YOUR LEVEL IN THIS SUBJECT</label>
+            <label style={labelStyle}>{lang === "mn" ? "ЭНЭ ХИЧЭЭЛЭЭР ТАНЫ ТҮВШИН" : "YOUR LEVEL IN THIS SUBJECT"}</label>
             <div style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>
-              {["Complete beginner", "Some basics", "Intermediate", "Strong foundation", "Advanced"].map(l => (
+              {(lang === "mn" ? ["Огт мэдэхгүй", "Бага зэрэг мэднэ", "Дунд зэрэг", "Сайн суурьтай", "Гүнзгий мэдлэгтэй"] : ["Complete beginner", "Some basics", "Intermediate", "Strong foundation", "Advanced"]).map(l => (
                 <button key={l} onClick={() => setLevel(l)}
-                  style={{ padding: "9px 18px", border: `1.5px solid ${level === l ? "#2b3634" : "rgba(43,54,52,.35)"}`, borderRadius: 10, background: level === l ? "rgba(43,54,52,.06)" : "transparent", cursor: "pointer", fontFamily: mono, fontSize: 12, color: "#2b3634", fontWeight: level === l ? 600 : 400 }}>
+                  style={{ padding: "9px 18px", border: `1.5px solid ${level === l ? "#2b3634" : "rgba(43,54,52,.55)"}`, borderRadius: 10, background: level === l ? "rgba(43,54,52,.1)" : "rgba(43,54,52,.03)", cursor: "pointer", fontFamily: mono, fontSize: 12, color: "#2b3634", fontWeight: level === l ? 600 : 400 }}>
                   {l}
                 </button>
               ))}
@@ -9348,11 +9533,11 @@ Be direct, specific, and honest. Name real resources. Account for the fact that 
 
           {/* Q2: Hours per week */}
           <div>
-            <label style={labelStyle}>HOW MANY HOURS CAN YOU STUDY PER WEEK?</label>
+            <label style={labelStyle}>{lang === "mn" ? "ДОЛОО ХОНОГТ ХЭДЭН ЦАГ СУРАЛЦАХ БОЛОМЖТОЙ ВЭ?" : "HOW MANY HOURS CAN YOU STUDY PER WEEK?"}</label>
             <div style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>
-              {["1–3 hours", "4–6 hours", "7–10 hours", "11–15 hours", "15+ hours"].map(h => (
+              {(lang === "mn" ? ["1-3 цаг", "4-6 цаг", "7-10 цаг", "11-15 цаг", "15+ цаг"] : ["1–3 hours", "4–6 hours", "7–10 hours", "11–15 hours", "15+ hours"]).map(h => (
                 <button key={h} onClick={() => setHoursPerWeek(h)}
-                  style={{ padding: "9px 18px", border: `1.5px solid ${hoursPerWeek === h ? "#2b3634" : "rgba(43,54,52,.35)"}`, borderRadius: 10, background: hoursPerWeek === h ? "rgba(43,54,52,.06)" : "transparent", cursor: "pointer", fontFamily: mono, fontSize: 12, color: "#2b3634", fontWeight: hoursPerWeek === h ? 600 : 400 }}>
+                  style={{ padding: "9px 18px", border: `1.5px solid ${hoursPerWeek === h ? "#2b3634" : "rgba(43,54,52,.55)"}`, borderRadius: 10, background: hoursPerWeek === h ? "rgba(43,54,52,.1)" : "rgba(43,54,52,.03)", cursor: "pointer", fontFamily: mono, fontSize: 12, color: "#2b3634", fontWeight: hoursPerWeek === h ? 600 : 400 }}>
                   {h}
                 </button>
               ))}
@@ -9361,19 +9546,19 @@ Be direct, specific, and honest. Name real resources. Account for the fact that 
 
           {/* Q3: Prior knowledge */}
           <div>
-            <label style={labelStyle}>WHAT DO YOU ALREADY KNOW? <span style={{ fontWeight: 400, fontSize: 10, opacity: 0.7 }}>OPTIONAL</span></label>
+            <label style={labelStyle}>{lang === "mn" ? "ТА ЮУ МЭДЭЖ БАЙГАА ВЭ?" : "WHAT DO YOU ALREADY KNOW?"}</label>
             <input value={priorKnowledge} onChange={e => setPriorKnowledge(e.target.value)}
-              placeholder="e.g. I know calculus and basic Python, but not linear algebra or algorithms..."
+              placeholder={lang === "mn" ? "Жнь. Би calculus, Python-ий үндсийг мэднэ, гэхдээ шугаман алгебр, алгоритмыг мэдэхгүй..." : "e.g. I know calculus and basic Python, but not linear algebra or algorithms..."}
               style={inputStyle} />
           </div>
 
           {/* Q4: Competition / program experience */}
           <div>
-            <label style={labelStyle}>HAVE YOU DONE ANY COMPETITIONS OR PROGRAMS BEFORE? <span style={{ fontWeight: 400, fontSize: 10, opacity: 0.7 }}>OPTIONAL</span></label>
+            <label style={labelStyle}>{lang === "mn" ? "ӨМНӨ НЬ ТЭМЦЭЭН, ХӨТӨЛБӨРТ ОРОЛЦОЖ БАЙСАН УУ?" : "HAVE YOU DONE ANY COMPETITIONS OR PROGRAMS BEFORE?"}</label>
             <div style={{ display: "flex", flexWrap: "wrap", gap: 8, marginBottom: 10 }}>
-              {["None yet", "School level only", "National level", "International level"].map(e => (
+              {(lang === "mn" ? ["Оролцоогүй", "Сургуулийн түвшинд", "Үндэсний түвшинд", "Олон улсын түвшинд"] : ["None yet", "School level only", "National level", "International level"]).map(e => (
                 <button key={e} onClick={() => setCompExp(e)}
-                  style={{ padding: "9px 18px", border: `1.5px solid ${compExp === e ? "#2b3634" : "rgba(43,54,52,.35)"}`, borderRadius: 10, background: compExp === e ? "rgba(43,54,52,.06)" : "transparent", cursor: "pointer", fontFamily: mono, fontSize: 12, color: "#2b3634", fontWeight: compExp === e ? 600 : 400 }}>
+                  style={{ padding: "9px 18px", border: `1.5px solid ${compExp === e ? "#2b3634" : "rgba(43,54,52,.55)"}`, borderRadius: 10, background: compExp === e ? "rgba(43,54,52,.1)" : "rgba(43,54,52,.03)", cursor: "pointer", fontFamily: mono, fontSize: 12, color: "#2b3634", fontWeight: compExp === e ? 600 : 400 }}>
                   {e}
                 </button>
               ))}
@@ -9382,11 +9567,11 @@ Be direct, specific, and honest. Name real resources. Account for the fact that 
 
           {/* Q5: Timeline */}
           <div>
-            <label style={labelStyle}>WHEN IS YOUR TARGET DATE OR DEADLINE? <span style={{ fontWeight: 400, fontSize: 10, opacity: 0.7 }}>OPTIONAL</span></label>
+            <label style={labelStyle}>{lang === "mn" ? "ЗОРИЛТОТ ХУГАЦАА ХЭЗЭЭ ВЭ?" : "WHEN IS YOUR TARGET DATE OR DEADLINE?"}</label>
             <div style={{ display: "flex", flexWrap: "wrap", gap: 8, marginBottom: 10 }}>
-              {["Under 3 months", "3–6 months", "6–12 months", "Over a year"].map(tl => (
+              {(lang === "mn" ? ["3 сараас бага", "3-6 сар", "6-12 сар", "Жилээс дээш"] : ["Under 3 months", "3–6 months", "6–12 months", "Over a year"]).map(tl => (
                 <button key={tl} onClick={() => setTimeline(tl)}
-                  style={{ padding: "9px 18px", border: `1.5px solid ${timeline === tl ? "#2b3634" : "rgba(43,54,52,.35)"}`, borderRadius: 10, background: timeline === tl ? "rgba(43,54,52,.06)" : "transparent", cursor: "pointer", fontFamily: mono, fontSize: 12, color: "#2b3634", fontWeight: timeline === tl ? 600 : 400 }}>
+                  style={{ padding: "9px 18px", border: `1.5px solid ${timeline === tl ? "#2b3634" : "rgba(43,54,52,.55)"}`, borderRadius: 10, background: timeline === tl ? "rgba(43,54,52,.1)" : "rgba(43,54,52,.03)", cursor: "pointer", fontFamily: mono, fontSize: 12, color: "#2b3634", fontWeight: timeline === tl ? 600 : 400 }}>
                   {tl}
                 </button>
               ))}
@@ -9395,11 +9580,11 @@ Be direct, specific, and honest. Name real resources. Account for the fact that 
 
           {/* Q6: Biggest challenge */}
           <div>
-            <label style={labelStyle}>WHAT IS YOUR BIGGEST CHALLENGE RIGHT NOW? <span style={{ fontWeight: 400, fontSize: 10, opacity: 0.7 }}>OPTIONAL</span></label>
+            <label style={labelStyle}>{lang === "mn" ? "ОДООГИЙН ХАМГИЙН ТОМ БЭРХШЭЭЛ НЬ ЮУ ВЭ?" : "WHAT IS YOUR BIGGEST CHALLENGE RIGHT NOW?"}</label>
             <div style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>
-              {["Lack of study materials", "Weak math foundation", "No mentor or guidance", "Time management", "Motivation and consistency", "English language barrier"].map(ch => (
+              {(lang === "mn" ? ["Сурах материал дутмаг", "Математикийн суурь сул", "Зөвлөгч, удирдагч байхгүй", "Цаг хуваарилалт", "Тууштай байдал", "Англи хэлний бэрхшээл"] : ["Lack of study materials", "Weak math foundation", "No mentor or guidance", "Time management", "Motivation and consistency", "English language barrier"]).map(ch => (
                 <button key={ch} onClick={() => setBiggestChallenge(ch)}
-                  style={{ padding: "9px 18px", border: `1.5px solid ${biggestChallenge === ch ? "#2b3634" : "rgba(43,54,52,.35)"}`, borderRadius: 10, background: biggestChallenge === ch ? "rgba(43,54,52,.06)" : "transparent", cursor: "pointer", fontFamily: mono, fontSize: 12, color: "#2b3634", fontWeight: biggestChallenge === ch ? 600 : 400 }}>
+                  style={{ padding: "9px 18px", border: `1.5px solid ${biggestChallenge === ch ? "#2b3634" : "rgba(43,54,52,.55)"}`, borderRadius: 10, background: biggestChallenge === ch ? "rgba(43,54,52,.1)" : "rgba(43,54,52,.03)", cursor: "pointer", fontFamily: mono, fontSize: 12, color: "#2b3634", fontWeight: biggestChallenge === ch ? 600 : 400 }}>
                   {ch}
                 </button>
               ))}
@@ -9408,16 +9593,16 @@ Be direct, specific, and honest. Name real resources. Account for the fact that 
 
           {/* Q7: Goal */}
           <div>
-            <label style={labelStyle}>WHAT IS YOUR GOAL? WHAT WOULD SUCCESS LOOK LIKE? <span style={{ fontWeight: 400, fontSize: 10, opacity: 0.7 }}>OPTIONAL</span></label>
+            <label style={labelStyle}>{lang === "mn" ? "ТАНЫ ЗОРИЛГО ЮУ ВЭ? АМЖИЛТ ГЭЖ ЮУГ ХЭЛЭХ ВЭ?" : "WHAT IS YOUR GOAL? WHAT WOULD SUCCESS LOOK LIKE?"}</label>
             <textarea value={goal} onChange={e => setGoal(e.target.value)}
-              placeholder="e.g. I want to qualify for IMO next year. I need to learn combinatorics and number theory from scratch and be able to solve at least 2 problems."
+              placeholder={lang === "mn" ? "Жнь. Би ирэх жил IMO-д шалгарахыг хүсэж байна. Комбинаторик, тооны онолыг эхнээс нь сурч, хамгийн багадаа 2 бодлого бодож чаддаг болмоор байна." : "e.g. I want to qualify for IMO next year. I need to learn combinatorics and number theory from scratch and be able to solve at least 2 problems."}
               rows={3}
               style={{ ...inputStyle, resize: "vertical", lineHeight: 1.6 }} />
           </div>
 
-          <button onClick={generateRoadmap} disabled={!level || !hoursPerWeek}
-            style={{ padding: "15px 0", border: "1.5px solid rgba(43,54,52,.2)", borderRadius: 14, background: "transparent", cursor: (!level || !hoursPerWeek) ? "default" : "pointer", fontFamily: mono, fontSize: 13, fontWeight: 600, color: (!level || !hoursPerWeek) ? "rgba(43,54,52,.4)" : "#2b3634", letterSpacing: "0.05em" }}>
-            {!level || !hoursPerWeek ? "Select level and hours to continue" : "Build my personalized roadmap"}
+          <button onClick={generateRoadmap} disabled={!level || !hoursPerWeek || !compExp || !timeline || !biggestChallenge || !goal.trim()}
+            style={{ padding: "15px 0", border: "1.5px solid rgba(43,54,52,.2)", borderRadius: 14, background: "transparent", cursor: (!level || !hoursPerWeek || !compExp || !timeline || !biggestChallenge || !goal.trim()) ? "default" : "pointer", fontFamily: mono, fontSize: 13, fontWeight: 600, color: (!level || !hoursPerWeek || !compExp || !timeline || !biggestChallenge || !goal.trim()) ? "rgba(43,54,52,.4)" : "#2b3634", letterSpacing: "0.05em" }}>
+            {(!level || !hoursPerWeek || !compExp || !timeline || !biggestChallenge || !goal.trim()) ? (lang === "mn" ? "Бүх асуултад хариулна уу" : "Answer all questions to continue") : (lang === "mn" ? "Миний суралцах замыг бүтээх" : "Build my personalized roadmap")}
           </button>
         </div>
       )}
@@ -9435,11 +9620,11 @@ Be direct, specific, and honest. Name real resources. Account for the fact that 
       {phase === "done" && content && (
         <>
           <div style={{ height: 1, background: "rgba(43,54,52,.22)", marginBottom: 40 }} />
-          <div style={{ fontSize: 15, color: "#2b3634", lineHeight: 1.9, whiteSpace: "pre-wrap" }}>{content}</div>
+          <div style={{ fontSize: 15, color: "#2b3634", lineHeight: 1.9, whiteSpace: "pre-wrap" }}>{content.replace(/^#{1,6}\s+/gm, "").replace(/\*\*([^*]+)\*\*/g, "$1").replace(/\*([^*]+)\*/g, "$1").replace(/^---+$/gm, "").replace(/^\|.*\|$/gm, m => m.replace(/\|/g, "  ").replace(/[-:]+/g, "").trim()).replace(/^[-] /gm, "  ").replace(/\n{3,}/g, "\n\n")}</div>
           <div style={{ height: 1, background: "rgba(43,54,52,.22)", margin: "40px 0 24px" }} />
           <button onClick={() => { setContent(null); setPhase("intake"); setLevel(rm.level || ""); setHoursPerWeek(rm.hoursPerWeek || ""); setGoal(rm.goal || ""); setPriorKnowledge(rm.priorKnowledge || ""); setCompExp(rm.compExp || ""); setTimeline(rm.timeline || ""); setBiggestChallenge(rm.biggestChallenge || ""); }}
             style={{ fontFamily: mono, fontSize: 12, color: "#2b3634", background: "none", border: "none", cursor: "pointer", padding: 0, letterSpacing: "0.1em" }}>
-            Regenerate
+            {lang === "mn" ? "Дахин үүсгэх" : "Regenerate"}
           </button>
         </>
       )}
@@ -9457,12 +9642,13 @@ const INTERN_PROGRAMS = [
   { name: "Google Summer of Code", org: "Google", url: "https://summerofcode.withgoogle.com/", en: "Google Summer of Code is a global program that pairs contributors with open-source software organizations for a paid summer coding project. Participants are matched with a mentor organization, agree on a project scope, and spend 10 to 22 weeks implementing their contribution to a real open-source codebase. The program is open to participants aged 18 and older, making it a strong target to work toward during high school. Past participants have contributed to projects including Linux, Python, Mozilla, and hundreds of other widely used tools. Acceptance requires both a competitive written proposal and demonstrated programming ability, so building a strong GitHub portfolio before applying is important.", mn: "Google Summer of Code бол хувь нэмэр оруулагчдыг нээлттэй эхийн програм хангамжийн байгууллагуудтай хослуулж, цалинтай зуны кодчиллын төсөл хийлгэдэг дэлхийн хөтөлбөр юм. Оролцогчдыг ментор байгууллагатай холбож, төслийн хамрах хүрээг тохиролцож, 10-22 долоо хоногийн турш бодит нээлттэй эхийн кодод хувь нэмрээ оруулдаг. Хөтөлбөр нь 18 ба түүнээс дээш насныханд нээлттэй бөгөөд ахлах сургуулийн үед чиглэх хүчтэй зорилт юм. Өмнөх оролцогчид Linux, Python, Mozilla болон бусад өргөн хэрэглэгддэг хэдэн зуун хэрэгсэлд хувь нэмэр оруулсан. Хүлээн авалтад өрсөлдөх чадвартай бичгийн санал болон програмчлалын чадварыг харуулсан байх шаардлагатай тул бүртгүүлэхийн өмнө GitHub-ийн хүчтэй портфолио бүрдүүлэх нь чухал." },
 ];
 function InternshipsPage() {
-  const { t, lang, go, roadmaps, setRoadmaps } = useQ();
+  const { t, lang, go, roadmaps, setRoadmaps, saved, toggleSaved } = useQ();
   const [selected, setSelected] = useState(null);
   const mono = "'Space Grotesk', ui-monospace, monospace";
 
   if (selected) {
     const pr = selected;
+    const prId = "intern-" + pr.name.toLowerCase().replace(/\s+/g, "-");
     const bSep = <span className="q-mono" style={{ fontSize: 11, color: "#2b3634", margin: "0 8px" }}>{String.fromCharCode(8250)}{String.fromCharCode(8250)}</span>;
     return (
       <div className="max-w-3xl mx-auto px-6 py-8">
@@ -9471,14 +9657,23 @@ function InternshipsPage() {
           {bSep}<button onClick={() => setSelected(null)} className="q-mono" style={{ fontSize: 11, color: "#2b3634", background: "none", border: "none", cursor: "pointer", letterSpacing: "0.1em", padding: 0 }}>{(t.exploreCards?.internships?.[0] || "INTERNSHIPS").toUpperCase()}</button>
           {bSep}<span className="q-mono" style={{ fontSize: 11, color: "#2b3634", letterSpacing: "0.1em" }}>{pr.name.toUpperCase()}</span>
         </div>
-        <h1 className="q-display" style={{ fontSize: "clamp(28px,5vw,44px)", fontWeight: 800, color: "#2b3634", letterSpacing: "-0.04em", marginBottom: 8 }}>{pr.name}</h1>
+        <div style={{ display: "flex", alignItems: "flex-start", justifyContent: "space-between", gap: 16 }}>
+          <h1 className="q-display" style={{ fontSize: "clamp(28px,5vw,44px)", fontWeight: 800, color: "#2b3634", letterSpacing: "-0.04em", marginBottom: 8 }}>{pr.name}</h1>
+          <button onClick={() => toggleSaved(prId)} style={{ flexShrink: 0, marginTop: 8, padding: "8px 16px", border: `1.5px solid ${saved.includes(prId) ? "rgba(43,54,52,.5)" : "rgba(43,54,52,.35)"}`, borderRadius: 10, background: saved.includes(prId) ? "rgba(43,54,52,.14)" : "rgba(43,54,52,.08)", cursor: "pointer", fontFamily: mono, fontSize: 11, color: "#2b3634", letterSpacing: "0.1em", fontWeight: 600, transition: "all .2s" }}
+            onMouseOver={e => { e.currentTarget.style.background = "rgba(43,54,52,.18)"; e.currentTarget.style.borderColor = "rgba(43,54,52,.5)"; }}
+            onMouseOut={e => { e.currentTarget.style.background = saved.includes(prId) ? "rgba(43,54,52,.14)" : "rgba(43,54,52,.08)"; e.currentTarget.style.borderColor = saved.includes(prId) ? "rgba(43,54,52,.5)" : "rgba(43,54,52,.35)"; }}>{saved.includes(prId) ? (lang === "mn" ? "ХАДГАЛСАН" : "SAVED") : (lang === "mn" ? "ХАДГАЛАХ" : "SAVE")}</button>
+        </div>
         <div style={{ fontFamily: mono, fontSize: 13, color: "#2b3634", marginBottom: 24 }}>{pr.org}</div>
         <p style={{ fontSize: 15, color: "#2b3634", lineHeight: 1.7, marginBottom: 40 }}>{pr[lang] || pr.en}</p>
         <div style={{ height: 1, background: "rgba(43,54,52,.08)", marginBottom: 32 }} />
         <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
-          <a href={pr.url} target="_blank" rel="noreferrer" style={{ display: "block", padding: "14px 0", border: "1.5px solid #2b3634", borderRadius: 14, textAlign: "center", fontFamily: mono, fontSize: 13, color: "#2b3634", textDecoration: "none", letterSpacing: "0.05em", fontWeight: 700 }}>{t.view || "Register here"}</a>
+          <a href={pr.url} target="_blank" rel="noreferrer" style={{ display: "block", padding: "14px 0", border: "1.5px solid rgba(43,54,52,.35)", borderRadius: 14, textAlign: "center", fontFamily: mono, fontSize: 13, color: "#2b3634", background: "rgba(43,54,52,.08)", textDecoration: "none", letterSpacing: "0.05em", fontWeight: 600, transition: "all .2s" }}
+                    onMouseOver={e => { e.currentTarget.style.background = "rgba(43,54,52,.14)"; e.currentTarget.style.borderColor = "rgba(43,54,52,.5)"; }}
+                    onMouseOut={e => { e.currentTarget.style.background = "rgba(43,54,52,.08)"; e.currentTarget.style.borderColor = "rgba(43,54,52,.35)"; }}>{t.view || "Register here"}</a>
           <button onClick={() => { const rm = { id: "rm-" + Date.now(), title: (lang === "mn" ? "Бэлтгэл: " : "Preparation: ") + pr.name, created: new Date().toISOString(), type: "internship" }; setRoadmaps(prev => [...(prev||[]), rm]); setSelected(null); go("roadmap"); }}
-            style={{ padding: "14px 0", border: "1.5px solid #2b3634", borderRadius: 14, background: "transparent", cursor: "pointer", fontFamily: mono, fontSize: 13, color: "#2b3634", letterSpacing: "0.05em", width: "100%", fontWeight: 700 }}>{t.prepBtn || "Prepare for this"}</button>
+            style={{ padding: "14px 0", border: "1.5px solid rgba(43,54,52,.35)", borderRadius: 14, background: "rgba(43,54,52,.08)", cursor: "pointer", fontFamily: mono, fontSize: 13, color: "#2b3634", letterSpacing: "0.05em", width: "100%", fontWeight: 600, transition: "all .2s" }}
+                    onMouseOver={e => { e.currentTarget.style.background = "rgba(43,54,52,.14)"; e.currentTarget.style.borderColor = "rgba(43,54,52,.5)"; }}
+                    onMouseOut={e => { e.currentTarget.style.background = "rgba(43,54,52,.08)"; e.currentTarget.style.borderColor = "rgba(43,54,52,.35)"; }}>{t.prepBtn || "Prepare for this"}</button>
         </div>
       </div>
     );
@@ -9662,31 +9857,21 @@ export default function App() {
   };
   // Force scroll to top after every page change (except home restoring position)
   useLayoutEffect(() => {
-    if (scrollTarget.current === "restore") return;
-    window.scrollTo(0, 0);
-    document.documentElement.scrollTop = 0;
-    document.body.scrollTop = 0;
-  }, [page]);
-  useEffect(() => {
     if (scrollTarget.current === "restore") {
-      // Reveal all animated elements instantly so content is visible
+      // Make reveal animations instant so content has height
       const els = document.querySelectorAll(".qs-reveal, .qs-slide");
       els.forEach(el => { el.classList.add("qs-in"); el.style.transition = "none"; });
-      // Use rAF to wait for DOM paint, then scroll to explore section
-      requestAnimationFrame(() => {
-        requestAnimationFrame(() => {
-          const el = document.getElementById("qs-explore");
-          if (el) el.scrollIntoView({ behavior: "instant", block: "start" });
-          scrollTarget.current = null;
-          setTimeout(() => { els.forEach(e => { e.style.transition = ""; }); }, 200);
-        });
-      });
+      // Scroll to explore section synchronously before browser paints
+      const el = document.getElementById("qs-explore");
+      if (el) el.scrollIntoView({ behavior: "instant", block: "start" });
+      else window.scrollTo(0, scrollMemory.current["home"] || 0);
+      scrollTarget.current = null;
+      setTimeout(() => { els.forEach(e => { e.style.transition = ""; }); }, 200);
       return;
     }
     window.scrollTo(0, 0);
-    requestAnimationFrame(() => window.scrollTo(0, 0));
-    const t = setTimeout(() => window.scrollTo(0, 0), 80);
-    return () => clearTimeout(t);
+    document.documentElement.scrollTop = 0;
+    document.body.scrollTop = 0;
   }, [page]);
   const startOnboarding = () => (user ? setPage("dashboard") : setObOpen(true));
 
@@ -9705,7 +9890,12 @@ export default function App() {
     try {
       const reply = await callAI(buildSystemPrompt({ lang, user, completed, comps, saved, roadmaps, activeRoadmap }), next.slice(-12));
       setBranchChats((bc) => ({ ...bc, [key]: [...next, { role: "assistant", content: reply }] }));
-    } catch { setBranchChats((bc) => ({ ...bc, [key]: [...next, { role: "assistant", content: t.chatErr }] })); }
+    } catch (err) {
+      const trafficMsg = lang === "mn"
+        ? "Одоогоор хандалт ихтэй байна. Түр хүлээгээд дахин оролдоно уу."
+        : "Traffic is high right now. This is temporary -- please try again shortly.";
+      setBranchChats((bc) => ({ ...bc, [key]: [...next, { role: "assistant", content: err?.traffic ? trafficMsg : t.chatErr }] }));
+    }
     setChatLoading(false);
   };
   const askAI = (q, branchKey = "main", label = null) => { setActiveChat(branchKey); setActiveChatLabel(label); setChatOpen(true); setTimeout(() => sendChat(q, branchKey), 60); };
