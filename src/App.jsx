@@ -8056,24 +8056,46 @@ function ResearchPage() {
   return (
     <div className="max-w-3xl mx-auto px-6 py-8">
       <BackToHome />
-      <h1 className="q-display" style={{ fontSize: "clamp(32px,5vw,52px)", fontWeight: 800, color: "#2b3634", letterSpacing: "-0.04em", marginBottom: 56 }}>{t.researchTitle || "Research"}</h1>
-      <div style={{ display: "flex", flexDirection: "column", gap: 0 }}>
-        <button onClick={() => { const rm = { id: "rm-" + Date.now(), title: "Research Preparation", created: new Date().toISOString(), type: "research" }; setRoadmaps(prev => [...(prev||[]), rm]); go("dashboard"); }} className="text-left"
-          style={{ padding: "clamp(24px,3.5vh,36px) 0", borderBottom: "1px solid rgba(43,54,52,.08)", cursor: "pointer", transition: "opacity .15s", width: "100%" }}
-          onMouseOver={e => e.currentTarget.style.opacity = "0.6"} onMouseOut={e => e.currentTarget.style.opacity = "1"}>
-          <span className="q-display" style={{ fontSize: "clamp(18px,3vw,24px)", fontWeight: 600, color: "#2b3634" }}>{t.resLearn || "Start learning for research"}</span>
+      <h1 className="q-display" style={{ fontSize: "clamp(32px,5vw,52px)", fontWeight: 800, color: "#2b3634", letterSpacing: "-0.04em", marginBottom: 32 }}>{t.researchTitle || "Research"}</h1>
+      <div style={{ display: "flex", flexDirection: "column", gap: 10, marginBottom: 48 }}>
+        <button onClick={() => { const rm = { id: "rm-" + Date.now(), title: "Research Preparation", created: new Date().toISOString(), type: "research" }; setRoadmaps(prev => [...(prev||[]), rm]); go("dashboard"); }}
+          style={{ padding: "14px 0", width: "100%", border: "1.5px solid rgba(43,54,52,.35)", borderRadius: 14, background: "rgba(43,54,52,.08)", cursor: "pointer", fontFamily: mono, fontSize: 13, color: "#2b3634", letterSpacing: "0.05em", fontWeight: 600, transition: "all .2s" }}
+          onMouseOver={e => { e.currentTarget.style.background = "rgba(43,54,52,.14)"; e.currentTarget.style.borderColor = "rgba(43,54,52,.5)"; }}
+          onMouseOut={e => { e.currentTarget.style.background = "rgba(43,54,52,.08)"; e.currentTarget.style.borderColor = "rgba(43,54,52,.35)"; }}>
+          {t.resLearn || "Start learning for research"}
         </button>
-        <button onClick={() => setFinderOpen(true)} className="text-left"
-          style={{ padding: "clamp(24px,3.5vh,36px) 0", borderBottom: "1px solid rgba(43,54,52,.08)", cursor: "pointer", transition: "opacity .15s", width: "100%" }}
-          onMouseOver={e => e.currentTarget.style.opacity = "0.6"} onMouseOut={e => e.currentTarget.style.opacity = "1"}>
-          <span className="q-display" style={{ fontSize: "clamp(18px,3vw,24px)", fontWeight: 600, color: "#2b3634" }}>{t.resMentor || "Find research mentors"}</span>
-        </button>
-        <button onClick={() => setView("programs")} className="text-left"
-          style={{ padding: "clamp(24px,3.5vh,36px) 0", background: "none", border: "none", cursor: "pointer", transition: "opacity .15s", width: "100%" }}
-          onMouseOver={e => e.currentTarget.style.opacity = "0.6"} onMouseOut={e => e.currentTarget.style.opacity = "1"}>
-          <span className="q-display" style={{ fontSize: "clamp(18px,3vw,24px)", fontWeight: 600, color: "#2b3634" }}>{t.resPrograms || "Research programs"}</span>
+        <button onClick={() => setFinderOpen(true)}
+          style={{ padding: "14px 0", width: "100%", border: "1.5px solid rgba(43,54,52,.35)", borderRadius: 14, background: "rgba(43,54,52,.08)", cursor: "pointer", fontFamily: mono, fontSize: 13, color: "#2b3634", letterSpacing: "0.05em", fontWeight: 600, transition: "all .2s" }}
+          onMouseOver={e => { e.currentTarget.style.background = "rgba(43,54,52,.14)"; e.currentTarget.style.borderColor = "rgba(43,54,52,.5)"; }}
+          onMouseOut={e => { e.currentTarget.style.background = "rgba(43,54,52,.08)"; e.currentTarget.style.borderColor = "rgba(43,54,52,.35)"; }}>
+          {t.resMentor || "Find research mentors"}
         </button>
       </div>
+
+      {researchProgs.length > 0 && (
+        <>
+          <div style={{ fontFamily: mono, fontSize: 11, letterSpacing: "0.2em", color: "#2b3634", marginBottom: 20 }}>{(t.resPrograms || "PROGRAMS").toUpperCase()}</div>
+          <div style={{ display: "flex", flexDirection: "column" }}>
+            {researchProgs.map((o, i) => {
+              const fields = [...(compSubjects(o) || [])].map(sid => { const s = DB.subjects.find(x => x.id === sid); return s ? s.name.en : sid; }).join(", ");
+              return (
+                <button key={o.id} onClick={() => setSelectedProg(o)} className="text-left"
+                  style={{ padding: "clamp(20px,3vh,28px) 0", borderBottom: i < researchProgs.length - 1 ? "1px solid rgba(43,54,52,.08)" : "none", cursor: "pointer", transition: "opacity .15s", width: "100%" }}
+                  onMouseOver={e => e.currentTarget.style.opacity = "0.6"}
+                  onMouseOut={e => e.currentTarget.style.opacity = "1"}>
+                  <div style={{ display: "flex", alignItems: "baseline", gap: "clamp(16px,3vw,28px)" }}>
+                    <span style={{ fontFamily: mono, fontSize: 13, color: "#2b3634", flexShrink: 0, width: 32 }}>{String(i + 1).padStart(2, "0")}</span>
+                    <div style={{ flex: 1 }}>
+                      <div className="q-display" style={{ fontSize: "clamp(18px,3vw,26px)", fontWeight: 700, color: "#2b3634", letterSpacing: "-0.02em" }}>{o.name[lang] || o.name.en}</div>
+                      {fields && <div style={{ fontFamily: mono, fontSize: 12, color: "#2b3634", marginTop: 4 }}>{fields}</div>}
+                    </div>
+                  </div>
+                </button>
+              );
+            })}
+          </div>
+        </>
+      )}
     </div>
   );
 }
@@ -8161,7 +8183,9 @@ function ProfessorFinder({ unlocked, open, setOpen }) {
           <div style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>
             {RESEARCH_TOPICS.map(tp => (
               <button key={tp} onClick={() => { setInterest(tp); search(tp); }}
-                style={{ padding: "6px 14px", border: "1.5px solid " + (interest === tp ? "#2b3634" : "rgba(43,54,52,.35)"), borderRadius: 8, background: interest === tp ? "rgba(43,54,52,.06)" : "transparent", cursor: "pointer", fontFamily: mono, fontSize: 12, color: "#2b3634", fontWeight: interest === tp ? 600 : 400 }}>
+                style={{ padding: "6px 14px", border: `1.5px solid ${interest === tp ? "rgba(43,54,52,.5)" : "rgba(43,54,52,.35)"}`, borderRadius: 8, background: interest === tp ? "rgba(43,54,52,.14)" : "rgba(43,54,52,.08)", cursor: "pointer", fontFamily: mono, fontSize: 12, color: "#2b3634", fontWeight: interest === tp ? 600 : 400, transition: "all .2s" }}
+                onMouseOver={e => { e.currentTarget.style.background = "rgba(43,54,52,.14)"; e.currentTarget.style.borderColor = "rgba(43,54,52,.5)"; }}
+                onMouseOut={e => { e.currentTarget.style.background = interest === tp ? "rgba(43,54,52,.14)" : "rgba(43,54,52,.08)"; e.currentTarget.style.borderColor = interest === tp ? "rgba(43,54,52,.5)" : "rgba(43,54,52,.35)"; }}>
                 {tp}
               </button>
             ))}
@@ -8169,8 +8193,10 @@ function ProfessorFinder({ unlocked, open, setOpen }) {
         </div>
 
         <button onClick={() => search()} disabled={loading || !interest.trim()}
-          style={{ padding: "12px 0", width: "100%", border: "1.5px solid " + (loading || !interest.trim() ? "rgba(43,54,52,.22)" : "#2b3634"), borderRadius: 12, background: loading || !interest.trim() ? "transparent" : "rgba(43,54,52,.06)", cursor: loading || !interest.trim() ? "default" : "pointer", fontFamily: mono, fontSize: 13, color: loading || !interest.trim() ? "rgba(43,54,52,.5)" : "#2b3634", letterSpacing: "0.05em", fontWeight: 600 }}>
-          {loading ? "Searching..." : "Search →"}
+          style={{ padding: "12px 0", width: "100%", border: "1.5px solid " + (loading || !interest.trim() ? "rgba(43,54,52,.22)" : "rgba(43,54,52,.35)"), borderRadius: 12, background: loading || !interest.trim() ? "transparent" : "rgba(43,54,52,.08)", cursor: loading || !interest.trim() ? "default" : "pointer", fontFamily: mono, fontSize: 13, color: loading || !interest.trim() ? "rgba(43,54,52,.5)" : "#2b3634", letterSpacing: "0.05em", fontWeight: 600, transition: "all .2s" }}
+          onMouseOver={e => { if (!loading && interest.trim()) { e.currentTarget.style.background = "rgba(43,54,52,.14)"; e.currentTarget.style.borderColor = "rgba(43,54,52,.5)"; }}}
+          onMouseOut={e => { if (!loading && interest.trim()) { e.currentTarget.style.background = "rgba(43,54,52,.08)"; e.currentTarget.style.borderColor = "rgba(43,54,52,.35)"; }}}>
+          {loading ? (lang === "mn" ? "Хайж байна..." : "Searching...") : (lang === "mn" ? "Хайх →" : "Search →")}
         </button>
 
         {err && <div style={{ fontFamily: mono, fontSize: 12, color: "#9b4d4d", marginTop: 16 }}>{err}</div>}
@@ -8283,7 +8309,9 @@ function Dashboard() {
     <div className="max-w-3xl mx-auto px-6 py-8">
       <h1 className="q-display" style={{ fontSize: "clamp(32px,5vw,52px)", fontWeight: 800, color: "#2b3634", letterSpacing: "-0.04em", marginBottom: 16 }}>Dashboard</h1>
       <p style={{ fontSize: 14, color: "#2b3634", marginBottom: 32 }}>Sign in to see your dashboard.</p>
-      <button onClick={() => setObOpen(true)} style={{ fontFamily: mono, fontSize: 13, color: "#2b3634", border: "1.5px solid rgba(43,54,52,.35)", borderRadius: 14, padding: "12px 24px", background: "transparent", cursor: "pointer" }}>Sign in</button>
+      <button onClick={() => setObOpen(true)} style={{ fontFamily: mono, fontSize: 13, color: "#2b3634", border: "1.5px solid rgba(43,54,52,.35)", borderRadius: 14, padding: "12px 24px", background: "rgba(43,54,52,.08)", cursor: "pointer", fontWeight: 600, transition: "all .2s" }}
+        onMouseOver={e => { e.currentTarget.style.background = "rgba(43,54,52,.14)"; e.currentTarget.style.borderColor = "rgba(43,54,52,.5)"; }}
+        onMouseOut={e => { e.currentTarget.style.background = "rgba(43,54,52,.08)"; e.currentTarget.style.borderColor = "rgba(43,54,52,.35)"; }}>Sign in</button>
     </div>
   );
 
@@ -9164,7 +9192,9 @@ function RoadmapsPage() {
     <div className="max-w-3xl mx-auto px-6 py-8">
       <h1 className="q-display" style={{ fontSize: "clamp(32px,5vw,52px)", fontWeight: 800, color: "#2b3634", letterSpacing: "-0.04em", marginBottom: 16 }}>Roadmaps</h1>
       <p style={{ fontSize: 14, color: "#2b3634", marginBottom: 32 }}>Sign in to create and save roadmaps.</p>
-      <button onClick={() => setObOpen(true)} style={{ fontFamily: mono, fontSize: 13, color: "#2b3634", border: "1.5px solid rgba(43,54,52,.35)", borderRadius: 14, padding: "12px 24px", background: "transparent", cursor: "pointer" }}>Sign in</button>
+      <button onClick={() => setObOpen(true)} style={{ fontFamily: mono, fontSize: 13, color: "#2b3634", border: "1.5px solid rgba(43,54,52,.35)", borderRadius: 14, padding: "12px 24px", background: "rgba(43,54,52,.08)", cursor: "pointer", fontWeight: 600, transition: "all .2s" }}
+        onMouseOver={e => { e.currentTarget.style.background = "rgba(43,54,52,.14)"; e.currentTarget.style.borderColor = "rgba(43,54,52,.5)"; }}
+        onMouseOut={e => { e.currentTarget.style.background = "rgba(43,54,52,.08)"; e.currentTarget.style.borderColor = "rgba(43,54,52,.35)"; }}>Sign in</button>
     </div>
   );
 
@@ -9199,7 +9229,9 @@ function RoadmapsPage() {
               <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
                 {[["general","General learning"],["competition","Competition prep"],["research","Research project"],["skill","Skill building"]].map(([val, label]) => (
                   <button key={val} onClick={() => setNewType(val)}
-                    style={{ padding: "7px 16px", borderRadius: 10, border: `1.5px solid ${newType === val ? "#2b3634" : "rgba(43,54,52,.35)"}`, background: newType === val ? "rgba(43,54,52,.06)" : "transparent", cursor: "pointer", fontFamily: mono, fontSize: 11, color: "#2b3634", fontWeight: newType === val ? 600 : 400 }}>
+                    style={{ padding: "7px 16px", borderRadius: 10, border: `1.5px solid ${newType === val ? "rgba(43,54,52,.5)" : "rgba(43,54,52,.35)"}`, background: newType === val ? "rgba(43,54,52,.14)" : "rgba(43,54,52,.08)", cursor: "pointer", fontFamily: mono, fontSize: 11, color: "#2b3634", fontWeight: newType === val ? 600 : 400, transition: "all .2s" }}
+                    onMouseOver={e => { e.currentTarget.style.background = "rgba(43,54,52,.14)"; e.currentTarget.style.borderColor = "rgba(43,54,52,.5)"; }}
+                    onMouseOut={e => { e.currentTarget.style.background = newType === val ? "rgba(43,54,52,.14)" : "rgba(43,54,52,.08)"; e.currentTarget.style.borderColor = newType === val ? "rgba(43,54,52,.5)" : "rgba(43,54,52,.35)"; }}>
                     {label}
                   </button>
                 ))}
@@ -9207,7 +9239,9 @@ function RoadmapsPage() {
             </div>
 
             <div style={{ display: "flex", gap: 10 }}>
-              <button onClick={() => setCreating(false)} style={{ flex: 1, padding: "12px 0", border: "1.5px solid rgba(43,54,52,.35)", borderRadius: 12, background: "transparent", cursor: "pointer", fontFamily: mono, fontSize: 13, color: "#2b3634" }}>Cancel</button>
+              <button onClick={() => setCreating(false)} style={{ flex: 1, padding: "12px 0", border: "1.5px solid rgba(43,54,52,.35)", borderRadius: 12, background: "rgba(43,54,52,.08)", cursor: "pointer", fontFamily: mono, fontSize: 13, color: "#2b3634", fontWeight: 600, transition: "all .2s" }}
+                onMouseOver={e => { e.currentTarget.style.background = "rgba(43,54,52,.14)"; e.currentTarget.style.borderColor = "rgba(43,54,52,.5)"; }}
+                onMouseOut={e => { e.currentTarget.style.background = "rgba(43,54,52,.08)"; e.currentTarget.style.borderColor = "rgba(43,54,52,.35)"; }}>Cancel</button>
               <button onClick={handleCreate} disabled={!newTitle.trim()} style={{ flex: 2, padding: "12px 0", border: "none", borderRadius: 12, background: newTitle.trim() ? "#2b3634" : "rgba(43,54,52,.35)", cursor: newTitle.trim() ? "pointer" : "default", fontFamily: mono, fontSize: 13, color: newTitle.trim() ? "#f0f2ee" : "rgba(43,54,52,.3)", fontWeight: 600, letterSpacing: "0.04em" }}>Create &amp; generate →</button>
             </div>
           </div>
@@ -9285,11 +9319,10 @@ function RoadmapDetail() {
           const byStage = { f: [], a: [], o: [] };
           nodes.forEach(n => { if (byStage[n.stage]) byStage[n.stage].push(n); });
           const formatNode = (n) => {
-            const prereqNames = (n.prereqs || []).filter(p => ALL_NODES[p]).map(p => ALL_NODES[p].name.en).join(", ");
-            const resources = (n.res || []).map(r => `  - ${r.l.en} → ${r.u}`).join("\n");
-            const desc = n.desc?.en || n.why?.en || "";
-            const mnName = n.name?.mn || "";
-            return `• ${n.name.en}${mnName ? ` (${mnName})` : ""} -- ${n.weeks} weeks, ~${n.h} hours${prereqNames ? `\n  Prerequisites: ${prereqNames}` : ""}\n  Description: ${desc}${resources ? "\n  Resources:\n" + resources : ""}`;
+            const prereqNames = (n.prereqs || []).filter(p => ALL_NODES[p]).map(p => ALL_NODES[p].name[isMn ? "mn" : "en"] || ALL_NODES[p].name.en).join(", ");
+            const resources = (n.res || []).map(r => `  ${r.l[isMn ? "mn" : "en"] || r.l.en}: ${r.u}`).join("\n");
+            const nodeName = n.name[isMn ? "mn" : "en"] || n.name.en;
+            return `${nodeName} -- ${n.weeks} weeks, ~${n.h} hours${prereqNames ? `\n  Prerequisites: ${prereqNames}` : ""}${resources ? "\n  Resources:\n" + resources : ""}`;
           };
           coursesCatalog = `\n\n═══ QUESTA KNOWLEDGE TREE COURSES ═══
 These are the EXACT courses on the Questa platform for this target. You MUST build the roadmap as a clear sequence of these courses in prerequisite order. Reference each course by name, include its resources and URLs, and explain how each connects to the next.
@@ -9334,7 +9367,7 @@ ${relevantSubjects.join("\n")}`;
 
       const prompt = `You are a world-class STEM education advisor building a comprehensive, highly organized preparation roadmap for a student on the Questa platform (questastem.com).
 
-YOUR RESPONSE MUST BE AT LEAST 3000 WORDS. This is the student's complete study guide -- they will follow it for months. Short or vague responses are useless. Be extremely thorough.
+This is the student's complete study guide. Be organized and clear, but CONCISE. Do NOT write long essays or paragraphs for each topic. Keep explanations to 1-2 sentences max per course/topic. The power is in the structure and the course links, not in lengthy text.
 
 ═══════════════════════════════════
 STUDENT PROFILE
@@ -9370,49 +9403,52 @@ IMPORTANT: Do NOT use any markdown symbols in your response. No ###, no **, no *
 
 OVERVIEW
 
-Write 3 substantial paragraphs:
-1. Honest student assessment: Analyze their specific advantages and gaps based on level, prior knowledge, experience. Be personal -- reference their exact answers. What foundations do they have? What are they missing?
-2. Strategic approach: Why this roadmap follows this particular path. How it adapts to their hours (${hoursPerWeek}), timeline (${timeline}), location (Mongolia), and biggest challenge (${biggestChallenge}). Explain the methodology.
-3. Expected outcomes: Month-by-month timeline of what they will achieve. Concrete, measurable results by the end.
+Write a short assessment (4-6 sentences total):
+1. Where the student stands now based on their answers (level, prior knowledge, experience)
+2. The strategy this roadmap follows and why it fits their situation (hours, timeline, challenge)
+3. What they will achieve by the end -- concrete outcomes
 
 
 PHASE 1 -- FOUNDATION (Months 1-${timeline === "Under 3 months" || timeline === "3 сараас бага" ? "1" : timeline === "3–6 months" || timeline === "3-6 сар" ? "2" : "3"})
 Goal: [specific one-line goal]
 
-${coursesCatalog ? `CRITICAL: Structure this phase using the Questa Knowledge Tree courses listed above. Present them as a clear learning sequence:
+${coursesCatalog ? `Use the Questa Knowledge Tree courses listed above. For EACH course, write in this compact format:
 
-Course 1: [Questa Course Name] (~X hours, Y weeks)
-1. Why this course matters for their goal (2-3 sentences connecting it to their target)
-2. Specific modules/chapters to focus on
-3. Resources from the course listing above
-4. Checkpoint: "You are ready for the next course when you can..."
+COURSE: [Questa Course Name] (~X hours, Y weeks)
+Why: 1-2 sentences max on why this matters for their goal.
+Resources (copy from the course listing above):
+  1. [Resource name]: [URL]
+  2. [Resource name]: [URL]
+Checkpoint: "You are ready for the next course when you can [specific skill]"
 
-Course 2: [Next Questa Course Name] (~X hours, Y weeks)
-(same format)
+Show the prerequisite chain: Course A then Course B then Course C.
+Keep it clean and scannable. NO long paragraphs.` : `For each topic, write in this compact format:
 
-Continue for all relevant foundation courses. Show the prerequisite chain clearly -- which courses must come before others.` : `For each topic:
-1. Topic name with estimated hours
-2. Why it matters for their specific goal (2-3 sentences)
-3. Specific chapters, modules, problem sets
-4. 3+ real free resources with direct URLs (Khan Academy, MIT OCW, OpenStax, AoPS, Brilliant, etc.)
-5. Checkpoint: "You are ready to move on when you can..."`}
+TOPIC: [Name] (~X hours)
+Why: 1-2 sentences on why it matters for their goal.
+Resources:
+  1. [Resource name]: [direct URL]
+  2. [Resource name]: [direct URL]
+  3. [Resource name]: [direct URL]
+Checkpoint: "You are ready to move on when you can [specific skill]"
+
+Keep it clean and scannable. NO long paragraphs.`}
 
 
 PHASE 2 -- CORE KNOWLEDGE (Months ${timeline === "Under 3 months" || timeline === "3 сараас бага" ? "1-2" : timeline === "3–6 months" || timeline === "3-6 сар" ? "2-4" : "3-6"})
 Goal: [specific one-line goal]
 
-${coursesCatalog ? "Continue with the Questa Knowledge Tree core courses in prerequisite order. Same detailed format as Phase 1." : "Same detailed format. Name exact problem sets, specific textbook chapters, particular lecture numbers."}
+${coursesCatalog ? "Continue with Questa Knowledge Tree core courses in prerequisite order. Same compact format as Phase 1 (course name, 1-2 sentence why, resource links, checkpoint)." : "Same compact format. Name exact resources with URLs."}
 
 
 
 PHASE 3 -- ADVANCED & APPLICATION (Months ${timeline === "Under 3 months" || timeline === "3 сараас бага" ? "2-3" : timeline === "3–6 months" || timeline === "3-6 сар" ? "4-5" : "6-9"})
 Goal: [specific one-line goal]
 
-${coursesCatalog ? "Continue with advanced Questa courses. Also add:" : "Include:"}
-1. Problem-solving strategies specific to their target
-2. Past papers / competition archives with URLs
-3. Research methodology or project work
-4. Specific problem databases and repositories
+${coursesCatalog ? "Continue with advanced Questa courses. Same compact format. Also add:" : "Same compact format. Also include:"}
+1. Past papers / competition archives with URLs
+2. Research methodology or project work if relevant
+3. Problem databases and repositories with URLs
 
 
 PHASE 4 -- COMPETITION/PROGRAM READY (Final ${timeline === "Under 3 months" || timeline === "3 сараас бага" ? "2 weeks" : "month"})
@@ -9458,16 +9494,15 @@ Prioritize resources accessible from Mongolia (no geo-restricted content).
 ═══════════════════════════════════
 QUALITY REQUIREMENTS
 ═══════════════════════════════════
-- MINIMUM 3000 WORDS. The student needs depth, not brevity.
-- Every recommendation must be specific: exact course names, chapter numbers, problem set ranges, URLs.
-- Never say "find resources online" -- name the exact resource.
-- Never be generic. Every sentence should reference this student's specific situation.
-- ${coursesCatalog ? "Present Questa courses as a clear sequential learning path. Show which course leads to which." : "Create a clear course sequence the student can follow step by step."}
-- This roadmap should feel like it was written by a personal tutor who deeply knows this student.`;
+- Be CONCISE. Short explanations (1-2 sentences per course/topic), not essays. The value is in the organized course sequence and resource links.
+- Every recommendation must include exact resource names and URLs. Never say "find resources online."
+- ${coursesCatalog ? "Present Questa courses as a clear sequential path with their resource links. Copy the exact URLs from the course data above." : "Create a clear course sequence with direct URLs to every resource."}
+- Reference the student's specific situation (level, timeline, challenge) but keep it brief.
+- The roadmap should read like a clean, organized course catalog -- not a wall of text.`;
 
       const reply = await callAI(isMn
-        ? "Та STEM боловсролын ахлах зөвлөх юм. Маш нарийвчилсан, зохион байгуулалттай, практик суралцах зам бичнэ. Таны хариулт дор хаяж 3000 үгтэй байх ёстой. БҮГДИЙГ МОНГОЛ ХЭЛЭЭР БИЧНЭ. ЧУХАЛ: Markdown тэмдэгт ОГТХОН ашиглахгүй -- ###, **, *, ---, - гэх мэт тэмдэгт бүү хэрэглэ. Гарчгийг ТОМ ҮСГЭЭР бич, хоосон мөрөөр салга. Жагсаалтад тоо (1. 2. 3.) эсвэл хоосон мөр ашигла."
-        : "You are a precise, thorough STEM education advisor. Write extremely detailed, actionable, highly organized preparation roadmaps. Your responses must be comprehensive -- at minimum 3000 words. Every recommendation must be specific and actionable. CRITICAL: Do NOT use any markdown formatting symbols -- no ###, no **, no *, no ---, no bullet dashes. Write headings in UPPERCASE and separate sections with blank lines. Use numbered lists (1. 2. 3.) instead of bullet points.", [{ role: "user", content: prompt }], { maxTokens: 8192 });
+        ? "Та STEM боловсролын ахлах зөвлөх юм. Зохион байгуулалттай, товч, практик суралцах зам бичнэ. Хичээл бүрт 1-2 өгүүлбэрээр тайлбар бичиж, нөөцийн линкүүдийг оруулна. Урт эссэ БҮҮ бич. БҮГДИЙГ МОНГОЛ ХЭЛЭЭР БИЧНЭ. ЧУХАЛ: Markdown тэмдэгт ОГТХОН ашиглахгүй -- ###, **, *, ---, - гэх мэт тэмдэгт бүү хэрэглэ. Гарчгийг ТОМ ҮСГЭЭР бич, хоосон мөрөөр салга. Жагсаалтад тоо (1. 2. 3.) эсвэл хоосон мөр ашигла."
+        : "You are a precise STEM education advisor. Write organized, concise, actionable preparation roadmaps. Keep explanations to 1-2 sentences per course/topic -- the value is in the organized course sequence and resource links, not long paragraphs. CRITICAL: Do NOT use any markdown formatting symbols -- no ###, no **, no *, no ---, no bullet dashes. Write headings in UPPERCASE and separate sections with blank lines. Use numbered lists (1. 2. 3.) instead of bullet points.", [{ role: "user", content: prompt }], { maxTokens: 8192 });
       setContent(reply);
       setPhase("done");
       // persist content + all intake fields into roadmap object
@@ -9524,7 +9559,7 @@ QUALITY REQUIREMENTS
             <div style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>
               {(lang === "mn" ? ["Огт мэдэхгүй", "Бага зэрэг мэднэ", "Дунд зэрэг", "Сайн суурьтай", "Гүнзгий мэдлэгтэй"] : ["Complete beginner", "Some basics", "Intermediate", "Strong foundation", "Advanced"]).map(l => (
                 <button key={l} onClick={() => setLevel(l)}
-                  style={{ padding: "9px 18px", border: `1.5px solid ${level === l ? "#2b3634" : "rgba(43,54,52,.55)"}`, borderRadius: 10, background: level === l ? "rgba(43,54,52,.1)" : "rgba(43,54,52,.03)", cursor: "pointer", fontFamily: mono, fontSize: 12, color: "#2b3634", fontWeight: level === l ? 600 : 400 }}>
+                  style={{ padding: "9px 18px", border: `1.5px solid ${level === l ? "rgba(43,54,52,.5)" : "rgba(43,54,52,.35)"}`, borderRadius: 10, background: level === l ? "rgba(43,54,52,.14)" : "rgba(43,54,52,.08)", cursor: "pointer", fontFamily: mono, fontSize: 12, color: "#2b3634", fontWeight: level === l ? 600 : 400, transition: "all .2s" }}>
                   {l}
                 </button>
               ))}
@@ -9537,7 +9572,7 @@ QUALITY REQUIREMENTS
             <div style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>
               {(lang === "mn" ? ["1-3 цаг", "4-6 цаг", "7-10 цаг", "11-15 цаг", "15+ цаг"] : ["1–3 hours", "4–6 hours", "7–10 hours", "11–15 hours", "15+ hours"]).map(h => (
                 <button key={h} onClick={() => setHoursPerWeek(h)}
-                  style={{ padding: "9px 18px", border: `1.5px solid ${hoursPerWeek === h ? "#2b3634" : "rgba(43,54,52,.55)"}`, borderRadius: 10, background: hoursPerWeek === h ? "rgba(43,54,52,.1)" : "rgba(43,54,52,.03)", cursor: "pointer", fontFamily: mono, fontSize: 12, color: "#2b3634", fontWeight: hoursPerWeek === h ? 600 : 400 }}>
+                  style={{ padding: "9px 18px", border: `1.5px solid ${hoursPerWeek === h ? "rgba(43,54,52,.5)" : "rgba(43,54,52,.35)"}`, borderRadius: 10, background: hoursPerWeek === h ? "rgba(43,54,52,.14)" : "rgba(43,54,52,.08)", cursor: "pointer", fontFamily: mono, fontSize: 12, color: "#2b3634", fontWeight: hoursPerWeek === h ? 600 : 400, transition: "all .2s" }}>
                   {h}
                 </button>
               ))}
@@ -9558,7 +9593,7 @@ QUALITY REQUIREMENTS
             <div style={{ display: "flex", flexWrap: "wrap", gap: 8, marginBottom: 10 }}>
               {(lang === "mn" ? ["Оролцоогүй", "Сургуулийн түвшинд", "Үндэсний түвшинд", "Олон улсын түвшинд"] : ["None yet", "School level only", "National level", "International level"]).map(e => (
                 <button key={e} onClick={() => setCompExp(e)}
-                  style={{ padding: "9px 18px", border: `1.5px solid ${compExp === e ? "#2b3634" : "rgba(43,54,52,.55)"}`, borderRadius: 10, background: compExp === e ? "rgba(43,54,52,.1)" : "rgba(43,54,52,.03)", cursor: "pointer", fontFamily: mono, fontSize: 12, color: "#2b3634", fontWeight: compExp === e ? 600 : 400 }}>
+                  style={{ padding: "9px 18px", border: `1.5px solid ${compExp === e ? "rgba(43,54,52,.5)" : "rgba(43,54,52,.35)"}`, borderRadius: 10, background: compExp === e ? "rgba(43,54,52,.14)" : "rgba(43,54,52,.08)", cursor: "pointer", fontFamily: mono, fontSize: 12, color: "#2b3634", fontWeight: compExp === e ? 600 : 400, transition: "all .2s" }}>
                   {e}
                 </button>
               ))}
@@ -9571,7 +9606,7 @@ QUALITY REQUIREMENTS
             <div style={{ display: "flex", flexWrap: "wrap", gap: 8, marginBottom: 10 }}>
               {(lang === "mn" ? ["3 сараас бага", "3-6 сар", "6-12 сар", "Жилээс дээш"] : ["Under 3 months", "3–6 months", "6–12 months", "Over a year"]).map(tl => (
                 <button key={tl} onClick={() => setTimeline(tl)}
-                  style={{ padding: "9px 18px", border: `1.5px solid ${timeline === tl ? "#2b3634" : "rgba(43,54,52,.55)"}`, borderRadius: 10, background: timeline === tl ? "rgba(43,54,52,.1)" : "rgba(43,54,52,.03)", cursor: "pointer", fontFamily: mono, fontSize: 12, color: "#2b3634", fontWeight: timeline === tl ? 600 : 400 }}>
+                  style={{ padding: "9px 18px", border: `1.5px solid ${timeline === tl ? "rgba(43,54,52,.5)" : "rgba(43,54,52,.35)"}`, borderRadius: 10, background: timeline === tl ? "rgba(43,54,52,.14)" : "rgba(43,54,52,.08)", cursor: "pointer", fontFamily: mono, fontSize: 12, color: "#2b3634", fontWeight: timeline === tl ? 600 : 400, transition: "all .2s" }}>
                   {tl}
                 </button>
               ))}
@@ -9584,7 +9619,7 @@ QUALITY REQUIREMENTS
             <div style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>
               {(lang === "mn" ? ["Сурах материал дутмаг", "Математикийн суурь сул", "Зөвлөгч, удирдагч байхгүй", "Цаг хуваарилалт", "Тууштай байдал", "Англи хэлний бэрхшээл"] : ["Lack of study materials", "Weak math foundation", "No mentor or guidance", "Time management", "Motivation and consistency", "English language barrier"]).map(ch => (
                 <button key={ch} onClick={() => setBiggestChallenge(ch)}
-                  style={{ padding: "9px 18px", border: `1.5px solid ${biggestChallenge === ch ? "#2b3634" : "rgba(43,54,52,.55)"}`, borderRadius: 10, background: biggestChallenge === ch ? "rgba(43,54,52,.1)" : "rgba(43,54,52,.03)", cursor: "pointer", fontFamily: mono, fontSize: 12, color: "#2b3634", fontWeight: biggestChallenge === ch ? 600 : 400 }}>
+                  style={{ padding: "9px 18px", border: `1.5px solid ${biggestChallenge === ch ? "rgba(43,54,52,.5)" : "rgba(43,54,52,.35)"}`, borderRadius: 10, background: biggestChallenge === ch ? "rgba(43,54,52,.14)" : "rgba(43,54,52,.08)", cursor: "pointer", fontFamily: mono, fontSize: 12, color: "#2b3634", fontWeight: biggestChallenge === ch ? 600 : 400, transition: "all .2s" }}>
                   {ch}
                 </button>
               ))}
@@ -9617,17 +9652,57 @@ QUALITY REQUIREMENTS
       )}
 
       {/* DONE */}
-      {phase === "done" && content && (
+      {phase === "done" && content && (() => {
+        const target = rm?.targetId ? comps.find(c => c.id === rm.targetId) : null;
+        const reqIds = target ? [...(target.reqs || [])] : [];
+        const collected = {};
+        const addN = (id) => { if (collected[id] || !ALL_NODES[id]) return; collected[id] = ALL_NODES[id]; (ALL_NODES[id].prereqs || []).forEach(addN); };
+        reqIds.forEach(addN);
+        const courseNodes = Object.values(collected);
+        const byStage = { f: [], a: [], o: [] };
+        courseNodes.forEach(n => { if (byStage[n.stage]) byStage[n.stage].push(n); });
+        const stageLabel = (s) => s === "f" ? (lang === "mn" ? "СУУРЬ ХИЧЭЭЛҮҮД" : "FOUNDATION COURSES") : s === "a" ? (lang === "mn" ? "ГОЛЛОХ ХИЧЭЭЛҮҮД" : "CORE COURSES") : (lang === "mn" ? "ГҮНЗГИЙРҮҮЛСЭН ХИЧЭЭЛҮҮД" : "ADVANCED COURSES");
+        return (
         <>
           <div style={{ height: 1, background: "rgba(43,54,52,.22)", marginBottom: 40 }} />
           <div style={{ fontSize: 15, color: "#2b3634", lineHeight: 1.9, whiteSpace: "pre-wrap" }}>{content.replace(/^#{1,6}\s+/gm, "").replace(/\*\*([^*]+)\*\*/g, "$1").replace(/\*([^*]+)\*/g, "$1").replace(/^---+$/gm, "").replace(/^\|.*\|$/gm, m => m.replace(/\|/g, "  ").replace(/[-:]+/g, "").trim()).replace(/^[-] /gm, "  ").replace(/\n{3,}/g, "\n\n")}</div>
+
+          {courseNodes.length > 0 && (
+            <div style={{ marginTop: 48 }}>
+              <div style={{ height: 1, background: "rgba(43,54,52,.22)", marginBottom: 32 }} />
+              <div style={{ fontFamily: mono, fontSize: 11, letterSpacing: "0.2em", color: "#2b3634", marginBottom: 24 }}>{lang === "mn" ? "QUESTA ХИЧЭЭЛҮҮД" : "QUESTA COURSES"}</div>
+              {["f", "a", "o"].filter(s => byStage[s].length > 0).map(s => (
+                <div key={s} style={{ marginBottom: 28 }}>
+                  <div style={{ fontFamily: mono, fontSize: 10, letterSpacing: "0.15em", color: "#2b3634", marginBottom: 12 }}>{stageLabel(s)}</div>
+                  <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+                    {byStage[s].map(n => {
+                      const nb = NODE_BRANCH[n.id];
+                      return (
+                        <button key={n.id} onClick={() => { if (nb) go("tree", { subjectId: nb.subjectId, branchId: nb.branchId, nodeId: n.id }); }}
+                          style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "12px 16px", border: "1.5px solid rgba(43,54,52,.35)", borderRadius: 12, background: "rgba(43,54,52,.08)", cursor: "pointer", fontFamily: mono, fontSize: 12, color: "#2b3634", fontWeight: 600, textAlign: "left", transition: "all .2s", width: "100%" }}
+                          onMouseOver={e => { e.currentTarget.style.background = "rgba(43,54,52,.14)"; e.currentTarget.style.borderColor = "rgba(43,54,52,.5)"; }}
+                          onMouseOut={e => { e.currentTarget.style.background = "rgba(43,54,52,.08)"; e.currentTarget.style.borderColor = "rgba(43,54,52,.35)"; }}>
+                          <span>{n.name[lang] || n.name.en}</span>
+                          <span style={{ fontWeight: 400, fontSize: 11, flexShrink: 0, marginLeft: 12 }}>{n.weeks}w / {n.h}h</span>
+                        </button>
+                      );
+                    })}
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
+
           <div style={{ height: 1, background: "rgba(43,54,52,.22)", margin: "40px 0 24px" }} />
           <button onClick={() => { setContent(null); setPhase("intake"); setLevel(rm.level || ""); setHoursPerWeek(rm.hoursPerWeek || ""); setGoal(rm.goal || ""); setPriorKnowledge(rm.priorKnowledge || ""); setCompExp(rm.compExp || ""); setTimeline(rm.timeline || ""); setBiggestChallenge(rm.biggestChallenge || ""); }}
-            style={{ fontFamily: mono, fontSize: 12, color: "#2b3634", background: "none", border: "none", cursor: "pointer", padding: 0, letterSpacing: "0.1em" }}>
+            style={{ padding: "10px 20px", fontFamily: mono, fontSize: 12, color: "#2b3634", background: "rgba(43,54,52,.08)", border: "1.5px solid rgba(43,54,52,.35)", borderRadius: 10, cursor: "pointer", letterSpacing: "0.1em", fontWeight: 600, transition: "all .2s" }}
+            onMouseOver={e => { e.currentTarget.style.background = "rgba(43,54,52,.14)"; e.currentTarget.style.borderColor = "rgba(43,54,52,.5)"; }}
+            onMouseOut={e => { e.currentTarget.style.background = "rgba(43,54,52,.08)"; e.currentTarget.style.borderColor = "rgba(43,54,52,.35)"; }}>
             {lang === "mn" ? "Дахин үүсгэх" : "Regenerate"}
           </button>
         </>
-      )}
+        );
+      })()}
     </div>
   );
 }
