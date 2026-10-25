@@ -6863,12 +6863,12 @@ function HomePage() {
 
   return (
     <div style={{ position: "relative", background: "transparent" }}>
-      {/* Subtle greenish-gray atmospheric tint layers */}
+      {/* Greenish-gray atmospheric tint layers */}
       <div style={{ position: "absolute", inset: 0, overflow: "hidden", pointerEvents: "none", zIndex: 0 }}>
-        <div style={{ position: "absolute", top: "-10%", left: "-20%", width: "70%", height: "50%", background: "radial-gradient(ellipse at center, rgba(200,210,200,.18) 0%, transparent 70%)" }} />
-        <div style={{ position: "absolute", top: "25%", right: "-15%", width: "60%", height: "45%", background: "radial-gradient(ellipse at center, rgba(195,205,195,.15) 0%, transparent 70%)" }} />
-        <div style={{ position: "absolute", top: "55%", left: "-10%", width: "55%", height: "40%", background: "radial-gradient(ellipse at center, rgba(190,200,192,.14) 0%, transparent 70%)" }} />
-        <div style={{ position: "absolute", top: "80%", right: "-10%", width: "50%", height: "35%", background: "radial-gradient(ellipse at center, rgba(198,208,200,.12) 0%, transparent 70%)" }} />
+        <div style={{ position: "absolute", top: "-10%", left: "-20%", width: "80%", height: "60%", background: "radial-gradient(ellipse at center, rgba(180,200,180,.38) 0%, rgba(190,205,190,.12) 50%, transparent 75%)" }} />
+        <div style={{ position: "absolute", top: "20%", right: "-15%", width: "70%", height: "55%", background: "radial-gradient(ellipse at center, rgba(175,195,178,.32) 0%, rgba(185,200,185,.10) 50%, transparent 75%)" }} />
+        <div style={{ position: "absolute", top: "50%", left: "-10%", width: "65%", height: "50%", background: "radial-gradient(ellipse at center, rgba(178,198,180,.30) 0%, rgba(188,202,188,.10) 50%, transparent 75%)" }} />
+        <div style={{ position: "absolute", top: "75%", right: "-10%", width: "60%", height: "45%", background: "radial-gradient(ellipse at center, rgba(182,200,184,.28) 0%, rgba(190,204,190,.08) 50%, transparent 75%)" }} />
       </div>
 
                   <CinematicHero go={go} t={t} lang={lang} />
@@ -7326,8 +7326,8 @@ function LearningPage() {
   return (
     <div className="max-w-4xl mx-auto px-6" style={{ paddingTop: "clamp(24px,4vh,48px)", paddingBottom: "clamp(40px,6vh,64px)", position: "relative" }}>
       <div style={{ position: "absolute", inset: 0, overflow: "hidden", pointerEvents: "none", zIndex: 0 }}>
-        <div style={{ position: "absolute", top: "-5%", right: "-20%", width: "65%", height: "50%", background: "radial-gradient(ellipse at center, rgba(195,207,198,.18) 0%, transparent 70%)" }} />
-        <div style={{ position: "absolute", bottom: "0%", left: "-15%", width: "55%", height: "45%", background: "radial-gradient(ellipse at center, rgba(192,204,195,.15) 0%, transparent 70%)" }} />
+        <div style={{ position: "absolute", top: "-5%", right: "-20%", width: "75%", height: "55%", background: "radial-gradient(ellipse at center, rgba(180,200,182,.35) 0%, rgba(190,205,190,.12) 50%, transparent 75%)" }} />
+        <div style={{ position: "absolute", bottom: "0%", left: "-15%", width: "65%", height: "50%", background: "radial-gradient(ellipse at center, rgba(175,198,178,.30) 0%, rgba(188,202,188,.10) 50%, transparent 75%)" }} />
       </div>
       <BackToHome />
       <div style={{ marginBottom: "clamp(24px,4vh,40px)" }}>
@@ -7637,10 +7637,10 @@ function SubjectPage() {
 
   return (
     <div className="max-w-4xl mx-auto px-6 py-8" style={{ position: "relative" }}>
-      {/* Subtle greenish-gray atmospheric tint layers */}
+      {/* Greenish-gray atmospheric tint layers */}
       <div style={{ position: "absolute", inset: 0, overflow: "hidden", pointerEvents: "none", zIndex: 0 }}>
-        <div style={{ position: "absolute", top: "0%", right: "-20%", width: "65%", height: "50%", background: "radial-gradient(ellipse at center, rgba(195,207,198,.17) 0%, transparent 70%)" }} />
-        <div style={{ position: "absolute", bottom: "10%", left: "-15%", width: "55%", height: "45%", background: "radial-gradient(ellipse at center, rgba(192,204,195,.14) 0%, transparent 70%)" }} />
+        <div style={{ position: "absolute", top: "0%", right: "-20%", width: "75%", height: "55%", background: "radial-gradient(ellipse at center, rgba(178,200,180,.34) 0%, rgba(190,205,190,.12) 50%, transparent 75%)" }} />
+        <div style={{ position: "absolute", bottom: "10%", left: "-15%", width: "65%", height: "50%", background: "radial-gradient(ellipse at center, rgba(175,198,178,.30) 0%, rgba(188,202,188,.10) 50%, transparent 75%)" }} />
       </div>
       {/* Editorial subject header */}
       <div style={{ position: "relative", minHeight: "clamp(180px,28vh,280px)", display: "flex", flexDirection: "column", justifyContent: "center", marginBottom: 16 }}>
@@ -7739,8 +7739,8 @@ function TreePage() {
   return (
     <div className="max-w-4xl mx-auto px-6 py-8" style={{ position: "relative" }}>
       <div style={{ position: "absolute", inset: 0, overflow: "hidden", pointerEvents: "none", zIndex: 0 }}>
-        <div style={{ position: "absolute", top: "5%", left: "-20%", width: "60%", height: "45%", background: "radial-gradient(ellipse at center, rgba(195,207,198,.16) 0%, transparent 70%)" }} />
-        <div style={{ position: "absolute", bottom: "5%", right: "-15%", width: "55%", height: "40%", background: "radial-gradient(ellipse at center, rgba(192,204,195,.14) 0%, transparent 70%)" }} />
+        <div style={{ position: "absolute", top: "5%", left: "-20%", width: "70%", height: "50%", background: "radial-gradient(ellipse at center, rgba(178,200,180,.34) 0%, rgba(190,205,190,.12) 50%, transparent 75%)" }} />
+        <div style={{ position: "absolute", bottom: "5%", right: "-15%", width: "65%", height: "45%", background: "radial-gradient(ellipse at center, rgba(175,198,178,.30) 0%, rgba(188,202,188,.10) 50%, transparent 75%)" }} />
       </div>
       {/* Breadcrumb chain */}
       {(() => {
