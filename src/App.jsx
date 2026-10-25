@@ -115,7 +115,7 @@ const GlobalStyles = () => (
   <style>{`
     @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Archivo:wght@600;700;800;900&family=Montserrat:wght@600;700;800;900&display=swap');
     html, body, #root { overflow-x: hidden; max-width: 100vw; background: #f0f2ee; min-height: 100dvh; }
-    body::after { content:''; position:fixed; inset:0; z-index:0; pointer-events:none; background: radial-gradient(1400px 1000px at 85% 0%, rgba(55,68,64,.35), transparent 60%), radial-gradient(1200px 900px at 0% 95%, rgba(55,68,64,.28), transparent 62%), radial-gradient(1000px 800px at 50% 40%, rgba(55,68,64,.15), transparent 55%), radial-gradient(1300px 900px at 15% 20%, rgba(60,75,65,.18), transparent 58%), radial-gradient(1100px 800px at 80% 75%, rgba(58,72,63,.22), transparent 60%); }
+    body::after { content:''; position:fixed; inset:0; z-index:0; pointer-events:none; background: radial-gradient(1100px 800px at 85% 0%, rgba(55,68,64,.20), transparent 55%), radial-gradient(900px 700px at 0% 95%, rgba(55,68,64,.15), transparent 58%), radial-gradient(800px 600px at 50% 40%, rgba(55,68,64,.07), transparent 50%); }
     .q-ink { color: #2b3634; }
     textarea::-webkit-resizer { display: none; }
     .q-mono { font-family: 'Space Grotesk', ui-monospace, monospace; }
@@ -6762,10 +6762,10 @@ function CinematicHero({ go, t, lang }) {
       `}</style>
         {lang === "mn" ? <>СУДАЛГААНЫ ТЭМДЭГЛЭЛ<br />НЭЭЛТТЭЙ АРХИВ<br />ШИНЖЛЭХ УХААНЫ ТӨЛӨӨ</> : <>FIELD NOTES<br />OPEN ARCHIVE<br />FOR SCIENCE</>}
       </div>
-      {/* Green watercolor blooms */}
-      <div style={{ position: "absolute", top: "25%", left: "15%", width: 320, height: 340, borderRadius: "44% 56% 52% 48% / 48% 52% 56% 44%", background: "radial-gradient(ellipse, rgba(85,130,100,.30), transparent 72%)", filter: "blur(40px)", pointerEvents: "none" }} />
-      <div style={{ position: "absolute", top: "45%", left: "55%", width: 280, height: 300, borderRadius: "52% 48% 44% 56% / 56% 44% 52% 48%", background: "radial-gradient(ellipse, rgba(80,125,95,.26), transparent 70%)", filter: "blur(45px)", pointerEvents: "none" }} />
-      <div style={{ position: "absolute", top: "60%", left: "30%", width: 260, height: 280, borderRadius: "48% 52% 56% 44% / 44% 56% 48% 52%", background: "radial-gradient(ellipse, rgba(75,120,90,.22), transparent 68%)", filter: "blur(42px)", pointerEvents: "none" }} />
+      {/* Subtle green watercolor blooms */}
+      <div style={{ position: "absolute", top: "30%", left: "20%", width: 220, height: 240, borderRadius: "44% 56% 52% 48% / 48% 52% 56% 44%", background: "radial-gradient(ellipse, rgba(100,140,115,.18), transparent 72%)", filter: "blur(35px)", pointerEvents: "none" }} />
+      <div style={{ position: "absolute", top: "50%", left: "60%", width: 180, height: 200, borderRadius: "52% 48% 44% 56% / 56% 44% 52% 48%", background: "radial-gradient(ellipse, rgba(95,135,110,.15), transparent 70%)", filter: "blur(40px)", pointerEvents: "none" }} />
+      <div style={{ position: "absolute", top: "65%", left: "35%", width: 160, height: 180, borderRadius: "48% 52% 56% 44% / 44% 56% 48% 52%", background: "radial-gradient(ellipse, rgba(90,130,105,.12), transparent 68%)", filter: "blur(38px)", pointerEvents: "none" }} />
       {/* Dust specks */}
       <svg style={{ position: "absolute", inset: 0, width: "100%", height: "100%", zIndex: 1, pointerEvents: "none", opacity: 0.6 }} preserveAspectRatio="xMidYMid slice" viewBox="0 0 1200 900">
         {(() => {
@@ -6869,12 +6869,12 @@ function HomePage() {
     <div style={{ position: "relative", background: "transparent" }}>
       {/* Green atmospheric blooms across full page */}
       <div style={{ position: "absolute", top: 0, left: 0, right: 0, height: "100%", zIndex: 0, pointerEvents: "none", overflow: "hidden" }}>
-        <div style={{ position: "absolute", top: "5%", left: "60%", width: 340, height: 360, borderRadius: "44% 56% 52% 48%", background: "radial-gradient(ellipse, rgba(80,130,100,.28), transparent 72%)", filter: "blur(40px)" }} />
-        <div style={{ position: "absolute", top: "12%", left: "5%", width: 300, height: 320, borderRadius: "52% 48% 44% 56%", background: "radial-gradient(ellipse, rgba(75,125,95,.24), transparent 70%)", filter: "blur(45px)" }} />
-        <div style={{ position: "absolute", top: "30%", left: "45%", width: 360, height: 380, borderRadius: "48% 52% 56% 44%", background: "radial-gradient(ellipse, rgba(70,120,90,.26), transparent 68%)", filter: "blur(42px)" }} />
-        <div style={{ position: "absolute", top: "50%", left: "15%", width: 320, height: 340, borderRadius: "55% 45% 48% 52%", background: "radial-gradient(ellipse, rgba(78,128,98,.22), transparent 70%)", filter: "blur(48px)" }} />
-        <div style={{ position: "absolute", top: "65%", left: "65%", width: 280, height: 300, borderRadius: "45% 55% 50% 50%", background: "radial-gradient(ellipse, rgba(72,122,92,.20), transparent 72%)", filter: "blur(40px)" }} />
-        <div style={{ position: "absolute", top: "80%", left: "30%", width: 340, height: 360, borderRadius: "50% 50% 45% 55%", background: "radial-gradient(ellipse, rgba(76,126,96,.24), transparent 68%)", filter: "blur(44px)" }} />
+        <div style={{ position: "absolute", top: "8%", left: "65%", width: 200, height: 220, borderRadius: "44% 56% 52% 48%", background: "radial-gradient(ellipse, rgba(100,140,115,.16), transparent 72%)", filter: "blur(35px)" }} />
+        <div style={{ position: "absolute", top: "15%", left: "10%", width: 180, height: 200, borderRadius: "52% 48% 44% 56%", background: "radial-gradient(ellipse, rgba(95,135,110,.14), transparent 70%)", filter: "blur(40px)" }} />
+        <div style={{ position: "absolute", top: "35%", left: "50%", width: 220, height: 240, borderRadius: "48% 52% 56% 44%", background: "radial-gradient(ellipse, rgba(90,130,105,.15), transparent 68%)", filter: "blur(38px)" }} />
+        <div style={{ position: "absolute", top: "55%", left: "20%", width: 190, height: 210, borderRadius: "55% 45% 48% 52%", background: "radial-gradient(ellipse, rgba(98,138,112,.13), transparent 70%)", filter: "blur(42px)" }} />
+        <div style={{ position: "absolute", top: "70%", left: "70%", width: 170, height: 190, borderRadius: "45% 55% 50% 50%", background: "radial-gradient(ellipse, rgba(92,132,108,.12), transparent 72%)", filter: "blur(36px)" }} />
+        <div style={{ position: "absolute", top: "85%", left: "35%", width: 200, height: 220, borderRadius: "50% 50% 45% 55%", background: "radial-gradient(ellipse, rgba(96,136,110,.14), transparent 68%)", filter: "blur(40px)" }} />
       </div>
 
                   <CinematicHero go={go} t={t} lang={lang} />
