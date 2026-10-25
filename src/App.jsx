@@ -9183,7 +9183,7 @@ function ChatWidget() {
         <div ref={scrollRef} style={{ flex: 1, overflowY: "auto", padding: "20px 24px", display: "flex", flexDirection: "column", gap: 16 }}>
           {chatMsgs.map((m, i) => (
             <div key={i} style={{ alignSelf: m.role === "user" ? "flex-end" : "flex-start", maxWidth: "85%", padding: "12px 16px", borderRadius: 14, background: m.role === "user" ? "rgba(43,54,52,.08)" : "rgba(43,54,52,.03)", border: m.role === "user" ? "none" : "1px solid rgba(43,54,52,.22)", fontSize: 14, color: "#2b3634", lineHeight: 1.65 }}>
-              {m.role === "assistant" ? (() => { const lines = (m.text || "").split("\n"); return lines.map((l, li) => <p key={li} style={{ margin: li > 0 ? "8px 0 0" : 0 }}>{l}</p>); })() : m.text}
+              {m.role === "assistant" ? (() => { const lines = ((m.content || m.text) || "").split("\n"); return lines.map((l, li) => <p key={li} style={{ margin: li > 0 ? "8px 0 0" : 0 }}>{l}</p>); })() : (m.content || m.text)}
             </div>
           ))}
           {chatLoading && <div style={{ fontSize: 13, color: "#2b3634", fontStyle: "italic" }}>Thinking...</div>}
