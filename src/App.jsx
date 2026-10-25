@@ -6746,7 +6746,7 @@ function useScrollReveal() {
 function CinematicHero({ go, t, lang }) {
     const mono = "'Space Grotesk', 'Roboto Mono', ui-monospace, monospace";
   return (
-    <section className="hero-section" style={{ position: "relative", minHeight: "100dvh", width: "100%", display: "flex", flexDirection: "column", justifyContent: "space-between", overflow: "visible", background: "transparent", paddingBottom: "4rem" }}>
+    <section className="hero-section" style={{ position: "relative", minHeight: "100dvh", width: "100%", display: "flex", flexDirection: "column", justifyContent: "space-between", overflow: "visible", background: "transparent", paddingTop: "calc(80px + env(safe-area-inset-top, 0px))", paddingBottom: "4rem" }}>
       <style>{`
         @supports not (min-height: 100dvh) { .hero-section { min-height: -webkit-fill-available !important; } }
         @media (min-width: 768px) { .hero-section { padding-top: clamp(180px,28vh,300px) !important; } }
@@ -10262,7 +10262,7 @@ export default function App() {
   return (
     <QuestaCtx.Provider value={ctx}>
       <GlobalStyles />
-      <div className="min-h-screen flex flex-col q-grain" style={{ fontFamily: "system-ui, -apple-system, 'Segoe UI', sans-serif", background: "transparent", minHeight: "100dvh", color: "#2b3634" }}>
+      <div className="min-h-screen flex flex-col q-grain" style={{ fontFamily: "system-ui, -apple-system, 'Segoe UI', sans-serif", background: "transparent", minHeight: "100dvh", color: "#2b3634", overflowX: "hidden" }}>
         {/* ambient overlay div removed — empty fixed div caused rendering boundary on mobile */}
         <Navbar />
         <div style={{ height: "clamp(16px,3vh,32px)" }} />
