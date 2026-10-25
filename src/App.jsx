@@ -9506,23 +9506,23 @@ Present these as a clear LEARNING PATH: Course A → Course B → Course C, show
         }
       }
 
-      // Also gather relevant subject courses if no target-specific courses
+      // If no target-specific courses, provide full course catalog so AI can pick relevant ones
       if (!coursesCatalog) {
-        const relevantSubjects = [];
-        if (rm?.type === "competition" || rm?.type === "research") {
-          DB.subjects.forEach(s => {
-            const branches = s.branches || [];
-            branches.forEach(b => {
-              const foundationNodes = (b.nodes || []).filter(n => n.stage === "f").slice(0, 3);
-              if (foundationNodes.length > 0) {
-                relevantSubjects.push(`${s.name.en} → ${b.name.en}: ${foundationNodes.map(n => n.name.en + " (" + n.weeks + " weeks)").join(", ")}`);
-              }
-            });
-          });
-          if (relevantSubjects.length) {
-            coursesCatalog = `\n\nAVAILABLE QUESTA COURSES (reference these in your roadmap):
-${relevantSubjects.join("\n")}`;
-          }
+        const isMn = lang === "mn";
+        const allCourses = [];
+        Object.values(ALL_NODES).forEach(n => {
+          const name = n.name[isMn ? "mn" : "en"] || n.name.en;
+          const prereqNames = (n.prereqs || []).filter(p => ALL_NODES[p]).map(p => ALL_NODES[p].name[isMn ? "mn" : "en"] || ALL_NODES[p].name.en).join(", ");
+          const stageLabel = n.stage === "f" ? "Foundation" : n.stage === "a" ? "Core" : "Advanced";
+          allCourses.push(`${name} (${stageLabel}, ${n.weeks}w/${n.h}h)${prereqNames ? " [requires: " + prereqNames + "]" : ""}`);
+        });
+        if (allCourses.length) {
+          coursesCatalog = `\n\n═══ QUESTA KNOWLEDGE TREE COURSES ═══
+These are ALL available courses on the Questa platform. Based on the student's profile, goals, and target, SELECT ONLY the most relevant courses (typically 8-15) and build a personalized learning path from them. Do NOT list all courses. Reference each selected course by its EXACT name so it becomes a clickable link in the app.
+
+${allCourses.join("\n")}
+
+IMPORTANT: Only recommend courses that are directly relevant to this student's specific goal. Build a clear prerequisite chain: Course A then Course B then Course C.`;
         }
       }
 
@@ -9843,21 +9843,24 @@ QUALITY REQUIREMENTS
 
       {/* DONE */}
       {phase === "done" && content && (() => {
-        const target = rm?.targetId ? comps.find(c => c.id === rm.targetId) : null;
-        const collected = {};
-        const addN = (id) => { if (collected[id] || !ALL_NODES[id]) return; collected[id] = ALL_NODES[id]; (ALL_NODES[id].prereqs || []).forEach(addN); };
-        if (target) {
-          // Competition-specific: use target's required courses
-          const reqIds = [...(target.reqs || [])];
-          reqIds.forEach(addN);
-        } else {
-          // For general/research/skill roadmaps: show all foundation and core courses from ALL_NODES
-          Object.keys(ALL_NODES).forEach(id => {
-            const n = ALL_NODES[id];
-            if (n && (n.stage === "f" || n.stage === "a")) addN(id);
-          });
-        }
-        const courseNodes = Object.values(collected);
+        /* Build a map of ALL course names → nodes so we can detect which ones the AI mentioned */
+        const allNameMap = {};
+        Object.values(ALL_NODES).forEach(n => {
+          const en = (n.name?.en || "").toLowerCase();
+          const mn = (n.name?.mn || "").toLowerCase();
+          if (en && en.length > 3) allNameMap[en] = n;
+          if (mn && mn.length > 3) allNameMap[mn] = n;
+        });
+        /* Only collect courses that the AI actually referenced in the roadmap text */
+        const contentLower = (content || "").toLowerCase();
+        const mentioned = {};
+        Object.entries(allNameMap).forEach(([name, node]) => {
+          if (contentLower.includes(name)) mentioned[node.id] = node;
+        });
+        /* Also add prerequisite courses for mentioned ones */
+        const addPrereqs = (id) => { if (!ALL_NODES[id]) return; (ALL_NODES[id].prereqs || []).forEach(pid => { if (!mentioned[pid] && ALL_NODES[pid]) { mentioned[pid] = ALL_NODES[pid]; addPrereqs(pid); } }); };
+        Object.keys({ ...mentioned }).forEach(addPrereqs);
+        const courseNodes = Object.values(mentioned);
         const byStage = { f: [], a: [], o: [] };
         courseNodes.forEach(n => { if (byStage[n.stage]) byStage[n.stage].push(n); });
         const stageLabel = (s) => s === "f" ? (lang === "mn" ? "СУУРЬ ХИЧЭЭЛҮҮД" : "FOUNDATION COURSES") : s === "a" ? (lang === "mn" ? "ГОЛЛОХ ХИЧЭЭЛҮҮД" : "CORE COURSES") : (lang === "mn" ? "ГҮНЗГИЙРҮҮЛСЭН ХИЧЭЭЛҮҮД" : "ADVANCED COURSES");
