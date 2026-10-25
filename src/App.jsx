@@ -6863,7 +6863,13 @@ function HomePage() {
 
   return (
     <div style={{ position: "relative", background: "transparent" }}>
-      {/* Green atmospheric blooms removed — visible as tint bands on mobile */}
+      {/* Subtle greenish-gray atmospheric tint layers */}
+      <div style={{ position: "absolute", inset: 0, overflow: "hidden", pointerEvents: "none", zIndex: 0 }}>
+        <div style={{ position: "absolute", top: "-10%", left: "-20%", width: "70%", height: "50%", background: "radial-gradient(ellipse at center, rgba(200,210,200,.18) 0%, transparent 70%)" }} />
+        <div style={{ position: "absolute", top: "25%", right: "-15%", width: "60%", height: "45%", background: "radial-gradient(ellipse at center, rgba(195,205,195,.15) 0%, transparent 70%)" }} />
+        <div style={{ position: "absolute", top: "55%", left: "-10%", width: "55%", height: "40%", background: "radial-gradient(ellipse at center, rgba(190,200,192,.14) 0%, transparent 70%)" }} />
+        <div style={{ position: "absolute", top: "80%", right: "-10%", width: "50%", height: "35%", background: "radial-gradient(ellipse at center, rgba(198,208,200,.12) 0%, transparent 70%)" }} />
+      </div>
 
                   <CinematicHero go={go} t={t} lang={lang} />
                   {/* ─── WHAT IS QUESTA ─── */}
@@ -7318,7 +7324,11 @@ function BackToHome() {
 function LearningPage() {
   const { t, lang, go, completed, setPathId } = useQ();
   return (
-    <div className="max-w-4xl mx-auto px-6" style={{ paddingTop: "clamp(24px,4vh,48px)", paddingBottom: "clamp(40px,6vh,64px)" }}>
+    <div className="max-w-4xl mx-auto px-6" style={{ paddingTop: "clamp(24px,4vh,48px)", paddingBottom: "clamp(40px,6vh,64px)", position: "relative" }}>
+      <div style={{ position: "absolute", inset: 0, overflow: "hidden", pointerEvents: "none", zIndex: 0 }}>
+        <div style={{ position: "absolute", top: "-5%", right: "-20%", width: "65%", height: "50%", background: "radial-gradient(ellipse at center, rgba(195,207,198,.18) 0%, transparent 70%)" }} />
+        <div style={{ position: "absolute", bottom: "0%", left: "-15%", width: "55%", height: "45%", background: "radial-gradient(ellipse at center, rgba(192,204,195,.15) 0%, transparent 70%)" }} />
+      </div>
       <BackToHome />
       <div style={{ marginBottom: "clamp(24px,4vh,40px)" }}>
         <div className="q-mono" style={{ fontSize: 11, letterSpacing: "0.2em", color: "#2b3634", marginBottom: 16 }}>[ ARCHIVE ]</div>
@@ -7626,7 +7636,12 @@ function SubjectPage() {
   const branches = hasPaths && path ? pathBranches(s, path) : (s.branches || []);
 
   return (
-    <div className="max-w-4xl mx-auto px-6 py-8">
+    <div className="max-w-4xl mx-auto px-6 py-8" style={{ position: "relative" }}>
+      {/* Subtle greenish-gray atmospheric tint layers */}
+      <div style={{ position: "absolute", inset: 0, overflow: "hidden", pointerEvents: "none", zIndex: 0 }}>
+        <div style={{ position: "absolute", top: "0%", right: "-20%", width: "65%", height: "50%", background: "radial-gradient(ellipse at center, rgba(195,207,198,.17) 0%, transparent 70%)" }} />
+        <div style={{ position: "absolute", bottom: "10%", left: "-15%", width: "55%", height: "45%", background: "radial-gradient(ellipse at center, rgba(192,204,195,.14) 0%, transparent 70%)" }} />
+      </div>
       {/* Editorial subject header */}
       <div style={{ position: "relative", minHeight: "clamp(180px,28vh,280px)", display: "flex", flexDirection: "column", justifyContent: "center", marginBottom: 16 }}>
         {/* Scientific artifact - giant, faint, background */}
@@ -7722,7 +7737,11 @@ function TreePage() {
   const mono = "'Space Grotesk', ui-monospace, monospace";
 
   return (
-    <div className="max-w-4xl mx-auto px-6 py-8">
+    <div className="max-w-4xl mx-auto px-6 py-8" style={{ position: "relative" }}>
+      <div style={{ position: "absolute", inset: 0, overflow: "hidden", pointerEvents: "none", zIndex: 0 }}>
+        <div style={{ position: "absolute", top: "5%", left: "-20%", width: "60%", height: "45%", background: "radial-gradient(ellipse at center, rgba(195,207,198,.16) 0%, transparent 70%)" }} />
+        <div style={{ position: "absolute", bottom: "5%", right: "-15%", width: "55%", height: "40%", background: "radial-gradient(ellipse at center, rgba(192,204,195,.14) 0%, transparent 70%)" }} />
+      </div>
       {/* Breadcrumb chain */}
       {(() => {
         const treePath = (subject.paths || []).find((pp) => (pp.branches || []).includes(branchId));
