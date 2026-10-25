@@ -7774,13 +7774,6 @@ function TreePage() {
                     {done && <div className="q-mono" style={{ fontSize: 10, letterSpacing: "0.12em", color: "rgba(43,54,52,.35)", marginTop: 4, fontWeight: 500 }}>COMPLETED</div>}
                   </div>
                 </button>
-                <button
-                  onClick={(e) => { e.stopPropagation(); const nb = NODE_BRANCH[n.id]; const bn = nb && BRANCH_NAMES[nb.branchId]; askAI(lang === "mn" ? (n.name.mn || n.name.en) + " сэдвээр тусална уу?" : "Can you help me understand " + (n.name[lang] || n.name.en) + "?", nb ? nb.branchId : "main", bn ? (bn[lang] || bn.en) : null); }}
-                  style={{ fontFamily: mono, fontSize: 10, letterSpacing: "0.08em", color: "#2b3634", background: "rgba(43,54,52,.06)", border: "1.5px solid rgba(43,54,52,.25)", borderRadius: 10, padding: "8px 14px", cursor: "pointer", fontWeight: 600, flexShrink: 0, transition: "all .2s", whiteSpace: "nowrap" }}
-                  onMouseOver={e => { e.currentTarget.style.background = "rgba(43,54,52,.14)"; e.currentTarget.style.borderColor = "rgba(43,54,52,.5)"; }}
-                  onMouseOut={e => { e.currentTarget.style.background = "rgba(43,54,52,.06)"; e.currentTarget.style.borderColor = "rgba(43,54,52,.25)"; }}>
-                  {lang === "mn" ? "AI АСУУХ" : "ASK AI"}
-                </button>
               </div>
             );
           })}
@@ -7845,7 +7838,7 @@ function NodeDrawer() {
           </div>
 
           {/* Ask AI */}
-          <button onClick={() => { const nb = NODE_BRANCH[node.id]; const bn = nb && BRANCH_NAMES[nb.branchId]; close(); askAI("Can you help me understand " + (node.name[lang] || node.name.en) + "?", nb ? nb.branchId : "main", bn ? (bn[lang] || bn.en) : null); }}
+          <button onClick={() => { const nb = NODE_BRANCH[node.id]; const bn = nb && BRANCH_NAMES[nb.branchId]; close(); askAI(lang === "mn" ? (node.name.mn || node.name.en) + " сэдвээр тусална уу?" : "Can you help me understand " + (node.name[lang] || node.name.en) + "?", nb ? nb.branchId : "main", bn ? (bn[lang] || bn.en) : null); }}
             style={{ width: "100%", padding: "14px 0", border: "1.5px solid rgba(43,54,52,.35)", borderRadius: 14, background: "rgba(43,54,52,.08)", cursor: "pointer", fontFamily: mono, fontSize: 12, letterSpacing: "0.1em", color: "#2b3634", fontWeight: 600, marginBottom: 32, transition: "all .2s" }}
             onMouseOver={e => { e.currentTarget.style.background = "rgba(43,54,52,.14)"; e.currentTarget.style.borderColor = "rgba(43,54,52,.5)"; }}
             onMouseOut={e => { e.currentTarget.style.background = "rgba(43,54,52,.08)"; e.currentTarget.style.borderColor = "rgba(43,54,52,.35)"; }}>
