@@ -423,7 +423,7 @@ en: {
     stemCompleteProfile: "Complete STEM Profile", stemSaveProfile: "Save STEM Profile", stemProfileSaved: "STEM profile saved",
     stemRequired: "STEM profile incomplete", stemRequiredDesc: "Complete your STEM profile for better personalized roadmaps.",
     tabOverview: "Overview", tabSaved: "Saved",
-    manageRoadmaps: "Manage My Roadmaps", createNewRoadmap: "Create New Roadmap", pathSelect: "Choose your path", pathComp: "Competition Prep", pathResearch: "Research Project", pathCourse: "Course Mastery",
+    manageRoadmaps: "Manage My Roadmaps", myRoadmaps: "My Roadmaps", createNewRoadmap: "Create New Roadmap", pathSelect: "Choose your path", pathComp: "Competition Prep", pathResearch: "Research Project", pathCourse: "Course Mastery",
     researchDiagTitle: "Research Diagnostic", researchDomainLabel: "RESEARCH DOMAIN", researchDomainPh: "e.g. Condensed Matter Physics, Machine Learning, Synthetic Biology",
     researchExpLabel: "PRIOR RESEARCH EXPERIENCE", researchExpPh: "e.g. Read academic papers, used LaTeX/Python/MATLAB",
     researchGoalLabel: "RESEARCH GOAL", researchGoalPh: "e.g. Independent paper, lab application, finding a mentor",
@@ -601,7 +601,7 @@ mn: {
     stemCompleteProfile: "STEM профайл бөглөх", stemSaveProfile: "STEM профайл хадгалах", stemProfileSaved: "STEM профайл хадгалагдлаа",
     stemRequired: "STEM профайл бөглөгдөөгүй байна", stemRequiredDesc: "Илүү оновчтой зам авахын тулд STEM профайлаа бөглөнө үү.",
     tabOverview: "Тойм", tabSaved: "Хадгалсан",
-    manageRoadmaps: "Миний замууд", createNewRoadmap: "Шинэ зам үүсгэх", pathSelect: "Замаа сонгоно уу", pathComp: "Тэмцээнд бэлтгэх", pathResearch: "Судалгааны төсөл", pathCourse: "Хичээл эзэмших",
+    manageRoadmaps: "Замуудаа удирдах", myRoadmaps: "Миний замууд", createNewRoadmap: "Шинэ зам үүсгэх", pathSelect: "Замаа сонгоно уу", pathComp: "Тэмцээнд бэлтгэх", pathResearch: "Судалгааны төсөл", pathCourse: "Хичээл эзэмших",
     researchDiagTitle: "Судалгааны оношлогоо", researchDomainLabel: "СУДАЛГААНЫ ЧИГЛЭЛ", researchDomainPh: "жишээ нь Хатуу биетийн физик, Машин сургалт",
     researchExpLabel: "СУДАЛГААНЫ ТУРШЛАГА", researchExpPh: "жишээ нь Эрдмийн нийтлэл уншсан, LaTeX/Python ашигласан",
     researchGoalLabel: "СУДАЛГААНЫ ЗОРИЛГО", researchGoalPh: "жишээ нь Бие даасан нийтлэл, лабораторид нэгдэх, ментор олох",
@@ -8344,7 +8344,7 @@ function Dashboard() {
 
   const initials = (u.name || "?").split(" ").map(w => w[0]).join("").slice(0, 2).toUpperCase();
   const savedComps = comps.filter(c => Array.isArray(saved) && saved.includes(c.id));
-  const TABS = [["overview", t.tabOverview || "Overview"], ["roadmaps", t.manageRoadmaps || "Manage My Roadmaps"], ["saved", t.tabSaved || "Saved"], ["stem", t.stemProfileTab || "STEM Profile"]];
+  const TABS = [["overview", t.tabOverview || "Overview"], ["roadmaps", t.myRoadmaps || t.manageRoadmaps || "My Roadmaps"], ["saved", t.tabSaved || "Saved"], ["stem", t.stemProfileTab || "STEM Profile"]];
 
   const faintBtn = { fontFamily: mono, fontSize: 13, color: "#2b3634", border: "1.5px solid rgba(43,54,52,.35)", borderRadius: 14, padding: "12px 24px", background: "rgba(43,54,52,.08)", cursor: "pointer", fontWeight: 600, transition: "all .2s" };
   const faintHover = e => { e.currentTarget.style.background = "rgba(43,54,52,.14)"; e.currentTarget.style.borderColor = "rgba(43,54,52,.5)"; };
@@ -8542,9 +8542,6 @@ function Dashboard() {
               {lang === "mn" ? "Суралцаж эхлээрэй. Сэдэв гүйцээж, зам бий болгоод, тэмцээн хадгалаарай." : "Start learning to build your profile. Complete topics, create roadmaps, and save competitions."}
             </div>
           )}
-          <button onClick={() => go("roadmaps")} style={{ width: "100%", padding: "14px 0", ...faintBtn, marginTop: 8 }} onMouseOver={faintHover} onMouseOut={faintOut}>
-            {t.manageRoadmaps || "Manage My Roadmaps"}
-          </button>
         </div>
       )}
 
@@ -8565,7 +8562,7 @@ function Dashboard() {
             </button>
           ))}
           <button onClick={() => go("roadmaps")} style={{ width: "100%", padding: "14px 0", ...faintBtn, marginTop: 20 }} onMouseOver={faintHover} onMouseOut={faintOut}>
-            {t.createNewRoadmap || "Create New Roadmap"}
+            {t.manageRoadmaps || "Manage My Roadmaps"}
           </button>
         </div>
       )}
