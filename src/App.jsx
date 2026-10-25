@@ -8377,7 +8377,7 @@ function Dashboard() {
           [t.stemOutcomesLabel || "TARGET OUTCOMES", "targetOutcomes", t.stemOutcomesPh || "e.g. IOAA 2027, MIT OCW Quantum Physics", true],
         ].map(([label, key, ph, multi]) => (
           <div key={key} style={{ marginBottom: 18 }}>
-            <label style={{ fontFamily: mono, fontSize: 10, letterSpacing: "0.15em", color: "#2b3634", display: "block", marginBottom: 6 }}>{label}{key === "stemGoal" || key === "stemKnowledge" ? " *" : ""}</label>
+            <label style={{ fontFamily: mono, fontSize: 10, letterSpacing: "0.15em", color: "#2b3634", display: "block", marginBottom: 6 }}>{label}{(key === "stemGoal" || key === "stemKnowledge") ? React.createElement("span", { style: { color: "#c53030", marginLeft: 3 } }, "*") : null}</label>
             {multi ? (
               <textarea value={stemForm[key] || ""} onChange={e => setStemForm(p => ({ ...p, [key]: e.target.value }))} rows={2} placeholder={ph} style={textareaStyle} />
             ) : (
@@ -8451,7 +8451,7 @@ function Dashboard() {
       {!profileComplete && (
         <div style={{ width: "100%", padding: "16px 20px", background: "rgba(43,54,52,.04)", border: "1.5px solid rgba(43,54,52,.18)", borderRadius: 16, textAlign: "left", marginBottom: 28, display: "flex", alignItems: "center", justifyContent: "space-between", gap: 16, flexWrap: "wrap", boxSizing: "border-box" }}>
           <div>
-            <div style={{ fontFamily: mono, fontSize: 11, fontWeight: 600, color: "#2b3634", letterSpacing: "0.08em", marginBottom: 4 }}>{t.stemRequired || "STEM profile incomplete"}</div>
+            <div style={{ fontFamily: mono, fontSize: 11, fontWeight: 600, color: "#2b3634", letterSpacing: "0.08em", marginBottom: 4 }}>{t.stemRequired || "STEM profile incomplete"}{React.createElement("span", { style: { color: "#c53030", marginLeft: 4, fontSize: 14, fontWeight: 700 } }, "*")}</div>
             <div style={{ fontSize: 13, color: "#2b3634", lineHeight: 1.4 }}>{t.stemRequiredDesc || "Complete your STEM profile for better personalized roadmaps."}</div>
           </div>
           <button onClick={() => { setStemForm({ stemGoal: u.stemGoal || "", stemKnowledge: u.stemKnowledge || "", priorComps: u.priorComps || "", targetOutcomes: u.targetOutcomes || "" }); setStemModal(true); }}
@@ -8471,14 +8471,19 @@ function Dashboard() {
         {statCard(notesCount, lang === "mn" ? "ТЭМДЭГЛЭЛ" : "NOTES")}
       </div>
 
-      {/* Tabs */}
-      <div style={{ display: "flex", gap: 0, borderBottom: "1px solid rgba(43,54,52,.35)", marginBottom: 36, overflowX: "auto" }}>
+      {/* Tabs + Manage My Roadmaps button */}
+      <div style={{ display: "flex", gap: 0, borderBottom: "1px solid rgba(43,54,52,.35)", marginBottom: 36, overflowX: "auto", alignItems: "flex-end" }}>
         {TABS.map(([id, label]) => (
           <button key={id} onClick={() => setActiveTab(id)}
             style={{ fontFamily: mono, fontSize: 12, letterSpacing: "0.08em", color: activeTab === id ? "#2b3634" : "rgba(43,54,52,.35)", background: "none", border: "none", borderBottom: `2px solid ${activeTab === id ? "#2b3634" : "transparent"}`, padding: "10px 20px 12px", cursor: "pointer", marginBottom: -1, fontWeight: activeTab === id ? 600 : 400, whiteSpace: "nowrap" }}>
-            {label.toUpperCase()}
+            {label.toUpperCase()}{id === "stem" && !profileComplete ? React.createElement("span", { style: { color: "#c53030", marginLeft: 4, fontSize: 14, fontWeight: 700 } }, "*") : null}
           </button>
         ))}
+        <button onClick={() => go("roadmaps")}
+          style={{ fontFamily: mono, fontSize: 12, letterSpacing: "0.08em", color: "#2b3634", background: "none", border: "none", borderBottom: "2px solid transparent", padding: "10px 20px 12px", cursor: "pointer", marginBottom: -1, marginLeft: "auto", fontWeight: 600, whiteSpace: "nowrap", transition: "opacity .2s" }}
+          onMouseOver={e => e.currentTarget.style.opacity = "0.5"} onMouseOut={e => e.currentTarget.style.opacity = "1"}>
+          {(t.manageRoadmaps || "Manage My Roadmaps").toUpperCase()} &rarr;
+        </button>
       </div>
 
       {/* TAB: Overview */}
