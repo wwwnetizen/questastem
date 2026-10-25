@@ -10262,7 +10262,7 @@ export default function App() {
   return (
     <QuestaCtx.Provider value={ctx}>
       <GlobalStyles />
-      <div className="min-h-screen flex flex-col q-grain" style={{ fontFamily: "system-ui, -apple-system, 'Segoe UI', sans-serif", background: "#f0f2ee", minHeight: "100dvh", color: "#2b3634" }}>
+      <div className="min-h-screen flex flex-col q-grain" style={{ fontFamily: "system-ui, -apple-system, 'Segoe UI', sans-serif", background: "transparent", minHeight: "100dvh", color: "#2b3634" }}>
         {/* ambient overlay div removed — empty fixed div caused rendering boundary on mobile */}
         <Navbar />
         <div style={{ height: "clamp(16px,3vh,32px)" }} />
