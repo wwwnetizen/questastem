@@ -114,7 +114,7 @@ async function callAI(system, messages, opts = {}) {
 const GlobalStyles = () => (
   <style>{`
     @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Archivo:wght@600;700;800;900&family=Montserrat:wght@600;700;800;900&display=swap');
-    html, body, #root { overflow-x: hidden; max-width: 100vw; background: #f0f2ee; }
+    html, body, #root { overflow-x: hidden; max-width: 100vw; background: #f0f2ee; min-height: 100dvh; }
     .q-ink { color: #2b3634; }
     textarea::-webkit-resizer { display: none; }
     .q-mono { font-family: 'Space Grotesk', ui-monospace, monospace; }
@@ -123,7 +123,7 @@ const GlobalStyles = () => (
     .q-card::after { content:''; position:absolute; inset:0; z-index:0; border-radius:inherit; pointer-events:none; opacity:0.7; mix-blend-mode:multiply; background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='512' height='512'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.45'/%3E%3C/svg%3E"); background-repeat:repeat; background-size:512px 512px; }
     .q-card > * { position: relative; z-index: 1; }
     .q-no-grain::after { display: none !important; }
-    .q-grain::before { content:''; position:fixed; top:-20px; left:-20px; right:-20px; bottom:-20px; z-index:1; pointer-events:none; opacity:0.32; background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='512' height='512'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.35'/%3E%3C/svg%3E"); background-repeat:repeat; background-size:512px 512px; }
+    .q-grain::before { content:''; position:fixed; inset:-20px; z-index:1; pointer-events:none; opacity:0.32; background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='512' height='512'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.35'/%3E%3C/svg%3E"); background-repeat:repeat; background-size:512px 512px; }
     @keyframes qFloat { 0%{transform:translateY(0)} 100%{transform:translateY(-120vh)} }
     @keyframes qTwinkle { 0%,100%{opacity:.15;transform:scale(.8)} 50%{opacity:.9;transform:scale(1.15)} }
     @keyframes qPulseGlow { 0%,100%{box-shadow:0 0 0 0 rgba(109,40,217,.28)} 50%{box-shadow:0 0 0 9px rgba(109,40,217,0)} }
@@ -6745,8 +6745,9 @@ function useScrollReveal() {
 function CinematicHero({ go, t, lang }) {
     const mono = "'Space Grotesk', 'Roboto Mono', ui-monospace, monospace";
   return (
-    <section className="hero-section" style={{ position: "relative", minHeight: "85vh", display: "flex", alignItems: "center", justifyContent: "center", overflow: "visible", background: "transparent" }}>
+    <section className="hero-section" style={{ position: "relative", minHeight: "100dvh", display: "flex", alignItems: "center", justifyContent: "center", overflow: "visible", background: "transparent", paddingBottom: "clamp(3rem,10vh,6rem)" }}>
       <style>{`
+        @supports not (min-height: 100dvh) { .hero-section { min-height: -webkit-fill-available !important; } }
         @media (min-width: 768px) { .hero-section { align-items: flex-start !important; padding-top: clamp(180px,28vh,300px) !important; } }
       `}</style>
       {/* Editorial annotations */}
@@ -6864,7 +6865,7 @@ function HomePage() {
 
                   <CinematicHero go={go} t={t} lang={lang} />
                   {/* ─── WHAT IS QUESTA ─── */}
-      <section style={{ background: "transparent", padding: "clamp(60px,9vh,100px) 0", position: "relative", overflow: "visible", marginTop: "-12vh", zIndex: 2 }}>
+      <section style={{ background: "transparent", padding: "clamp(60px,9vh,100px) 0", position: "relative", overflow: "visible", zIndex: 2 }}>
 
         <div style={{ maxWidth: 860, margin: "0 auto", padding: "0 24px" }}>
           <div className="qs-reveal">
@@ -10254,7 +10255,7 @@ export default function App() {
   return (
     <QuestaCtx.Provider value={ctx}>
       <GlobalStyles />
-      <div className="min-h-screen flex flex-col q-grain" style={{ fontFamily: "system-ui, -apple-system, 'Segoe UI', sans-serif", background: "#f0f2ee", minHeight: "100vh", color: "#2b3634" }}>
+      <div className="min-h-screen flex flex-col q-grain" style={{ fontFamily: "system-ui, -apple-system, 'Segoe UI', sans-serif", background: "#f0f2ee", minHeight: "100dvh", color: "#2b3634" }}>
         {/* ambient overlay div removed — empty fixed div caused rendering boundary on mobile */}
         <Navbar />
         <div style={{ height: "clamp(16px,3vh,32px)" }} />
