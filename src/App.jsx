@@ -120,10 +120,10 @@ const GlobalStyles = () => (
     .q-mono { font-family: 'Space Grotesk', ui-monospace, monospace; }
     .q-display { font-family: 'Archivo', 'Montserrat', system-ui, sans-serif; }
     .q-card { position: relative; background: linear-gradient(155deg, #e8ece4 0%, #e5e9e1 30%, #e1e5dc 60%, #dde2d8 100%); }
-    .q-card::after { content:''; position:absolute; inset:0; z-index:0; border-radius:inherit; pointer-events:none; opacity:0.7; mix-blend-mode:multiply; background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.45'/%3E%3C/svg%3E"); background-repeat:repeat; background-size:400px 400px; }
+    .q-card::after { content:''; position:absolute; inset:0; z-index:0; border-radius:inherit; pointer-events:none; opacity:0.7; mix-blend-mode:multiply; background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='512' height='512'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.45'/%3E%3C/svg%3E"); background-repeat:repeat; background-size:512px 512px; }
     .q-card > * { position: relative; z-index: 1; }
     .q-no-grain::after { display: none !important; }
-    .q-grain::before { content:''; position:fixed; inset:0; z-index:1; pointer-events:none; opacity:0.4; mix-blend-mode:multiply; background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.35'/%3E%3C/svg%3E"); background-repeat:repeat; background-size:400px 400px; }
+    .q-grain::before { content:''; position:fixed; top:0; left:0; width:100vw; height:100vh; z-index:1; pointer-events:none; opacity:0.4; mix-blend-mode:multiply; background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='512' height='512'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.35'/%3E%3C/svg%3E"); background-repeat:repeat; background-size:512px 512px; }
     @keyframes qFloat { 0%{transform:translateY(0)} 100%{transform:translateY(-120vh)} }
     @keyframes qTwinkle { 0%,100%{opacity:.15;transform:scale(.8)} 50%{opacity:.9;transform:scale(1.15)} }
     @keyframes qPulseGlow { 0%,100%{box-shadow:0 0 0 0 rgba(109,40,217,.28)} 50%{box-shadow:0 0 0 9px rgba(109,40,217,0)} }
@@ -6584,8 +6584,7 @@ function Navbar() {
   const items = [["home", t.nav.home], ["learning", t.nav.learning], ["research", t.nav.research], ["competitions", t.nav.competitions], ["nasa", t.nav.nasa]];
   return (
     <header className="sticky top-0 z-40" style={{ padding: "10px 10px 10px", background: "transparent", pointerEvents: "none" }}>
-      {/* Soft transparent blur around navbar */}
-      <div style={{ position: "absolute", top: -15, left: 0, right: 0, bottom: -25, backdropFilter: "blur(10px)", WebkitBackdropFilter: "blur(10px)", WebkitMaskImage: "linear-gradient(to bottom, transparent 0%, rgba(0,0,0,.4) 20%, rgba(0,0,0,.6) 40%, rgba(0,0,0,.6) 60%, rgba(0,0,0,.4) 80%, transparent 100%)", maskImage: "linear-gradient(to bottom, transparent 0%, rgba(0,0,0,.4) 20%, rgba(0,0,0,.6) 40%, rgba(0,0,0,.6) 60%, rgba(0,0,0,.4) 80%, transparent 100%)", pointerEvents: "none" }} />
+      {/* outer blur halo removed — gradient mask caused visible line on mobile */}
       <div className="max-w-5xl mx-auto flex items-center justify-between" style={{ pointerEvents: "auto", background: "rgba(62,78,72,.65)", backdropFilter: "blur(20px)", WebkitBackdropFilter: "blur(20px)", borderRadius: 14, padding: "0 8px 0 20px", height: 50 }}>
         <button onClick={() => { go("home"); setOpen(false); }} className="shrink-0" style={{ background: "none", border: "none", cursor: "pointer", opacity: 0.9 }}><Logo size={26} onDark /></button>
         <div style={{ flex: 1 }} />
@@ -10256,10 +10255,7 @@ export default function App() {
     <QuestaCtx.Provider value={ctx}>
       <GlobalStyles />
       <div className="min-h-screen flex flex-col q-grain" style={{ fontFamily: "system-ui, -apple-system, 'Segoe UI', sans-serif", background: "#f0f2ee", minHeight: "100vh", color: "#2b3634" }}>
-        <div className="fixed inset-0 pointer-events-none" style={{ zIndex: 0 }} aria-hidden="true">
-          {/* ambient gradients removed — they showed as visible tint bands on mobile */}
-          {/* removed top/bottom tint bands — they showed as lighter strips on mobile */}
-        </div>
+        {/* ambient overlay div removed — empty fixed div caused rendering boundary on mobile */}
         <Navbar />
         <div style={{ height: "clamp(16px,3vh,32px)" }} />
         <main className="flex-1 relative" style={{ zIndex: 1 }}><Page /></main>
