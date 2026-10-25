@@ -6745,10 +6745,10 @@ function useScrollReveal() {
 function CinematicHero({ go, t, lang }) {
     const mono = "'Space Grotesk', 'Roboto Mono', ui-monospace, monospace";
   return (
-    <section className="hero-section" style={{ position: "relative", minHeight: "100dvh", display: "flex", alignItems: "center", justifyContent: "center", overflow: "visible", background: "transparent", paddingBottom: "clamp(3rem,10vh,6rem)" }}>
+    <section className="hero-section" style={{ position: "relative", minHeight: "100dvh", width: "100%", display: "flex", flexDirection: "column", justifyContent: "space-between", overflow: "hidden", background: "transparent", paddingBottom: "4rem" }}>
       <style>{`
         @supports not (min-height: 100dvh) { .hero-section { min-height: -webkit-fill-available !important; } }
-        @media (min-width: 768px) { .hero-section { align-items: flex-start !important; padding-top: clamp(180px,28vh,300px) !important; } }
+        @media (min-width: 768px) { .hero-section { padding-top: clamp(180px,28vh,300px) !important; } }
       `}</style>
       {/* Editorial annotations */}
       <div className="hero-ann-left" style={{ position: "absolute", top: "clamp(80px,12vh,120px)", left: "clamp(24px,5vw,64px)", zIndex: 3, fontFamily: "'Space Grotesk', monospace", fontSize: 11, letterSpacing: "0.1em", color: "#2b3634", lineHeight: 1.7 }}>
@@ -6825,13 +6825,15 @@ function CinematicHero({ go, t, lang }) {
           if(i>20){ ctx.fillRect((x-xMin)*sx, (yMax-y)*sy, 0.8, 0.8); }
         }
       }} style={{ position: "absolute", bottom: "16%", left: "52%", transform: "translateX(-50%)", width: 560, height: 256, zIndex: 1, pointerEvents: "none", opacity: 0.13 }} />
-      {/* Typography */}
-      <div style={{ position: "relative", zIndex: 2, padding: "0 clamp(24px,6vw,90px)", width: "100%", maxWidth: 1200 }}>
-        <h1 style={{ margin: 0, lineHeight: 0.94, textAlign: "left", maxWidth: 900 }}>
-          <span className="hero-title-line" style={{ display: "block", fontFamily: "'Archivo', 'Montserrat', sans-serif", fontSize: "clamp(48px,10vw,140px)", fontWeight: 800, color: "#2b3634", letterSpacing: "-0.045em" }}>{lang === "mn" ? "СУРАЛЦАХАД" : "ALWAYS MORE"}</span>
-          <span className="hero-title-line" style={{ display: "block", fontFamily: "'Archivo', 'Montserrat', sans-serif", fontSize: "clamp(48px,10vw,140px)", fontWeight: 800, color: "#2b3634", letterSpacing: "-0.045em", marginTop: "-0.04em" }}>{lang === "mn" ? "ХЯЗГААР ҮГҮЙ" : "TO LEARN"}</span>
-          <style>{`@media (min-width: 768px) { .hero-title-line { font-size: clamp(48px,8vw,110px) !important; } }`}</style>
-        </h1>
+      {/* Main content centered */}
+      <div style={{ flex: 1, display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center" }}>
+        <div style={{ position: "relative", zIndex: 2, padding: "0 clamp(24px,6vw,90px)", width: "100%", maxWidth: 1200 }}>
+          <h1 style={{ margin: 0, lineHeight: 0.94, textAlign: "left", maxWidth: 900 }}>
+            <span className="hero-title-line" style={{ display: "block", fontFamily: "'Archivo', 'Montserrat', sans-serif", fontSize: "clamp(48px,10vw,140px)", fontWeight: 800, color: "#2b3634", letterSpacing: "-0.045em" }}>{lang === "mn" ? "СУРАЛЦАХАД" : "ALWAYS MORE"}</span>
+            <span className="hero-title-line" style={{ display: "block", fontFamily: "'Archivo', 'Montserrat', sans-serif", fontSize: "clamp(48px,10vw,140px)", fontWeight: 800, color: "#2b3634", letterSpacing: "-0.045em", marginTop: "-0.04em" }}>{lang === "mn" ? "ХЯЗГААР ҮГҮЙ" : "TO LEARN"}</span>
+            <style>{`@media (min-width: 768px) { .hero-title-line { font-size: clamp(48px,8vw,110px) !important; } }`}</style>
+          </h1>
+        </div>
       </div>
     </section>
   );
