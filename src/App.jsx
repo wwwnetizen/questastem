@@ -6745,7 +6745,7 @@ function useScrollReveal() {
 function CinematicHero({ go, t, lang }) {
     const mono = "'Space Grotesk', 'Roboto Mono', ui-monospace, monospace";
   return (
-    <section className="hero-section" style={{ position: "relative", minHeight: "100dvh", width: "100%", display: "flex", flexDirection: "column", justifyContent: "space-between", overflow: "hidden", background: "transparent", paddingBottom: "4rem" }}>
+    <section className="hero-section" style={{ position: "relative", minHeight: "100dvh", width: "100%", display: "flex", flexDirection: "column", justifyContent: "space-between", overflow: "visible", background: "#f0f2ee", paddingBottom: "4rem" }}>
       <style>{`
         @supports not (min-height: 100dvh) { .hero-section { min-height: -webkit-fill-available !important; } }
         @media (min-width: 768px) { .hero-section { padding-top: clamp(180px,28vh,300px) !important; } }
