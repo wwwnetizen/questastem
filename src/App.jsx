@@ -7724,7 +7724,7 @@ function SubjectPage() {
 
 /* ═══ MODULE: components/TreePage.jsx ═══ */
 function TreePage() {
-  const { t, lang, branchId, completed, setDrawerNode, go, setPathId } = useQ();
+  const { t, lang, branchId, completed, setDrawerNode, go, setPathId, askAI } = useQ();
   const found = findBranch(branchId) || { subject: DB.subjects[0], branch: DB.subjects[0].branches[0] };
   const { subject, branch: p } = found;
   const pr = branchProgress(p, completed);
@@ -7770,21 +7770,29 @@ function TreePage() {
           {p.nodes.map((n, i) => {
             const done = completed[n.id];
             return (
-              <button key={n.id}
-                onClick={() => setDrawerNode(ALL_NODES[n.id])}
-                className="text-left group"
-                style={{ display: "flex", alignItems: "baseline", gap: "clamp(16px,3vw,28px)", padding: "clamp(28px,4vh,40px) 0", borderBottom: i < p.nodes.length - 1 ? "1px solid rgba(43,54,52,.08)" : "none", cursor: "pointer", transition: "opacity .15s", width: "100%" }}
-                onMouseOver={e => { e.currentTarget.style.opacity = "0.6"; e.currentTarget.querySelector("[data-arrow]").style.opacity = "1"; }}
-                onMouseOut={e => { e.currentTarget.style.opacity = "1"; e.currentTarget.querySelector("[data-arrow]").style.opacity = "0"; }}>
-                <span style={{ fontFamily: mono, fontSize: 13, color: done ? "rgba(43,54,52,.3)" : "rgba(43,54,52,.6)", fontWeight: 500, flexShrink: 0, width: 32 }}>{String(i + 1).padStart(2, "0")}</span>
-                <div style={{ flex: 1, minWidth: 0 }}>
-                  <span className="q-display" style={{ fontSize: "clamp(18px,3vw,28px)", fontWeight: 700, color: done ? "rgba(43,54,52,.35)" : "#2b3634", letterSpacing: "-0.025em" }}>
-                    {n.name[lang] || n.name.en}
-                  </span>
-                  {done && <div className="q-mono" style={{ fontSize: 10, letterSpacing: "0.12em", color: "rgba(43,54,52,.35)", marginTop: 4, fontWeight: 500 }}>COMPLETED</div>}
-                </div>
-                <span data-arrow="" style={{ fontSize: 18, color: "#2b3634", flexShrink: 0, opacity: 0, transition: "opacity .15s" }}>{String.fromCharCode(187)}</span>
-              </button>
+              <div key={n.id} style={{ display: "flex", alignItems: "center", gap: 0, borderBottom: i < p.nodes.length - 1 ? "1px solid rgba(43,54,52,.08)" : "none" }}>
+                <button
+                  onClick={() => setDrawerNode(ALL_NODES[n.id])}
+                  className="text-left group"
+                  style={{ display: "flex", alignItems: "baseline", gap: "clamp(16px,3vw,28px)", padding: "clamp(28px,4vh,40px) 0", cursor: "pointer", transition: "opacity .15s", flex: 1, minWidth: 0, background: "none", border: "none" }}
+                  onMouseOver={e => e.currentTarget.style.opacity = "0.6"}
+                  onMouseOut={e => e.currentTarget.style.opacity = "1"}>
+                  <span style={{ fontFamily: mono, fontSize: 13, color: done ? "rgba(43,54,52,.3)" : "rgba(43,54,52,.6)", fontWeight: 500, flexShrink: 0, width: 32 }}>{String(i + 1).padStart(2, "0")}</span>
+                  <div style={{ flex: 1, minWidth: 0 }}>
+                    <span className="q-display" style={{ fontSize: "clamp(18px,3vw,28px)", fontWeight: 700, color: done ? "rgba(43,54,52,.35)" : "#2b3634", letterSpacing: "-0.025em" }}>
+                      {n.name[lang] || n.name.en}
+                    </span>
+                    {done && <div className="q-mono" style={{ fontSize: 10, letterSpacing: "0.12em", color: "rgba(43,54,52,.35)", marginTop: 4, fontWeight: 500 }}>COMPLETED</div>}
+                  </div>
+                </button>
+                <button
+                  onClick={(e) => { e.stopPropagation(); const nb = NODE_BRANCH[n.id]; const bn = nb && BRANCH_NAMES[nb.branchId]; askAI(lang === "mn" ? (n.name.mn || n.name.en) + " сэдвээр тусална уу?" : "Can you help me understand " + (n.name[lang] || n.name.en) + "?", nb ? nb.branchId : "main", bn ? (bn[lang] || bn.en) : null); }}
+                  style={{ fontFamily: mono, fontSize: 10, letterSpacing: "0.08em", color: "#2b3634", background: "rgba(43,54,52,.06)", border: "1.5px solid rgba(43,54,52,.25)", borderRadius: 10, padding: "8px 14px", cursor: "pointer", fontWeight: 600, flexShrink: 0, transition: "all .2s", whiteSpace: "nowrap" }}
+                  onMouseOver={e => { e.currentTarget.style.background = "rgba(43,54,52,.14)"; e.currentTarget.style.borderColor = "rgba(43,54,52,.5)"; }}
+                  onMouseOut={e => { e.currentTarget.style.background = "rgba(43,54,52,.06)"; e.currentTarget.style.borderColor = "rgba(43,54,52,.25)"; }}>
+                  {lang === "mn" ? "AI АСУУХ" : "ASK AI"}
+                </button>
+              </div>
             );
           })}
         </div>
@@ -10261,7 +10269,7 @@ export default function App() {
       <div className="min-h-screen flex flex-col q-grain" style={{ fontFamily: "system-ui, -apple-system, 'Segoe UI', sans-serif", background: "#f0f2ee", minHeight: "100vh", color: "#2b3634" }}>
         <div className="fixed inset-0 pointer-events-none" style={{ zIndex: 0 }} aria-hidden="true">
           <div className="absolute inset-0" style={{ background: "radial-gradient(1100px 800px at 85% 0%, rgba(55,68,64,.20), transparent 55%), radial-gradient(900px 700px at 0% 95%, rgba(55,68,64,.15), transparent 58%), radial-gradient(800px 600px at 50% 40%, rgba(55,68,64,.07), transparent 50%)" }} />
-          <div className="absolute inset-0" style={{ background: "radial-gradient(ellipse 120% 60% at 50% -5%, rgba(43,54,52,.08), transparent), radial-gradient(ellipse 120% 50% at 50% 105%, rgba(43,54,52,.10), transparent)" }} />
+          {/* removed top/bottom tint bands — they showed as lighter strips on mobile */}
         </div>
         <Navbar />
         <div style={{ height: "clamp(16px,3vh,32px)" }} />
