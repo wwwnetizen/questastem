@@ -6316,7 +6316,7 @@ function buildSystemPrompt(state) {
   const rmActive = roadmaps ? (roadmaps.find((r) => r.id === activeRoadmap) || roadmaps[0] || null) : null;
   const rmNextCourses = rmActive ? roadmapAllIds(rmActive).filter((id) => !completed[id]).slice(0, 5).map((id) => (ALL_NODES[id] ? ALL_NODES[id].name.en : id)).join(", ") || "all done!" : "-";
   const branches = DB.subjects.map((s) =>
-    s.icon + " " + s.name.en + ": " + (s.branches || []).map((b) => {
+    s.name.en + ": " + (s.branches || []).map((b) => {
       const pr = branchProgress(b, completed);
       return `${b.name[lang] || b.name.en} ${pr.done}/${pr.total}`;
     }).join(" | ")
