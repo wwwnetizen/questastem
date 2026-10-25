@@ -8474,7 +8474,7 @@ function Dashboard() {
       {/* Tabs */}
       <div style={{ display: "flex", gap: 0, borderBottom: "1px solid rgba(43,54,52,.35)", marginBottom: 36, overflowX: "auto" }}>
         {TABS.map(([id, label]) => (
-          <button key={id} onClick={() => id === "roadmaps" ? go("roadmaps") : setActiveTab(id)}
+          <button key={id} onClick={() => setActiveTab(id)}
             style={{ fontFamily: mono, fontSize: 12, letterSpacing: "0.08em", color: activeTab === id ? "#2b3634" : "rgba(43,54,52,.35)", background: "none", border: "none", borderBottom: `2px solid ${activeTab === id ? "#2b3634" : "transparent"}`, padding: "10px 20px 12px", cursor: "pointer", marginBottom: -1, fontWeight: activeTab === id ? 600 : 400, whiteSpace: "nowrap" }}>
             {label.toUpperCase()}{id === "stem" && !profileComplete ? React.createElement("span", { style: { color: "#c53030", marginLeft: 4, fontSize: 14, fontWeight: 700 } }, "*") : null}
           </button>
@@ -8540,6 +8540,28 @@ function Dashboard() {
           )}
           <button onClick={() => go("roadmaps")} style={{ width: "100%", padding: "14px 0", ...faintBtn, marginTop: 8 }} onMouseOver={faintHover} onMouseOut={faintOut}>
             {t.manageRoadmaps || "Manage My Roadmaps"}
+          </button>
+        </div>
+      )}
+
+      {/* TAB: Roadmaps */}
+      {activeTab === "roadmaps" && (
+        <div>
+          {roadmaps.length === 0 ? (
+            <div style={{ fontSize: 13, color: "#2b3634", fontFamily: mono, padding: "24px 0" }}>{t.rmNone || "No roadmaps yet."}</div>
+          ) : roadmaps.map((rm, i) => (
+            <button key={rm.id} onClick={() => openRoadmap(rm.id)}
+              style={{ display: "flex", alignItems: "center", justifyContent: "space-between", width: "100%", padding: "clamp(16px,2.5vh,24px) 0", borderBottom: i < roadmaps.length - 1 ? "1px solid rgba(43,54,52,.08)" : "none", cursor: "pointer", textAlign: "left", background: "none", border: "none", transition: "opacity .2s" }}
+              onMouseOver={e => e.currentTarget.style.opacity = "0.6"} onMouseOut={e => e.currentTarget.style.opacity = "1"}>
+              <div>
+                <div style={{ fontSize: 15, fontWeight: 600, color: "#2b3634" }}>{rm.title || "Roadmap"}</div>
+                <div style={{ fontFamily: mono, fontSize: 11, color: "#2b3634", marginTop: 3 }}>{rm.created ? new Date(rm.created).toLocaleDateString() : ""}{rm.type ? " · " + rm.type : ""}</div>
+              </div>
+              <span style={{ fontFamily: mono, fontSize: 11, color: "#2b3634" }}>{rm.content ? (lang === "mn" ? "Бэлэн" : "Generated") : (lang === "mn" ? "Хүлээгдэж байна" : "Pending")} &rarr;</span>
+            </button>
+          ))}
+          <button onClick={() => go("roadmaps")} style={{ width: "100%", padding: "14px 0", ...faintBtn, marginTop: 20 }} onMouseOver={faintHover} onMouseOut={faintOut}>
+            {t.createNewRoadmap || "Create New Roadmap"}
           </button>
         </div>
       )}
