@@ -10268,7 +10268,7 @@ export default function App() {
       <GlobalStyles />
       <div className="min-h-screen flex flex-col q-grain" style={{ fontFamily: "system-ui, -apple-system, 'Segoe UI', sans-serif", background: "#f0f2ee", minHeight: "100vh", color: "#2b3634" }}>
         <div className="fixed inset-0 pointer-events-none" style={{ zIndex: 0 }} aria-hidden="true">
-          <div className="absolute inset-0" style={{ background: "radial-gradient(1100px 800px at 85% 0%, rgba(55,68,64,.20), transparent 55%), radial-gradient(900px 700px at 0% 95%, rgba(55,68,64,.15), transparent 58%), radial-gradient(800px 600px at 50% 40%, rgba(55,68,64,.07), transparent 50%)" }} />
+          <div className="absolute inset-0" style={{ background: "radial-gradient(1100px 800px at 85% 0%, rgba(55,68,64,.20), transparent 55%), radial-gradient(800px 600px at 50% 40%, rgba(55,68,64,.07), transparent 50%)" }} />
           {/* removed top/bottom tint bands — they showed as lighter strips on mobile */}
         </div>
         <Navbar />
