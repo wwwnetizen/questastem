@@ -420,9 +420,9 @@ en: {
     stemOutcomesLabel: "TARGET OUTCOMES", stemOutcomesPh: "e.g. IOAA 2027, MIT OCW Quantum Physics, Research Paper",
     stemIncomplete: "Complete your STEM profile to unlock personalized roadmaps.",
     stemCompleteProfile: "Complete STEM Profile", stemSaveProfile: "Save STEM Profile", stemProfileSaved: "STEM profile saved",
-    stemRequired: "STEM profile required", stemRequiredDesc: "Please complete your STEM profile before creating a roadmap.",
-    tabOverview: "Overview", tabRoadmaps: "Roadmaps", tabSaved: "Saved",
-    createNewRoadmap: "Create New Roadmap", pathSelect: "Choose your path", pathComp: "Competition Prep", pathResearch: "Research Project", pathCourse: "Course Mastery",
+    stemRequired: "STEM profile incomplete", stemRequiredDesc: "Complete your STEM profile for better personalized roadmaps.",
+    tabOverview: "Overview", tabSaved: "Saved",
+    manageRoadmaps: "Manage My Roadmaps", createNewRoadmap: "Create New Roadmap", pathSelect: "Choose your path", pathComp: "Competition Prep", pathResearch: "Research Project", pathCourse: "Course Mastery",
     researchDiagTitle: "Research Diagnostic", researchDomainLabel: "RESEARCH DOMAIN", researchDomainPh: "e.g. Condensed Matter Physics, Machine Learning, Synthetic Biology",
     researchExpLabel: "PRIOR RESEARCH EXPERIENCE", researchExpPh: "e.g. Read academic papers, used LaTeX/Python/MATLAB",
     researchGoalLabel: "RESEARCH GOAL", researchGoalPh: "e.g. Independent paper, lab application, finding a mentor",
@@ -598,9 +598,9 @@ mn: {
     stemOutcomesLabel: "ЗОРИЛТОТ ҮР ДҮН", stemOutcomesPh: "жишээ нь IOAA 2027, MIT OCW Квант физик, Судалгааны нийтлэл",
     stemIncomplete: "Хувийн суралцах зам нээхийн тулд STEM профайлаа бөглөнө үү.",
     stemCompleteProfile: "STEM профайл бөглөх", stemSaveProfile: "STEM профайл хадгалах", stemProfileSaved: "STEM профайл хадгалагдлаа",
-    stemRequired: "STEM профайл шаардлагатай", stemRequiredDesc: "Зам үүсгэхийн өмнө STEM профайлаа бөглөнө үү.",
-    tabOverview: "Тойм", tabRoadmaps: "Замууд", tabSaved: "Хадгалсан",
-    createNewRoadmap: "Шинэ зам үүсгэх", pathSelect: "Замаа сонгоно уу", pathComp: "Тэмцээнд бэлтгэх", pathResearch: "Судалгааны төсөл", pathCourse: "Хичээл эзэмших",
+    stemRequired: "STEM профайл бөглөгдөөгүй байна", stemRequiredDesc: "Илүү оновчтой зам авахын тулд STEM профайлаа бөглөнө үү.",
+    tabOverview: "Тойм", tabSaved: "Хадгалсан",
+    manageRoadmaps: "Миний замууд", createNewRoadmap: "Шинэ зам үүсгэх", pathSelect: "Замаа сонгоно уу", pathComp: "Тэмцээнд бэлтгэх", pathResearch: "Судалгааны төсөл", pathCourse: "Хичээл эзэмших",
     researchDiagTitle: "Судалгааны оношлогоо", researchDomainLabel: "СУДАЛГААНЫ ЧИГЛЭЛ", researchDomainPh: "жишээ нь Хатуу биетийн физик, Машин сургалт",
     researchExpLabel: "СУДАЛГААНЫ ТУРШЛАГА", researchExpPh: "жишээ нь Эрдмийн нийтлэл уншсан, LaTeX/Python ашигласан",
     researchGoalLabel: "СУДАЛГААНЫ ЗОРИЛГО", researchGoalPh: "жишээ нь Бие даасан нийтлэл, лабораторид нэгдэх, ментор олох",
@@ -8340,7 +8340,7 @@ function Dashboard() {
 
   const initials = (u.name || "?").split(" ").map(w => w[0]).join("").slice(0, 2).toUpperCase();
   const savedComps = comps.filter(c => Array.isArray(saved) && saved.includes(c.id));
-  const TABS = [["overview", t.tabOverview || "Overview"], ["roadmaps", t.tabRoadmaps || "Roadmaps"], ["saved", t.tabSaved || "Saved"], ["stem", t.stemProfileTab || "STEM Profile"]];
+  const TABS = [["overview", t.tabOverview || "Overview"], ["saved", t.tabSaved || "Saved"], ["stem", t.stemProfileTab || "STEM Profile"]];
 
   const faintBtn = { fontFamily: mono, fontSize: 13, color: "#2b3634", border: "1.5px solid rgba(43,54,52,.35)", borderRadius: 14, padding: "12px 24px", background: "rgba(43,54,52,.08)", cursor: "pointer", fontWeight: 600, transition: "all .2s" };
   const faintHover = e => { e.currentTarget.style.background = "rgba(43,54,52,.14)"; e.currentTarget.style.borderColor = "rgba(43,54,52,.5)"; };
@@ -8447,15 +8447,20 @@ function Dashboard() {
         </div>
       )}
 
-      {/* Incomplete STEM profile banner */}
+      {/* Incomplete STEM profile warning */}
       {!profileComplete && (
-        <button onClick={() => { setStemForm({ stemGoal: u.stemGoal || "", stemKnowledge: u.stemKnowledge || "", priorComps: u.priorComps || "", targetOutcomes: u.targetOutcomes || "" }); setStemModal(true); }}
-          style={{ width: "100%", padding: "16px 20px", background: "rgba(43,54,52,.06)", border: "1.5px dashed rgba(43,54,52,.3)", borderRadius: 16, cursor: "pointer", textAlign: "left", marginBottom: 28, transition: "all .2s" }}
-          onMouseOver={e => { e.currentTarget.style.background = "rgba(43,54,52,.1)"; e.currentTarget.style.borderColor = "rgba(43,54,52,.5)"; }}
-          onMouseOut={e => { e.currentTarget.style.background = "rgba(43,54,52,.06)"; e.currentTarget.style.borderColor = "rgba(43,54,52,.3)"; }}>
-          <div style={{ fontFamily: mono, fontSize: 11, fontWeight: 600, color: "#2b3634", letterSpacing: "0.08em", marginBottom: 4 }}>{t.stemRequired || "STEM profile required"}</div>
-          <div style={{ fontSize: 13, color: "#2b3634", lineHeight: 1.4 }}>{t.stemIncomplete || "Complete your STEM profile to unlock personalized roadmaps."}</div>
-        </button>
+        <div style={{ width: "100%", padding: "16px 20px", background: "rgba(43,54,52,.04)", border: "1.5px solid rgba(43,54,52,.18)", borderRadius: 16, textAlign: "left", marginBottom: 28, display: "flex", alignItems: "center", justifyContent: "space-between", gap: 16, flexWrap: "wrap", boxSizing: "border-box" }}>
+          <div>
+            <div style={{ fontFamily: mono, fontSize: 11, fontWeight: 600, color: "#2b3634", letterSpacing: "0.08em", marginBottom: 4 }}>{t.stemRequired || "STEM profile incomplete"}</div>
+            <div style={{ fontSize: 13, color: "#2b3634", lineHeight: 1.4 }}>{t.stemRequiredDesc || "Complete your STEM profile for better personalized roadmaps."}</div>
+          </div>
+          <button onClick={() => { setStemForm({ stemGoal: u.stemGoal || "", stemKnowledge: u.stemKnowledge || "", priorComps: u.priorComps || "", targetOutcomes: u.targetOutcomes || "" }); setStemModal(true); }}
+            style={{ fontFamily: mono, fontSize: 11, color: "#2b3634", border: "1.5px solid rgba(43,54,52,.35)", borderRadius: 10, padding: "8px 16px", background: "rgba(43,54,52,.08)", cursor: "pointer", fontWeight: 600, whiteSpace: "nowrap", transition: "all .2s" }}
+            onMouseOver={e => { e.currentTarget.style.background = "rgba(43,54,52,.14)"; e.currentTarget.style.borderColor = "rgba(43,54,52,.5)"; }}
+            onMouseOut={e => { e.currentTarget.style.background = "rgba(43,54,52,.08)"; e.currentTarget.style.borderColor = "rgba(43,54,52,.35)"; }}>
+            {t.stemCompleteProfile || "Complete STEM Profile"}
+          </button>
+        </div>
       )}
 
       {/* Stats row */}
@@ -8513,7 +8518,7 @@ function Dashboard() {
                   <div style={{ fontFamily: mono, fontSize: 11, color: "#2b3634" }}>{rm.content ? (t.rmGenerated || "Generated") : (t.rmPending || "Pending")} &rarr;</div>
                 </button>
               ))}
-              {roadmaps.length > 3 && <button onClick={() => setActiveTab("roadmaps")} style={{ marginTop: 12, fontFamily: mono, fontSize: 11, color: "#2b3634", background: "none", border: "none", cursor: "pointer", padding: 0 }}>{t.rmViewAll || "View all"} {roadmaps.length} {t.rmRoadmaps || "roadmaps"} &rarr;</button>}
+              {roadmaps.length > 3 && <button onClick={() => go("roadmaps")} style={{ marginTop: 12, fontFamily: mono, fontSize: 11, color: "#2b3634", background: "none", border: "none", cursor: "pointer", padding: 0 }}>{t.rmViewAll || "View all"} {roadmaps.length} {t.rmRoadmaps || "roadmaps"} &rarr;</button>}
             </div>
           )}
           {/* Saved comps preview */}
@@ -8522,7 +8527,7 @@ function Dashboard() {
               <div style={{ fontFamily: mono, fontSize: 10, letterSpacing: "0.2em", color: "#2b3634", marginBottom: 16 }}>{t.rmSavedOpp || "SAVED OPPORTUNITIES"}</div>
               {savedComps.slice(0, 4).map((c, i) => (
                 <div key={c.id} style={{ padding: "12px 0", borderBottom: i < Math.min(savedComps.length, 4) - 1 ? "1px solid rgba(43,54,52,.08)" : "none", fontSize: 14, color: "#2b3634", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
-                  <span>{c.icon && <span style={{ marginRight: 8 }}>{c.icon}</span>}{c.name?.en || c.id}</span>
+                  <span>{c.name?.[lang] || c.name?.en || c.id}</span>
                   <span style={{ fontFamily: mono, fontSize: 10, color: "#2b3634", letterSpacing: "0.1em" }}>{(c.cat || "").toUpperCase()}</span>
                 </div>
               ))}
@@ -8534,29 +8539,7 @@ function Dashboard() {
             </div>
           )}
           <button onClick={() => go("roadmaps")} style={{ width: "100%", padding: "14px 0", ...faintBtn, marginTop: 8 }} onMouseOver={faintHover} onMouseOut={faintOut}>
-            {t.createNewRoadmap || "Create New Roadmap"}
-          </button>
-        </div>
-      )}
-
-      {/* TAB: Roadmaps */}
-      {activeTab === "roadmaps" && (
-        <div>
-          {roadmaps.length === 0 ? (
-            <div style={{ fontSize: 13, color: "#2b3634", fontFamily: mono, padding: "24px 0" }}>{t.rmNone || "No roadmaps yet."} <button onClick={() => go("roadmaps")} style={{ background: "none", border: "none", cursor: "pointer", color: "#2b3634", fontFamily: mono, fontSize: 13, textDecoration: "underline" }}>{lang === "mn" ? "Үүсгэх" : "Create one"} &rarr;</button></div>
-          ) : roadmaps.map((rm, i) => (
-            <button key={rm.id} onClick={() => openRoadmap(rm.id)}
-              style={{ display: "flex", alignItems: "center", justifyContent: "space-between", width: "100%", padding: "clamp(16px,2.5vh,24px) 0", borderBottom: i < roadmaps.length - 1 ? "1px solid rgba(43,54,52,.08)" : "none", cursor: "pointer", textAlign: "left", background: "none", border: "none", transition: "opacity .2s" }}
-              onMouseOver={e => e.currentTarget.style.opacity = "0.6"} onMouseOut={e => e.currentTarget.style.opacity = "1"}>
-              <div>
-                <div style={{ fontSize: 15, fontWeight: 600, color: "#2b3634" }}>{rm.title || "Roadmap"}</div>
-                <div style={{ fontFamily: mono, fontSize: 11, color: "#2b3634", marginTop: 3 }}>{rm.created ? new Date(rm.created).toLocaleDateString() : ""}{rm.type ? " · " + rm.type : ""}</div>
-              </div>
-              <span style={{ fontFamily: mono, fontSize: 11, color: "#2b3634" }}>{rm.content ? "Generated" : "Pending setup"}</span>
-            </button>
-          ))}
-          <button onClick={() => go("roadmaps")} style={{ width: "100%", padding: "14px 0", ...faintBtn, marginTop: 20 }} onMouseOver={faintHover} onMouseOut={faintOut}>
-            {t.createNewRoadmap || "Create New Roadmap"}
+            {t.manageRoadmaps || "Manage My Roadmaps"}
           </button>
         </div>
       )}
@@ -8583,7 +8566,7 @@ function Dashboard() {
               {savedComps.map((c, i) => (
                 <div key={c.id} style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "14px 0", borderBottom: i < savedComps.length - 1 ? "1px solid rgba(43,54,52,.08)" : "none" }}>
                   <div>
-                    <div style={{ fontSize: 14, fontWeight: 600, color: "#2b3634" }}>{c.icon && <span style={{ marginRight: 8 }}>{c.icon}</span>}{c.name?.en || c.id}</div>
+                    <div style={{ fontSize: 14, fontWeight: 600, color: "#2b3634" }}>{c.name?.[lang] || c.name?.en || c.id}</div>
                     <div style={{ fontFamily: mono, fontSize: 10, color: "#2b3634", marginTop: 3, letterSpacing: "0.1em" }}>{(c.cat || "").toUpperCase()}</div>
                   </div>
                   {c.link && <a href={c.link} target="_blank" rel="noreferrer" style={{ fontFamily: mono, fontSize: 11, color: "#2b3634", textDecoration: "none" }}>Visit &rarr;</a>}
@@ -9211,15 +9194,13 @@ function Toasts({ toasts }) {
 
 /* ═══ MODULE: pages/Roadmaps ═══ */
 function RoadmapsPage() {
-  const { t, lang, roadmaps, deleteRoadmap, openRoadmap, setRoadmaps, go, user, setObOpen, comps, updateProfile } = useQ();
+  const { t, lang, roadmaps, deleteRoadmap, openRoadmap, setRoadmaps, go, user, setObOpen, comps } = useQ();
   const [newTitle, setNewTitle] = useState("");
   const [newType, setNewType] = useState("");
   const [step, setStep] = useState("path"); // path | title | stemCheck
   const [selectedComp, setSelectedComp] = useState(null);
   const [researchModal, setResearchModal] = useState(false);
   const [researchForm, setResearchForm] = useState({ domain: "", experience: "", goal: "" });
-  const [stemModal, setStemModal] = useState(false);
-  const [stemForm, setStemForm] = useState({});
   const mono = "'Space Grotesk', ui-monospace, monospace";
   const u = user || {};
   const profileComplete = u.stemGoal && u.stemKnowledge;
@@ -9233,29 +9214,10 @@ function RoadmapsPage() {
     const title = overrideTitle || newTitle.trim();
     const type = overrideType || newType || "general";
     if (!title) return;
-    /* Profile check */
-    if (!profileComplete) {
-      setStemForm({ stemGoal: u.stemGoal || "", stemKnowledge: u.stemKnowledge || "", priorComps: u.priorComps || "", targetOutcomes: u.targetOutcomes || "" });
-      setStemModal(true);
-      return;
-    }
     const rm = { id: "rm-" + Date.now(), title, type, created: new Date().toISOString() };
     setRoadmaps(prev => [rm, ...(prev || [])]);
     setNewTitle(""); setNewType(""); setStep("path"); setSelectedComp(null);
     openRoadmap(rm.id);
-  };
-
-  const saveStemAndCreate = () => {
-    updateProfile(stemForm);
-    setStemModal(false);
-    /* retry creation now that profile is filled */
-    const title = newTitle.trim() || (selectedComp ? (selectedComp.name?.[lang] || selectedComp.name?.en || selectedComp.id) : "");
-    if (title) {
-      const rm = { id: "rm-" + Date.now(), title, type: newType || "general", created: new Date().toISOString(), targetId: selectedComp?.id || undefined };
-      setRoadmaps(prev => [rm, ...(prev || [])]);
-      setNewTitle(""); setNewType(""); setStep("path"); setSelectedComp(null);
-      openRoadmap(rm.id);
-    }
   };
 
   const selectPath = (path) => {
@@ -9284,34 +9246,6 @@ function RoadmapsPage() {
     </div>
   );
 
-  /* STEM intake modal (same as Dashboard's) */
-  const stemModalUI = stemModal && (
-    <div style={{ position: "fixed", inset: 0, zIndex: 9999, display: "flex", alignItems: "center", justifyContent: "center", background: "rgba(0,0,0,.45)" }} onClick={() => setStemModal(false)}>
-      <div onClick={e => e.stopPropagation()} style={{ background: "#f0f2ee", borderRadius: 24, padding: "36px 32px", maxWidth: 520, width: "90vw", maxHeight: "85vh", overflowY: "auto" }}>
-        <h2 style={{ fontSize: 20, fontWeight: 800, color: "#2b3634", marginBottom: 6 }}>{t.stemRequired || "STEM profile required"}</h2>
-        <p style={{ fontSize: 13, color: "#2b3634", marginBottom: 24, lineHeight: 1.5 }}>{t.stemRequiredDesc || "Please complete your STEM profile before creating a roadmap."}</p>
-        {[
-          [t.stemGoalLabel || "PRIMARY GOAL", "stemGoal", t.stemGoalPh, false],
-          [t.stemKnowledgeLabel || "STEM KNOWLEDGE BASE", "stemKnowledge", t.stemKnowledgePh, true],
-          [t.stemCompsLabel || "PRIOR COMPETITIONS & PROGRAMS", "priorComps", t.stemCompsPh, true],
-          [t.stemOutcomesLabel || "TARGET OUTCOMES", "targetOutcomes", t.stemOutcomesPh, true],
-        ].map(([label, key, ph, multi]) => (
-          <div key={key} style={{ marginBottom: 18 }}>
-            <label style={{ fontFamily: mono, fontSize: 10, letterSpacing: "0.15em", color: "#2b3634", display: "block", marginBottom: 6 }}>{label}{key === "stemGoal" || key === "stemKnowledge" ? " *" : ""}</label>
-            {multi ? <textarea value={stemForm[key] || ""} onChange={e => setStemForm(p => ({ ...p, [key]: e.target.value }))} rows={2} placeholder={ph} style={{ ...inputStyle, resize: "none", fontFamily: "inherit" }} />
-              : <input value={stemForm[key] || ""} onChange={e => setStemForm(p => ({ ...p, [key]: e.target.value }))} placeholder={ph} style={inputStyle} />}
-          </div>
-        ))}
-        <div style={{ display: "flex", gap: 10 }}>
-          <button onClick={saveStemAndCreate} disabled={!stemForm.stemGoal || !stemForm.stemKnowledge}
-            style={{ fontFamily: mono, fontSize: 12, color: (!stemForm.stemGoal || !stemForm.stemKnowledge) ? "rgba(43,54,52,.35)" : "#f0f2ee", background: (!stemForm.stemGoal || !stemForm.stemKnowledge) ? "rgba(43,54,52,.08)" : "#2b3634", border: "none", borderRadius: 12, padding: "12px 24px", cursor: (!stemForm.stemGoal || !stemForm.stemKnowledge) ? "default" : "pointer", fontWeight: 600 }}>
-            {t.stemSaveProfile || "Save STEM Profile"} &rarr;
-          </button>
-          <button onClick={() => setStemModal(false)} style={{ fontFamily: mono, fontSize: 12, color: "#2b3634", background: "transparent", border: "1.5px solid rgba(43,54,52,.35)", borderRadius: 12, padding: "12px 18px", cursor: "pointer" }}>{t.cancel || "Cancel"}</button>
-        </div>
-      </div>
-    </div>
-  );
 
   /* Research diagnostic modal */
   const researchModalUI = researchModal && (
@@ -9341,17 +9275,37 @@ function RoadmapsPage() {
 
   return (
     <div className="max-w-3xl mx-auto px-6 py-8">
-      {stemModalUI}
       {researchModalUI}
 
-      {/* Home back */}
-      <button onClick={() => go("home")} style={{ fontFamily: mono, fontSize: 11, color: "#2b3634", background: "none", border: "none", cursor: "pointer", padding: "0 0 20px", letterSpacing: "0.1em", display: "flex", alignItems: "center", gap: 6 }}
-        onMouseOver={e => e.currentTarget.style.opacity = "0.5"} onMouseOut={e => e.currentTarget.style.opacity = "1"}>
-        &lt;&lt; {t.backHome || "HOME"}
-      </button>
+      {/* Breadcrumb nav: Home << Dashboard << Manage My Roadmaps */}
+      <div style={{ display: "flex", alignItems: "center", gap: 6, fontFamily: mono, fontSize: 11, color: "#2b3634", letterSpacing: "0.1em", padding: "0 0 20px", flexWrap: "wrap" }}>
+        <button onClick={() => go("home")} style={{ fontFamily: "inherit", fontSize: "inherit", color: "inherit", background: "none", border: "none", cursor: "pointer", padding: 0, letterSpacing: "inherit" }}
+          onMouseOver={e => e.currentTarget.style.opacity = "0.5"} onMouseOut={e => e.currentTarget.style.opacity = "1"}>
+          {t.backHome || "HOME"}
+        </button>
+        <span style={{ color: "rgba(43,54,52,.35)" }}>&lt;&lt;</span>
+        <button onClick={() => go("dashboard")} style={{ fontFamily: "inherit", fontSize: "inherit", color: "inherit", background: "none", border: "none", cursor: "pointer", padding: 0, letterSpacing: "inherit" }}
+          onMouseOver={e => e.currentTarget.style.opacity = "0.5"} onMouseOut={e => e.currentTarget.style.opacity = "1"}>
+          {lang === "mn" ? "ХЯНАЛТ" : "DASHBOARD"}
+        </button>
+        <span style={{ color: "rgba(43,54,52,.35)" }}>&lt;&lt;</span>
+        <span style={{ fontWeight: 600 }}>{(t.manageRoadmaps || "MANAGE MY ROADMAPS").toUpperCase()}</span>
+      </div>
 
-      <h1 className="q-display" style={{ fontSize: "clamp(32px,5vw,52px)", fontWeight: 800, color: "#2b3634", letterSpacing: "-0.04em", marginBottom: 8 }}>{t.rmTitle || "My Roadmaps"}</h1>
+      <h1 className="q-display" style={{ fontSize: "clamp(32px,5vw,52px)", fontWeight: 800, color: "#2b3634", letterSpacing: "-0.04em", marginBottom: 8 }}>{t.manageRoadmaps || "Manage My Roadmaps"}</h1>
       <p style={{ fontSize: 14, color: "#2b3634", marginBottom: 32, lineHeight: 1.6 }}>{t.rmSub || "A personal learning path tailored to each goal."}</p>
+
+      {/* STEM profile warning (non-blocking) */}
+      {!profileComplete && (
+        <div style={{ padding: "14px 20px", background: "rgba(43,54,52,.04)", border: "1.5px solid rgba(43,54,52,.18)", borderRadius: 14, marginBottom: 28, display: "flex", alignItems: "center", justifyContent: "space-between", gap: 16, flexWrap: "wrap" }}>
+          <div style={{ fontSize: 13, color: "#2b3634", lineHeight: 1.4 }}>{t.stemRequiredDesc || "Complete your STEM profile for better personalized roadmaps."}</div>
+          <button onClick={() => go("dashboard")} style={{ fontFamily: mono, fontSize: 11, color: "#2b3634", border: "1.5px solid rgba(43,54,52,.35)", borderRadius: 10, padding: "8px 16px", background: "rgba(43,54,52,.08)", cursor: "pointer", fontWeight: 600, whiteSpace: "nowrap", transition: "all .2s" }}
+            onMouseOver={e => { e.currentTarget.style.background = "rgba(43,54,52,.14)"; e.currentTarget.style.borderColor = "rgba(43,54,52,.5)"; }}
+            onMouseOut={e => { e.currentTarget.style.background = "rgba(43,54,52,.08)"; e.currentTarget.style.borderColor = "rgba(43,54,52,.35)"; }}>
+            {t.stemCompleteProfile || "Complete STEM Profile"}
+          </button>
+        </div>
+      )}
 
       {/* Create new roadmap — step flow */}
       <div style={{ border: "1.5px solid rgba(43,54,52,.35)", borderRadius: 20, padding: "28px 24px", marginBottom: 40, background: "rgba(43,54,52,.02)" }}>
@@ -9379,32 +9333,44 @@ function RoadmapsPage() {
           </div>
         )}
 
-        {/* Step: Competition select from Questa Archive */}
-        {step === "comp-select" && (
+        {/* Step: Competition select from Questa Archive — organized by category, no emojis */}
+        {step === "comp-select" && (() => {
+          const active = comps.filter(c => !c.archived && c.cat !== "meta");
+          const catOrder = ["olympiad", "hackathon", "research", "robotics"];
+          const catLabels = { olympiad: lang === "mn" ? "ОЛИМПИАД" : "OLYMPIAD", hackathon: lang === "mn" ? "ХАКАТОН" : "HACKATHON", research: lang === "mn" ? "СУДАЛГАА" : "RESEARCH", robotics: lang === "mn" ? "РОБОТ ТЕХНИК" : "ROBOTICS" };
+          const grouped = {};
+          active.forEach(c => { const cat = c.cat || "other"; if (!grouped[cat]) grouped[cat] = []; grouped[cat].push(c); });
+          const cats = catOrder.filter(c => grouped[c]?.length);
+          return (
           <div>
             <button onClick={() => setStep("path")} style={{ fontFamily: mono, fontSize: 11, color: "#2b3634", background: "none", border: "none", cursor: "pointer", padding: "0 0 14px", letterSpacing: "0.05em" }}>&larr; {lang === "mn" ? "Буцах" : "Back"}</button>
-            <div style={{ fontFamily: mono, fontSize: 10, letterSpacing: "0.15em", color: "#2b3634", marginBottom: 12 }}>{lang === "mn" ? "QUESTA АРХИВААС СОНГОХ" : "SELECT FROM QUESTA ARCHIVE"}</div>
-            <div style={{ display: "flex", flexDirection: "column", gap: 6, maxHeight: 320, overflowY: "auto" }}>
-              {comps.filter(c => !c.archived).map(c => (
-                <button key={c.id} onClick={() => selectComp(c)}
-                  style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "12px 16px", borderRadius: 12, border: "1.5px solid rgba(43,54,52,.25)", background: "rgba(43,54,52,.02)", cursor: "pointer", textAlign: "left", transition: "all .2s" }}
-                  onMouseOver={e => { e.currentTarget.style.background = "rgba(43,54,52,.1)"; e.currentTarget.style.borderColor = "rgba(43,54,52,.5)"; }}
-                  onMouseOut={e => { e.currentTarget.style.background = "rgba(43,54,52,.02)"; e.currentTarget.style.borderColor = "rgba(43,54,52,.25)"; }}>
-                  <div>
-                    <div style={{ fontSize: 14, fontWeight: 600, color: "#2b3634" }}>{c.icon && <span style={{ marginRight: 6 }}>{c.icon}</span>}{c.name?.[lang] || c.name?.en || c.id}</div>
-                    <div style={{ fontFamily: mono, fontSize: 10, color: "rgba(43,54,52,.5)", marginTop: 2, letterSpacing: "0.1em" }}>{(c.cat || "").toUpperCase()}</div>
+            <div style={{ fontFamily: mono, fontSize: 10, letterSpacing: "0.15em", color: "#2b3634", marginBottom: 16 }}>{lang === "mn" ? "QUESTA АРХИВААС СОНГОХ" : "SELECT FROM QUESTA ARCHIVE"}</div>
+            <div style={{ maxHeight: 400, overflowY: "auto" }}>
+              {cats.map(cat => (
+                <div key={cat} style={{ marginBottom: 20 }}>
+                  <div style={{ fontFamily: mono, fontSize: 10, letterSpacing: "0.15em", color: "rgba(43,54,52,.5)", marginBottom: 8 }}>{catLabels[cat] || cat.toUpperCase()}</div>
+                  <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
+                    {grouped[cat].map(c => (
+                      <button key={c.id} onClick={() => selectComp(c)}
+                        style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "12px 16px", borderRadius: 12, border: "1.5px solid rgba(43,54,52,.25)", background: "rgba(43,54,52,.02)", cursor: "pointer", textAlign: "left", transition: "all .2s" }}
+                        onMouseOver={e => { e.currentTarget.style.background = "rgba(43,54,52,.1)"; e.currentTarget.style.borderColor = "rgba(43,54,52,.5)"; }}
+                        onMouseOut={e => { e.currentTarget.style.background = "rgba(43,54,52,.02)"; e.currentTarget.style.borderColor = "rgba(43,54,52,.25)"; }}>
+                        <div style={{ fontSize: 14, fontWeight: 600, color: "#2b3634" }}>{c.name?.[lang] || c.name?.en || c.id}</div>
+                        <span style={{ fontFamily: mono, fontSize: 11, color: "#2b3634" }}>&rarr;</span>
+                      </button>
+                    ))}
                   </div>
-                  <span style={{ fontFamily: mono, fontSize: 11, color: "#2b3634" }}>&rarr;</span>
-                </button>
+                </div>
               ))}
             </div>
-            <div style={{ marginTop: 16 }}>
+            <div style={{ marginTop: 12 }}>
               <button onClick={() => setStep("title")} style={{ fontFamily: mono, fontSize: 11, color: "#2b3634", background: "none", border: "none", cursor: "pointer", textDecoration: "underline" }}>
-                {lang === "mn" ? "Жагсаалтад байхгүй тэмцээн? Гараар оруулах" : "Competition not listed? Enter manually"} &rarr;
+                {lang === "mn" ? "Жагсаалтад байхгүй бол гараар оруулах" : "Not listed? Enter manually"} &rarr;
               </button>
             </div>
           </div>
-        )}
+          );
+        })()}
 
         {/* Step: Title input (for course mastery or manual) */}
         {step === "title" && (
