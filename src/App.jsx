@@ -8340,7 +8340,7 @@ function Dashboard() {
 
   const initials = (u.name || "?").split(" ").map(w => w[0]).join("").slice(0, 2).toUpperCase();
   const savedComps = comps.filter(c => Array.isArray(saved) && saved.includes(c.id));
-  const TABS = [["overview", t.tabOverview || "Overview"], ["saved", t.tabSaved || "Saved"], ["stem", t.stemProfileTab || "STEM Profile"]];
+  const TABS = [["overview", t.tabOverview || "Overview"], ["roadmaps", t.manageRoadmaps || "Manage My Roadmaps"], ["saved", t.tabSaved || "Saved"], ["stem", t.stemProfileTab || "STEM Profile"]];
 
   const faintBtn = { fontFamily: mono, fontSize: 13, color: "#2b3634", border: "1.5px solid rgba(43,54,52,.35)", borderRadius: 14, padding: "12px 24px", background: "rgba(43,54,52,.08)", cursor: "pointer", fontWeight: 600, transition: "all .2s" };
   const faintHover = e => { e.currentTarget.style.background = "rgba(43,54,52,.14)"; e.currentTarget.style.borderColor = "rgba(43,54,52,.5)"; };
@@ -8471,19 +8471,14 @@ function Dashboard() {
         {statCard(notesCount, lang === "mn" ? "ТЭМДЭГЛЭЛ" : "NOTES")}
       </div>
 
-      {/* Tabs + Manage My Roadmaps button */}
-      <div style={{ display: "flex", gap: 0, borderBottom: "1px solid rgba(43,54,52,.35)", marginBottom: 36, overflowX: "auto", alignItems: "flex-end" }}>
+      {/* Tabs */}
+      <div style={{ display: "flex", gap: 0, borderBottom: "1px solid rgba(43,54,52,.35)", marginBottom: 36, overflowX: "auto" }}>
         {TABS.map(([id, label]) => (
-          <button key={id} onClick={() => setActiveTab(id)}
+          <button key={id} onClick={() => id === "roadmaps" ? go("roadmaps") : setActiveTab(id)}
             style={{ fontFamily: mono, fontSize: 12, letterSpacing: "0.08em", color: activeTab === id ? "#2b3634" : "rgba(43,54,52,.35)", background: "none", border: "none", borderBottom: `2px solid ${activeTab === id ? "#2b3634" : "transparent"}`, padding: "10px 20px 12px", cursor: "pointer", marginBottom: -1, fontWeight: activeTab === id ? 600 : 400, whiteSpace: "nowrap" }}>
             {label.toUpperCase()}{id === "stem" && !profileComplete ? React.createElement("span", { style: { color: "#c53030", marginLeft: 4, fontSize: 14, fontWeight: 700 } }, "*") : null}
           </button>
         ))}
-        <button onClick={() => go("roadmaps")}
-          style={{ fontFamily: mono, fontSize: 12, letterSpacing: "0.08em", color: "#2b3634", background: "none", border: "none", borderBottom: "2px solid transparent", padding: "10px 20px 12px", cursor: "pointer", marginBottom: -1, marginLeft: "auto", fontWeight: 600, whiteSpace: "nowrap", transition: "opacity .2s" }}
-          onMouseOver={e => e.currentTarget.style.opacity = "0.5"} onMouseOut={e => e.currentTarget.style.opacity = "1"}>
-          {(t.manageRoadmaps || "Manage My Roadmaps").toUpperCase()} &rarr;
-        </button>
       </div>
 
       {/* TAB: Overview */}
