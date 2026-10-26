@@ -93,11 +93,22 @@ const BRAND = {
 };
 
 async function callAI(system, messages, opts = {}) {
-  const r = await fetch("/api/chat", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ system, messages, ...(opts.maxTokens ? { maxTokens: opts.maxTokens } : {}) }),
-  });
+  const ac = new AbortController();
+  const tm = setTimeout(() => ac.abort(), 60000);
+  let r;
+  try {
+    r = await fetch("/api/chat", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ system, messages, ...(opts.maxTokens ? { maxTokens: opts.maxTokens } : {}) }),
+      signal: ac.signal,
+    });
+  } catch (e) {
+    clearTimeout(tm);
+    if (e.name === "AbortError") throw new Error("Request timed out. Please try again.");
+    throw e;
+  }
+  clearTimeout(tm);
   if (!r.ok) {
     if (r.status === 429 || r.status === 503) {
       const err = new Error("TRAFFIC_HIGH");

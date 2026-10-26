@@ -18,11 +18,17 @@ export default async function handler(req, res) {
       contents,
       generationConfig: { temperature: 0.7, maxOutputTokens: outputTokens },
     };
-    const r = await fetch(apiUrl, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(body),
-    });
+    const controller = new AbortController();
+    const timeout = setTimeout(() => controller.abort(), 55000);
+    let r;
+    try {
+      r = await fetch(apiUrl, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(body),
+        signal: controller.signal,
+      });
+    } finally { clearTimeout(timeout); }
     if (r.status === 429 || r.status === 503) {
       return res.status(r.status).json({ error: "Traffic is high" });
     }
@@ -30,10 +36,16 @@ export default async function handler(req, res) {
       const errBody = await r.text();
       console.error(`[Questa AI] Gemini API error ${r.status}:`, errBody);
       // Try fallback model if primary fails
-      const r2 = await fetch(
-        `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${process.env.GEMINI_API_KEY}`,
-        { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(body) }
-      );
+      const c2 = new AbortController();
+      const t2 = setTimeout(() => c2.abort(), 50000);
+      let r2;
+      try {
+        r2 = await fetch(
+          `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${process.env.GEMINI_API_KEY}`,
+          { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(body), signal: c2.signal }
+        );
+      } catch (e2) { clearTimeout(t2); return res.status(200).json({ text: "Gemini error: " + errBody.slice(0, 200) }); }
+      clearTimeout(t2);
       if (r2.ok) {
         const data2 = await r2.json();
         const text2 = data2?.candidates?.[0]?.content?.parts?.map((p) => p.text).join("") || "No response";
