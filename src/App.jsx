@@ -438,8 +438,14 @@ en: {
     obSignIn: "Sign in", obCreateAccount: "Create account",
     obEmailLabel: "EMAIL", obPasswordLabel: "PASSWORD",
     obNeedAccount: "Need an account?", obSignUpLink: "Sign up",
-    obWhatName: "What is your name?", obNameSub: "You can fill in more details later from your profile.",
-    obFirstName: "FIRST NAME", obLastName: "LAST NAME", obOptional: "(optional)",
+    obWhatName: "Create your account", obNameSub: "Fill in your details to get started.",
+    obFirstName: "FULL NAME", obLastName: "USERNAME", obOptional: "",
+    obUsernamePlaceholder: "lowercase letters, numbers, underscores",
+    obUsernameChecking: "Checking...", obUsernameTaken: "Username is already taken", obUsernameAvailable: "Username is available",
+    obUsernameMinLen: "At least 3 characters",
+    obSchoolOrWork: "SCHOOL OR WORKPLACE", obRegAge: "AGE",
+    obAgreeTerms: "I agree to the ", obUserAgreement: "User Agreement",
+    obAgreementRequired: "You must agree to the User Agreement",
     obEnterQuesta: "Enter Questa", obBackBtn: "Back",
     obForgotPassword: "Forgot password?", obResetSent: "Password reset email sent. Check your inbox.",
     obResetPassword: "Reset password", obResetSub: "Enter your email and we'll send you a reset link.",
@@ -616,8 +622,14 @@ mn: {
     obSignIn: "Нэвтрэх", obCreateAccount: "Бүртгүүлэх",
     obEmailLabel: "ИМЭЙЛ", obPasswordLabel: "НУУЦ ҮГ",
     obNeedAccount: "Бүртгэлгүй юу?", obSignUpLink: "Бүртгүүлэх",
-    obWhatName: "Таны нэр хэн бэ?", obNameSub: "Дэлгэрэнгүй мэдээллийг дараа профайлаасаа нэмэх боломжтой.",
-    obFirstName: "ОВОГ", obLastName: "НЭР", obOptional: "(заавал биш)",
+    obWhatName: "Бүртгэл үүсгэх", obNameSub: "Мэдээллээ бөглөнө үү.",
+    obFirstName: "БҮТЭН НЭР", obLastName: "ХЭРЭГЛЭГЧИЙН НЭР", obOptional: "",
+    obUsernamePlaceholder: "жижиг үсэг, тоо, доогуур зураас",
+    obUsernameChecking: "Шалгаж байна...", obUsernameTaken: "Хэрэглэгчийн нэр аль хэдийн бүртгэлтэй", obUsernameAvailable: "Хэрэглэгчийн нэр боломжтой",
+    obUsernameMinLen: "Хамгийн багадаа 3 тэмдэгт",
+    obSchoolOrWork: "СУРГУУЛЬ ЭСВЭЛ АЖЛЫН ГАЗАР", obRegAge: "НАС",
+    obAgreeTerms: "Би ", obUserAgreement: "Хэрэглэгчийн гэрээг зөвшөөрч байна",
+    obAgreementRequired: "Хэрэглэгчийн гэрээг зөвшөөрөх шаардлагатай",
     obEnterQuesta: "Questa-д орох", obBackBtn: "Буцах",
     obForgotPassword: "Нууц үгээ мартсан?", obResetSent: "Нууц үг сэргээх имэйл илгээлээ. Ирсэн хайрцгаа шалгана уу.",
     obResetPassword: "Нууц үг сэргээх", obResetSub: "Имэйл хаягаа оруулбал сэргээх холбоос илгээнэ.",
@@ -8936,11 +8948,35 @@ function Onboarding() {
   const [password, setPassword] = useState("");
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
+  const [username, setUsername] = useState("");
+  const [usernameStatus, setUsernameStatus] = useState(""); // "" | "checking" | "taken" | "available"
+  const [schoolOrWork, setSchoolOrWork] = useState("");
+  const [age, setAge] = useState("");
+  const [agreedTerms, setAgreedTerms] = useState(false);
   const [authError, setAuthError] = useState("");
   const [isLogin, setIsLogin] = useState(false);
   const [forgotMode, setForgotMode] = useState(false);
   const [resetSent, setResetSent] = useState(false);
   const mono = "'Space Grotesk', ui-monospace, monospace";
+
+  // Username uniqueness check with debounce
+  const usernameTimer = useRef(null);
+  const checkUsername = (val) => {
+    setUsername(val);
+    const clean = val.trim().toLowerCase().replace(/[^a-z0-9_]/g, "");
+    if (clean !== val) setUsername(clean);
+    if (!clean || clean.length < 3) { setUsernameStatus(""); return; }
+    setUsernameStatus("checking");
+    if (usernameTimer.current) clearTimeout(usernameTimer.current);
+    usernameTimer.current = setTimeout(async () => {
+      try {
+        const db = await getDb();
+        if (!db) { setUsernameStatus("available"); return; }
+        const snap = await db.collection("usernames").doc(clean).get();
+        setUsernameStatus(snap.exists ? "taken" : "available");
+      } catch { setUsernameStatus("available"); }
+    }, 500);
+  };
 
   if (!obOpen) return null;
 
@@ -8949,6 +8985,7 @@ function Onboarding() {
 
   const [authLoading, setAuthLoading] = useState(false);
 
+  const [oauthUser, setOauthUser] = useState(null);
   const handleGoogle = async () => {
     try {
       setAuthError(""); setAuthLoading(true);
@@ -8957,8 +8994,19 @@ function Onboarding() {
       const provider = new firebase.auth.GoogleAuthProvider();
       const result = await auth.signInWithPopup(provider);
       const u = result.user;
-      updateProfile({ name: u.displayName || "Student", email: u.email, photoURL: u.photoURL });
-      finishOnboarding();
+      // Check if user already has a username (existing user) - if so, skip registration
+      const db = await getDb();
+      if (db) {
+        const doc = await db.collection("users").doc(u.uid).get();
+        if (doc.exists && doc.data().username) {
+          updateProfile({ name: u.displayName || "Student", email: u.email, photoURL: u.photoURL });
+          finishOnboarding();
+          return;
+        }
+      }
+      setOauthUser(u);
+      if (u.displayName) setFirstName(u.displayName);
+      next(1);
     } catch (err) {
       if (err.code === "auth/popup-closed-by-user") { setAuthLoading(false); return; }
       setAuthError(lang === "mn" ? "Google нэвтрэлт амжилтгүй. Дахин оролдоно уу." : (err.message || "Google sign-in failed"));
@@ -8973,8 +9021,19 @@ function Onboarding() {
       const provider = new firebase.auth.GithubAuthProvider();
       const result = await auth.signInWithPopup(provider);
       const u = result.user;
-      updateProfile({ name: u.displayName || "Student", email: u.email, photoURL: u.photoURL });
-      finishOnboarding();
+      // Check if user already has a username (existing user) - if so, skip registration
+      const db = await getDb();
+      if (db) {
+        const doc = await db.collection("users").doc(u.uid).get();
+        if (doc.exists && doc.data().username) {
+          updateProfile({ name: u.displayName || "Student", email: u.email, photoURL: u.photoURL });
+          finishOnboarding();
+          return;
+        }
+      }
+      setOauthUser(u);
+      if (u.displayName) setFirstName(u.displayName);
+      next(1);
     } catch (err) {
       if (err.code === "auth/popup-closed-by-user") { setAuthLoading(false); return; }
       if (err.code === "auth/account-exists-with-different-credential") {
@@ -9043,14 +9102,48 @@ function Onboarding() {
   const finish = async () => {
     try {
       setAuthLoading(true);
-      const auth = await getFbAuth();
-      if (auth && !isLogin && email && password) {
-        const cred = await auth.createUserWithEmailAndPassword(email.trim(), password);
-        if (cred.user) {
-          try { await cred.user.sendEmailVerification(); } catch (ev) { /* non-blocking */ }
+      setAuthError("");
+      const cleanUsername = username.trim().toLowerCase();
+      // Final username uniqueness check
+      const db = await getDb();
+      if (db && cleanUsername) {
+        const snap = await db.collection("usernames").doc(cleanUsername).get();
+        if (snap.exists) {
+          setUsernameStatus("taken");
+          setAuthError(lang === "mn" ? t.obUsernameTaken : t.obUsernameTaken);
+          setAuthLoading(false);
+          return;
         }
       }
-      updateProfile({ name: firstName.trim() || "Student", firstName: firstName.trim(), lastName: lastName.trim(), email: email.trim() });
+      let uid = null;
+      if (oauthUser) {
+        // OAuth user already authenticated
+        uid = oauthUser.uid;
+      } else {
+        const auth = await getFbAuth();
+        if (auth && !isLogin && email && password) {
+          const cred = await auth.createUserWithEmailAndPassword(email.trim(), password);
+          uid = cred.user?.uid;
+          if (cred.user) {
+            try { await cred.user.sendEmailVerification(); } catch (ev) { /* non-blocking */ }
+          }
+        }
+      }
+      // Claim username in Firestore
+      if (db && cleanUsername && uid) {
+        await db.collection("usernames").doc(cleanUsername).set({ uid, createdAt: Date.now() });
+      }
+      updateProfile({
+        name: firstName.trim() || "Student",
+        firstName: firstName.trim(),
+        username: cleanUsername,
+        schoolOrWork: schoolOrWork.trim(),
+        age: age.trim(),
+        agreedTerms: true,
+        agreedTermsAt: Date.now(),
+        email: oauthUser ? (oauthUser.email || email.trim()) : email.trim(),
+        photoURL: oauthUser ? oauthUser.photoURL : undefined,
+      });
       finishOnboarding();
     } catch (err) {
       const code = err.code || "";
@@ -9146,22 +9239,47 @@ function Onboarding() {
             </>}
           </div>
 
-          {/* Step 1: Name */}
+          {/* Step 1: Registration */}
           <div style={slideStyle(step === 1)}>
             <h1 className="q-display" style={{ fontSize: "clamp(24px,6vw,36px)", fontWeight: 800, color: "#2b3634", letterSpacing: "-0.04em", marginBottom: 12, lineHeight: 1.1 }}>{t.obWhatName}</h1>
-            <p style={{ fontFamily: mono, fontSize: 12, color: "#2b3634", marginBottom: 32 }}>{t.obNameSub}</p>
-            <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
+            <p style={{ fontFamily: mono, fontSize: 12, color: "#2b3634", marginBottom: 24 }}>{t.obNameSub}</p>
+            <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
               <div>
-                <label style={labelStyle}>{t.obFirstName}</label>
+                <label style={labelStyle}>{t.obFirstName} <span style={{ color: "#c44", fontSize: 13 }}>*</span></label>
                 <input value={firstName} onChange={e => setFirstName(e.target.value)} placeholder="..." autoFocus style={inputStyle} />
               </div>
               <div>
-                <label style={labelStyle}>{t.obLastName} <span style={{ opacity: 0.75 }}>{t.obOptional}</span></label>
-                <input value={lastName} onChange={e => setLastName(e.target.value)} placeholder="..." style={inputStyle} />
+                <label style={labelStyle}>{t.obLastName} <span style={{ color: "#c44", fontSize: 13 }}>*</span></label>
+                <input value={username} onChange={e => checkUsername(e.target.value)} placeholder={t.obUsernamePlaceholder} style={{ ...inputStyle, borderColor: usernameStatus === "taken" ? "rgba(196,68,68,.6)" : usernameStatus === "available" ? "rgba(58,107,74,.5)" : undefined }} />
+                <div style={{ fontFamily: mono, fontSize: 11, marginTop: 6, minHeight: 16 }}>
+                  {usernameStatus === "checking" && <span style={{ color: "rgba(43,54,52,.5)" }}>{t.obUsernameChecking}</span>}
+                  {usernameStatus === "taken" && <span style={{ color: "#c44" }}>{t.obUsernameTaken}</span>}
+                  {usernameStatus === "available" && <span style={{ color: "#3a6b4a" }}>{t.obUsernameAvailable}</span>}
+                  {usernameStatus === "" && username.length > 0 && username.length < 3 && <span style={{ color: "rgba(43,54,52,.5)" }}>{t.obUsernameMinLen}</span>}
+                </div>
+              </div>
+              <div>
+                <label style={labelStyle}>{t.obSchoolOrWork} <span style={{ color: "#c44", fontSize: 13 }}>*</span></label>
+                <input value={schoolOrWork} onChange={e => setSchoolOrWork(e.target.value)} placeholder="..." style={inputStyle} />
+              </div>
+              <div>
+                <label style={labelStyle}>{t.obRegAge} <span style={{ color: "#c44", fontSize: 13 }}>*</span></label>
+                <input value={age} onChange={e => { const v = e.target.value.replace(/[^0-9]/g, ""); if (v.length <= 3) setAge(v); }} placeholder="..." style={{ ...inputStyle, maxWidth: 120 }} inputMode="numeric" />
+              </div>
+              <div style={{ display: "flex", alignItems: "flex-start", gap: 10, marginTop: 4 }}>
+                <input type="checkbox" checked={agreedTerms} onChange={e => setAgreedTerms(e.target.checked)}
+                  style={{ width: 18, height: 18, marginTop: 2, accentColor: "#2b3634", cursor: "pointer", flexShrink: 0 }} />
+                <label style={{ fontFamily: mono, fontSize: 12, color: "#2b3634", lineHeight: 1.5, cursor: "pointer" }} onClick={() => setAgreedTerms(!agreedTerms)}>
+                  {t.obAgreeTerms}<span style={{ textDecoration: "underline", textUnderlineOffset: 3 }}>{t.obUserAgreement}</span> <span style={{ color: "#c44", fontSize: 13 }}>*</span>
+                </label>
               </div>
             </div>
-            <button onClick={() => { if (firstName.trim() && !authLoading) finish(); }} disabled={!firstName.trim() || authLoading} style={{ ...btnStyle(firstName.trim() && !authLoading), marginTop: 24, opacity: authLoading ? 0.5 : undefined }}>{authLoading ? "..." : t.obEnterQuesta}</button>
-            {backBtn(0)}
+            {(() => {
+              const canFinish = firstName.trim() && username.trim().length >= 3 && usernameStatus === "available" && schoolOrWork.trim() && age.trim() && agreedTerms && !authLoading;
+              return <button onClick={() => { if (canFinish) finish(); }} disabled={!canFinish} style={{ ...btnStyle(canFinish), marginTop: 20, background: canFinish ? "rgba(43,54,52,.85)" : "transparent", color: canFinish ? "#fff" : undefined, opacity: authLoading ? 0.5 : undefined }}>{authLoading ? "..." : t.obEnterQuesta}</button>;
+            })()}
+            {authError && <div style={{ fontFamily: mono, fontSize: 12, color: "#9b4d4d", background: "rgba(155,77,77,.06)", padding: "10px 14px", borderRadius: 10, marginTop: 12 }}>{authError}</div>}
+            {!oauthUser && backBtn(0)}
           </div>
 
         </div>
