@@ -9698,7 +9698,7 @@ function RoadmapDetail() {
 
   const RM_MAX = 3;
   const rmCount = roadmaps.length;
-  const rmCanGenerate = rmCount < RM_MAX;
+  const rmCanGenerate = rmCount <= RM_MAX;
 
   const generateRoadmap = async () => {
     if (!rmCanGenerate) return;
