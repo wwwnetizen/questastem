@@ -136,7 +136,7 @@ const GlobalStyles = () => (
     .q-mono { font-family: 'Space Grotesk', ui-monospace, monospace; }
     .q-display { font-family: 'Archivo', 'Montserrat', system-ui, sans-serif; }
     .q-card { position: relative; background: linear-gradient(155deg, #e8ece4 0%, #e5e9e1 30%, #e1e5dc 60%, #dde2d8 100%); }
-    .q-card::after { content:''; position:absolute; inset:0; z-index:0; border-radius:inherit; pointer-events:none; opacity:0.18; background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='512' height='512'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.3'/%3E%3C/svg%3E"); background-repeat:repeat; background-size:512px 512px; }
+    .q-card::after { display:none; }
     .q-card > * { position: relative; z-index: 1; }
     .q-no-grain::after { display: none !important; }
     @keyframes qFloat { 0%{transform:translateY(0)} 100%{transform:translateY(-120vh)} }
