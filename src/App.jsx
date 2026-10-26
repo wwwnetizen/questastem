@@ -100,7 +100,7 @@ async function callAI(system, messages, opts = {}) {
     r = await fetch("/api/chat", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ system, messages, ...(opts.maxTokens ? { maxTokens: opts.maxTokens } : {}) }),
+      body: JSON.stringify({ system, messages, ...(opts.maxTokens ? { maxTokens: opts.maxTokens } : {}), ...(opts.stream ? { stream: true } : {}) }),
       signal: ac.signal,
     });
   } catch (e) {
@@ -118,6 +118,31 @@ async function callAI(system, messages, opts = {}) {
     let errMsg = "AI request failed";
     try { const eb = await r.json(); errMsg = eb.error || errMsg; } catch {}
     throw new Error(errMsg);
+  }
+  // Streaming mode: call onChunk for each piece, return full text
+  if (opts.stream && opts.onChunk) {
+    const reader = r.body.getReader();
+    const decoder = new TextDecoder();
+    let buf = "", full = "";
+    while (true) {
+      const { done, value } = await reader.read();
+      if (done) break;
+      buf += decoder.decode(value, { stream: true });
+      const lines = buf.split("\n");
+      buf = lines.pop() || "";
+      for (const line of lines) {
+        if (!line.startsWith("data: ")) continue;
+        const d = line.slice(6).trim();
+        if (!d || d === "[DONE]") continue;
+        try {
+          const j = JSON.parse(d);
+          if (j.error) throw new Error(j.error);
+          if (j.text) { full += j.text; opts.onChunk(full); }
+        } catch (e) { if (e.message && !e.message.includes("JSON")) throw e; }
+      }
+    }
+    if (!full) throw new Error("Empty response from AI");
+    return full;
   }
   const data = await r.json();
   if (!data.text) throw new Error("Empty response from AI");
@@ -10301,7 +10326,16 @@ export default function App() {
     const next = [...seeded, { role: "user", content: msg }];
     setBranchChats((bc) => ({ ...bc, [key]: next })); setChatLoading(true);
     try {
-      const reply = await callAI(buildSystemPrompt({ lang, user, completed, comps, saved, roadmaps, activeRoadmap }), next.slice(-12));
+      // Add placeholder for streaming text
+      const placeholder = [...next, { role: "assistant", content: "" }];
+      setBranchChats((bc) => ({ ...bc, [key]: placeholder }));
+      const reply = await callAI(
+        buildSystemPrompt({ lang, user, completed, comps, saved, roadmaps, activeRoadmap }),
+        next.slice(-12),
+        { stream: true, onChunk: (partial) => {
+          setBranchChats((bc) => ({ ...bc, [key]: [...next, { role: "assistant", content: partial }] }));
+        }}
+      );
       setBranchChats((bc) => ({ ...bc, [key]: [...next, { role: "assistant", content: reply }] }));
     } catch (err) {
       const trafficMsg = lang === "mn"

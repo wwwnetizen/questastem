@@ -1,7 +1,7 @@
 export default async function handler(req, res) {
   if (req.method !== "POST") return res.status(405).json({ error: "POST only" });
   try {
-    const { system, messages, maxTokens } = req.body;
+    const { system, messages, maxTokens, stream } = req.body;
     if (!process.env.GEMINI_API_KEY) {
       console.error("[Questa AI] GEMINI_API_KEY is not set");
       return res.status(500).json({ error: "API key not configured" });
@@ -19,25 +19,23 @@ export default async function handler(req, res) {
     const key = process.env.GEMINI_API_KEY;
     const base = "https://generativelanguage.googleapis.com/v1beta/models";
 
-    // Model cascade: try each in order; on 429/503/error, move to next
+    // Models to try -- fastest first
     const models = [
+      "gemini-2.0-flash",
       "gemini-3.8-flash",
       "gemini-2.5-flash",
-      "gemini-2.0-flash",
     ];
 
-    for (let i = 0; i < models.length; i++) {
-      const model = models[i];
-      const url = `${base}/${model}:generateContent?key=${key}`;
+    // --- STREAMING MODE ---
+    if (stream) {
+      res.setHeader("Content-Type", "text/event-stream");
+      res.setHeader("Cache-Control", "no-cache");
+      res.setHeader("Connection", "keep-alive");
 
-      // Each model gets up to 2 attempts (retry once on 429 after short delay)
-      for (let attempt = 0; attempt < 2; attempt++) {
-        if (attempt > 0) {
-          // Wait 2s before retry
-          await new Promise((r) => setTimeout(r, 2000));
-        }
+      for (const model of models) {
+        const url = `${base}/${model}:streamGenerateContent?alt=sse&key=${key}`;
         const ac = new AbortController();
-        const tm = setTimeout(() => ac.abort(), 50000);
+        const tm = setTimeout(() => ac.abort(), 55000);
         let r;
         try {
           r = await fetch(url, {
@@ -46,52 +44,84 @@ export default async function handler(req, res) {
             body: JSON.stringify(body),
             signal: ac.signal,
           });
-        } catch (fetchErr) {
+        } catch (e) {
           clearTimeout(tm);
-          console.error(`[Questa AI] ${model} attempt ${attempt} fetch error:`, fetchErr.message);
-          break; // network error -> skip to next model
+          continue; // next model
         }
         clearTimeout(tm);
 
-        // Rate limited -> retry once, then next model
-        if (r.status === 429 || r.status === 503) {
-          console.warn(`[Questa AI] ${model} returned ${r.status}, attempt ${attempt}`);
-          if (attempt === 0) continue; // retry after delay
-          break; // move to next model
-        }
+        if (r.status === 429 || r.status === 503 || !r.ok) continue;
 
-        if (!r.ok) {
-          const errBody = await r.text().catch(() => "unknown error");
-          console.error(`[Questa AI] ${model} error ${r.status}:`, errBody.slice(0, 300));
-          break; // non-retryable error -> next model
-        }
-
-        // Got a 200 response
-        const data = await r.json();
-
-        // Check for in-body errors (Gemini sometimes returns 200 with error)
-        if (data.error) {
-          console.error(`[Questa AI] ${model} body error:`, data.error.message);
-          if (data.error.code === 429 || data.error.message?.includes("quota") || data.error.message?.includes("rate")) {
-            if (attempt === 0) continue; // retry
-            break; // next model
+        // Stream chunks to client
+        try {
+          const reader = r.body.getReader();
+          const decoder = new TextDecoder();
+          let buf = "";
+          while (true) {
+            const { done, value } = await reader.read();
+            if (done) break;
+            buf += decoder.decode(value, { stream: true });
+            const lines = buf.split("\n");
+            buf = lines.pop() || "";
+            for (const line of lines) {
+              if (!line.startsWith("data: ")) continue;
+              const json = line.slice(6).trim();
+              if (!json || json === "[DONE]") continue;
+              try {
+                const chunk = JSON.parse(json);
+                const text = chunk?.candidates?.[0]?.content?.parts?.map((p) => p.text).join("") || "";
+                if (text) {
+                  res.write(`data: ${JSON.stringify({ text })}\n\n`);
+                }
+              } catch {}
+            }
           }
-          break; // non-rate error -> next model
+          res.write("data: [DONE]\n\n");
+          res.end();
+          return;
+        } catch (streamErr) {
+          console.error(`[Questa AI] Stream error with ${model}:`, streamErr.message);
+          continue;
         }
-
-        const text = data?.candidates?.[0]?.content?.parts?.map((p) => p.text).join("");
-        if (text) {
-          return res.status(200).json({ text });
-        }
-
-        // Empty response -> next model
-        console.warn(`[Questa AI] ${model} returned empty response`);
-        break;
       }
+
+      // All models failed for streaming
+      res.write(`data: ${JSON.stringify({ error: "All AI models are busy" })}\n\n`);
+      res.end();
+      return;
     }
 
-    // All models exhausted
-    console.error("[Questa AI] All models failed");
+    // --- NON-STREAMING MODE (for roadmaps etc.) ---
+    for (const model of models) {
+      const url = `${base}/${model}:generateContent?key=${key}`;
+      const ac = new AbortController();
+      const tm = setTimeout(() => ac.abort(), 55000);
+      let r;
+      try {
+        r = await fetch(url, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(body),
+          signal: ac.signal,
+        });
+      } catch (e) {
+        clearTimeout(tm);
+        continue;
+      }
+      clearTimeout(tm);
+
+      if (r.status === 429 || r.status === 503) continue;
+      if (!r.ok) continue;
+
+      const data = await r.json();
+      if (data.error) {
+        if (data.error.code === 429 || data.error.message?.includes("quota") || data.error.message?.includes("rate")) continue;
+        continue;
+      }
+      const text = data?.candidates?.[0]?.content?.parts?.map((p) => p.text).join("");
+      if (text) return res.status(200).json({ text });
+    }
+
     return res.status(429).json({ error: "All AI models are busy. Please try again in a moment." });
   } catch (e) {
     console.error("[Questa AI] Exception:", e.message);
