@@ -114,10 +114,9 @@ async function callAI(system, messages, opts = {}) {
 const GlobalStyles = () => (
   <style>{`
     @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Archivo:wght@600;700;800;900&family=Montserrat:wght@600;700;800;900&display=swap');
-    html { background: #f0f2ee; min-height: 100dvh; min-height: -webkit-fill-available; }
-    body { background: #f0f2ee; min-height: 100dvh; min-height: -webkit-fill-available; overflow-x: hidden; max-width: 100vw; }
+    html { background: #f0f2ee; margin: 0; min-height: 100%; }
+    body { background: #f0f2ee; margin: 0; min-height: 100%; position: relative; isolation: isolate; overflow-x: hidden; max-width: 100vw; }
     #root { overflow-x: hidden; max-width: 100vw; min-height: 100dvh; }
-    body::after { content:''; position:fixed; top:calc(-1 * env(safe-area-inset-top, 0px)); right:calc(-1 * env(safe-area-inset-right, 0px)); bottom:calc(-1 * env(safe-area-inset-bottom, 0px)); left:calc(-1 * env(safe-area-inset-left, 0px)); z-index:1; pointer-events:none; background: radial-gradient(max(1100px,140vw) max(800px,110vh) at 85% 0%, rgba(55,68,64,.20), transparent 55%), radial-gradient(max(900px,120vw) max(700px,100vh) at 0% 95%, rgba(55,68,64,.15), transparent 58%), radial-gradient(max(800px,110vw) max(600px,85vh) at 50% 40%, rgba(55,68,64,.07), transparent 50%); }
     .q-ink { color: #2b3634; }
     textarea::-webkit-resizer { display: none; }
     .q-mono { font-family: 'Space Grotesk', ui-monospace, monospace; }
@@ -126,7 +125,6 @@ const GlobalStyles = () => (
     .q-card::after { content:''; position:absolute; inset:0; z-index:0; border-radius:inherit; pointer-events:none; opacity:0.7; mix-blend-mode:multiply; background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='512' height='512'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.45'/%3E%3C/svg%3E"); background-repeat:repeat; background-size:512px 512px; }
     .q-card > * { position: relative; z-index: 1; }
     .q-no-grain::after { display: none !important; }
-    body::before { content:''; position:fixed; top:calc(-1 * env(safe-area-inset-top, 0px)); right:calc(-1 * env(safe-area-inset-right, 0px)); bottom:calc(-1 * env(safe-area-inset-bottom, 0px)); left:calc(-1 * env(safe-area-inset-left, 0px)); z-index:9999; pointer-events:none; opacity:0.32; background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='512' height='512'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.35'/%3E%3C/svg%3E"); background-repeat:repeat; background-size:512px 512px; }
     @keyframes qFloat { 0%{transform:translateY(0)} 100%{transform:translateY(-120vh)} }
     @keyframes qTwinkle { 0%,100%{opacity:.15;transform:scale(.8)} 50%{opacity:.9;transform:scale(1.15)} }
     @keyframes qPulseGlow { 0%,100%{box-shadow:0 0 0 0 rgba(109,40,217,.28)} 50%{box-shadow:0 0 0 9px rgba(109,40,217,0)} }
@@ -10261,8 +10259,11 @@ export default function App() {
   return (
     <QuestaCtx.Provider value={ctx}>
       <GlobalStyles />
+      {/* Tint overlay — real DOM element, not pseudo-element, to avoid iOS Safari clipping */}
+      <div aria-hidden="true" style={{ position:"fixed", inset:0, zIndex:1, pointerEvents:"none", background:"radial-gradient(max(1100px,140vw) max(800px,110vh) at 85% 0%, rgba(55,68,64,.20), transparent 55%), radial-gradient(max(900px,120vw) max(700px,100vh) at 0% 95%, rgba(55,68,64,.15), transparent 58%), radial-gradient(max(800px,110vw) max(600px,85vh) at 50% 40%, rgba(55,68,64,.07), transparent 50%)" }} />
+      {/* Grain overlay — real DOM element for full-screen coverage on iOS Safari */}
+      <div aria-hidden="true" style={{ position:"fixed", inset:0, zIndex:9999, pointerEvents:"none", opacity:0.32, backgroundImage:'url("data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'512\' height=\'512\'%3E%3Cfilter id=\'n\'%3E%3CfeTurbulence type=\'fractalNoise\' baseFrequency=\'0.85\' numOctaves=\'3\' stitchTiles=\'stitch\'/%3E%3CfeColorMatrix type=\'saturate\' values=\'0\'/%3E%3C/filter%3E%3Crect width=\'100%25\' height=\'100%25\' filter=\'url(%23n)\' opacity=\'0.35\'/%3E%3C/svg%3E")', backgroundRepeat:"repeat", backgroundSize:"512px 512px" }} />
       <div className="min-h-screen flex flex-col" style={{ fontFamily: "system-ui, -apple-system, 'Segoe UI', sans-serif", background: "transparent", minHeight: "100dvh", color: "#2b3634", overflowX: "hidden" }}>
-        {/* ambient overlay div removed — empty fixed div caused rendering boundary on mobile */}
         <Navbar />
         <div style={{ height: "clamp(16px,3vh,32px)" }} />
         <main className="flex-1 relative" style={{ zIndex: 1 }}><Page /></main>
