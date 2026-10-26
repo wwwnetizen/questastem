@@ -9667,9 +9667,23 @@ function RoadmapsPage() {
 function RoadmapDetail() {
   const { t, lang, roadmaps, activeRoadmap, go, user, comps, setRoadmaps } = useQ();
   const rm = roadmaps.find((r) => r.id === activeRoadmap) || roadmaps[0];
-  const [content, setContent] = useState(rm?.content || null);
+  const [content, setContent] = useState(() => {
+    const c = rm?.content;
+    if (!c) return null;
+    if (typeof c === "object" && c.phases) return c;
+    if (typeof c === "string") {
+      try {
+        let cleaned = c.trim();
+        if (cleaned.startsWith("```")) cleaned = cleaned.replace(/^```[a-z]*\n?/, "").replace(/\n?```$/, "").trim();
+        const a = cleaned.indexOf("{"), b = cleaned.lastIndexOf("}");
+        if (a !== -1 && b > a) { const obj = JSON.parse(cleaned.slice(a, b + 1)); if (obj.phases) return obj; }
+      } catch (e) {}
+    }
+    return c;
+  });
   const [phase, setPhase] = useState(rm?.content ? "done" : "intake"); // intake | generating | done
   const [genError, setGenError] = useState(false);
+  const [detailTab, setDetailTab] = useState("overview");
   const [level, setLevel] = useState(rm?.level || "");
   const [hoursPerWeek, setHoursPerWeek] = useState(rm?.hoursPerWeek || "");
   const [goal, setGoal] = useState(rm?.goal || "");
@@ -9762,149 +9776,82 @@ IMPORTANT: Only recommend courses that are directly relevant to this student's s
         ? `\n\nLANGUAGE REQUIREMENT (STRICT): The student is using the Mongolian version of Questa. You MUST write your ENTIRE response in Mongolian (монгол хэлээр бүгдийг бичнэ үү). Every heading, every sentence, every explanation -- all in Mongolian. Only keep proper nouns in English (course names like "Khan Academy", "MIT OCW", URLs). If you write in English, the student cannot read it. This is non-negotiable.`
         : "\n\nLANGUAGE: Write your entire response in English.";
 
-      const prompt = `You are a world-class STEM education advisor building a comprehensive, highly organized preparation roadmap for a student on the Questa platform (questastem.com).
+      const prompt = `You are a world-class STEM education advisor on the Questa platform (questastem.com).
 
-This is the student's complete study guide. Be organized and clear, but CONCISE. Do NOT write long essays or paragraphs for each topic. Keep explanations to 1-2 sentences max per course/topic. The power is in the structure and the course links, not in lengthy text.
-
-═══════════════════════════════════
-STUDENT PROFILE
-═══════════════════════════════════
+STUDENT PROFILE:
 ${profileSection || "Student (no profile provided)"}
 
-═══════════════════════════════════
-PATH-SPECIFIC ANSWERS
-═══════════════════════════════════
+PATH ANSWERS:
 Weekly study hours: ${hoursPerWeek || "not specified"}
 Timeline: ${timeline || "not specified"}
 Biggest challenge: ${biggestChallenge || "not specified"}
 
-═══════════════════════════════════
-TARGET
-═══════════════════════════════════
-${rm?.title || "General STEM preparation"}
-${target ? `Program / competition: ${target.name?.en || target.title}` : ""}
+TARGET: ${rm?.title || "General STEM preparation"}
+${target ? `Program: ${target.name?.en || target.title}` : ""}
 ${target?.desc ? `About: ${target.desc?.en || target.desc}` : ""}
-${target?.prep ? `Typical prep time: ~${target.prep} months` : ""}
+${target?.prep ? `Prep time: ~${target.prep} months` : ""}
 ${coursesCatalog}
 ${langInstruction}
 
-═══════════════════════════════════
-OUTPUT FORMAT (follow exactly)
-═══════════════════════════════════
+OUTPUT: Return ONLY valid JSON. No text before or after. No markdown code blocks. No backticks.
 
-IMPORTANT: Do NOT use any markdown symbols in your response. No ###, no **, no *, no ---, no - bullets, no | tables. Write section headings in UPPERCASE LETTERS. Separate sections with blank lines. Use numbered lists (1. 2. 3.) for items. The output is displayed as plain text, so markdown symbols will appear literally and look broken.
+{
+  "overview": "4-6 sentence assessment: where the student stands now, the strategy, and outcomes",
+  "phases": [
+    {
+      "name": "Foundation",
+      "timeline": "Months 1-N",
+      "goal": "Specific one-line goal",
+      "courses": [
+        {
+          "name": "EXACT Questa course name from the data above",
+          "hours": 15,
+          "weeks": 3,
+          "why": "1-2 sentences on why this course matters"
+        }
+      ],
+      "checkpoint": "Ready for next phase when you can [specific skill]"
+    }
+  ],
+  "milestones": [
+    { "time": "Week 2", "goal": "Specific measurable achievement" }
+  ]
+}
 
-OVERVIEW
+Create 3-4 phases: Foundation, Core Knowledge, Advanced/Application, Competition Ready.
+Each phase: 2-5 courses with exact names from the course data above.
 
-Write a short assessment (4-6 sentences total):
-1. Where the student stands now based on their answers (level, prior knowledge, experience)
-2. The strategy this roadmap follows and why it fits their situation (hours, timeline, challenge)
-3. What they will achieve by the end -- concrete outcomes
-
-
-PHASE 1 -- FOUNDATION (Months 1-${timeline === "Under 3 months" || timeline === "3 сараас бага" ? "1" : timeline === "3–6 months" || timeline === "3-6 сар" ? "2" : "3"})
-Goal: [specific one-line goal]
-
-${coursesCatalog ? `Use the Questa Knowledge Tree courses listed above. For EACH course, write in this compact format:
-
-COURSE: [Questa Course Name] (~X hours, Y weeks)
-Why: 1-2 sentences max on why this matters for their goal.
-Resources (copy from the course listing above):
-  1. [Resource name]: [URL]
-  2. [Resource name]: [URL]
-Checkpoint: "You are ready for the next course when you can [specific skill]"
-
-Show the prerequisite chain: Course A then Course B then Course C.
-Keep it clean and scannable. NO long paragraphs.` : `For each topic, write in this compact format:
-
-TOPIC: [Name] (~X hours)
-Why: 1-2 sentences on why it matters for their goal.
-Resources:
-  1. [Resource name]: [direct URL]
-  2. [Resource name]: [direct URL]
-  3. [Resource name]: [direct URL]
-Checkpoint: "You are ready to move on when you can [specific skill]"
-
-Keep it clean and scannable. NO long paragraphs.`}
-
-
-PHASE 2 -- CORE KNOWLEDGE (Months ${timeline === "Under 3 months" || timeline === "3 сараас бага" ? "1-2" : timeline === "3–6 months" || timeline === "3-6 сар" ? "2-4" : "3-6"})
-Goal: [specific one-line goal]
-
-${coursesCatalog ? "Continue with Questa Knowledge Tree core courses in prerequisite order. Same compact format as Phase 1 (course name, 1-2 sentence why, resource links, checkpoint)." : "Same compact format. Name exact resources with URLs."}
-
-
-
-PHASE 3 -- ADVANCED & APPLICATION (Months ${timeline === "Under 3 months" || timeline === "3 сараас бага" ? "2-3" : timeline === "3–6 months" || timeline === "3-6 сар" ? "4-5" : "6-9"})
-Goal: [specific one-line goal]
-
-${coursesCatalog ? "Continue with advanced Questa courses. Same compact format. Also add:" : "Same compact format. Also include:"}
-1. Past papers / competition archives with URLs
-2. Research methodology or project work if relevant
-3. Problem databases and repositories with URLs
-
-
-PHASE 4 -- COMPETITION/PROGRAM READY (Final ${timeline === "Under 3 months" || timeline === "3 сараас бага" ? "2 weeks" : "month"})
-Goal: [specific one-line goal]
-
-1. Mock tests with specific sources and URLs
-2. Application/essay guidance if relevant
-3. Portfolio or research output preparation
-4. Final review strategy
-5. Specific deadlines and deliverables
-
-
-WEEKLY SCHEDULE
-
-Create a detailed, realistic weekly plan for ${hoursPerWeek || "their available"} hours. Format each day on its own line:
-
-Monday: 1.5h -- [Topic] -- [Specific activity: solve problems 1-15 from X, watch lecture Y]
-Wednesday: 1.5h -- [Topic] -- [Specific activity]
-(continue for all study days)
-
-Include what to do on rest days (light review, reading).
-
-
-MILESTONES
-
-8-10 concrete, measurable checkpoints with target dates:
-
-1. Week 2: [Specific measurable achievement -- e.g. "Complete all Khan Academy Algebra II exercises with 90%+ score"]
-2. Month 1: [Specific measurable achievement]
-3. Month 2: [Specific measurable achievement]
-(continue through their timeline)
-
-
-RESOURCES LIST
-
-Top 12-15 free resources organized by phase. For each:
-1. Resource name -- direct URL
-2. What to use it for specifically
-3. Which phase it belongs to
-
-Prioritize resources accessible from Mongolia (no geo-restricted content).
-
-═══════════════════════════════════
-QUALITY REQUIREMENTS
-═══════════════════════════════════
-- Be CONCISE. Short explanations (1-2 sentences per course/topic), not essays. The value is in the organized course sequence and resource links.
-- Every recommendation must include exact resource names and URLs. Never say "find resources online."
-- ${coursesCatalog ? "Present Questa courses as a clear sequential path with their resource links. Copy the exact URLs from the course data above." : "Create a clear course sequence with direct URLs to every resource."}
-- Reference the student's specific situation (level, timeline, challenge) but keep it brief.
-- The roadmap should read like a clean, organized course catalog -- not a wall of text.
-- PERSONALIZATION: Use the student's full STEM profile (known courses, prior competitions, target outcomes) to explain WHY this specific sequence was chosen and which courses they can SKIP based on prior knowledge.
-- Start the OVERVIEW section by acknowledging their existing knowledge and explaining the gaps this roadmap fills.
-- ${coursesCatalog ? "For EACH Questa Knowledge Tree course you recommend, use the EXACT course name from the data above so the student can find it in Questa. These names will be rendered as clickable links in the app." : "Whenever you recommend a topic that exists in a typical university STEM curriculum, name it clearly so it can be matched to Questa's Knowledge Tree."}`;
+RULES:
+- Return ONLY the JSON object. No text, no markdown, no backticks around it.
+- NEVER use em dashes (long dash) anywhere. Use commas, periods, or the word "to" instead.
+- ${coursesCatalog ? "Use EXACT Questa course names from data above so the app links them." : "Name courses clearly to match Questa Knowledge Tree."}
+- Keep "why" to 1-2 sentences. Be concise.
+- 8-10 milestones spanning the full timeline.
+- Personalize based on student profile.
+- ${isMn ? "Write ALL text values in Mongolian. Keep course names in their original language." : "Write all text in English."}
+- Overview should acknowledge current level and explain what gaps this fills.`;
 
 
 
       const reply = await callAI(isMn
-        ? "Та STEM боловсролын ахлах зөвлөх юм. Зохион байгуулалттай, товч, практик сурах зам бичнэ. Хичээл бүрт 1-2 өгүүлбэрээр тайлбар бичиж, нөөцийн линкүүдийг оруулна. Урт эссэ БҮҮ бич. БҮГДИЙГ МОНГОЛ ХЭЛЭЭР БИЧНЭ. ЧУХАЛ: Markdown тэмдэгт ОГТХОН ашиглахгүй -- ###, **, *, ---, - гэх мэт тэмдэгт бүү хэрэглэ. Гарчгийг ТОМ ҮСГЭЭР бич, хоосон мөрөөр салга. Жагсаалтад тоо (1. 2. 3.) эсвэл хоосон мөр ашигла. ЧУХАЛ: Нийт хариултаа 2500 үгэнд багтааж бичнэ үү. Бүх хэсгийг бүрэн дуусгах нь чухал -- дундаас нь таслахгүй."
-        : "You are a precise STEM education advisor. Write organized, concise, actionable preparation roadmaps. Keep explanations to 1-2 sentences per course/topic -- the value is in the organized course sequence and resource links, not long paragraphs. CRITICAL: Do NOT use any markdown formatting symbols -- no ###, no **, no *, no ---, no bullet dashes. Write headings in UPPERCASE and separate sections with blank lines. Use numbered lists (1. 2. 3.) instead of bullet points. IMPORTANT: Keep your TOTAL response under 2500 words. Complete ALL sections fully -- never stop mid-sentence or mid-section. Prioritize finishing every section over adding extra detail to any one section.", [{ role: "user", content: prompt }], { maxTokens: 16384 });
-      setContent(reply);
+        ? "Та STEM боловсролын зөвлөх. ЗӨВХӨН JSON форматаар хариулна. Ямар нэг тайлбар текст бүү нэм. Em dash ашиглахгүй."
+        : "You are a STEM advisor. Return ONLY valid JSON. No text before or after. No markdown. NEVER use em dashes.", [{ role: "user", content: prompt }], { maxTokens: 16384 });
+      // Parse JSON response
+      let parsed = null;
+      try {
+        let cleaned = reply.trim();
+        if (cleaned.startsWith("```")) cleaned = cleaned.replace(/^\`\`\`[a-z]*\n?/, "").replace(/\n?\`\`\`$/, "").trim();
+        const jsonStart = cleaned.indexOf("{");
+        const jsonEnd = cleaned.lastIndexOf("}");
+        if (jsonStart !== -1 && jsonEnd > jsonStart) cleaned = cleaned.slice(jsonStart, jsonEnd + 1);
+        parsed = JSON.parse(cleaned);
+      } catch (e) {
+        parsed = null;
+      }
+      setContent(parsed || reply);
       setPhase("done");
       // persist content + all intake fields into roadmap object
-      setRoadmaps(prev => prev.map(r => r.id === rm.id ? { ...r, content: reply, level, hoursPerWeek, goal, priorKnowledge, compExp, timeline, biggestChallenge } : r));
+      setRoadmaps(prev => prev.map(r => r.id === rm.id ? { ...r, content: parsed || reply, level, hoursPerWeek, goal, priorKnowledge, compExp, timeline, biggestChallenge } : r));
     } catch (err) {
       setGenError(true);
       if (err?.traffic) {
@@ -10059,7 +10006,7 @@ QUALITY REQUIREMENTS
 
       {/* DONE */}
       {phase === "done" && content && (() => {
-        /* Build a map of ALL course names → nodes so we can detect which ones the AI mentioned */
+        const isStructured = typeof content === "object" && content.phases;
         const allNameMap = {};
         Object.values(ALL_NODES).forEach(n => {
           const en = (n.name?.en || "").toLowerCase();
@@ -10067,76 +10014,151 @@ QUALITY REQUIREMENTS
           if (en && en.length > 3) allNameMap[en] = n;
           if (mn && mn.length > 3) allNameMap[mn] = n;
         });
-        /* Only collect courses that the AI actually referenced in the roadmap text */
-        const contentLower = (content || "").toLowerCase();
-        const mentioned = {};
-        Object.entries(allNameMap).forEach(([name, node]) => {
-          if (contentLower.includes(name)) mentioned[node.id] = node;
-        });
-        /* Also add prerequisite courses for mentioned ones */
-        const addPrereqs = (id) => { if (!ALL_NODES[id]) return; (ALL_NODES[id].prereqs || []).forEach(pid => { if (!mentioned[pid] && ALL_NODES[pid]) { mentioned[pid] = ALL_NODES[pid]; addPrereqs(pid); } }); };
-        Object.keys({ ...mentioned }).forEach(addPrereqs);
-        const courseNodes = Object.values(mentioned);
-        const byStage = { f: [], a: [], o: [] };
-        courseNodes.forEach(n => { if (byStage[n.stage]) byStage[n.stage].push(n); });
-        const stageLabel = (s) => s === "f" ? (lang === "mn" ? "СУУРЬ ХИЧЭЭЛҮҮД" : "FOUNDATION COURSES") : s === "a" ? (lang === "mn" ? "ГОЛЛОХ ХИЧЭЭЛҮҮД" : "CORE COURSES") : (lang === "mn" ? "ГҮНЗГИЙРҮҮЛСЭН ХИЧЭЭЛҮҮД" : "ADVANCED COURSES");
+        const findNode = (courseName) => {
+          if (!courseName) return null;
+          const lower = courseName.toLowerCase().trim();
+          if (allNameMap[lower]) return allNameMap[lower];
+          for (const [key, node] of Object.entries(allNameMap)) {
+            if (lower.includes(key) || key.includes(lower)) return node;
+          }
+          return null;
+        };
+
+        if (!isStructured) {
+          const text = typeof content === "string" ? content : JSON.stringify(content, null, 2);
+          return (
+          <>
+            <div style={{ height: 1, background: "rgba(43,54,52,.22)", marginBottom: 40 }} />
+            <div style={{ fontSize: 15, color: "#2b3634", lineHeight: 1.9, whiteSpace: "pre-wrap" }}>{text}</div>
+            <div style={{ height: 1, background: "rgba(43,54,52,.22)", margin: "40px 0 24px" }} />
+            {genError ? (
+              <button onClick={() => generateRoadmap()} style={{ padding: "10px 20px", fontFamily: mono, fontSize: 12, color: "#2b3634", background: "rgba(43,54,52,.08)", border: "1.5px solid rgba(43,54,52,.35)", borderRadius: 10, cursor: "pointer", letterSpacing: "0.1em", fontWeight: 600, transition: "all .2s" }}
+                onMouseOver={e => { e.currentTarget.style.background = "rgba(43,54,52,.14)"; e.currentTarget.style.borderColor = "rgba(43,54,52,.5)"; }}
+                onMouseOut={e => { e.currentTarget.style.background = "rgba(43,54,52,.08)"; e.currentTarget.style.borderColor = "rgba(43,54,52,.35)"; }}>
+                {lang === "mn" ? "Дахин оролдох" : "Try again"}
+              </button>
+            ) : (
+              <button onClick={() => { setContent(null); setPhase("intake"); setDetailTab("overview"); }} style={{ padding: "10px 20px", fontFamily: mono, fontSize: 12, color: "#2b3634", background: "rgba(43,54,52,.08)", border: "1.5px solid rgba(43,54,52,.35)", borderRadius: 10, cursor: "pointer", letterSpacing: "0.1em", fontWeight: 600, transition: "all .2s" }}
+                onMouseOver={e => { e.currentTarget.style.background = "rgba(43,54,52,.14)"; e.currentTarget.style.borderColor = "rgba(43,54,52,.5)"; }}
+                onMouseOut={e => { e.currentTarget.style.background = "rgba(43,54,52,.08)"; e.currentTarget.style.borderColor = "rgba(43,54,52,.35)"; }}>
+                {lang === "mn" ? "Дахин үүсгэх" : "Regenerate"}
+              </button>
+            )}
+          </>
+          );
+        }
+
+        const data = content;
+        const phases = data.phases || [];
+        const milestones = data.milestones || [];
+
+        const PhaseBar = () => (
+          <div style={{ display: "flex", gap: 4, marginBottom: 32 }}>
+            {phases.map((p, i) => (
+              <div key={i} style={{ flex: 1, display: "flex", flexDirection: "column", gap: 4 }}>
+                <div style={{ height: 3, borderRadius: 2, background: "rgba(43,54,52,.15)" }} />
+                <div style={{ fontFamily: mono, fontSize: 9, letterSpacing: "0.12em", color: "rgba(43,54,52,.45)", textAlign: "center" }}>
+                  {(p.name || "Phase " + (i + 1)).toUpperCase()}
+                </div>
+              </div>
+            ))}
+          </div>
+        );
+
+        const CourseCard = ({ course }) => {
+          const node = findNode(course.name);
+          const nb = node ? NODE_BRANCH[node.id] : null;
+          const clickable = !!nb;
+          return (
+            <div onClick={() => { if (nb) go("tree", { subjectId: nb.subjectId, branchId: nb.branchId, nodeId: node.id }); }}
+              style={{ padding: "14px 18px", border: "1.5px solid rgba(43,54,52,.25)", borderRadius: 14, background: "rgba(43,54,52,.03)", cursor: clickable ? "pointer" : "default", transition: "all .2s", marginBottom: 8 }}
+              onMouseOver={e => { if (clickable) { e.currentTarget.style.background = "rgba(43,54,52,.1)"; e.currentTarget.style.borderColor = "rgba(43,54,52,.5)"; } }}
+              onMouseOut={e => { e.currentTarget.style.background = "rgba(43,54,52,.03)"; e.currentTarget.style.borderColor = "rgba(43,54,52,.25)"; }}>
+              <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 4 }}>
+                <div style={{ fontSize: 14, fontWeight: 700, color: "#2b3634" }}>
+                  {course.name}
+                  {clickable && <span style={{ fontFamily: mono, fontSize: 10, color: "rgba(43,54,52,.35)", marginLeft: 8 }}>&rarr;</span>}
+                </div>
+                {(course.hours || course.weeks) && (
+                  <div style={{ fontFamily: mono, fontSize: 11, color: "rgba(43,54,52,.45)", flexShrink: 0 }}>
+                    {course.hours ? `~${course.hours}h` : ""}{course.hours && course.weeks ? " / " : ""}{course.weeks ? `${course.weeks}w` : ""}
+                  </div>
+                )}
+              </div>
+              {course.why && <div style={{ fontSize: 13, color: "rgba(43,54,52,.65)", lineHeight: 1.5 }}>{course.why}</div>}
+            </div>
+          );
+        };
+
         return (
         <>
-          <div style={{ height: 1, background: "rgba(43,54,52,.22)", marginBottom: 40 }} />
-          <div style={{ fontSize: 15, color: "#2b3634", lineHeight: 1.9, whiteSpace: "pre-wrap" }}>{(() => {
-            const cleaned = content.replace(/^#{1,6}\s+/gm, "").replace(/\*\*([^*]+)\*\*/g, "$1").replace(/\*([^*]+)\*/g, "$1").replace(/^---+$/gm, "").replace(/^\|.*\|$/gm, m => m.replace(/\|/g, "  ").replace(/[-:]+/g, "").trim()).replace(/^[-] /gm, "  ").replace(/\n{3,}/g, "\n\n");
-            /* Build a map of course names → node IDs for inline linking */
-            const nameMap = {};
-            courseNodes.forEach(n => {
-              const en = (n.name.en || "").toLowerCase();
-              const mn = (n.name.mn || "").toLowerCase();
-              if (en) nameMap[en] = n;
-              if (mn) nameMap[mn] = n;
-            });
-            if (courseNodes.length === 0) return cleaned;
-            /* Build regex to match course names (longest first) */
-            const names = Object.keys(nameMap).filter(n => n.length > 3).sort((a, b) => b.length - a.length);
-            if (names.length === 0) return cleaned;
-            const escaped = names.map(n => n.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"));
-            const re = new RegExp(`(${escaped.join("|")})`, "gi");
-            const parts = cleaned.split(re);
-            return parts.map((part, idx) => {
-              const node = nameMap[part.toLowerCase()];
-              if (node) {
-                const nb = NODE_BRANCH[node.id];
-                return React.createElement("span", {
-                  key: idx,
-                  onClick: () => { if (nb) go("tree", { subjectId: nb.subjectId, branchId: nb.branchId, nodeId: node.id }); },
-                  style: { textDecoration: "underline", textDecorationColor: "rgba(43,54,52,.3)", textUnderlineOffset: "3px", cursor: "pointer", fontWeight: 600 },
-                  onMouseOver: (e) => { e.currentTarget.style.textDecorationColor = "rgba(43,54,52,.7)"; },
-                  onMouseOut: (e) => { e.currentTarget.style.textDecorationColor = "rgba(43,54,52,.3)"; },
-                }, part);
-              }
-              return part;
-            });
-          })()}</div>
+          <PhaseBar />
+          <div style={{ display: "flex", gap: 0, borderBottom: "1px solid rgba(43,54,52,.35)", marginBottom: 32, overflowX: "auto" }}>
+            {[["overview", lang === "mn" ? "ТОЙМ" : "OVERVIEW"], ["milestones", lang === "mn" ? "ЗОРИЛТУУД" : "MILESTONES"]].map(([id, label]) => (
+              <button key={id} onClick={() => setDetailTab(id)}
+                style={{ fontFamily: mono, fontSize: 12, letterSpacing: "0.08em", color: detailTab === id ? "#2b3634" : "rgba(43,54,52,.35)", background: "none", border: "none", borderBottom: `2px solid ${detailTab === id ? "#2b3634" : "transparent"}`, padding: "10px 24px 12px", cursor: "pointer", marginBottom: -1, fontWeight: detailTab === id ? 600 : 400, whiteSpace: "nowrap" }}>
+                {label}
+              </button>
+            ))}
+          </div>
 
-          {courseNodes.length > 0 && (
-            <div style={{ marginTop: 48 }}>
-              <div style={{ height: 1, background: "rgba(43,54,52,.22)", marginBottom: 32 }} />
-              <div style={{ fontFamily: mono, fontSize: 11, letterSpacing: "0.2em", color: "#2b3634", marginBottom: 24 }}>{lang === "mn" ? "QUESTA ХИЧЭЭЛҮҮД" : "QUESTA COURSES"}</div>
-              {["f", "a", "o"].filter(s => byStage[s].length > 0).map(s => (
-                <div key={s} style={{ marginBottom: 28 }}>
-                  <div style={{ fontFamily: mono, fontSize: 10, letterSpacing: "0.15em", color: "#2b3634", marginBottom: 12 }}>{stageLabel(s)}</div>
-                  <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
-                    {byStage[s].map(n => {
-                      const nb = NODE_BRANCH[n.id];
-                      return (
-                        <button key={n.id} onClick={() => { if (nb) go("tree", { subjectId: nb.subjectId, branchId: nb.branchId, nodeId: n.id }); }}
-                          style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "12px 16px", border: "1.5px solid rgba(43,54,52,.35)", borderRadius: 12, background: "rgba(43,54,52,.08)", cursor: "pointer", fontFamily: mono, fontSize: 12, color: "#2b3634", fontWeight: 600, textAlign: "left", transition: "all .2s", width: "100%" }}
-                          onMouseOver={e => { e.currentTarget.style.background = "rgba(43,54,52,.14)"; e.currentTarget.style.borderColor = "rgba(43,54,52,.5)"; }}
-                          onMouseOut={e => { e.currentTarget.style.background = "rgba(43,54,52,.08)"; e.currentTarget.style.borderColor = "rgba(43,54,52,.35)"; }}>
-                          <span>{n.name[lang] || n.name.en}</span>
-                          <span style={{ fontWeight: 400, fontSize: 11, flexShrink: 0, marginLeft: 12 }}>{n.weeks}w / {n.h}h</span>
-                        </button>
-                      );
-                    })}
+          {detailTab === "overview" && (
+            <div>
+              {data.overview && (
+                <div style={{ fontSize: 15, color: "#2b3634", lineHeight: 1.8, marginBottom: 40, padding: "20px 24px", background: "rgba(43,54,52,.03)", borderRadius: 16, border: "1px solid rgba(43,54,52,.1)" }}>
+                  {data.overview}
+                </div>
+              )}
+              {phases.map((p, pi) => (
+                <div key={pi} style={{ marginBottom: 48 }}>
+                  <div style={{ display: "flex", alignItems: "baseline", gap: 12, marginBottom: 8 }}>
+                    <div style={{ fontFamily: mono, fontSize: 11, letterSpacing: "0.15em", color: "rgba(43,54,52,.4)", flexShrink: 0 }}>
+                      {(lang === "mn" ? "ШАТ" : "PHASE") + " " + (pi + 1)}
+                    </div>
+                    <div style={{ height: 1, flex: 1, background: "rgba(43,54,52,.12)" }} />
                   </div>
+                  <h2 style={{ fontSize: "clamp(20px,3.5vw,28px)", fontWeight: 800, color: "#2b3634", letterSpacing: "-0.03em", margin: "0 0 4px" }}>
+                    {p.name || "Phase " + (pi + 1)}
+                  </h2>
+                  {p.timeline && (
+                    <div style={{ fontFamily: mono, fontSize: 11, color: "rgba(43,54,52,.45)", letterSpacing: "0.08em", marginBottom: 12 }}>
+                      {p.timeline.toUpperCase()}
+                    </div>
+                  )}
+                  {p.goal && (
+                    <div style={{ fontSize: 14, color: "#2b3634", lineHeight: 1.6, marginBottom: 20, paddingLeft: 16, borderLeft: "2px solid rgba(43,54,52,.15)" }}>
+                      <span style={{ fontFamily: mono, fontSize: 10, letterSpacing: "0.15em", color: "rgba(43,54,52,.4)", display: "block", marginBottom: 4 }}>{lang === "mn" ? "ЗОРИЛГО" : "GOAL"}</span>
+                      {p.goal}
+                    </div>
+                  )}
+                  {p.courses && p.courses.length > 0 && (
+                    <div style={{ marginBottom: 16 }}>
+                      <div style={{ fontFamily: mono, fontSize: 10, letterSpacing: "0.15em", color: "rgba(43,54,52,.4)", marginBottom: 10 }}>
+                        {lang === "mn" ? "ХИЧЭЭЛҮҮД" : "COURSES"}
+                      </div>
+                      {p.courses.map((c, ci) => <CourseCard key={ci} course={c} />)}
+                    </div>
+                  )}
+                  {p.checkpoint && (
+                    <div style={{ padding: "12px 18px", borderRadius: 12, background: "rgba(43,54,52,.05)", border: "1px solid rgba(43,54,52,.12)", fontSize: 13, color: "#2b3634", lineHeight: 1.5 }}>
+                      <span style={{ fontFamily: mono, fontSize: 10, letterSpacing: "0.12em", color: "rgba(43,54,52,.4)", marginRight: 8 }}>{lang === "mn" ? "ШАЛГАХ ЦЭГ:" : "CHECKPOINT:"}</span>
+                      {p.checkpoint}
+                    </div>
+                  )}
+                </div>
+              ))}
+            </div>
+          )}
+
+          {detailTab === "milestones" && (
+            <div>
+              <div style={{ fontFamily: mono, fontSize: 10, letterSpacing: "0.15em", color: "rgba(43,54,52,.4)", marginBottom: 20 }}>
+                {lang === "mn" ? "ЗОРИЛТОТ АМЖИЛТУУД" : "TARGET ACHIEVEMENTS"}
+              </div>
+              {milestones.map((m, i) => (
+                <div key={i} style={{ display: "flex", gap: 16, padding: "16px 0", borderBottom: i < milestones.length - 1 ? "1px solid rgba(43,54,52,.08)" : "none" }}>
+                  <div style={{ fontFamily: mono, fontSize: 12, fontWeight: 700, color: "#2b3634", minWidth: 80, flexShrink: 0 }}>{m.time}</div>
+                  <div style={{ fontSize: 14, color: "#2b3634", lineHeight: 1.6 }}>{m.goal}</div>
                 </div>
               ))}
             </div>
@@ -10144,15 +10166,13 @@ QUALITY REQUIREMENTS
 
           <div style={{ height: 1, background: "rgba(43,54,52,.22)", margin: "40px 0 24px" }} />
           {genError ? (
-            <button onClick={() => generateRoadmap()}
-              style={{ padding: "10px 20px", fontFamily: mono, fontSize: 12, color: "#2b3634", background: "rgba(43,54,52,.08)", border: "1.5px solid rgba(43,54,52,.35)", borderRadius: 10, cursor: "pointer", letterSpacing: "0.1em", fontWeight: 600, transition: "all .2s" }}
+            <button onClick={() => generateRoadmap()} style={{ padding: "10px 20px", fontFamily: mono, fontSize: 12, color: "#2b3634", background: "rgba(43,54,52,.08)", border: "1.5px solid rgba(43,54,52,.35)", borderRadius: 10, cursor: "pointer", letterSpacing: "0.1em", fontWeight: 600, transition: "all .2s" }}
               onMouseOver={e => { e.currentTarget.style.background = "rgba(43,54,52,.14)"; e.currentTarget.style.borderColor = "rgba(43,54,52,.5)"; }}
               onMouseOut={e => { e.currentTarget.style.background = "rgba(43,54,52,.08)"; e.currentTarget.style.borderColor = "rgba(43,54,52,.35)"; }}>
               {lang === "mn" ? "Дахин оролдох" : "Try again"}
             </button>
           ) : (
-            <button onClick={() => { setContent(null); setPhase("intake"); setLevel(rm.level || ""); setHoursPerWeek(rm.hoursPerWeek || ""); setGoal(rm.goal || ""); setPriorKnowledge(rm.priorKnowledge || ""); setCompExp(rm.compExp || ""); setTimeline(rm.timeline || ""); setBiggestChallenge(rm.biggestChallenge || ""); }}
-              style={{ padding: "10px 20px", fontFamily: mono, fontSize: 12, color: "#2b3634", background: "rgba(43,54,52,.08)", border: "1.5px solid rgba(43,54,52,.35)", borderRadius: 10, cursor: "pointer", letterSpacing: "0.1em", fontWeight: 600, transition: "all .2s" }}
+            <button onClick={() => { setContent(null); setPhase("intake"); setDetailTab("overview"); }} style={{ padding: "10px 20px", fontFamily: mono, fontSize: 12, color: "#2b3634", background: "rgba(43,54,52,.08)", border: "1.5px solid rgba(43,54,52,.35)", borderRadius: 10, cursor: "pointer", letterSpacing: "0.1em", fontWeight: 600, transition: "all .2s" }}
               onMouseOver={e => { e.currentTarget.style.background = "rgba(43,54,52,.14)"; e.currentTarget.style.borderColor = "rgba(43,54,52,.5)"; }}
               onMouseOut={e => { e.currentTarget.style.background = "rgba(43,54,52,.08)"; e.currentTarget.style.borderColor = "rgba(43,54,52,.35)"; }}>
               {lang === "mn" ? "Дахин үүсгэх" : "Regenerate"}
