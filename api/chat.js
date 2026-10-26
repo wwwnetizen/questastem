@@ -10,82 +10,89 @@ export default async function handler(req, res) {
       role: m.role === "assistant" ? "model" : "user",
       parts: [{ text: String(m.content || "") }],
     }));
-    // Allow client to request more tokens (capped at 16384 for safety)
     const outputTokens = Math.min(Math.max(Number(maxTokens) || 4096, 1024), 16384);
-    const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-3.8-flash:generateContent?key=${process.env.GEMINI_API_KEY}`;
     const body = {
       systemInstruction: { parts: [{ text: String(system || "") }] },
       contents,
       generationConfig: { temperature: 0.7, maxOutputTokens: outputTokens },
     };
-    const controller = new AbortController();
-    const timeout = setTimeout(() => controller.abort(), 55000);
-    let r;
-    try {
-      r = await fetch(apiUrl, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(body),
-        signal: controller.signal,
-      });
-    } catch (fetchErr) {
-      clearTimeout(timeout);
-      console.error("[Questa AI] Primary fetch failed:", fetchErr.message);
-      // Try fallback on network/timeout error
-      const c2 = new AbortController();
-      const t2 = setTimeout(() => c2.abort(), 50000);
-      try {
-        const r2 = await fetch(
-          `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${process.env.GEMINI_API_KEY}`,
-          { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(body), signal: c2.signal }
-        );
-        clearTimeout(t2);
-        if (r2.ok) {
-          const data2 = await r2.json();
-          const text2 = data2?.candidates?.[0]?.content?.parts?.map((p) => p.text).join("") || "No response";
-          return res.status(200).json({ text: text2 });
+    const key = process.env.GEMINI_API_KEY;
+    const base = "https://generativelanguage.googleapis.com/v1beta/models";
+
+    // Model cascade: try each in order; on 429/503/error, move to next
+    const models = [
+      "gemini-3.8-flash",
+      "gemini-2.5-flash",
+      "gemini-2.0-flash",
+    ];
+
+    for (let i = 0; i < models.length; i++) {
+      const model = models[i];
+      const url = `${base}/${model}:generateContent?key=${key}`;
+
+      // Each model gets up to 2 attempts (retry once on 429 after short delay)
+      for (let attempt = 0; attempt < 2; attempt++) {
+        if (attempt > 0) {
+          // Wait 2s before retry
+          await new Promise((r) => setTimeout(r, 2000));
         }
-      } catch (e2) { clearTimeout(t2); }
-      return res.status(500).json({ error: fetchErr.name === "AbortError" ? "Request timed out" : "Could not reach AI service" });
-    }
-    clearTimeout(timeout);
-    if (r.status === 429 || r.status === 503) {
-      return res.status(r.status).json({ error: "Traffic is high" });
-    }
-    if (!r.ok) {
-      const errBody = await r.text();
-      console.error(`[Questa AI] Gemini API error ${r.status}:`, errBody);
-      // Try fallback model if primary fails
-      const c2 = new AbortController();
-      const t2 = setTimeout(() => c2.abort(), 50000);
-      let r2;
-      try {
-        r2 = await fetch(
-          `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${process.env.GEMINI_API_KEY}`,
-          { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(body), signal: c2.signal }
-        );
-      } catch (e2) { clearTimeout(t2); return res.status(200).json({ text: "Gemini error: " + errBody.slice(0, 200) }); }
-      clearTimeout(t2);
-      if (r2.ok) {
-        const data2 = await r2.json();
-        const text2 = data2?.candidates?.[0]?.content?.parts?.map((p) => p.text).join("") || "No response";
-        return res.status(200).json({ text: text2 });
+        const ac = new AbortController();
+        const tm = setTimeout(() => ac.abort(), 50000);
+        let r;
+        try {
+          r = await fetch(url, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(body),
+            signal: ac.signal,
+          });
+        } catch (fetchErr) {
+          clearTimeout(tm);
+          console.error(`[Questa AI] ${model} attempt ${attempt} fetch error:`, fetchErr.message);
+          break; // network error -> skip to next model
+        }
+        clearTimeout(tm);
+
+        // Rate limited -> retry once, then next model
+        if (r.status === 429 || r.status === 503) {
+          console.warn(`[Questa AI] ${model} returned ${r.status}, attempt ${attempt}`);
+          if (attempt === 0) continue; // retry after delay
+          break; // move to next model
+        }
+
+        if (!r.ok) {
+          const errBody = await r.text().catch(() => "unknown error");
+          console.error(`[Questa AI] ${model} error ${r.status}:`, errBody.slice(0, 300));
+          break; // non-retryable error -> next model
+        }
+
+        // Got a 200 response
+        const data = await r.json();
+
+        // Check for in-body errors (Gemini sometimes returns 200 with error)
+        if (data.error) {
+          console.error(`[Questa AI] ${model} body error:`, data.error.message);
+          if (data.error.code === 429 || data.error.message?.includes("quota") || data.error.message?.includes("rate")) {
+            if (attempt === 0) continue; // retry
+            break; // next model
+          }
+          break; // non-rate error -> next model
+        }
+
+        const text = data?.candidates?.[0]?.content?.parts?.map((p) => p.text).join("");
+        if (text) {
+          return res.status(200).json({ text });
+        }
+
+        // Empty response -> next model
+        console.warn(`[Questa AI] ${model} returned empty response`);
+        break;
       }
-      return res.status(200).json({ text: "Gemini error: " + errBody.slice(0, 200) });
     }
-    const data = await r.json();
-    if (data.error) {
-      console.error("[Questa AI] Gemini response error:", data.error);
-      // Pass through rate limit errors
-      if (data.error.code === 429 || data.error.message?.includes("quota") || data.error.message?.includes("rate")) {
-        return res.status(429).json({ error: data.error.message });
-      }
-      return res.status(200).json({ text: "Gemini error: " + data.error.message });
-    }
-    const text =
-      data?.candidates?.[0]?.content?.parts?.map((p) => p.text).join("") ||
-      "No response from Gemini";
-    return res.status(200).json({ text });
+
+    // All models exhausted
+    console.error("[Questa AI] All models failed");
+    return res.status(429).json({ error: "All AI models are busy. Please try again in a moment." });
   } catch (e) {
     console.error("[Questa AI] Exception:", e.message);
     return res.status(500).json({ error: e.message });
