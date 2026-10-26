@@ -270,9 +270,9 @@ function Starfield({ count = 48, dark = false, glyphs = true }) {
 const I18N = {
 en: {
     nav: { home: "Home", learning: "Learning", research: "Research", competitions: "Competitions", nasa: "NASA Space Apps Challenge", about: "About", dashboard: "Dashboard", login: "Log In", signin: "Sign In" },
-    heroEyebrow: "STEM learning platform", heroWhat: "STEM learning platform", heroChips: ["Personalized roadmaps", "Research prep", "Professor finder", "Competitions", "Scholarships", "University prep"], heroL1: "Master STEM", heroL2: "reach the world's best.",
-    heroSub: "Questa turns the world's best STEM resources into a personalized roadmap, with guidance in your own language, and takes you from your current level to research, competitions, scholarships, and top universities.",
-    ctaStart: "Generate my tailored roadmap",
+    heroEyebrow: "STEM learning platform", heroWhat: "STEM learning platform", heroChips: ["Personalized learning paths", "Research prep", "Professor finder", "Competitions", "Scholarships", "University prep"], heroL1: "Master STEM", heroL2: "reach the world's best.",
+    heroSub: "Questa turns the world's best STEM resources into a personalized learning path, with guidance in your own language, and takes you from your current level to research, competitions, scholarships, and top universities.",
+    ctaStart: "Generate my tailored learning path",
     statsOpp: "opportunities", statsStudents: "students", statsSubjects: "subjects",
     exploreTitle: "What can you do here?", exploreEyebrow: "Explore",
     exploreCards: {
@@ -286,7 +286,7 @@ en: {
     howTitle: "How to use it?",
     howSteps: [
       ["Pick your goal", "A major, an olympiad, research, or just exploring, tell us where you're headed."],
-      ["Get your roadmap", "We build a step-by-step plan from real courses, ordered the way you should learn them."],
+      ["Get your learning path", "We build a step-by-step plan from real courses, ordered the way you should learn them."],
       ["Learn from the best", "Every resource links directly to MIT OpenCourseWare, Stanford, Harvard, Princeton, and more."],
       ["Track your understanding", "Mark topics as complete, keep personal notes, and reflect on your progress."],
       ["Discover what comes next", "When you are ready, the next step becomes clear."],
@@ -295,11 +295,11 @@ en: {
     footNote: "",
     demoNote: "V1 demo, progress resets on refresh", adminLink: "Admin (demo)",
     langBtn: "МН", aiLabel: "AI assistant", aiSub: "Ask me anything",
-    subjectsTitle: "Knowledge Trees", subjectsSub: "Each subject expands into its subfields. Every subfield is a constellation-style roadmap.",
+    subjectsTitle: "Knowledge Trees", subjectsSub: "Each subject expands into its subfields. Every subfield is a constellation-style learning path.",
     branchesLabel: "branches", nodesLabel: "topics", weeksShort: "wks", hoursShort: "hrs",
-    openTree: "Open roadmap", plannedLabel: "Coming soon", liveBadge: "Live",
+    openTree: "Open learning path", plannedLabel: "Coming soon", liveBadge: "Live",
     choosePath: "First, choose your learning path", chooseSpec: "Now choose a specialization", explorePath: "Explore", tracksLabel: "tracks",
-    plannedNote: "Roadmaps for these branches are in production, the architecture is ready for hundreds more.",
+    plannedNote: "Learning paths for these branches are in production, the architecture is ready for hundreds more.",
     backTo: "Back",
     stageF: "Foundation", stageA: "Advanced", stageO: "Opportunity", phF: "Foundation", phA: "Advanced", phO: "Research & Projects",
     lockedNode: "Locked", firstDo: "First:", done: "Done",
@@ -355,7 +355,7 @@ en: {
     entryPh: "Title... e.g. Movie-recommender ML model", portfolioEmpty: "Empty for now, add your first entry",
     searchTitle: "Search", searchPh: "Search topics, competitions, branches...", searchEmpty: "No results",
     sTopics: "Topics", sComps: "Competitions", sBranches: "Branches",
-    obWelcome: "Welcome!", obWelcomeSub: "Your preparation roadmap.",
+    obWelcome: "Welcome!", obWelcomeSub: "Your preparation learning path.",
     obContinue: "Continue", obBack: "Back",
     obName: "What should we call you?", obNamePh: "Your name...",
     obGoal: "What is your goal?", obGrade: "What grade are you in?",
@@ -376,7 +376,7 @@ en: {
     expOpts: ["Programming", "Competitions", "Research", "Laboratory", "Projects", "Public speaking", "Teaching", "Writing"],
     strengthOpts: ["Mathematics", "Consistency", "Curiosity", "Problem-solving", "Creativity", "Speed"],
     weakOpts: ["Procrastination", "Mathematics", "English", "Consistency", "Motivation", "Time management"],
-    obGenBtn: "Generate my roadmap", obGenerating: "Questa AI is building your roadmap…",
+    obGenBtn: "Generate my learning path", obGenerating: "Questa AI is building your learning path…",
     obDone: "Your path is ready.", obStartsAt: "Starting path:", obKnownSkipped: "Credited what you already know:", obGo: "Go to dashboard",
     gradeOpts: ["Grade 9", "Grade 10", "Grade 11", "Grade 12", "Other"],
     subjOpts: ["Math", "Physics", "Chemistry", "Biology", "Computer Science", "Engineering"],
@@ -386,7 +386,7 @@ en: {
     engOpts: ["Beginner", "Elementary", "Intermediate", "Upper Intermediate", "Advanced", "Fluent"],
     chatGreet: (n) => `Hi${n ? " " + n : ""}! I'm Questa AI. How can I help?`,
     chatPh: "Type your question...",
-    quick: ["Build my roadmap", "Explain a concept", "Find research", "What's next for me?"],
+    quick: ["Build my learning path", "Explain a concept", "Find research", "What's next for me?"],
     chatErr: "Sorry, something went wrong. Please try again.",
     nasaTitle: "NASA Space Apps Challenge, Ulaanbaatar",
     nasaSub: "The world's largest hackathon, an international competition. Solve real problems with NASA's open data in 48 hours.",
@@ -396,8 +396,8 @@ en: {
     aboutTitle: "What is Questa?",
     aboutHeadline: "Knowledge has a hierarchy.",
     aboutP1: "Some ideas depend on others. Some skills only become useful once their foundations are in place. Some problems reveal gaps you didn't know you had. The materials give you access to all of it at once, but not the order in which it makes sense. Questa is interested in that order.",
-    aboutP2: "We are building a digital platform that aggregates world-class, open-source educational resources into structured, self-study roadmaps tailored for Mongolian youth. Our goal is making it easier for every student to find a clear starting point, master core concepts, and access global opportunities.",
-    aboutBody: `Questa is an open platform guiding Mongolian students from "I don't know where to start" to "ready for world-class opportunities." We've curated 300+ opportunities and resources.\n\nWe are building a digital platform that aggregates world-class, open-source educational resources into structured, self-study roadmaps tailored for Mongolian youth. Our goal is making it easier for every student to find a clear starting point, master core concepts, and access global opportunities.`,
+    aboutP2: "We are building a digital platform that aggregates world-class, open-source educational resources into structured, self-study learning paths tailored for Mongolian youth. Our goal is making it easier for every student to find a clear starting point, master core concepts, and access global opportunities.",
+    aboutBody: `Questa is an open platform guiding Mongolian students from "I don't know where to start" to "ready for world-class opportunities." We've curated 300+ opportunities and resources.\n\nWe are building a digital platform that aggregates world-class, open-source educational resources into structured, self-study learning paths tailored for Mongolian youth. Our goal is making it easier for every student to find a clear starting point, master core concepts, and access global opportunities.`,
     platformEyebrow: "[ 002 ] PLATFORM",
     guideEyebrow: "[ 003 ] GUIDE",
     aboutMission: "Mission", aboutMissionBody: "Every curious student, rural or urban, deserves a path to the world's best education.",
@@ -411,22 +411,22 @@ en: {
     annNew: "+ New announcement", annTitlePh: "Title...", annPublish: "Publish", annNone: "No announcements",
     annToolbar: "Format: bold, list, link, no HTML needed",
     adminSearch: "Search...",
-    rmTitle: "My Roadmaps", rmSub: "A personal learning path tailored to each goal.", rmNew: "+ Create new roadmap", rmNone: "No roadmaps yet, create your first.", rmNoneTitle: "No roadmaps yet", rmNoneDesc: "Create one from scratch, or click \"Prepare for this\" on any competition or research program.", rmCreate: "Create roadmap", rmOpen: "Open", rmDelete: "Delete", rmRemove: "Remove", rmGenerated: "Generated", rmPending: "Pending", rmNewRoadmap: "New Roadmap", rmRoadmapTitle: "ROADMAP TITLE", rmType: "TYPE", rmTypeGeneral: "General learning", rmTypeComp: "Competition prep", rmTypeResearch: "Research project", rmTypeSkill: "Skill building", rmCancel: "Cancel", rmCreateGen: "Create & generate", rmSignInMsg: "Sign in to create and save roadmaps.", rmRecentRm: "RECENT ROADMAPS", rmSavedOpp: "SAVED OPPORTUNITIES", rmViewAll: "View all", rmRoadmaps: "roadmaps", dashProgress: "PROGRESS", dashTopics: "topics completed", dashHours: "hours studied", dashRoadmaps: "ROADMAPS",
-    rmOverview: "Overview", rmGoal: "Goal", rmCareer: "Career", rmDreamUni: "Dream university", rmLevel: "Current level", rmTarget: "Target level", rmProgress: "Progress", rmCourses: "Courses", rmDone: "Completed", rmNext: "Next course", rmStartNext: "Start next", rmComps: "Related competitions", rmMilestones: "Milestones", rmNoComps: "No matching competitions yet.", rmPhaseCourses: "courses", rmAllDone: "You've completed this roadmap.",
+    rmTitle: "My Learning Paths", rmSub: "A personal learning path tailored to each goal.", rmNew: "+ Create new learning path", rmNone: "No learning paths yet, create your first.", rmNoneTitle: "No learning paths yet", rmNoneDesc: "Create one from scratch, or click \"Prepare for this\" on any competition or research program.", rmCreate: "Create learning path", rmOpen: "Open", rmDelete: "Delete", rmRemove: "Remove", rmGenerated: "Generated", rmPending: "Pending", rmNewRoadmap: "New Learning Path", rmRoadmapTitle: "LEARNING PATH TITLE", rmType: "TYPE", rmTypeGeneral: "General learning", rmTypeComp: "Competition prep", rmTypeResearch: "Research project", rmTypeSkill: "Skill building", rmCancel: "Cancel", rmCreateGen: "Create & generate", rmSignInMsg: "Sign in to create and save learning paths.", rmRecentRm: "RECENT LEARNING PATHS", rmSavedOpp: "SAVED OPPORTUNITIES", rmViewAll: "View all", rmRoadmaps: "learning paths", dashProgress: "PROGRESS", dashTopics: "topics completed", dashHours: "hours studied", dashRoadmaps: "LEARNING PATHS",
+    rmOverview: "Overview", rmGoal: "Goal", rmCareer: "Career", rmDreamUni: "Dream university", rmLevel: "Current level", rmTarget: "Target level", rmProgress: "Progress", rmCourses: "Courses", rmDone: "Completed", rmNext: "Next course", rmStartNext: "Start next", rmComps: "Related competitions", rmMilestones: "Milestones", rmNoComps: "No matching competitions yet.", rmPhaseCourses: "courses", rmAllDone: "You've completed this learning path.",
     phaseT: { foundation: "Foundation", core: "Core Knowledge", advanced: "Advanced Topics", research: "Research & Projects" },
     phaseWhy: { foundation: "The essential groundwork every path is built on.", core: "The core theory of your field.", advanced: "Deeper, specialized topics.", research: "Apply your knowledge, research skills, projects, and opportunities." },
     lvlLbl: { beginner: "Beginner", intermediate: "Intermediate", advanced: "Advanced", competition: "Competition", university: "University", olympiad: "Olympiad", research: "Research", balanced: "Balanced", easy: "Easy", rigorous: "Rigorous" },
     legalTerms: "Terms & Conditions", legalPrivacy: "Privacy Policy", legalClose: "CLOSE", legalApplies: "Applies to", legalContact: "Contact", allRights: "All rights reserved",
-    navProfile: "Profile", navRoadmaps: "Roadmaps", backHome: "HOME",
+    navProfile: "Profile", navRoadmaps: "Learning Paths", backHome: "HOME",
     stemProfileTab: "STEM Profile", stemGoalLabel: "PRIMARY GOAL", stemGoalPh: "e.g. Competition Prep, Research, General Learning",
     stemKnowledgeLabel: "STEM KNOWLEDGE BASE", stemKnowledgePh: "What courses/topics do you already know? e.g. Classical Mechanics, Calculus, Python",
     stemCompsLabel: "PRIOR COMPETITIONS & PROGRAMS", stemCompsPh: "e.g. National Physics Olympiad, NASA Space Apps, AMC, Research Camps",
     stemOutcomesLabel: "TARGET OUTCOMES", stemOutcomesPh: "e.g. IOAA 2027, MIT OCW Quantum Physics, Research Paper",
-    stemIncomplete: "Complete your STEM profile to unlock personalized roadmaps.",
+    stemIncomplete: "Complete your STEM profile to unlock personalized learning paths.",
     stemCompleteProfile: "Complete STEM Profile", stemSaveProfile: "Save STEM Profile", stemProfileSaved: "STEM profile saved",
-    stemRequired: "STEM profile incomplete", stemRequiredDesc: "Complete your STEM profile for better personalized roadmaps.",
+    stemRequired: "STEM profile incomplete", stemRequiredDesc: "Complete your STEM profile for better personalized learning paths.",
     tabOverview: "Overview", tabSaved: "Saved",
-    manageRoadmaps: "Manage My Roadmaps", myRoadmaps: "My Roadmaps", createNewRoadmap: "Create New Roadmap", pathSelect: "Choose your path", pathComp: "Competition Prep", pathResearch: "Research Project", pathCourse: "Course Mastery",
+    manageRoadmaps: "Manage My Learning Paths", myRoadmaps: "My Learning Paths", createNewRoadmap: "Create New Learning Path", pathSelect: "Choose your path", pathComp: "Competition Prep", pathResearch: "Research Project", pathCourse: "Course Mastery",
     researchDiagTitle: "Research Diagnostic", researchDomainLabel: "RESEARCH DOMAIN", researchDomainPh: "e.g. Condensed Matter Physics, Machine Learning, Synthetic Biology",
     researchExpLabel: "PRIOR RESEARCH EXPERIENCE", researchExpPh: "e.g. Read academic papers, used LaTeX/Python/MATLAB",
     researchGoalLabel: "RESEARCH GOAL", researchGoalPh: "e.g. Independent paper, lab application, finding a mentor",
@@ -464,7 +464,7 @@ mn: {
     howTitle: "Хэрхэн ашиглах вэ?",
     howSteps: [
       ["Зорилгоо сонго", "Суралцах мэргэжил, олимпиад, судалгааны ажил эсвэл зүгээр л шинэ зүйл танин мэдэх, юуг зорин суралцахаа бидэнд хэлээрэй."],
-      ["Суралцах roadmap авах", "Бид таны суралцах ёстой дарааллын дагуу бодит хичээлүүдээс бүрдсэн алхам алхмаар ахих төлөвлөгөөг гаргаж өгнө."],
+      ["Суралцах зам авах", "Бид таны суралцах ёстой дарааллын дагуу бодит хичээлүүдээс бүрдсэн алхам алхмаар ахих төлөвлөгөөг гаргаж өгнө."],
       ["Шилдгүүдээс суралц", "Ашиглах материал бүр MIT OpenCourseWare, Stanford, Harvard, Princeton зэрэг дэлхийн шилдэг сургуулиудын нөөц рүү шууд холбогдоно."],
       ["Ойлгосон зүйлсээ хянах", "Судалж дууссан сэдвүүдээ тэмдэглэж, хувийн тэмдэглэл хөтлөн, ахиц дэвшлээ эргэн хараарай."],
       ["Дараагийн алхмаа нээж илрүүл", "Бэлэн болсон цагт таны дараагийн хийх алхам аяндаа тодорхой болно."],
@@ -6387,7 +6387,7 @@ function catForKey(k) {
   if (s("hero", "cta", "explore", "how", "readyBand", "stats")) return "Homepage";
   if (k === "nav") return "Navigation";
   if (s("subjects", "choose", "specialize", "openTree", "tracks", "backTo", "plannedLabel", "plannedNote", "liveBadge", "branchesLabel")) return "Subjects";
-  if (s("stage", "locked", "why", "timeLabel", "resources", "startHere", "rt", "roles", "obj", "miscon", "applic", "relComp", "relResearch", "unlocks", "keyIdeas", "notes", "helpful", "fbThanks", "askAI", "milestone", "module", "difficulty")) return "Roadmaps";
+  if (s("stage", "locked", "why", "timeLabel", "resources", "startHere", "rt", "roles", "obj", "miscon", "applic", "relComp", "relResearch", "unlocks", "keyIdeas", "notes", "helpful", "fbThanks", "askAI", "milestone", "module", "difficulty")) return "Learning Paths";
   if (s("ai", "chat", "quick")) return "AI";
   if (s("research", "findProf", "interest", "org", "searchBtn", "searching", "prof", "skills", "scan")) return "Research";
   if (s("opp", "req", "view", "prep", "match", "st", "est", "window", "elig", "uni", "months", "saved", "d1", "d2", "d3")) return "Competitions";
@@ -6400,7 +6400,7 @@ function catForKey(k) {
 }
 function prettyKey(k) { return k.split(".").map((p) => p.replace(/([a-z0-9])([A-Z])/g, "$1 $2").replace(/^./, (c) => c.toUpperCase())).join(" \u203a "); }
 const CMS_SCHEMA = (() => { const out = []; walkContent(I18N.en, "", out); return out.map((it) => ({ ...it, cat: catForKey(it.key.split(".")[0]), desc: prettyKey(it.key) })); })();
-const CMS_CATS = ["Homepage", "Navigation", "Subjects", "Roadmaps", "AI", "Research", "Competitions", "Scholarships", "Quizzes", "Authentication", "Dashboard", "Search", "Footer", "Other"].filter((c) => CMS_SCHEMA.some((it) => it.cat === c));
+const CMS_CATS = ["Homepage", "Navigation", "Subjects", "Learning Paths", "AI", "Research", "Competitions", "Scholarships", "Quizzes", "Authentication", "Dashboard", "Search", "Footer", "Other"].filter((c) => CMS_SCHEMA.some((it) => it.cat === c));
 
 const QuestaCtx = createContext(null);
 const useQ = () => useContext(QuestaCtx);
@@ -6860,7 +6860,7 @@ function HomePage() {
   const aboutFeatures = [
     { Icon: Network, title: isMn ? "Бүтэцтэй мэдлэгийн мод" : "Structured knowledge trees", desc: isMn ? "6 хичээл, 500+ сургалтын зангилаа." : "Six subjects, 500+ learning nodes with prerequisites and vetted resources." },
     { Icon: BookOpen, title: isMn ? "Баталгаажсан эх сурвалж" : "Verified resources", desc: isMn ? "MIT OCW, OpenStax, Khan Academy, CS50." : "MIT OpenCourseWare, OpenStax, Khan Academy, CS50, and more." },
-    { Icon: Compass, title: isMn ? "Хувийн замын зураг" : "Personalized roadmaps", desc: isMn ? "Зорилго, түвшинд тохирсон алхам алхмаар зам." : "A step-by-step path tuned to your goal and level." },
+    { Icon: Compass, title: isMn ? "Хувийн замын зураг" : "Personalized learning paths", desc: isMn ? "Зорилго, түвшинд тохирсон алхам алхмаар зам." : "A step-by-step path tuned to your goal and level." },
   ];
   const pinned = anns.filter((a) => a.pinned)[0];
 
@@ -7014,7 +7014,7 @@ function LegalModal({ type, onClose }) {
             <Section number={2} title={lang === "mn" ? "Questa-гийн тухай" : "About Questa"}>
               {lang === "mn"
                 ? "Questa нь Монгол оюутан, сурагчдад зориулсан STEM боловсролын платформ юм. Платформ нь хиймэл оюун ухаанаар хувийн сургалтын зам үүсгэх, тэмцээн болон хөтөлбөрийн гарын авлага, судалгааны нөөц, суралцах хэрэгслүүдийг санал болгодог. Questa нь бие даасан үйл ажиллагаа явуулдаг бөгөөд Платформ дээр тодорхой дурдаагүй бол аливаа тэмцээн зохион байгуулагч, их сургууль, засгийн газрын байгууллага, гуравдагч талын агуулга нийлүүлэгчтэй хамтран ажиллахгүй, тэдний дэмжлэг авдаггүй."
-                : "Questa is a STEM education platform built for Mongolian students. The Platform provides AI-generated personalized learning roadmaps, curated competition and program guides, research resources, and study tools designed to support academic and scientific development. Questa operates independently and is not affiliated with, endorsed by, or partnered with any competition organizer, university, government institution, or third-party content provider unless explicitly and specifically stated on the Platform."}
+                : "Questa is a STEM education platform built for Mongolian students. The Platform provides AI-generated personalized learning paths, curated competition and program guides, research resources, and study tools designed to support academic and scientific development. Questa operates independently and is not affiliated with, endorsed by, or partnered with any competition organizer, university, government institution, or third-party content provider unless explicitly and specifically stated on the Platform."}
             </Section>
 
             <Section number={3} title={lang === "mn" ? "Бүртгэл ба насны шаардлага" : "Eligibility and Account Registration"}>
@@ -7039,7 +7039,7 @@ function LegalModal({ type, onClose }) {
               <Sub label={lang === "mn" ? "4.1 Зөвхөн боловсролын зорилгоор" : "4.1 Educational Use Only"}>
                 {lang === "mn"
                   ? "Платформ нь зөвхөн хувийн, ашгийн бус боловсролын зорилгоор ашиглахад зориулагдсан. Та агуулга үзэх, сургалтын зам үүсгэх, нөөц хадгалах, AI хэрэгслийг өөрийн суралцахад ашиглаж болно."
-                  : "The Platform is provided exclusively for personal, non-commercial educational use. You may browse content, generate roadmaps, save resources, and use AI tools for your own study and academic planning."}
+                  : "The Platform is provided exclusively for personal, non-commercial educational use. You may browse content, generate learning paths, save resources, and use AI tools for your own study and academic planning."}
               </Sub>
               <Sub label={lang === "mn" ? "4.2 Хориглосон үйлдлүүд" : "4.2 Prohibited Conduct"}>
                 {lang === "mn"
@@ -7052,7 +7052,7 @@ function LegalModal({ type, onClose }) {
               <Sub label={lang === "mn" ? "5.1 AI агуулгын мөн чанар" : "5.1 Nature of AI Content"}>
                 {lang === "mn"
                   ? "Questa нь хиймэл оюун ухааныг ашиглан хувийн сургалтын зам үүсгэх, сургалтын чиглүүлэг өгөх, AI туслахаар дамжуулан асуултад хариулдаг. AI-аар бүтээсэн агуулга нь зөвхөн мэдээлэл, боловсролын зорилгоор хангагддаг."
-                  : "Questa uses artificial intelligence to generate personalized learning roadmaps, provide academic guidance, and answer questions through its integrated AI assistant. AI-generated content is produced algorithmically and is provided for informational and educational purposes only."}
+                  : "Questa uses artificial intelligence to generate personalized learning paths, provide academic guidance, and answer questions through its integrated AI assistant. AI-generated content is produced algorithmically and is provided for informational and educational purposes only."}
               </Sub>
               <Sub label={lang === "mn" ? "5.2 Үнэн зөв байдлын баталгаагүй" : "5.2 No Guarantee of Accuracy"}>
                 {lang === "mn"
@@ -7075,7 +7075,7 @@ function LegalModal({ type, onClose }) {
               <Sub label={lang === "mn" ? "6.1 Questa-гийн агуулга" : "6.1 Questa Content"}>
                 {lang === "mn"
                   ? "Платформ дээрх бүх эх агуулга, тухайлбал текст, дизайн, график, код, өгөгдлийн эмхэтгэл, сургалтын замын бүтэц, хэрэглэгчийн интерфэйсийн элементүүд нь Questa-д эзэмшигддэг буюу лицензтэй бөгөөд зохиогчийн эрх, барааны тэмдэг, оюуны өмчийн хуулиар хамгаалагддаг. Зөвшөөрөлгүй хуулбарлах, түгээх, дериватив бүтээл хийхийг хатуу хориглоно."
-                  : "All original content on the Platform, including but not limited to text, design, graphics, code, data compilations, roadmap structures, and user interface elements, is owned by or licensed to Questa and is protected by applicable copyright, trademark, and intellectual property laws. Unauthorized reproduction, distribution, or creation of derivative works is strictly prohibited."}
+                  : "All original content on the Platform, including but not limited to text, design, graphics, code, data compilations, learning path structures, and user interface elements, is owned by or licensed to Questa and is protected by applicable copyright, trademark, and intellectual property laws. Unauthorized reproduction, distribution, or creation of derivative works is strictly prohibited."}
               </Sub>
               <Sub label={lang === "mn" ? "6.2 Гуравдагч талын агуулга" : "6.2 Third-Party Content"}>
                 {lang === "mn"
@@ -7147,7 +7147,7 @@ function LegalModal({ type, onClose }) {
               <Sub label={lang === "mn" ? "2.3 Суралцах өгөгдөл" : "2.3 Learning Data"}>
                 {lang === "mn"
                   ? "Таны сургалтын зам, дууссан сэдвүүд, хадгалсан нөөцүүд, тэмдэглэл болон холбогдох үйл ажиллагаа зөвхөн таны хөтчийн localStorage-д хадгалагдана. Энэ өгөгдөл таны төхөөрөмж дээр үлдэх бөгөөд Questa хандах боломжгүй."
-                  : "Your learning roadmaps, completed topics, saved resources, notes, and related activity are stored exclusively in your browser's localStorage. This data remains on your device and is not accessible to Questa."}
+                  : "Your learning paths, completed topics, saved resources, notes, and related activity are stored exclusively in your browser's localStorage. This data remains on your device and is not accessible to Questa."}
               </Sub>
               <Sub label={lang === "mn" ? "2.4 AI харилцааны өгөгдөл" : "2.4 AI Interaction Data"}>
                 {lang === "mn"
@@ -7169,7 +7169,7 @@ function LegalModal({ type, onClose }) {
             <Section number={3} title={lang === "mn" ? "Мэдээллийг хэрхэн ашигладаг" : "How We Use Your Information"}>
               {lang === "mn"
                 ? "Бид цуглуулсан мэдээллийг дараах зорилгоор ашиглана: таны хэрэглэгчийн бүртгэлийг үүсгэх, хөтлөх; платформ дээрх туршлагыг хувийн болгох; платформын функц, контентийг хангах, ажиллуулах, сайжруулах; AI сургалтын зам үүсгэх хүсэлтийг боловсруулах; таны дэмжлэгийн хүсэлт, харилцаанд хариулах; аюулгүй байдлын зөрчлийг хянах, зүй бус хэрэглээнээс сэргийлэх; платформыг сайжруулах дотоод аналитик хийх. Бид таны мэдээллийг зар сурталчилгаанд ашигладаггүй, мөн ямар ч тохиолдолд гуравдагч этгээдэд зардаггүй, түрээслүүлдэггүй, солилцдоггүй."
-                : "We use the information we collect for the following purposes: to create and maintain your user account; to personalize your experience on the Platform; to provide, operate, and improve Platform features and content; to process AI roadmap generation requests; to respond to your support inquiries and communications; to monitor for security incidents and prevent misuse; and to conduct internal analytics to improve the Platform. We do not use your information for advertising, and we do not sell, rent, or trade your personal information to any third party under any circumstances."}
+                : "We use the information we collect for the following purposes: to create and maintain your user account; to personalize your experience on the Platform; to provide, operate, and improve Platform features and content; to process AI learning path generation requests; to respond to your support inquiries and communications; to monitor for security incidents and prevent misuse; and to conduct internal analytics to improve the Platform. We do not use your information for advertising, and we do not sell, rent, or trade your personal information to any third party under any circumstances."}
             </Section>
 
             <Section number={4} title={lang === "mn" ? "Боловсруулалтын хууль зүйн үндэслэл" : "Legal Basis for Processing"}>
@@ -7182,7 +7182,7 @@ function LegalModal({ type, onClose }) {
               <Sub label={lang === "mn" ? "5.1 Локал хадгалалт" : "5.1 Local Storage"}>
                 {lang === "mn"
                   ? "Таны хувийн мэдээллийн ихэнх хэсэг, тухайлбал профайлын дэлгэрэнгүй, сургалтын зам, тэмдэглэл, явц нь таны төхөөрөмж дээрх хөтчийн localStorage-д хадгалагдана. Энэ мэдээлэлд Questa хандах боломжгүй бөгөөд бүрэн таны хяналтад байна. Хөтчийн сайтын өгөгдлийг арилгавал бүрмөсөн устана."
-                  : "The majority of your personal data, including your profile details, roadmaps, notes, and progress, is stored in your browser's localStorage on your own device. This data is not accessible to Questa and remains entirely under your control. It will be permanently deleted if you clear your browser's site data."}
+                  : "The majority of your personal data, including your profile details, learning paths, notes, and progress, is stored in your browser's localStorage on your own device. This data is not accessible to Questa and remains entirely under your control. It will be permanently deleted if you clear your browser's site data."}
               </Sub>
               <Sub label={lang === "mn" ? "5.2 Firebase Authentication" : "5.2 Firebase Authentication"}>
                 {lang === "mn"
@@ -7207,7 +7207,7 @@ function LegalModal({ type, onClose }) {
               <Sub label="Google Gemini API">
                 {lang === "mn"
                   ? "AI туслах болон сургалтын зам үүсгэхэд ашиглагдана. Оруулсан асуултууд боловсруулалтын зорилгоор Google руу дамжуулагдана. Google-ийн API нөхцөл болон өгөгдлийн бодлогод хамаарна."
-                  : "Used to power the AI assistant and roadmap generation. Input queries are transmitted to Google for processing. Subject to Google's API terms and data policies."}
+                  : "Used to power the AI assistant and learning path generation. Input queries are transmitted to Google for processing. Subject to Google's API terms and data policies."}
               </Sub>
               <Sub label="Vercel">
                 {lang === "mn"
@@ -8347,7 +8347,7 @@ function Dashboard() {
 
   const initials = (u.name || "?").split(" ").map(w => w[0]).join("").slice(0, 2).toUpperCase();
   const savedComps = comps.filter(c => Array.isArray(saved) && saved.includes(c.id));
-  const TABS = [["overview", t.tabOverview || "Overview"], ["roadmaps", t.myRoadmaps || t.manageRoadmaps || "My Roadmaps"], ["saved", t.tabSaved || "Saved"], ["stem", t.stemProfileTab || "STEM Profile"]];
+  const TABS = [["overview", t.tabOverview || "Overview"], ["roadmaps", t.myRoadmaps || t.manageRoadmaps || "My Learning Paths"], ["saved", t.tabSaved || "Saved"], ["stem", t.stemProfileTab || "STEM Profile"]];
 
   const faintBtn = { fontFamily: mono, fontSize: 13, color: "#2b3634", border: "1.5px solid rgba(43,54,52,.35)", borderRadius: 14, padding: "12px 24px", background: "rgba(43,54,52,.08)", cursor: "pointer", fontWeight: 600, transition: "all .2s" };
   const faintHover = e => { e.currentTarget.style.background = "rgba(43,54,52,.14)"; e.currentTarget.style.borderColor = "rgba(43,54,52,.5)"; };
@@ -8366,7 +8366,7 @@ function Dashboard() {
   if (!user) return (
     <div className="max-w-3xl mx-auto px-6 py-8" style={{ textAlign: "center", paddingTop: 120 }}>
       <h2 style={{ fontSize: 22, fontWeight: 800, color: "#2b3634", marginBottom: 8 }}>{lang === "mn" ? "Нэвтэрч орно уу" : "Sign in to view your dashboard"}</h2>
-      <p style={{ fontSize: 14, color: "#2b3634", marginBottom: 32 }}>{lang === "mn" ? "Ахиц, суралцах зам, хадгалсан тэмцээнүүдээ хянаарай." : "Track your progress, roadmaps, and saved competitions."}</p>
+      <p style={{ fontSize: 14, color: "#2b3634", marginBottom: 32 }}>{lang === "mn" ? "Ахиц, суралцах зам, хадгалсан тэмцээнүүдээ хянаарай." : "Track your progress, learning paths, and saved competitions."}</p>
       <button onClick={() => setObOpen(true)} style={{ ...faintBtn }} onMouseOver={faintHover} onMouseOut={faintOut}>{lang === "mn" ? "Нэвтрэх" : "Sign in"}</button>
     </div>
   );
@@ -8376,7 +8376,7 @@ function Dashboard() {
     <div style={{ position: "fixed", inset: 0, zIndex: 9999, display: "flex", alignItems: "center", justifyContent: "center", background: "rgba(0,0,0,.45)" }} onClick={() => setStemModal(false)}>
       <div onClick={e => e.stopPropagation()} style={{ background: "#f0f2ee", borderRadius: 24, padding: "36px 32px", maxWidth: 520, width: "90vw", maxHeight: "85vh", overflowY: "auto" }}>
         <h2 style={{ fontSize: 20, fontWeight: 800, color: "#2b3634", marginBottom: 6 }}>{t.stemCompleteProfile || "Complete STEM Profile"}</h2>
-        <p style={{ fontSize: 13, color: "#2b3634", marginBottom: 24, lineHeight: 1.5 }}>{lang === "mn" ? "Энэ мэдээлэл таны суралцах замыг оновчтой болгоно." : "This information helps us build smarter, personalized roadmaps."}</p>
+        <p style={{ fontSize: 13, color: "#2b3634", marginBottom: 24, lineHeight: 1.5 }}>{lang === "mn" ? "Энэ мэдээлэл таны суралцах замыг оновчтой болгоно." : "This information helps us build smarter, personalized learning paths."}</p>
         {[
           [t.stemGoalLabel || "PRIMARY GOAL", "stemGoal", t.stemGoalPh || "e.g. Competition Prep, Research, General Learning", false],
           [t.stemKnowledgeLabel || "STEM KNOWLEDGE BASE", "stemKnowledge", t.stemKnowledgePh || "What courses/topics do you already know?", true],
@@ -8459,7 +8459,7 @@ function Dashboard() {
         <div style={{ width: "100%", padding: "16px 20px", background: "rgba(43,54,52,.04)", border: "1.5px solid rgba(43,54,52,.18)", borderRadius: 16, textAlign: "left", marginBottom: 28, display: "flex", alignItems: "center", justifyContent: "space-between", gap: 16, flexWrap: "wrap", boxSizing: "border-box" }}>
           <div>
             <div style={{ fontFamily: mono, fontSize: 11, fontWeight: 600, color: "#2b3634", letterSpacing: "0.08em", marginBottom: 4 }}>{t.stemRequired || "STEM profile incomplete"}{React.createElement("span", { style: { color: "#c53030", marginLeft: 4, fontSize: 14, fontWeight: 700 } }, "*")}</div>
-            <div style={{ fontSize: 13, color: "#2b3634", lineHeight: 1.4 }}>{t.stemRequiredDesc || "Complete your STEM profile for better personalized roadmaps."}</div>
+            <div style={{ fontSize: 13, color: "#2b3634", lineHeight: 1.4 }}>{t.stemRequiredDesc || "Complete your STEM profile for better personalized learning paths."}</div>
           </div>
           <button onClick={() => { setStemForm({ stemGoal: u.stemGoal || "", stemKnowledge: u.stemKnowledge || "", priorComps: u.priorComps || "", targetOutcomes: u.targetOutcomes || "" }); setStemModal(true); }}
             style={{ fontFamily: mono, fontSize: 11, color: "#2b3634", border: "1.5px solid rgba(43,54,52,.35)", borderRadius: 10, padding: "8px 16px", background: "rgba(43,54,52,.08)", cursor: "pointer", fontWeight: 600, whiteSpace: "nowrap", transition: "all .2s" }}
@@ -8473,7 +8473,7 @@ function Dashboard() {
       {/* Stats row */}
       <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 10, marginBottom: 32 }}>
         {statCard(completedCount, lang === "mn" ? "СЭДЭВ" : "TOPICS DONE")}
-        {statCard(roadmaps.length, lang === "mn" ? "ЗАМУУД" : "ROADMAPS")}
+        {statCard(roadmaps.length, lang === "mn" ? "ЗАМУУД" : "LEARNING PATHS")}
         {statCard(savedComps.length, lang === "mn" ? "ХАДГАЛСАН" : "SAVED")}
         {statCard(notesCount, lang === "mn" ? "ТЭМДЭГЛЭЛ" : "NOTES")}
       </div>
@@ -8521,11 +8521,11 @@ function Dashboard() {
                 <button key={rm.id} onClick={() => openRoadmap(rm.id)}
                   style={{ display: "flex", alignItems: "center", justifyContent: "space-between", width: "100%", padding: "14px 0", borderBottom: i < Math.min(roadmaps.length, 3) - 1 ? "1px solid rgba(43,54,52,.08)" : "none", cursor: "pointer", textAlign: "left", background: "none", border: "none", transition: "opacity .2s" }}
                   onMouseOver={e => e.currentTarget.style.opacity = "0.6"} onMouseOut={e => e.currentTarget.style.opacity = "1"}>
-                  <div style={{ fontSize: 14, fontWeight: 600, color: "#2b3634" }}>{rm.title || "Roadmap"}</div>
+                  <div style={{ fontSize: 14, fontWeight: 600, color: "#2b3634" }}>{rm.title || "Learning Path"}</div>
                   <div style={{ fontFamily: mono, fontSize: 11, color: "#2b3634" }}>{rm.content ? (t.rmGenerated || "Generated") : (t.rmPending || "Pending")} &rarr;</div>
                 </button>
               ))}
-              {roadmaps.length > 3 && <button onClick={() => go("roadmaps")} style={{ marginTop: 12, fontFamily: mono, fontSize: 11, color: "#2b3634", background: "none", border: "none", cursor: "pointer", padding: 0 }}>{t.rmViewAll || "View all"} {roadmaps.length} {t.rmRoadmaps || "roadmaps"} &rarr;</button>}
+              {roadmaps.length > 3 && <button onClick={() => go("roadmaps")} style={{ marginTop: 12, fontFamily: mono, fontSize: 11, color: "#2b3634", background: "none", border: "none", cursor: "pointer", padding: 0 }}>{t.rmViewAll || "View all"} {roadmaps.length} {t.rmRoadmaps || "learning paths"} &rarr;</button>}
             </div>
           )}
           {/* Saved comps preview */}
@@ -8542,7 +8542,7 @@ function Dashboard() {
           )}
           {completedCount === 0 && roadmaps.length === 0 && savedComps.length === 0 && (
             <div style={{ textAlign: "center", padding: "48px 0", color: "#2b3634", fontSize: 14 }}>
-              {lang === "mn" ? "Суралцаж эхлээрэй. Сэдэв гүйцээж, зам бий болгоод, тэмцээн хадгалаарай." : "Start learning to build your profile. Complete topics, create roadmaps, and save competitions."}
+              {lang === "mn" ? "Суралцаж эхлээрэй. Сэдэв гүйцээж, зам бий болгоод, тэмцээн хадгалаарай." : "Start learning to build your profile. Complete topics, create learning paths, and save competitions."}
             </div>
           )}
         </div>
@@ -8552,20 +8552,20 @@ function Dashboard() {
       {activeTab === "roadmaps" && (
         <div>
           {roadmaps.length === 0 ? (
-            <div style={{ fontSize: 13, color: "#2b3634", fontFamily: mono, padding: "24px 0" }}>{t.rmNone || "No roadmaps yet."}</div>
+            <div style={{ fontSize: 13, color: "#2b3634", fontFamily: mono, padding: "24px 0" }}>{t.rmNone || "No learning paths yet."}</div>
           ) : roadmaps.map((rm, i) => (
             <button key={rm.id} onClick={() => openRoadmap(rm.id)}
               style={{ display: "flex", alignItems: "center", justifyContent: "space-between", width: "100%", padding: "clamp(16px,2.5vh,24px) 0", borderBottom: i < roadmaps.length - 1 ? "1px solid rgba(43,54,52,.08)" : "none", cursor: "pointer", textAlign: "left", background: "none", border: "none", transition: "opacity .2s" }}
               onMouseOver={e => e.currentTarget.style.opacity = "0.6"} onMouseOut={e => e.currentTarget.style.opacity = "1"}>
               <div>
-                <div style={{ fontSize: 15, fontWeight: 600, color: "#2b3634" }}>{rm.title || "Roadmap"}</div>
+                <div style={{ fontSize: 15, fontWeight: 600, color: "#2b3634" }}>{rm.title || "Learning Path"}</div>
                 <div style={{ fontFamily: mono, fontSize: 11, color: "#2b3634", marginTop: 3 }}>{rm.created ? new Date(rm.created).toLocaleDateString() : ""}{rm.type ? " · " + rm.type : ""}</div>
               </div>
               <span style={{ fontFamily: mono, fontSize: 11, color: "#2b3634" }}>{rm.content ? (lang === "mn" ? "Бэлэн" : "Generated") : (lang === "mn" ? "Хүлээгдэж байна" : "Pending")} &rarr;</span>
             </button>
           ))}
           <button onClick={() => go("roadmaps")} style={{ width: "100%", padding: "14px 0", ...faintBtn, marginTop: 20 }} onMouseOver={faintHover} onMouseOut={faintOut}>
-            {t.manageRoadmaps || "Manage My Roadmaps"}
+            {t.manageRoadmaps || "Manage My Learning Paths"}
           </button>
         </div>
       )}
@@ -8606,7 +8606,7 @@ function Dashboard() {
       {/* TAB: STEM Profile */}
       {activeTab === "stem" && (
         <div>
-          <p style={{ fontSize: 14, color: "#2b3634", marginBottom: 24, lineHeight: 1.5 }}>{lang === "mn" ? "Энэ мэдээлэл таны суралцах замыг AI-аар оновчтой болгоход ашиглагдана." : "This data is used by the AI to build smarter, personalized roadmaps for you."}</p>
+          <p style={{ fontSize: 14, color: "#2b3634", marginBottom: 24, lineHeight: 1.5 }}>{lang === "mn" ? "Энэ мэдээлэл таны суралцах замыг AI-аар оновчтой болгоход ашиглагдана." : "This data is used by the AI to build smarter, personalized learning paths for you."}</p>
           {[
             [t.stemGoalLabel || "PRIMARY GOAL", "stemGoal", u.stemGoal],
             [t.stemKnowledgeLabel || "STEM KNOWLEDGE BASE", "stemKnowledge", u.stemKnowledge],
@@ -9266,8 +9266,8 @@ function RoadmapsPage() {
 
   if (!user) return (
     <div className="max-w-3xl mx-auto px-6 py-8">
-      <h1 className="q-display" style={{ fontSize: "clamp(32px,5vw,52px)", fontWeight: 800, color: "#2b3634", letterSpacing: "-0.04em", marginBottom: 16 }}>{t.rmTitle || "My Roadmaps"}</h1>
-      <p style={{ fontSize: 14, color: "#2b3634", marginBottom: 32 }}>{t.rmSignInMsg || "Sign in to create and save roadmaps."}</p>
+      <h1 className="q-display" style={{ fontSize: "clamp(32px,5vw,52px)", fontWeight: 800, color: "#2b3634", letterSpacing: "-0.04em", marginBottom: 16 }}>{t.rmTitle || "My Learning Paths"}</h1>
+      <p style={{ fontSize: 14, color: "#2b3634", marginBottom: 32 }}>{t.rmSignInMsg || "Sign in to create and save learning paths."}</p>
       <button onClick={() => setObOpen(true)} style={faintBtn} onMouseOver={faintHover} onMouseOut={faintOut}>{lang === "mn" ? "Нэвтрэх" : "Sign in"}</button>
     </div>
   );
@@ -9278,7 +9278,7 @@ function RoadmapsPage() {
     <div style={{ position: "fixed", inset: 0, zIndex: 9999, display: "flex", alignItems: "center", justifyContent: "center", background: "rgba(0,0,0,.45)" }} onClick={() => setResearchModal(false)}>
       <div onClick={e => e.stopPropagation()} style={{ background: "#f0f2ee", borderRadius: 24, padding: "36px 32px", maxWidth: 520, width: "90vw", maxHeight: "85vh", overflowY: "auto" }}>
         <h2 style={{ fontSize: 20, fontWeight: 800, color: "#2b3634", marginBottom: 6 }}>{t.researchDiagTitle || "Research Diagnostic"}</h2>
-        <p style={{ fontSize: 13, color: "#2b3634", marginBottom: 24, lineHeight: 1.5 }}>{lang === "mn" ? "Таны судалгааны замыг оновчтой болгохын тулд хэдэн асуулт хариулна уу." : "Answer a few questions so we can build the right research roadmap for you."}</p>
+        <p style={{ fontSize: 13, color: "#2b3634", marginBottom: 24, lineHeight: 1.5 }}>{lang === "mn" ? "Таны судалгааны замыг оновчтой болгохын тулд хэдэн асуулт хариулна уу." : "Answer a few questions so we can build the right research learning path for you."}</p>
         {[
           [t.researchDomainLabel || "RESEARCH DOMAIN", "domain", t.researchDomainPh || "e.g. Condensed Matter Physics, ML"],
           [t.researchExpLabel || "PRIOR RESEARCH EXPERIENCE", "experience", t.researchExpPh || "e.g. Read academic papers, used LaTeX/Python"],
@@ -9315,16 +9315,16 @@ function RoadmapsPage() {
           {lang === "mn" ? "ХЯНАЛТ" : "DASHBOARD"}
         </button>
         <span style={{ color: "rgba(43,54,52,.35)" }}>&lt;&lt;</span>
-        <span style={{ fontWeight: 600 }}>{(t.manageRoadmaps || "MANAGE MY ROADMAPS").toUpperCase()}</span>
+        <span style={{ fontWeight: 600 }}>{(t.manageRoadmaps || "MANAGE MY LEARNING PATHS").toUpperCase()}</span>
       </div>
 
-      <h1 className="q-display" style={{ fontSize: "clamp(32px,5vw,52px)", fontWeight: 800, color: "#2b3634", letterSpacing: "-0.04em", marginBottom: 8 }}>{t.manageRoadmaps || "Manage My Roadmaps"}</h1>
+      <h1 className="q-display" style={{ fontSize: "clamp(32px,5vw,52px)", fontWeight: 800, color: "#2b3634", letterSpacing: "-0.04em", marginBottom: 8 }}>{t.manageRoadmaps || "Manage My Learning Paths"}</h1>
       <p style={{ fontSize: 14, color: "#2b3634", marginBottom: 32, lineHeight: 1.6 }}>{t.rmSub || "A personal learning path tailored to each goal."}</p>
 
       {/* STEM profile warning (non-blocking) */}
       {!profileComplete && (
         <div style={{ padding: "14px 20px", background: "rgba(43,54,52,.04)", border: "1.5px solid rgba(43,54,52,.18)", borderRadius: 14, marginBottom: 28, display: "flex", alignItems: "center", justifyContent: "space-between", gap: 16, flexWrap: "wrap" }}>
-          <div style={{ fontSize: 13, color: "#2b3634", lineHeight: 1.4 }}>{t.stemRequiredDesc || "Complete your STEM profile for better personalized roadmaps."}</div>
+          <div style={{ fontSize: 13, color: "#2b3634", lineHeight: 1.4 }}>{t.stemRequiredDesc || "Complete your STEM profile for better personalized learning paths."}</div>
           <button onClick={() => go("dashboard")} style={{ fontFamily: mono, fontSize: 11, color: "#2b3634", border: "1.5px solid rgba(43,54,52,.35)", borderRadius: 10, padding: "8px 16px", background: "rgba(43,54,52,.08)", cursor: "pointer", fontWeight: 600, whiteSpace: "nowrap", transition: "all .2s" }}
             onMouseOver={e => { e.currentTarget.style.background = "rgba(43,54,52,.14)"; e.currentTarget.style.borderColor = "rgba(43,54,52,.5)"; }}
             onMouseOut={e => { e.currentTarget.style.background = "rgba(43,54,52,.08)"; e.currentTarget.style.borderColor = "rgba(43,54,52,.35)"; }}>
@@ -9335,7 +9335,7 @@ function RoadmapsPage() {
 
       {/* Create new roadmap — step flow */}
       <div style={{ border: "1.5px solid rgba(43,54,52,.35)", borderRadius: 20, padding: "28px 24px", marginBottom: 40, background: "rgba(43,54,52,.02)" }}>
-        <div style={{ fontFamily: mono, fontSize: 10, letterSpacing: "0.18em", color: "#2b3634", marginBottom: 16 }}>{t.createNewRoadmap || "CREATE NEW ROADMAP"}</div>
+        <div style={{ fontFamily: mono, fontSize: 10, letterSpacing: "0.18em", color: "#2b3634", marginBottom: 16 }}>{t.createNewRoadmap || "CREATE NEW LEARNING PATH"}</div>
 
         {/* Step: Path selection */}
         {step === "path" && (
@@ -9403,7 +9403,7 @@ function RoadmapsPage() {
           <div>
             <button onClick={() => setStep("path")} style={{ fontFamily: mono, fontSize: 11, color: "#2b3634", background: "none", border: "none", cursor: "pointer", padding: "0 0 14px", letterSpacing: "0.05em" }}>&larr; {lang === "mn" ? "Буцах" : "Back"}</button>
             <div style={{ marginBottom: 16 }}>
-              <label style={{ fontFamily: mono, fontSize: 10, letterSpacing: "0.18em", color: "#2b3634", display: "block", marginBottom: 8 }}>{t.rmRoadmapTitle || "ROADMAP TITLE"}</label>
+              <label style={{ fontFamily: mono, fontSize: 10, letterSpacing: "0.18em", color: "#2b3634", display: "block", marginBottom: 8 }}>{t.rmRoadmapTitle || "LEARNING PATH TITLE"}</label>
               <input value={newTitle} onChange={e => setNewTitle(e.target.value)} onKeyDown={e => { if (e.key === "Enter") handleCreate(); }}
                 placeholder={lang === "mn" ? "жнь. ОУФО 2026 бэлтгэл, ML суурь..." : "e.g. IMO 2026 Prep, ML Fundamentals..."}
                 style={{ ...inputStyle, padding: "13px 16px", fontFamily: "inherit" }} />
@@ -9418,13 +9418,13 @@ function RoadmapsPage() {
       {/* Existing roadmaps list */}
       {roadmaps.length > 0 && (
         <div>
-          <div style={{ fontFamily: mono, fontSize: 10, letterSpacing: "0.2em", color: "#2b3634", marginBottom: 16 }}>{lang === "mn" ? "МИНИЙ ЗАМУУД" : "MY ROADMAPS"}</div>
+          <div style={{ fontFamily: mono, fontSize: 10, letterSpacing: "0.2em", color: "#2b3634", marginBottom: 16 }}>{lang === "mn" ? "МИНИЙ ЗАМУУД" : "MY LEARNING PATHS"}</div>
           <div style={{ display: "flex", flexDirection: "column" }}>
             {roadmaps.map((rm, i) => (
               <div key={rm.id} style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "clamp(16px,2.5vh,24px) 0", borderBottom: i < roadmaps.length - 1 ? "1px solid rgba(43,54,52,.08)" : "none" }}>
                 <button onClick={() => openRoadmap(rm.id)} style={{ flex: 1, textAlign: "left", background: "none", border: "none", cursor: "pointer", padding: 0 }}
                   onMouseOver={e => e.currentTarget.style.opacity = "0.6"} onMouseOut={e => e.currentTarget.style.opacity = "1"}>
-                  <div style={{ fontSize: 15, fontWeight: 700, color: "#2b3634" }}>{rm.title || rm.name || (lang === "mn" ? "Зам" : "Roadmap")}</div>
+                  <div style={{ fontSize: 15, fontWeight: 700, color: "#2b3634" }}>{rm.title || rm.name || (lang === "mn" ? "Зам" : "Learning Path")}</div>
                   <div style={{ display: "flex", gap: 12, marginTop: 4, alignItems: "center" }}>
                     {rm.type && <span style={{ fontFamily: mono, fontSize: 10, color: "#2b3634", letterSpacing: "0.1em" }}>{({ general: t.rmTypeGeneral, competition: t.rmTypeComp, research: t.rmTypeResearch, skill: t.rmTypeSkill, internship: lang === "mn" ? "Дадлага" : "Internship" }[rm.type] || rm.type).toUpperCase()}</span>}
                     {rm.created && <span style={{ fontFamily: mono, fontSize: 11, color: "#2b3634" }}>{new Date(rm.created).toLocaleDateString()}</span>}
@@ -9690,7 +9690,7 @@ QUALITY REQUIREMENTS
       } else {
         setContent(lang === "mn"
           ? "Суралцах зам үүсгэхэд алдаа гарлаа. Дахин оролдоно уу."
-          : "Could not generate roadmap. Please try again.");
+          : "Could not generate learning path. Please try again.");
       }
       setPhase("done");
     }
@@ -9698,9 +9698,9 @@ QUALITY REQUIREMENTS
 
   if (!rm) return (
     <div className="max-w-3xl mx-auto px-6 py-8">
-      <h1 className="q-display" style={{ fontSize: 32, fontWeight: 800, color: "#2b3634" }}>Roadmap</h1>
-      <p style={{ fontSize: 14, color: "#2b3634", marginTop: 16 }}>Roadmap not found.</p>
-      <button onClick={() => go("roadmaps")} style={{ marginTop: 24, fontFamily: mono, fontSize: 13, color: "#2b3634", background: "none", border: "none", cursor: "pointer" }}>← All roadmaps</button>
+      <h1 className="q-display" style={{ fontSize: 32, fontWeight: 800, color: "#2b3634" }}>Learning Path</h1>
+      <p style={{ fontSize: 14, color: "#2b3634", marginTop: 16 }}>Learning path not found.</p>
+      <button onClick={() => go("roadmaps")} style={{ marginTop: 24, fontFamily: mono, fontSize: 13, color: "#2b3634", background: "none", border: "none", cursor: "pointer" }}>← All learning paths</button>
     </div>
   );
 
@@ -9710,9 +9710,9 @@ QUALITY REQUIREMENTS
         <button onClick={() => go("home")} style={{ fontFamily: mono, fontSize: 12, color: "#2b3634", background: "rgba(43,54,52,.08)", border: "1.5px solid rgba(43,54,52,.35)", borderRadius: 10, cursor: "pointer", padding: "8px 16px", letterSpacing: "0.1em", fontWeight: 600, transition: "all .2s" }}
           onMouseOver={e => { e.currentTarget.style.background = "rgba(43,54,52,.14)"; e.currentTarget.style.borderColor = "rgba(43,54,52,.5)"; }}
           onMouseOut={e => { e.currentTarget.style.background = "rgba(43,54,52,.08)"; e.currentTarget.style.borderColor = "rgba(43,54,52,.35)"; }}>{lang === "mn" ? "НҮҮР" : "HOME"}</button>
-        <button onClick={() => go("roadmaps")} style={{ fontFamily: mono, fontSize: 12, color: "#2b3634", background: "none", border: "none", cursor: "pointer", padding: 0, letterSpacing: "0.1em" }}>{String.fromCharCode(8592)} {lang === "mn" ? "ЗАМУУД" : "ROADMAPS"}</button>
+        <button onClick={() => go("roadmaps")} style={{ fontFamily: mono, fontSize: 12, color: "#2b3634", background: "none", border: "none", cursor: "pointer", padding: 0, letterSpacing: "0.1em" }}>{String.fromCharCode(8592)} {lang === "mn" ? "ЗАМУУД" : "LEARNING PATHS"}</button>
       </div>
-      <h1 className="q-display" style={{ fontSize: "clamp(28px,5vw,44px)", fontWeight: 800, color: "#2b3634", letterSpacing: "-0.04em", marginBottom: 8 }}>{rm.title || "Roadmap"}</h1>
+      <h1 className="q-display" style={{ fontSize: "clamp(28px,5vw,44px)", fontWeight: 800, color: "#2b3634", letterSpacing: "-0.04em", marginBottom: 8 }}>{rm.title || "Learning Path"}</h1>
       {rm.created && <div style={{ fontFamily: mono, fontSize: 12, color: "#2b3634", marginBottom: 40 }}>{new Date(rm.created).toLocaleDateString()}</div>}
 
       {/* INTAKE */}
@@ -9731,7 +9731,7 @@ QUALITY REQUIREMENTS
             </div>
           )}
 
-          <p style={{ fontSize: 14, color: "#2b3634", lineHeight: 1.7, margin: 0 }}>{lang === "mn" ? "Эдгээр асуултад хариулснаар таны нөхцөл байдалд тохирсон суралцах зам бүтээнэ. Дэлгэрэнгүй хариулах тусам төлөвлөгөө илүү нарийвчлалтай болно." : "Answer these questions so the roadmap is built around your exact situation. The more you share, the more specific and useful the plan."}</p>
+          <p style={{ fontSize: 14, color: "#2b3634", lineHeight: 1.7, margin: 0 }}>{lang === "mn" ? "Эдгээр асуултад хариулснаар таны нөхцөл байдалд тохирсон суралцах зам бүтээнэ. Дэлгэрэнгүй хариулах тусам төлөвлөгөө илүү нарийвчлалтай болно." : "Answer these questions so the learning path is built around your exact situation. The more you share, the more specific and useful the plan."}</p>
 
           {/* Q1: Current level */}
           <div>
@@ -9831,7 +9831,7 @@ QUALITY REQUIREMENTS
 
           <button onClick={generateRoadmap} disabled={!level || !hoursPerWeek || !compExp || !timeline || !biggestChallenge || !goal.trim()}
             style={{ padding: "15px 0", border: "1.5px solid rgba(43,54,52,.2)", borderRadius: 14, background: "transparent", cursor: (!level || !hoursPerWeek || !compExp || !timeline || !biggestChallenge || !goal.trim()) ? "default" : "pointer", fontFamily: mono, fontSize: 13, fontWeight: 600, color: (!level || !hoursPerWeek || !compExp || !timeline || !biggestChallenge || !goal.trim()) ? "rgba(43,54,52,.4)" : "#2b3634", letterSpacing: "0.05em" }}>
-            {(!level || !hoursPerWeek || !compExp || !timeline || !biggestChallenge || !goal.trim()) ? (lang === "mn" ? "Бүх асуултад хариулна уу" : "Answer all questions to continue") : (lang === "mn" ? "Миний суралцах замыг бүтээх" : "Build my personalized roadmap")}
+            {(!level || !hoursPerWeek || !compExp || !timeline || !biggestChallenge || !goal.trim()) ? (lang === "mn" ? "Бүх асуултад хариулна уу" : "Answer all questions to continue") : (lang === "mn" ? "Миний суралцах замыг бүтээх" : "Build my personalized learning path")}
           </button>
         </div>
       )}
