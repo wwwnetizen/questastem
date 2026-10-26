@@ -126,8 +126,7 @@ const GlobalStyles = () => (
     .q-card::after { content:''; position:absolute; inset:0; z-index:0; border-radius:inherit; pointer-events:none; opacity:0.7; mix-blend-mode:multiply; background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='512' height='512'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.45'/%3E%3C/svg%3E"); background-repeat:repeat; background-size:512px 512px; }
     .q-card > * { position: relative; z-index: 1; }
     .q-no-grain::after { display: none !important; }
-    .q-grain::before { content:''; position:fixed; top:-50vh; left:-50vw; width:200vw; height:200vh; height:200dvh; z-index:9999; pointer-events:none; opacity:0.32; background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='512' height='512'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.35'/%3E%3C/svg%3E"); background-repeat:repeat; background-size:512px 512px; }
-    body::before { content:''; position:fixed; top:-50vh; left:-50vw; width:200vw; height:200vh; height:200dvh; z-index:9998; pointer-events:none; opacity:0.32; background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='512' height='512'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.35'/%3E%3C/svg%3E"); background-repeat:repeat; background-size:512px 512px; }
+    body::before { content:''; position:fixed; top:-50vh; left:-50vw; width:200vw; height:200vh; height:200dvh; z-index:9999; pointer-events:none; opacity:0.32; background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='512' height='512'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.35'/%3E%3C/svg%3E"); background-repeat:repeat; background-size:512px 512px; }
     @keyframes qFloat { 0%{transform:translateY(0)} 100%{transform:translateY(-120vh)} }
     @keyframes qTwinkle { 0%,100%{opacity:.15;transform:scale(.8)} 50%{opacity:.9;transform:scale(1.15)} }
     @keyframes qPulseGlow { 0%,100%{box-shadow:0 0 0 0 rgba(109,40,217,.28)} 50%{box-shadow:0 0 0 9px rgba(109,40,217,0)} }
@@ -10262,7 +10261,7 @@ export default function App() {
   return (
     <QuestaCtx.Provider value={ctx}>
       <GlobalStyles />
-      <div className="min-h-screen flex flex-col q-grain" style={{ fontFamily: "system-ui, -apple-system, 'Segoe UI', sans-serif", background: "transparent", minHeight: "100dvh", color: "#2b3634", overflowX: "hidden" }}>
+      <div className="min-h-screen flex flex-col" style={{ fontFamily: "system-ui, -apple-system, 'Segoe UI', sans-serif", background: "transparent", minHeight: "100dvh", color: "#2b3634", overflowX: "hidden" }}>
         {/* ambient overlay div removed — empty fixed div caused rendering boundary on mobile */}
         <Navbar />
         <div style={{ height: "clamp(16px,3vh,32px)" }} />
