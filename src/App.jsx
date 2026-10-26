@@ -158,6 +158,7 @@ const GlobalStyles = () => (
     @keyframes qRingSpin { from{transform:rotate(0)} to{transform:rotate(360deg)} }
     .q-fade-up{animation:qFadeUp .5s ease both}
     .q-pop{animation:qPopIn .25s ease both}
+    .q-modal{position:fixed;inset:0;z-index:10002}
     @media(max-width:480px){
       .q-nav-login{font-size:10px !important;padding:4px 10px !important;border-radius:10px !important}
       .q-lang-btn{font-size:10px !important;padding:4px 8px !important;border-radius:8px !important}
@@ -6666,9 +6667,9 @@ function SearchModal() {
   ].filter(p => !ql || p.label.toLowerCase().includes(ql));
 
   return (
-    <div className="fixed inset-0 z-50">
+    <div className="q-modal">
       <div className="absolute inset-0" style={{ background: "rgba(43,54,52,.22)", backdropFilter: "blur(4px)" }} onClick={close} />
-      <div className="q-card" style={{ position: "fixed", top: 16, left: 16, right: 16, margin: "0 auto", maxWidth: 520, borderRadius: 14, overflow: "hidden", boxShadow: "0 20px 60px rgba(43,54,52,.22)" }} onClick={e => e.stopPropagation()}>
+      <div className="q-card" style={{ position: "fixed", top: 16, left: 16, right: 16, margin: "0 auto", maxWidth: 520, borderRadius: 14, overflow: "hidden", boxShadow: "0 20px 60px rgba(43,54,52,.22)", zIndex: 10002 }} onClick={e => e.stopPropagation()}>
         {/* Search input */}
         <div style={{ display: "flex", alignItems: "center", gap: 12, padding: "16px 20px", borderBottom: "1px solid rgba(43,54,52,.08)" }}>
           <Search size={16} style={{ color: "#2b3634", flexShrink: 0 }} />
@@ -7840,9 +7841,9 @@ function NodeDrawer() {
   const mono = "'Space Grotesk', ui-monospace, monospace";
 
   return (
-    <div className="fixed inset-0 z-40">
+    <div className="q-modal">
       <div className="absolute inset-0" style={{ background: "rgba(43,54,52,.6)", backdropFilter: "blur(3px)" }} onClick={close} />
-      <div className="q-pop q-card" style={{ position: "fixed", top: 16, left: 16, right: 16, bottom: 16, margin: "auto", maxWidth: 600, borderRadius: 20, overflow: "hidden" }}>
+      <div className="q-pop q-card" style={{ position: "fixed", top: 16, left: 16, right: 16, bottom: 16, margin: "auto", maxWidth: 600, borderRadius: 20, overflow: "hidden", zIndex: 10002 }}>
         <div style={{ overflowY: "auto", WebkitOverflowScrolling: "touch", height: "100%", position: "relative", zIndex: 1 }}>
         <div className="p-8 relative">
           {/* Close */}
@@ -8205,9 +8206,9 @@ function ProfessorFinder({ unlocked, open, setOpen }) {
   if (!open) return null;
 
   return (
-    <div className="fixed inset-0 z-50">
+    <div className="q-modal">
       <div className="absolute inset-0" style={{ background: "rgba(43,54,52,.22)", backdropFilter: "blur(4px)" }} onClick={() => setOpen(false)} />
-      <div className="q-card" style={{ position: "fixed", top: 16, left: 16, right: 16, bottom: 16, margin: "auto", maxWidth: 600, borderRadius: 14, overflow: "hidden" }}>
+      <div className="q-card" style={{ position: "fixed", top: 16, left: 16, right: 16, bottom: 16, margin: "auto", maxWidth: 600, borderRadius: 14, overflow: "hidden", zIndex: 10002 }}>
         <div style={{ overflowY: "auto", height: "100%", position: "relative", zIndex: 1, padding: "clamp(28px,5vw,48px)" }}>
         <div style={{ display: "flex", alignItems: "flex-start", justifyContent: "space-between", marginBottom: 8 }}>
           <div style={{ fontFamily: mono, fontSize: 11, letterSpacing: "0.2em", color: "#2b3634" }}>RESEARCH MENTORS</div>
@@ -9190,9 +9191,9 @@ function Onboarding() {
 
 
   return (
-    <div className="fixed inset-0 z-50">
+    <div className="q-modal">
       <div className="absolute inset-0" style={{ background: "rgba(43,54,52,.22)", backdropFilter: "blur(4px)" }} onClick={() => setObOpen(false)} />
-      <div className="q-card" style={{ position: "fixed", top: 16, left: 16, right: 16, bottom: 16, margin: "auto", maxWidth: 420, borderRadius: 14, overflow: "hidden" }}>
+      <div className="q-card" style={{ position: "fixed", top: 16, left: 16, right: 16, bottom: 16, margin: "auto", maxWidth: 420, borderRadius: 14, overflow: "hidden", zIndex: 10002 }}>
         <div style={{ overflowY: "auto", height: "100%", position: "relative", zIndex: 1, padding: "clamp(28px,6vw,48px)" }}>
         <div style={{ position: "relative" }}>
 
@@ -9309,9 +9310,9 @@ function ChatWidget() {
   const mono = "'Space Grotesk', ui-monospace, monospace";
   const send = () => { if (!input.trim()) return; sendChat(input.trim()); setInput(""); };
   return (
-    <div className="fixed inset-0 z-50">
+    <div className="q-modal">
       <div className="absolute inset-0" style={{ background: "rgba(43,54,52,.2)", backdropFilter: "blur(3px)" }} onClick={() => setChatOpen(false)} />
-      <div className="q-card" style={{ position: "fixed", top: 16, left: 16, right: 16, bottom: 16, margin: "auto", maxWidth: 540, borderRadius: 14, display: "flex", flexDirection: "column", overflow: "hidden" }}>
+      <div className="q-card" style={{ position: "fixed", top: 16, left: 16, right: 16, bottom: 16, margin: "auto", maxWidth: 540, borderRadius: 14, display: "flex", flexDirection: "column", overflow: "hidden", zIndex: 10002 }}>
         <div style={{ padding: "20px 24px", display: "flex", alignItems: "center", justifyContent: "space-between", borderBottom: "1px solid rgba(43,54,52,.08)" }}>
           <div>
             <div style={{ fontFamily: mono, fontSize: 11, letterSpacing: "0.2em", color: "#2b3634" }}>AI ASSISTANT</div>
