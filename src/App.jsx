@@ -428,6 +428,8 @@ en: {
     chatPh: "Type your question...",
     quick: ["Build my learning path", "Explain a concept", "Find research", "What's next for me?"],
     chatErr: "Sorry, something went wrong. Please try again.",
+    chatLimit: (n) => `You've used your ${n} free AI messages for today. Come back tomorrow!`,
+    chatRemaining: (n) => `${n} free message${n === 1 ? "" : "s"} remaining today`,
     nasaTitle: "NASA Space Apps Challenge, Ulaanbaatar",
     nasaSub: "The world's largest hackathon, an international competition. Solve real problems with NASA's open data in 48 hours.",
     nasaPrep: "Prep pathway", nasaJoin: "Form a team and join", nasaOfficial: "Register here",
@@ -612,6 +614,8 @@ mn: {
     chatPh: "Асуултаа бичнэ үү...",
     quick: ["Сурах замаа бий болго", "Ойлголт тайлбарлах", "Судалгаа олох", "Дараа нь юу хийх вэ?"],
     chatErr: "Уучлаарай, алдаа гарлаа. Дахин оролдоно уу.",
+    chatLimit: (n) => `Та өнөөдрийн ${n} үнэгүй AI мессежээ ашигласан байна. Маргааш дахин ирээрэй!`,
+    chatRemaining: (n) => `Өнөөдөр ${n} үнэгүй мессеж үлдсэн`,
     nasaTitle: "NASA Space Apps Challenge, Улаанбаатар",
     nasaSub: "Дэлхийн хамгийн том хакатон, олон улсын тэмцээн. NASA-ийн нээлттэй өгөгдлөөр бодит бодлогуудыг 48 цагийн дотор шийдвэрлээрэй.",
     nasaPrep: "Бэлтгэлийн зам", nasaJoin: "Баг бүрдүүлж нэгдээрэй", nasaOfficial: "Бүртгүүлэх",
@@ -9330,7 +9334,7 @@ function Onboarding() {
 
 /* ═══ MODULE: components/ChatWidget.jsx ═══  (Questa AI, bottom-LEFT robot) */
 function ChatWidget() {
-  const { t, lang, chatOpen, setChatOpen, chatMsgs, chatLoading, sendChat, activeChatLabel } = useQ();
+  const { t, lang, chatOpen, setChatOpen, chatMsgs, chatLoading, sendChat, activeChatLabel, chatRemaining } = useQ();
   const [input, setInput] = useState("");
   const scrollRef = useRef(null);
   useEffect(() => { if (scrollRef.current) scrollRef.current.scrollTop = scrollRef.current.scrollHeight; }, [chatMsgs, chatLoading]);
@@ -9356,12 +9360,18 @@ function ChatWidget() {
           ))}
           {chatLoading && <div style={{ fontSize: 13, color: "#2b3634", fontStyle: "italic" }}>Thinking...</div>}
         </div>
-        <div style={{ padding: "16px 24px", borderTop: "1px solid rgba(43,54,52,.08)", display: "flex", gap: 10 }}>
-          <input value={input} onChange={e => setInput(e.target.value)} onKeyDown={e => e.key === "Enter" && send()}
-            placeholder="Ask anything..."
-            style={{ flex: 1, padding: "12px 16px", border: "1px solid rgba(43,54,52,.35)", borderRadius: 12, background: "rgba(43,54,52,.02)", fontSize: 14, color: "#2b3634", outline: "none" }} />
-          <button onClick={send}
-            style={{ padding: "12px 20px", borderRadius: 14, background: "rgba(43,54,52,.22)", border: "none", cursor: "pointer", fontFamily: mono, fontSize: 12, color: "#2b3634", letterSpacing: "0.05em" }}>SEND</button>
+        <div style={{ borderTop: "1px solid rgba(43,54,52,.08)" }}>
+          {chatRemaining() <= 2 && <div style={{ padding: "8px 24px 0", fontSize: 11, fontFamily: mono, letterSpacing: "0.05em", color: chatRemaining() === 0 ? "#c44" : "rgba(43,54,52,.45)", textAlign: "center" }}>
+            {chatRemaining() === 0 ? (lang === "mn" ? "Өнөөдрийн мессеж дууссан" : "Daily limit reached") : t.chatRemaining(chatRemaining())}
+          </div>}
+          <div style={{ padding: "12px 24px 16px", display: "flex", gap: 10 }}>
+            <input value={input} onChange={e => setInput(e.target.value)} onKeyDown={e => e.key === "Enter" && send()}
+              placeholder={chatRemaining() === 0 ? (lang === "mn" ? "Маргааш дахин ирээрэй" : "Come back tomorrow") : (lang === "mn" ? "Асуултаа бичнэ үү..." : "Ask anything...")}
+              disabled={chatRemaining() === 0}
+              style={{ flex: 1, padding: "12px 16px", border: "1px solid rgba(43,54,52,.35)", borderRadius: 12, background: chatRemaining() === 0 ? "rgba(43,54,52,.06)" : "rgba(43,54,52,.02)", fontSize: 14, color: "#2b3634", outline: "none", opacity: chatRemaining() === 0 ? 0.5 : 1 }} />
+            <button onClick={send} disabled={chatRemaining() === 0}
+              style={{ padding: "12px 20px", borderRadius: 14, background: chatRemaining() === 0 ? "rgba(43,54,52,.1)" : "rgba(43,54,52,.22)", border: "none", cursor: chatRemaining() === 0 ? "default" : "pointer", fontFamily: mono, fontSize: 12, color: "#2b3634", letterSpacing: "0.05em", opacity: chatRemaining() === 0 ? 0.4 : 1 }}>SEND</button>
+          </div>
         </div>
       </div>
     </div>
@@ -10319,10 +10329,40 @@ export default function App() {
     setLastDone(id);
   };
 
+  const DAILY_AI_LIMIT = 5;
+  const getChatUsage = () => {
+    try {
+      const raw = localStorage.getItem("q_chat_usage");
+      if (!raw) return { date: "", count: 0 };
+      const d = JSON.parse(raw);
+      const today = new Date().toISOString().slice(0, 10);
+      if (d.date !== today) return { date: today, count: 0 };
+      return d;
+    } catch { return { date: "", count: 0 }; }
+  };
+  const bumpChatUsage = () => {
+    try {
+      const today = new Date().toISOString().slice(0, 10);
+      const u = getChatUsage();
+      const next = { date: today, count: (u.date === today ? u.count : 0) + 1 };
+      localStorage.setItem("q_chat_usage", JSON.stringify(next));
+      return next.count;
+    } catch { return 1; }
+  };
+  const chatRemaining = () => Math.max(0, DAILY_AI_LIMIT - getChatUsage().count);
+
   const sendChat = async (msg, branchKey) => {
     const key = branchKey || activeChat;
     const cur = branchChatsRef.current[key] || [];
     const seeded = cur.length ? cur : [{ role: "assistant", content: t.chatGreet(user ? user.name : "") }];
+
+    // Check daily limit
+    if (chatRemaining() <= 0) {
+      const next = [...seeded, { role: "user", content: msg }, { role: "assistant", content: t.chatLimit(DAILY_AI_LIMIT) }];
+      setBranchChats((bc) => ({ ...bc, [key]: next }));
+      return;
+    }
+
     const next = [...seeded, { role: "user", content: msg }];
     setBranchChats((bc) => ({ ...bc, [key]: next })); setChatLoading(true);
     try {
@@ -10336,6 +10376,7 @@ export default function App() {
           setBranchChats((bc) => ({ ...bc, [key]: [...next, { role: "assistant", content: partial }] }));
         }}
       );
+      bumpChatUsage();
       setBranchChats((bc) => ({ ...bc, [key]: [...next, { role: "assistant", content: reply }] }));
     } catch (err) {
       const trafficMsg = lang === "mn"
@@ -10382,7 +10423,7 @@ export default function App() {
   const ctx = {
     t, lang, toggleLang, page, go, startOnboarding, scrollTarget,
     subjectId, branchId, user, setUser, completed, lastDone,
-    obOpen, setObOpen, chatOpen, setChatOpen, chatMsgs, chatLoading, sendChat, askAI, activeChat, setActiveChat, activeChatLabel, setActiveChatLabel,
+    obOpen, setObOpen, chatOpen, setChatOpen, chatMsgs, chatLoading, sendChat, askAI, activeChat, setActiveChat, activeChatLabel, setActiveChatLabel, chatRemaining,
     finderOpen, setFinderOpen, searchOpen, setSearchOpen, drawerNode, setDrawerNode,
     comps, setComps, anns, setAnns, saved, toggleSaved, savedProfs, toggleProf,
     notes, setNote, nodeChecks, setNodeChecks, feedback, giveFeedback, portfolio, addPortfolio, delPortfolio,
