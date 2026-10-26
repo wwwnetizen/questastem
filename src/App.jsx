@@ -9665,7 +9665,7 @@ function RoadmapsPage() {
 }
 
 function RoadmapDetail() {
-  const { t, lang, roadmaps, activeRoadmap, go, user, comps, setRoadmaps } = useQ();
+  const { t, lang, roadmaps, activeRoadmap, go, user, comps, setRoadmaps, setDrawerNode } = useQ();
   const rm = roadmaps.find((r) => r.id === activeRoadmap) || roadmaps[0];
   const [content, setContent] = useState(() => {
     const c = rm?.content;
@@ -9749,7 +9749,7 @@ ${byStage.a.map(formatNode).join("\n\n") || "None"}
 STEP 3 -- ADVANCED COURSES (after completing core):
 ${byStage.o.map(formatNode).join("\n\n") || "None"}
 
-Present these as a clear LEARNING PATH: Course A → Course B → Course C, showing why each leads to the next.`;
+Present these as a clear LEARNING PATH: Course A, then Course B, then Course C, showing why each leads to the next. Use ONLY these exact course names. Do NOT invent or suggest courses outside this list.`;
         }
       }
 
@@ -9768,7 +9768,7 @@ These are ALL available courses on the Questa platform. Based on the student's p
 
 ${allCourses.join("\n")}
 
-IMPORTANT: Only recommend courses that are directly relevant to this student's specific goal. Build a clear prerequisite chain: Course A then Course B then Course C.`;
+IMPORTANT: Only recommend courses that are directly relevant to this student's specific goal. Build a clear prerequisite chain: Course A then Course B then Course C. Use ONLY these exact course names. Do NOT invent or suggest courses outside this list.`;
         }
       }
 
@@ -9824,7 +9824,7 @@ Each phase: 2-5 courses with exact names from the course data above.
 RULES:
 - Return ONLY the JSON object. No text, no markdown, no backticks around it.
 - NEVER use em dashes (long dash) anywhere. Use commas, periods, or the word "to" instead.
-- ${coursesCatalog ? "Use EXACT Questa course names from data above so the app links them." : "Name courses clearly to match Questa Knowledge Tree."}
+- ONLY use courses from the Questa Knowledge Tree data above. Do NOT invent course names or suggest external resources. Every course name must be an EXACT match from the data.
 - Keep "why" to 1-2 sentences. Be concise.
 - 8-10 milestones spanning the full timeline.
 - Personalize based on student profile.
@@ -10070,7 +10070,7 @@ RULES:
           const nb = node ? NODE_BRANCH[node.id] : null;
           const clickable = !!nb;
           return (
-            <div onClick={() => { if (nb) go("tree", { subjectId: nb.subjectId, branchId: nb.branchId, nodeId: node.id }); }}
+            <div onClick={() => { if (nb) { go("tree", nb.branchId); setTimeout(() => setDrawerNode(node), 80); } }}
               style={{ padding: "14px 18px", border: "1.5px solid rgba(43,54,52,.25)", borderRadius: 14, background: "rgba(43,54,52,.03)", cursor: clickable ? "pointer" : "default", transition: "all .2s", marginBottom: 8 }}
               onMouseOver={e => { if (clickable) { e.currentTarget.style.background = "rgba(43,54,52,.1)"; e.currentTarget.style.borderColor = "rgba(43,54,52,.5)"; } }}
               onMouseOut={e => { e.currentTarget.style.background = "rgba(43,54,52,.03)"; e.currentTarget.style.borderColor = "rgba(43,54,52,.25)"; }}>
