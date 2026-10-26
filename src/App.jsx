@@ -6587,7 +6587,7 @@ function Navbar() {
   const [open, setOpen] = useState(false);
   const items = [["home", t.nav.home], ["learning", t.nav.learning], ["research", t.nav.research], ["competitions", t.nav.competitions], ["nasa", t.nav.nasa]];
   return (
-    <header className="sticky top-0 z-40" style={{ padding: "calc(10px + env(safe-area-inset-top, 0px)) calc(10px + env(safe-area-inset-right, 0px)) 10px calc(10px + env(safe-area-inset-left, 0px))", background: "#ffffff", pointerEvents: "none" }}>
+    <header className="sticky top-0" style={{ padding: "calc(10px + env(safe-area-inset-top, 0px)) calc(10px + env(safe-area-inset-right, 0px)) 10px calc(10px + env(safe-area-inset-left, 0px))", background: "#ffffff", pointerEvents: "none", zIndex: 10001 }}>
       {/* outer blur halo removed — gradient mask caused visible line on mobile */}
       <div className="max-w-5xl mx-auto flex items-center justify-between" style={{ pointerEvents: "auto", background: "rgba(62,78,72,.65)", backdropFilter: "blur(20px)", WebkitBackdropFilter: "blur(20px)", borderRadius: 14, padding: "0 8px 0 20px", height: 50 }}>
         <button onClick={() => { go("home"); setOpen(false); }} className="shrink-0" style={{ background: "none", border: "none", cursor: "pointer", opacity: 0.9 }}><Logo size={26} onDark /></button>
