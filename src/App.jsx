@@ -430,6 +430,8 @@ en: {
     chatErr: "Sorry, something went wrong. Please try again.",
     chatLimit: (n) => `You've used your ${n} free AI messages for today. Come back tomorrow!`,
     chatRemaining: (n) => `${n} free message${n === 1 ? "" : "s"} remaining today`,
+    rmLimit: "You've reached the free plan limit of 3 learning paths. Delete an existing one to create a new one.",
+    rmLimitShort: (n) => `${n}/3 free learning paths used`,
     nasaTitle: "NASA Space Apps Challenge, Ulaanbaatar",
     nasaSub: "The world's largest hackathon, an international competition. Solve real problems with NASA's open data in 48 hours.",
     nasaPrep: "Prep pathway", nasaJoin: "Form a team and join", nasaOfficial: "Register here",
@@ -616,6 +618,8 @@ mn: {
     chatErr: "Уучлаарай, алдаа гарлаа. Дахин оролдоно уу.",
     chatLimit: (n) => `Та өнөөдрийн ${n} үнэгүй AI мессежээ ашигласан байна. Маргааш дахин ирээрэй!`,
     chatRemaining: (n) => `Өнөөдөр ${n} үнэгүй мессеж үлдсэн`,
+    rmLimit: "Та үнэгүй 3 суралцах замын хязгаартаа хүрсэн байна. Шинийг үүсгэхийн тулд одоо байгаагаа устгана уу.",
+    rmLimitShort: (n) => `${n}/3 үнэгүй суралцах зам ашигласан`,
     nasaTitle: "NASA Space Apps Challenge, Улаанбаатар",
     nasaSub: "Дэлхийн хамгийн том хакатон, олон улсын тэмцээн. NASA-ийн нээлттэй өгөгдлөөр бодит бодлогуудыг 48 цагийн дотор шийдвэрлээрэй.",
     nasaPrep: "Бэлтгэлийн зам", nasaJoin: "Баг бүрдүүлж нэгдээрэй", nasaOfficial: "Бүртгүүлэх",
@@ -9628,7 +9632,14 @@ function RoadmapDetail() {
   const labelStyle = { fontFamily: mono, fontSize: 11, letterSpacing: "0.15em", color: "#2b3634", display: "block", marginBottom: 8 };
   const inputStyle = { width: "100%", padding: "13px 16px", border: "1.5px solid rgba(43,54,52,.35)", borderRadius: 12, background: "transparent", fontSize: 14, color: "#2b3634", outline: "none", fontFamily: "inherit", boxSizing: "border-box" };
 
+  const RM_FREE_LIMIT = 3;
+  const getRmUsage = () => { try { return Number(localStorage.getItem("q_rm_usage")) || 0; } catch { return 0; } };
+  const bumpRmUsage = () => { try { const n = getRmUsage() + 1; localStorage.setItem("q_rm_usage", String(n)); return n; } catch { return 1; } };
+  const rmUsed = getRmUsage();
+  const rmCanGenerate = rmUsed < RM_FREE_LIMIT;
+
   const generateRoadmap = async () => {
+    if (!rmCanGenerate) return;
     setPhase("generating");
     try {
       const u = user || {};
@@ -9844,6 +9855,7 @@ QUALITY REQUIREMENTS
         : "You are a precise STEM education advisor. Write organized, concise, actionable preparation roadmaps. Keep explanations to 1-2 sentences per course/topic -- the value is in the organized course sequence and resource links, not long paragraphs. CRITICAL: Do NOT use any markdown formatting symbols -- no ###, no **, no *, no ---, no bullet dashes. Write headings in UPPERCASE and separate sections with blank lines. Use numbered lists (1. 2. 3.) instead of bullet points. IMPORTANT: Keep your TOTAL response under 2500 words. Complete ALL sections fully -- never stop mid-sentence or mid-section. Prioritize finishing every section over adding extra detail to any one section.", [{ role: "user", content: prompt }], { maxTokens: 16384 });
       setContent(reply);
       setPhase("done");
+      bumpRmUsage();
       // persist content + all intake fields into roadmap object
       setRoadmaps(prev => prev.map(r => r.id === rm.id ? { ...r, content: reply, level, hoursPerWeek, goal, priorKnowledge, compExp, timeline, biggestChallenge } : r));
     } catch (err) {
@@ -9963,12 +9975,24 @@ QUALITY REQUIREMENTS
             </div>
           </div>
 
-          <button onClick={generateRoadmap} disabled={!hoursPerWeek || !timeline || !biggestChallenge}
-            style={{ padding: "15px 0", border: "none", borderRadius: 14, background: (!hoursPerWeek || !timeline || !biggestChallenge) ? "rgba(43,54,52,.08)" : "#2b3634", cursor: (!hoursPerWeek || !timeline || !biggestChallenge) ? "default" : "pointer", fontFamily: mono, fontSize: 13, fontWeight: 600, color: (!hoursPerWeek || !timeline || !biggestChallenge) ? "rgba(43,54,52,.35)" : "#f0f2ee", letterSpacing: "0.05em", transition: "all .2s" }}
-            onMouseOver={e => { if (hoursPerWeek && timeline && biggestChallenge) e.currentTarget.style.opacity = "0.85"; }}
-            onMouseOut={e => e.currentTarget.style.opacity = "1"}>
-            {(!hoursPerWeek || !timeline || !biggestChallenge) ? (lang === "mn" ? "Бүх асуултад хариулна уу" : "Answer all questions to continue") : (lang === "mn" ? "Миний сурах замыг бүтээх" : "Build my personalized learning path")}
-          </button>
+          {!rmCanGenerate && (
+            <div style={{ padding: "14px 18px", borderRadius: 12, background: "rgba(43,54,52,.06)", border: "1.5px solid rgba(43,54,52,.18)", fontFamily: mono, fontSize: 13, color: "#2b3634", lineHeight: 1.5, textAlign: "center" }}>
+              {t.rmLimit}
+            </div>
+          )}
+          {rmCanGenerate && (
+            <button onClick={generateRoadmap} disabled={!hoursPerWeek || !timeline || !biggestChallenge}
+              style={{ padding: "15px 0", border: "none", borderRadius: 14, background: (!hoursPerWeek || !timeline || !biggestChallenge) ? "rgba(43,54,52,.08)" : "#2b3634", cursor: (!hoursPerWeek || !timeline || !biggestChallenge) ? "default" : "pointer", fontFamily: mono, fontSize: 13, fontWeight: 600, color: (!hoursPerWeek || !timeline || !biggestChallenge) ? "rgba(43,54,52,.35)" : "#f0f2ee", letterSpacing: "0.05em", transition: "all .2s" }}
+              onMouseOver={e => { if (hoursPerWeek && timeline && biggestChallenge) e.currentTarget.style.opacity = "0.85"; }}
+              onMouseOut={e => e.currentTarget.style.opacity = "1"}>
+              {(!hoursPerWeek || !timeline || !biggestChallenge) ? (lang === "mn" ? "Бүх асуултад хариулна уу" : "Answer all questions to continue") : (lang === "mn" ? "Миний сурах замыг бүтээх" : "Build my personalized learning path")}
+            </button>
+          )}
+          {rmCanGenerate && rmUsed > 0 && (
+            <div style={{ fontFamily: mono, fontSize: 11, color: "rgba(43,54,52,.5)", textAlign: "center", marginTop: 4 }}>
+              {t.rmLimitShort(rmUsed)}
+            </div>
+          )}
         </div>
         );
       })()}
