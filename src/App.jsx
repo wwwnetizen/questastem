@@ -128,14 +128,14 @@ const GlobalStyles = () => (
     html { min-height: 100dvh; background: #ffffff; }
     body { min-height: 100dvh; margin: 0; background: #ffffff; }
     .safari-tint-bottom { position:fixed; bottom:0; left:0; width:100%; height:4px; background-color:#ffffff; z-index:10000; pointer-events:none; }
-    body::before { content:''; position:fixed; inset:-50vh -50vw; z-index:9999; pointer-events:none; opacity:0.32; background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='512' height='512'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.35'/%3E%3C/svg%3E"); background-repeat:repeat; background-size:512px 512px; }
-    body::after { content:''; position:fixed; inset:-50vh -50vw; z-index:1; pointer-events:none; background: radial-gradient(max(1100px,140vw) max(800px,110vh) at 85% 0%, rgba(55,68,64,.20), transparent 55%), radial-gradient(max(900px,120vw) max(700px,100vh) at 0% 95%, rgba(55,68,64,.15), transparent 58%), radial-gradient(max(800px,110vw) max(600px,85vh) at 50% 40%, rgba(55,68,64,.07), transparent 50%); }
+    body::before { content:''; position:fixed; inset:0; z-index:9999; pointer-events:none; opacity:0.32; background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='512' height='512'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.35'/%3E%3C/svg%3E"); background-repeat:repeat; background-size:512px 512px; }
+    body::after { content:''; position:fixed; inset:0; z-index:1; pointer-events:none; background: radial-gradient(max(1100px,140vw) max(800px,110vh) at 85% 0%, rgba(55,68,64,.20), transparent 55%), radial-gradient(max(900px,120vw) max(700px,100vh) at 0% 95%, rgba(55,68,64,.15), transparent 58%), radial-gradient(max(800px,110vw) max(600px,85vh) at 50% 40%, rgba(55,68,64,.07), transparent 50%); }
     #root { overflow-x: hidden; max-width: 100vw; min-height: 100dvh; }
     .q-ink { color: #2b3634; }
     textarea::-webkit-resizer { display: none; }
     .q-mono { font-family: 'Space Grotesk', ui-monospace, monospace; }
     .q-display { font-family: 'Archivo', 'Montserrat', system-ui, sans-serif; }
-    .q-card { position: relative; background: linear-gradient(155deg, #e8ece4 0%, #e5e9e1 30%, #e1e5dc 60%, #dde2d8 100%); }
+    .q-card { position: relative; background: linear-gradient(155deg, #f5f6f3 0%, #f2f3f0 30%, #eff0ed 60%, #eceee9 100%); }
     .q-card::after { display:none; }
     .q-card > * { position: relative; z-index: 1; }
     .q-no-grain::after { display: none !important; }
@@ -7843,7 +7843,7 @@ function NodeDrawer() {
     <div className="fixed inset-0 z-40">
       <div className="absolute inset-0" style={{ background: "rgba(43,54,52,.6)", backdropFilter: "blur(3px)" }} onClick={close} />
       <div className="q-pop q-card" style={{ position: "fixed", top: 16, left: 16, right: 16, bottom: 16, margin: "auto", maxWidth: 600, borderRadius: 20, overflow: "hidden" }}>
-        <div style={{ overflowY: "auto", height: "100%", position: "relative", zIndex: 1 }}>
+        <div style={{ overflowY: "auto", WebkitOverflowScrolling: "touch", height: "100%", position: "relative", zIndex: 1 }}>
         <div className="p-8 relative">
           {/* Close */}
           <button onClick={close} className="absolute top-6 right-6" style={{ background: "none", border: "none", cursor: "pointer", color: "#2b3634", fontSize: 18 }}>{String.fromCharCode(10005)}</button>
