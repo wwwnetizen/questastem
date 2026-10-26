@@ -7791,7 +7791,7 @@ function SubjectPage() {
 
 /* ═══ MODULE: components/TreePage.jsx ═══ */
 function TreePage() {
-  const { t, lang, branchId, completed, setDrawerNode, go, setPathId, askAI } = useQ();
+  const { t, lang, branchId, completed, setDrawerNode, go, setPathId, askAI, fromRoadmap, setFromRoadmap, openRoadmap, roadmaps } = useQ();
   const found = findBranch(branchId) || { subject: DB.subjects[0], branch: DB.subjects[0].branches[0] };
   const { subject, branch: p } = found;
   const pr = branchProgress(p, completed);
@@ -7799,6 +7799,24 @@ function TreePage() {
 
   return (
     <div className="max-w-4xl mx-auto px-6 py-8" style={{ position: "relative" }}>
+      {/* Back to roadmap banner */}
+      {fromRoadmap && (() => {
+        const rm = roadmaps.find(r => r.id === fromRoadmap);
+        if (!rm) return null;
+        const mono = "'Space Grotesk', ui-monospace, monospace";
+        return (
+          <button onClick={() => { setFromRoadmap(null); openRoadmap(fromRoadmap); }}
+            style={{ display: "flex", alignItems: "center", gap: 10, width: "100%", padding: "12px 18px", marginBottom: 20, borderRadius: 12, background: "rgba(43,54,52,.06)", border: "1.5px solid rgba(43,54,52,.18)", cursor: "pointer", transition: "all .2s" }}
+            onMouseOver={e => { e.currentTarget.style.background = "rgba(43,54,52,.12)"; e.currentTarget.style.borderColor = "rgba(43,54,52,.35)"; }}
+            onMouseOut={e => { e.currentTarget.style.background = "rgba(43,54,52,.06)"; e.currentTarget.style.borderColor = "rgba(43,54,52,.18)"; }}>
+            <span style={{ fontSize: 14, color: "#2b3634" }}>{String.fromCharCode(8592)}</span>
+            <span style={{ fontFamily: mono, fontSize: 12, fontWeight: 600, color: "#2b3634", letterSpacing: "0.05em" }}>
+              {lang === "mn" ? "Сурах зам руу буцах" : "Go back to the roadmap"}
+            </span>
+            <span style={{ fontFamily: mono, fontSize: 11, color: "rgba(43,54,52,.5)", marginLeft: "auto" }}>{rm.title}</span>
+          </button>
+        );
+      })()}
       {/* Breadcrumb chain */}
       {(() => {
         const treePath = (subject.paths || []).find((pp) => (pp.branches || []).includes(branchId));
@@ -9647,7 +9665,7 @@ function RoadmapsPage() {
 }
 
 function RoadmapDetail() {
-  const { t, lang, roadmaps, activeRoadmap, go, user, comps, setRoadmaps, setDrawerNode } = useQ();
+  const { t, lang, roadmaps, activeRoadmap, go, user, comps, setRoadmaps, setDrawerNode, setFromRoadmap } = useQ();
   const rm = roadmaps.find((r) => r.id === activeRoadmap) || roadmaps[0];
   const [content, setContent] = useState(() => {
     const c = rm?.content;
@@ -10052,7 +10070,7 @@ RULES:
           const nb = node ? NODE_BRANCH[node.id] : null;
           const clickable = !!nb;
           return (
-            <div onClick={() => { if (nb) { go("tree", nb.branchId); setTimeout(() => setDrawerNode(node), 80); } }}
+            <div onClick={() => { if (nb) { setFromRoadmap(activeRoadmap); go("tree", nb.branchId); setTimeout(() => setDrawerNode(node), 80); } }}
               style={{ padding: "14px 18px", border: "1.5px solid rgba(43,54,52,.25)", borderRadius: 14, background: "rgba(43,54,52,.03)", cursor: clickable ? "pointer" : "default", transition: "all .2s", marginBottom: 8 }}
               onMouseOver={e => { if (clickable) { e.currentTarget.style.background = "rgba(43,54,52,.1)"; e.currentTarget.style.borderColor = "rgba(43,54,52,.5)"; } }}
               onMouseOut={e => { e.currentTarget.style.background = "rgba(43,54,52,.03)"; e.currentTarget.style.borderColor = "rgba(43,54,52,.25)"; }}>
@@ -10381,6 +10399,7 @@ export default function App() {
     if (typeof window !== "undefined") scrollMemory.current[page] = window.scrollY;
     if (dest === "subject" && id) setSubjectId(id);
     if (dest === "tree" && id) { const fb = findBranch(id); if (fb) setSubjectId(fb.subject.id); setBranchId(id); }
+    if (dest !== "tree") setFromRoadmap(null);
     setDrawerNode(null);
     // When returning to home, remember to scroll back to the explore section
     if (dest === "home" && page !== "home") {
@@ -10508,8 +10527,9 @@ export default function App() {
     addToast("Signed out");
   };
 
+  const [fromRoadmap, setFromRoadmap] = useState(null);
   const ctx = {
-    t, lang, toggleLang, page, go, startOnboarding, scrollTarget,
+    t, lang, toggleLang, page, go, startOnboarding, scrollTarget, fromRoadmap, setFromRoadmap,
     subjectId, branchId, user, setUser, completed, lastDone,
     obOpen, setObOpen, chatOpen, setChatOpen, chatMsgs, chatLoading, sendChat, askAI, activeChat, setActiveChat, activeChatLabel, setActiveChatLabel, chatRemaining, clearChat,
     finderOpen, setFinderOpen, searchOpen, setSearchOpen, drawerNode, setDrawerNode,
