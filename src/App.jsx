@@ -9545,15 +9545,11 @@ STUDENT PROFILE
 ${profileSection || "Student (no profile provided)"}
 
 ═══════════════════════════════════
-INTAKE ANSWERS
+PATH-SPECIFIC ANSWERS
 ═══════════════════════════════════
-Current level: ${level || "not specified"}
 Weekly study hours: ${hoursPerWeek || "not specified"}
-Prior knowledge: ${priorKnowledge || "not specified"}
-Competition/program experience: ${compExp || "none specified"}
 Timeline: ${timeline || "not specified"}
 Biggest challenge: ${biggestChallenge || "not specified"}
-Personal goal: ${goal || "not specified"}
 
 ═══════════════════════════════════
 TARGET
@@ -9758,24 +9754,9 @@ QUALITY REQUIREMENTS
             </div>
           )}
 
-          <p style={{ fontSize: 14, color: "#2b3634", lineHeight: 1.7, margin: 0 }}>{lang === "mn" ? "Эдгээр асуултад хариулснаар таны нөхцөл байдалд тохирсон сурах зам бүтээнэ. Дэлгэрэнгүй хариулах тусам төлөвлөгөө илүү нарийвчлалтай болно." : "Answer these questions so the learning path is built around your exact situation. The more you share, the more specific and useful the plan."}</p>
+          <p style={{ fontSize: 14, color: "#2b3634", lineHeight: 1.7, margin: 0 }}>{lang === "mn" ? "STEM профайлаас таны мэдлэг, зорилгыг аль хэдийн авсан. Доорх нэмэлт асуултууд энэ сурах замыг таны нөхцөлд тохируулна." : "Your STEM profile already covers your knowledge and goals. These additional questions help tailor this specific learning path to your schedule and situation."}</p>
 
-          {/* Q1: Current level */}
-          <div>
-            <label style={labelStyle}>{lang === "mn"
-              ? (rm?.type === "competition" ? "ТЭМЦЭЭНИЙ ЧИГЛЭЛЭЭР ТАНЫ ТҮВШИН" : rm?.type === "research" ? "СУДАЛГААНЫ ЧИГЛЭЛЭЭР ТАНЫ ТҮВШИН" : rm?.type === "skill" ? "ЭНЭ УР ЧАДВАРААР ТАНЫ ТҮВШИН" : "ЭНЭ ХИЧЭЭЛЭЭР ТАНЫ ТҮВШИН")
-              : (rm?.type === "competition" ? "YOUR LEVEL IN THIS COMPETITION AREA" : rm?.type === "research" ? "YOUR LEVEL IN THIS RESEARCH AREA" : rm?.type === "skill" ? "YOUR LEVEL IN THIS SKILL" : "YOUR LEVEL IN THIS SUBJECT")}</label>
-            <div style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>
-              {(lang === "mn" ? ["Огт мэдэхгүй", "Бага зэрэг мэднэ", "Дунд зэрэг", "Сайн суурьтай", "Гүнзгий мэдлэгтэй"] : ["Complete beginner", "Some basics", "Intermediate", "Strong foundation", "Advanced"]).map(l => (
-                <button key={l} onClick={() => setLevel(l)}
-                  style={{ padding: "9px 18px", border: `1.5px solid ${level === l ? "rgba(43,54,52,.5)" : "rgba(43,54,52,.35)"}`, borderRadius: 10, background: level === l ? "rgba(43,54,52,.14)" : "rgba(43,54,52,.08)", cursor: "pointer", fontFamily: mono, fontSize: 12, color: "#2b3634", fontWeight: level === l ? 600 : 400, transition: "all .2s" }}>
-                  {l}
-                </button>
-              ))}
-            </div>
-          </div>
-
-          {/* Q2: Hours per week */}
+          {/* Q1: Hours per week */}
           <div>
             <label style={labelStyle}>{lang === "mn" ? "ДОЛОО ХОНОГТ ХЭДЭН ЦАГ СУРАЛЦАХ БОЛОМЖТОЙ ВЭ?" : "HOW MANY HOURS CAN YOU STUDY PER WEEK?"}</label>
             <div style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>
@@ -9788,36 +9769,7 @@ QUALITY REQUIREMENTS
             </div>
           </div>
 
-          {/* Q3: Prior knowledge */}
-          <div>
-            <label style={labelStyle}>{lang === "mn"
-              ? (rm?.type === "competition" ? "ТЭМЦЭЭНТЭЙ ХОЛБООТОЙ ЮУ МЭДЭЖ БАЙГАА ВЭ?" : rm?.type === "research" ? "СУДАЛГААНЫ ЧИГЛЭЛЭЭР ЮУ МЭДЭЖ БАЙГАА ВЭ?" : rm?.type === "skill" ? "ЭНЭ УР ЧАДВАРААР ЮУ МЭДЭЖ БАЙГАА ВЭ?" : "ТА ЮУ МЭДЭЖ БАЙГАА ВЭ?")
-              : (rm?.type === "competition" ? "WHAT DO YOU KNOW RELATED TO THIS COMPETITION?" : rm?.type === "research" ? "WHAT DO YOU KNOW IN THIS RESEARCH AREA?" : rm?.type === "skill" ? "WHAT DO YOU ALREADY KNOW IN THIS SKILL?" : "WHAT DO YOU ALREADY KNOW?")}</label>
-            <input value={priorKnowledge} onChange={e => setPriorKnowledge(e.target.value)}
-              placeholder={lang === "mn"
-                ? (rm?.type === "competition" ? "Жнь. Би алгебр, комбинаторикийн суурийг мэднэ, тооны онолыг мэдэхгүй..." : rm?.type === "research" ? "Жнь. Би статистик, лабораторийн аргачлалын суурийг мэднэ..." : rm?.type === "skill" ? "Жнь. Би Python-ий үндсийг мэднэ, гэхдээ ML-ийг мэдэхгүй..." : "Жнь. Би calculus, Python-ий үндсийг мэднэ, гэхдээ шугаман алгебр, алгоритмыг мэдэхгүй...")
-                : (rm?.type === "competition" ? "e.g. I know algebra and basic combinatorics, but not number theory..." : rm?.type === "research" ? "e.g. I know statistics basics and some lab methodology..." : rm?.type === "skill" ? "e.g. I know basic Python but not machine learning..." : "e.g. I know calculus and basic Python, but not linear algebra or algorithms...")}
-              style={inputStyle} />
-          </div>
-
-          {/* Q4: Competition / program experience */}
-          <div>
-            <label style={labelStyle}>{lang === "mn"
-              ? (rm?.type === "competition" ? "ЭНЭ ТЭМЦЭЭНД ӨМНӨ НЬ ОРОЛЦОЖ БАЙСАН УУ?" : rm?.type === "research" ? "СУДАЛГААНЫ ТУРШЛАГА БАЙГАА ЮУ?" : rm?.type === "skill" ? "ЭНЭ ЧИГЛЭЛЭЭР БОДИТ ТУРШЛАГА БАЙГАА ЮУ?" : "ӨМНӨ НЬ ТЭМЦЭЭН, ХӨТӨЛБӨРТ ОРОЛЦОЖ БАЙСАН УУ?")
-              : (rm?.type === "competition" ? "HAVE YOU COMPETED IN THIS BEFORE?" : rm?.type === "research" ? "DO YOU HAVE ANY RESEARCH EXPERIENCE?" : rm?.type === "skill" ? "DO YOU HAVE ANY PRACTICAL EXPERIENCE IN THIS?" : "HAVE YOU DONE ANY COMPETITIONS OR PROGRAMS BEFORE?")}</label>
-            <div style={{ display: "flex", flexWrap: "wrap", gap: 8, marginBottom: 10 }}>
-              {(lang === "mn"
-                ? (rm?.type === "research" ? ["Туршлагагүй", "Сургуулийн төсөл хийсэн", "Ментортой судалгаа хийсэн", "Нийтлэл бичсэн"] : rm?.type === "skill" ? ["Туршлагагүй", "Хувийн төсөл хийсэн", "Курс дуусгасан", "Ажлын туршлагатай"] : ["Оролцоогүй", "Сургуулийн түвшинд", "Үндэсний түвшинд", "Олон улсын түвшинд"])
-                : (rm?.type === "research" ? ["No experience", "School projects only", "Mentored research", "Published work"] : rm?.type === "skill" ? ["No experience", "Personal projects", "Completed courses", "Work experience"] : ["None yet", "School level only", "National level", "International level"])).map(e => (
-                <button key={e} onClick={() => setCompExp(e)}
-                  style={{ padding: "9px 18px", border: `1.5px solid ${compExp === e ? "rgba(43,54,52,.5)" : "rgba(43,54,52,.35)"}`, borderRadius: 10, background: compExp === e ? "rgba(43,54,52,.14)" : "rgba(43,54,52,.08)", cursor: "pointer", fontFamily: mono, fontSize: 12, color: "#2b3634", fontWeight: compExp === e ? 600 : 400, transition: "all .2s" }}>
-                  {e}
-                </button>
-              ))}
-            </div>
-          </div>
-
-          {/* Q5: Timeline */}
+          {/* Q2: Timeline */}
           <div>
             <label style={labelStyle}>{lang === "mn" ? "ЗОРИЛТОТ ХУГАЦАА ХЭЗЭЭ ВЭ?" : "WHEN IS YOUR TARGET DATE OR DEADLINE?"}</label>
             <div style={{ display: "flex", flexWrap: "wrap", gap: 8, marginBottom: 10 }}>
@@ -9843,22 +9795,9 @@ QUALITY REQUIREMENTS
             </div>
           </div>
 
-          {/* Q7: Goal */}
-          <div>
-            <label style={labelStyle}>{lang === "mn"
-              ? (rm?.type === "competition" ? "ТЭМЦЭЭНИЙ ЗОРИЛГО ЮУ ВЭ? АМЖИЛТ ГЭЖ ЮУГ ХЭЛЭХ ВЭ?" : rm?.type === "research" ? "СУДАЛГААНЫ ЗОРИЛГО ЮУ ВЭ? ЮУ ХИЙХИЙГ ХҮСЭЖ БАЙНА ВЭ?" : rm?.type === "skill" ? "ЭНЭ УР ЧАДВАРААР ЯМАР ЗОРИЛГОД ХҮРЭХИЙГ ХҮСЭЖ БАЙНА ВЭ?" : "ТАНЫ ЗОРИЛГО ЮУ ВЭ? АМЖИЛТ ГЭЖ ЮУГ ХЭЛЭХ ВЭ?")
-              : (rm?.type === "competition" ? "WHAT IS YOUR COMPETITION GOAL? WHAT WOULD SUCCESS LOOK LIKE?" : rm?.type === "research" ? "WHAT IS YOUR RESEARCH GOAL? WHAT DO YOU WANT TO ACHIEVE?" : rm?.type === "skill" ? "WHAT DO YOU WANT TO ACHIEVE WITH THIS SKILL?" : "WHAT IS YOUR GOAL? WHAT WOULD SUCCESS LOOK LIKE?")}</label>
-            <textarea value={goal} onChange={e => setGoal(e.target.value)}
-              placeholder={lang === "mn"
-                ? (rm?.type === "competition" ? "Жнь. Би ирэх жил IMO-д шалгарахыг хүсэж байна. Комбинаторик, тооны онолыг сурч, хамгийн багадаа 2 бодлого бодож чаддаг болмоор байна." : rm?.type === "research" ? "Жнь. Би биоинформатикийн чиглэлээр судалгааны өгүүлэл бичиж, олон улсын сэтгүүлд нийтлүүлэхийг хүсэж байна." : rm?.type === "skill" ? "Жнь. Би Python дээр ML загвар бүтээж, бодит төсөлд ашиглаж чаддаг болохыг хүсэж байна." : "Жнь. Би ирэх жил IMO-д шалгарахыг хүсэж байна. Комбинаторик, тооны онолыг эхнээс нь сурч, хамгийн багадаа 2 бодлого бодож чаддаг болмоор байна.")
-                : (rm?.type === "competition" ? "e.g. I want to qualify for IMO next year. I need to learn combinatorics and number theory from scratch and be able to solve at least 2 problems." : rm?.type === "research" ? "e.g. I want to write a bioinformatics research paper and publish it in a peer-reviewed journal." : rm?.type === "skill" ? "e.g. I want to build ML models in Python and apply them to real projects." : "e.g. I want to qualify for IMO next year. I need to learn combinatorics and number theory from scratch and be able to solve at least 2 problems.")}
-              rows={3}
-              style={{ ...inputStyle, resize: "vertical", lineHeight: 1.6 }} />
-          </div>
-
-          <button onClick={generateRoadmap} disabled={!level || !hoursPerWeek || !compExp || !timeline || !biggestChallenge || !goal.trim()}
-            style={{ padding: "15px 0", border: "1.5px solid rgba(43,54,52,.2)", borderRadius: 14, background: "transparent", cursor: (!level || !hoursPerWeek || !compExp || !timeline || !biggestChallenge || !goal.trim()) ? "default" : "pointer", fontFamily: mono, fontSize: 13, fontWeight: 600, color: (!level || !hoursPerWeek || !compExp || !timeline || !biggestChallenge || !goal.trim()) ? "rgba(43,54,52,.4)" : "#2b3634", letterSpacing: "0.05em" }}>
-            {(!level || !hoursPerWeek || !compExp || !timeline || !biggestChallenge || !goal.trim()) ? (lang === "mn" ? "Бүх асуултад хариулна уу" : "Answer all questions to continue") : (lang === "mn" ? "Миний сурах замыг бүтээх" : "Build my personalized learning path")}
+          <button onClick={generateRoadmap} disabled={!hoursPerWeek || !timeline || !biggestChallenge}
+            style={{ padding: "15px 0", border: "1.5px solid rgba(43,54,52,.2)", borderRadius: 14, background: "transparent", cursor: (!hoursPerWeek || !timeline || !biggestChallenge) ? "default" : "pointer", fontFamily: mono, fontSize: 13, fontWeight: 600, color: (!hoursPerWeek || !timeline || !biggestChallenge) ? "rgba(43,54,52,.4)" : "#2b3634", letterSpacing: "0.05em" }}>
+            {(!hoursPerWeek || !timeline || !biggestChallenge) ? (lang === "mn" ? "Бүх асуултад хариулна уу" : "Answer all questions to continue") : (lang === "mn" ? "Миний сурах замыг бүтээх" : "Build my personalized learning path")}
           </button>
         </div>
         );
