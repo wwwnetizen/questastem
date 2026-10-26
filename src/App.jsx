@@ -115,7 +115,7 @@ const GlobalStyles = () => (
   <style>{`
     @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Archivo:wght@600;700;800;900&family=Montserrat:wght@600;700;800;900&display=swap');
     html, body, #root { overflow-x: hidden; max-width: 100vw; background: #f0f2ee; min-height: 100dvh; }
-    body::after { content:''; position:fixed; inset:0; z-index:0; pointer-events:none; background: radial-gradient(1100px 800px at 85% 0%, rgba(55,68,64,.20), transparent 55%), radial-gradient(900px 700px at 0% 95%, rgba(55,68,64,.15), transparent 58%), radial-gradient(800px 600px at 50% 40%, rgba(55,68,64,.07), transparent 50%); }
+    body::after { content:''; position:fixed; inset:-1px; z-index:1; pointer-events:none; background: radial-gradient(max(1100px,140vw) max(800px,110vh) at 85% 0%, rgba(55,68,64,.20), transparent 55%), radial-gradient(max(900px,120vw) max(700px,100vh) at 0% 95%, rgba(55,68,64,.15), transparent 58%), radial-gradient(max(800px,110vw) max(600px,85vh) at 50% 40%, rgba(55,68,64,.07), transparent 50%); }
     .q-ink { color: #2b3634; }
     textarea::-webkit-resizer { display: none; }
     .q-mono { font-family: 'Space Grotesk', ui-monospace, monospace; }
