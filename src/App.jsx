@@ -8471,7 +8471,7 @@ function Dashboard() {
       )}
 
       {/* Stats row */}
-      <div style={{ display: "flex", gap: 10, marginBottom: 32, flexWrap: "wrap" }}>
+      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 10, marginBottom: 32 }}>
         {statCard(completedCount, lang === "mn" ? "СЭДЭВ" : "TOPICS DONE")}
         {statCard(roadmaps.length, lang === "mn" ? "ЗАМУУД" : "ROADMAPS")}
         {statCard(savedComps.length, lang === "mn" ? "ХАДГАЛСАН" : "SAVED")}
