@@ -9247,8 +9247,7 @@ function RoadmapsPage() {
   };
 
   const selectPath = (path) => {
-    if (path === "competition") { setNewType("competition"); setStep("comp-select"); }
-    else if (path === "research") { setNewType("research"); setResearchModal(true); }
+    if (path === "research") { setNewType("research"); setResearchModal(true); }
     else { setNewType(path === "course" ? "skill" : "general"); setStep("title"); }
   };
 
@@ -9261,7 +9260,8 @@ function RoadmapsPage() {
   const selectComp = (c) => {
     setSelectedComp(c);
     const title = c.name?.[lang] || c.name?.en || c.id;
-    handleCreate(title, "competition");
+    const type = c.cat === "research" ? "research" : "competition";
+    handleCreate(title, type);
   };
 
   if (!user) return (
@@ -9337,41 +9337,24 @@ function RoadmapsPage() {
       <div style={{ border: "1.5px solid rgba(43,54,52,.35)", borderRadius: 20, padding: "28px 24px", marginBottom: 40, background: "rgba(43,54,52,.02)" }}>
         <div style={{ fontFamily: mono, fontSize: 10, letterSpacing: "0.18em", color: "#2b3634", marginBottom: 16 }}>{t.createNewRoadmap || "CREATE NEW LEARNING PATH"}</div>
 
-        {/* Step: Path selection */}
-        {step === "path" && (
-          <div>
-            <div style={{ fontFamily: mono, fontSize: 11, color: "#2b3634", marginBottom: 14 }}>{t.pathSelect || "Choose your path"}</div>
-            <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
-              {[
-                ["competition", t.pathComp || "Competition Prep", lang === "mn" ? "Questa-ийн архиваас тэмцээн сонгох" : "Pick from Questa's competition archive"],
-                ["research", t.pathResearch || "Research Project", lang === "mn" ? "AI судалгааны оношлогоо эхлүүлэх" : "Launch AI research diagnostic"],
-                ["course", t.pathCourse || "Course Mastery", lang === "mn" ? "Тодорхой сэдэв, хичээлийг гүнзгийрүүлэх" : "Deep-dive into a specific topic or course"],
-              ].map(([key, label, desc]) => (
-                <button key={key} onClick={() => selectPath(key)}
-                  style={{ display: "flex", flexDirection: "column", gap: 2, padding: "16px 20px", borderRadius: 14, border: "1.5px solid rgba(43,54,52,.35)", background: "rgba(43,54,52,.04)", cursor: "pointer", textAlign: "left", transition: "all .2s" }}
-                  onMouseOver={e => { e.currentTarget.style.background = "rgba(43,54,52,.12)"; e.currentTarget.style.borderColor = "rgba(43,54,52,.5)"; }}
-                  onMouseOut={e => { e.currentTarget.style.background = "rgba(43,54,52,.04)"; e.currentTarget.style.borderColor = "rgba(43,54,52,.35)"; }}>
-                  <span style={{ fontSize: 14, fontWeight: 700, color: "#2b3634" }}>{label}</span>
-                  <span style={{ fontFamily: mono, fontSize: 11, color: "rgba(43,54,52,.5)" }}>{desc}</span>
-                </button>
-              ))}
-            </div>
-          </div>
-        )}
-
-        {/* Step: Competition select from Questa Archive — organized by category, no emojis */}
-        {step === "comp-select" && (() => {
+        {/* Step: Path selection — archive + custom options */}
+        {step === "path" && (() => {
           const active = comps.filter(c => !c.archived && c.cat !== "meta");
           const catOrder = ["olympiad", "hackathon", "research", "robotics"];
-          const catLabels = { olympiad: lang === "mn" ? "ОЛИМПИАД" : "OLYMPIAD", hackathon: lang === "mn" ? "ХАКАТОН" : "HACKATHON", research: lang === "mn" ? "СУДАЛГАА" : "RESEARCH", robotics: lang === "mn" ? "РОБОТ ТЕХНИК" : "ROBOTICS" };
+          const catLabels = {
+            olympiad: lang === "mn" ? "ОЛИМПИАД" : "OLYMPIAD",
+            hackathon: lang === "mn" ? "ХАКАТОН" : "HACKATHON",
+            research: lang === "mn" ? "СУДАЛГАА / ДАДЛАГА" : "RESEARCH / INTERNSHIPS",
+            robotics: lang === "mn" ? "РОБОТ ТЕХНИК" : "ROBOTICS"
+          };
           const grouped = {};
           active.forEach(c => { const cat = c.cat || "other"; if (!grouped[cat]) grouped[cat] = []; grouped[cat].push(c); });
-          const cats = catOrder.filter(c => grouped[c]?.length);
+          const otherCats = Object.keys(grouped).filter(c => !catOrder.includes(c));
+          const cats = [...catOrder, ...otherCats].filter(c => grouped[c]?.length);
           return (
           <div>
-            <button onClick={() => setStep("path")} style={{ fontFamily: mono, fontSize: 11, color: "#2b3634", background: "none", border: "none", cursor: "pointer", padding: "0 0 14px", letterSpacing: "0.05em" }}>&larr; {lang === "mn" ? "Буцах" : "Back"}</button>
             <div style={{ fontFamily: mono, fontSize: 10, letterSpacing: "0.15em", color: "#2b3634", marginBottom: 16 }}>{lang === "mn" ? "QUESTA АРХИВААС СОНГОХ" : "SELECT FROM QUESTA ARCHIVE"}</div>
-            <div style={{ maxHeight: 400, overflowY: "auto" }}>
+            <div style={{ maxHeight: 420, overflowY: "auto", marginBottom: 16 }}>
               {cats.map(cat => (
                 <div key={cat} style={{ marginBottom: 20 }}>
                   <div style={{ fontFamily: mono, fontSize: 10, letterSpacing: "0.15em", color: "rgba(43,54,52,.5)", marginBottom: 8 }}>{catLabels[cat] || cat.toUpperCase()}</div>
@@ -9389,10 +9372,20 @@ function RoadmapsPage() {
                 </div>
               ))}
             </div>
-            <div style={{ marginTop: 12 }}>
-              <button onClick={() => setStep("title")} style={{ fontFamily: mono, fontSize: 11, color: "#2b3634", background: "none", border: "none", cursor: "pointer", textDecoration: "underline" }}>
-                {lang === "mn" ? "Жагсаалтад байхгүй бол гараар оруулах" : "Not listed? Enter manually"} &rarr;
-              </button>
+            <div style={{ borderTop: "1px solid rgba(43,54,52,.15)", paddingTop: 16, display: "flex", flexDirection: "column", gap: 10 }}>
+              <div style={{ fontFamily: mono, fontSize: 10, letterSpacing: "0.15em", color: "rgba(43,54,52,.5)", marginBottom: 4 }}>{lang === "mn" ? "БУСАД СОНГОЛТ" : "OTHER OPTIONS"}</div>
+              {[
+                ["course", t.pathCourse || "Course Mastery", lang === "mn" ? "Тодорхой сэдэв, хичээлийг гүнзгийрүүлэх" : "Deep-dive into a specific topic or course"],
+                ["custom", lang === "mn" ? "Гараар оруулах" : "Enter manually", lang === "mn" ? "Жагсаалтад байхгүй бол өөрөө бичих" : "Type your own title if not listed above"],
+              ].map(([key, label, desc]) => (
+                <button key={key} onClick={() => { if (key === "custom") { setNewType("general"); setStep("title"); } else { selectPath(key); } }}
+                  style={{ display: "flex", flexDirection: "column", gap: 2, padding: "14px 18px", borderRadius: 12, border: "1.5px solid rgba(43,54,52,.25)", background: "rgba(43,54,52,.02)", cursor: "pointer", textAlign: "left", transition: "all .2s" }}
+                  onMouseOver={e => { e.currentTarget.style.background = "rgba(43,54,52,.1)"; e.currentTarget.style.borderColor = "rgba(43,54,52,.5)"; }}
+                  onMouseOut={e => { e.currentTarget.style.background = "rgba(43,54,52,.02)"; e.currentTarget.style.borderColor = "rgba(43,54,52,.25)"; }}>
+                  <span style={{ fontSize: 14, fontWeight: 700, color: "#2b3634" }}>{label}</span>
+                  <span style={{ fontFamily: mono, fontSize: 11, color: "rgba(43,54,52,.5)" }}>{desc}</span>
+                </button>
+              ))}
             </div>
           </div>
           );
