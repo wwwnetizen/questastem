@@ -6584,28 +6584,27 @@ function Navbar() {
   const [open, setOpen] = useState(false);
   const items = [["home", t.nav.home], ["learning", t.nav.learning], ["research", t.nav.research], ["competitions", t.nav.competitions], ["nasa", t.nav.nasa]];
   return (
-    <header className="sticky top-0 z-40" style={{ padding: "calc(10px + env(safe-area-inset-top, 0px)) calc(10px + env(safe-area-inset-right, 0px)) 10px calc(10px + env(safe-area-inset-left, 0px))", background: "transparent", pointerEvents: "none" }}>
-      {/* outer blur halo removed — gradient mask caused visible line on mobile */}
-      <div className="max-w-5xl mx-auto flex items-center justify-between" style={{ pointerEvents: "auto", background: "rgba(62,78,72,.65)", backdropFilter: "blur(20px)", WebkitBackdropFilter: "blur(20px)", borderRadius: 14, padding: "0 8px 0 20px", height: 50 }}>
+    <header className="sticky top-0 z-40" style={{ padding: "calc(8px + env(safe-area-inset-top, 0px)) calc(12px + env(safe-area-inset-right, 0px)) 8px calc(12px + env(safe-area-inset-left, 0px))", background: "transparent", pointerEvents: "none" }}>
+      <div className="max-w-5xl mx-auto flex items-center justify-between" style={{ pointerEvents: "auto", background: "rgba(43,54,52,.55)", backdropFilter: "blur(24px) saturate(140%)", WebkitBackdropFilter: "blur(24px) saturate(140%)", borderRadius: 100, padding: "0 6px 0 20px", height: 44, border: "1px solid rgba(255,255,255,.06)" }}>
         <button onClick={() => { go("home"); setOpen(false); }} className="shrink-0" style={{ background: "none", border: "none", cursor: "pointer", opacity: 0.9 }}><Logo size={26} onDark /></button>
         <div style={{ flex: 1 }} />
         <button onClick={toggleLang} className="q-lang-btn" style={{ padding: "5px 10px", borderRadius: 10, background: "rgba(255,255,255,.1)", border: "1px solid rgba(255,255,255,.15)", cursor: "pointer", fontSize: 11, fontFamily: "'Space Grotesk', sans-serif", fontWeight: 600, color: "rgba(255,255,255,.85)", letterSpacing: "0.05em", marginLeft: 6, marginRight: 2 }}>{lang === "en" ? "MN" : "EN"}</button>
-        <div className="flex items-center gap-2">
-          <button onClick={() => setSearchOpen(true)} style={{ width: 38, height: 38, borderRadius: 12, background: "none", border: "none", cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center", color: "rgba(255,255,255,.85)" }}>
-            <Search size={16} />
+        <div className="flex items-center gap-1">
+          <button onClick={() => setSearchOpen(true)} style={{ width: 34, height: 34, borderRadius: 100, background: "none", border: "none", cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center", color: "rgba(255,255,255,.75)", transition: "color .2s" }}>
+            <Search size={15} />
           </button>
-          {!user && <button onClick={() => setObOpen(true)} style={{ width: 34, height: 34, borderRadius: 12, background: "rgba(255,255,255,.12)", border: "1px solid rgba(255,255,255,.15)", cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center", color: "rgba(255,255,255,.85)" }}>
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+          {!user && <button onClick={() => setObOpen(true)} style={{ width: 32, height: 32, borderRadius: 100, background: "rgba(255,255,255,.10)", border: "none", cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center", color: "rgba(255,255,255,.75)", transition: "all .2s" }}>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
           </button>}
-          {user && <button onClick={() => go("dashboard")} style={{ width: 30, height: 30, borderRadius: 14, background: "rgba(255,255,255,.15)", border: "none", cursor: "pointer", fontSize: 12, fontWeight: 600, color: "#fff", display: "flex", alignItems: "center", justifyContent: "center" }}>{(user.name||"?")[0].toUpperCase()}</button>}
-          <button onClick={() => setOpen(!open)} style={{ width: 38, height: 38, borderRadius: 12, background: "none", border: "none", cursor: "pointer", color: "rgba(255,255,255,.85)", display: "flex", alignItems: "center", justifyContent: "center" }}>{open ? <X size={18} /> : <Menu size={18} />}</button>
+          {user && <button onClick={() => go("dashboard")} style={{ width: 30, height: 30, borderRadius: 100, background: "rgba(255,255,255,.12)", border: "none", cursor: "pointer", fontSize: 11, fontWeight: 600, color: "rgba(255,255,255,.85)", display: "flex", alignItems: "center", justifyContent: "center" }}>{(user.name||"?")[0].toUpperCase()}</button>}
+          <button onClick={() => setOpen(!open)} style={{ width: 34, height: 34, borderRadius: 100, background: "none", border: "none", cursor: "pointer", color: "rgba(255,255,255,.75)", display: "flex", alignItems: "center", justifyContent: "center", transition: "color .2s" }}>{open ? <X size={16} /> : <Menu size={16} />}</button>
         </div>
       </div>
       {open && (
-        <div className="max-w-5xl mx-auto q-pop" style={{ pointerEvents: "auto", background: "rgba(62,78,72,.65)", backdropFilter: "blur(20px)", WebkitBackdropFilter: "blur(20px)", borderRadius: 14, marginTop: 8, padding: "8px", position: "absolute", left: 16, right: 16, top: "100%", zIndex: 50 }}>
+        <div className="max-w-5xl mx-auto q-pop" style={{ pointerEvents: "auto", background: "rgba(43,54,52,.55)", backdropFilter: "blur(24px) saturate(140%)", WebkitBackdropFilter: "blur(24px) saturate(140%)", borderRadius: 20, marginTop: 6, padding: "6px", position: "absolute", left: 12, right: 12, top: "100%", zIndex: 50, border: "1px solid rgba(255,255,255,.06)" }}>
           {items.concat(user ? [["dashboard", lang === "mn" ? "Профайл / Хяналт" : "Profile / Dashboard"],["roadmaps", t.navRoadmaps]] : [["profile", t.navProfile]]).map(([id, label], i) => (
             <button key={id} onClick={() => { go(id); setOpen(false); }}
-              style={{ display: "block", width: "100%", textAlign: "left", padding: "14px 20px", borderRadius: 10, fontSize: 15, fontFamily: "'Space Grotesk', sans-serif", fontWeight: 500, background: "transparent", color: page === id ? "#fff" : "rgba(255,255,255,.7)", border: "none", cursor: "pointer", animation: "qsReveal .25s ease-out both", animationDelay: (i * 0.04) + "s" }}>
+              style={{ display: "block", width: "100%", textAlign: "left", padding: "12px 18px", borderRadius: 14, fontSize: 14, fontFamily: "'Space Grotesk', sans-serif", fontWeight: 500, background: page === id ? "rgba(255,255,255,.08)" : "transparent", color: page === id ? "#fff" : "rgba(255,255,255,.6)", border: "none", cursor: "pointer", animation: "qsReveal .25s ease-out both", animationDelay: (i * 0.04) + "s", letterSpacing: "0.01em" }}>
               {label}
             </button>
           ))}
@@ -6746,35 +6745,23 @@ function useScrollReveal() {
 function CinematicHero({ go, t, lang }) {
     const mono = "'Space Grotesk', 'Roboto Mono', ui-monospace, monospace";
   return (
-    <section className="hero-section" style={{ position: "relative", minHeight: "100dvh", width: "100%", display: "flex", flexDirection: "column", justifyContent: "space-between", overflow: "visible", background: "transparent", paddingTop: "calc(80px + env(safe-area-inset-top, 0px))", paddingBottom: "4rem" }}>
+    <section className="hero-section" style={{ position: "relative", minHeight: "100dvh", width: "100%", display: "flex", flexDirection: "column", justifyContent: "flex-end", overflow: "visible", background: "transparent", paddingBottom: "clamp(48px,10vh,120px)" }}>
       <style>{`
         @supports not (min-height: 100dvh) { .hero-section { min-height: -webkit-fill-available !important; } }
-        @media (min-width: 768px) { .hero-section { padding-top: clamp(180px,28vh,300px) !important; } }
       `}</style>
-      {/* Editorial annotations */}
-      <div className="hero-ann-left" style={{ position: "absolute", top: "clamp(80px,12vh,120px)", left: "clamp(24px,5vw,64px)", zIndex: 3, fontFamily: "'Space Grotesk', monospace", fontSize: 11, letterSpacing: "0.1em", color: "#2b3634", lineHeight: 1.7 }}>
-        {lang === "mn" ? <><span>ПЛАТФОРМ [STEM]</span><br />ХАМТДАА ТАНИЛЦАЦГААЯ</> : <>PLATFORM [FOR STEM]<br />EXPLORE WITH US</>}
-      </div>
-      <div className="hero-ann-right" style={{ position: "absolute", top: "clamp(80px,12vh,120px)", right: "clamp(24px,5vw,64px)", zIndex: 3, fontFamily: "'Space Grotesk', monospace", fontSize: 11, letterSpacing: "0.1em", color: "#2b3634", lineHeight: 1.7, textAlign: "right" }}>
-      <style>{`
-        @media (min-width: 768px) { .hero-ann-left, .hero-ann-right { top: 16px !important; } }
-        @media (max-width: 767px) { .hero-ann-left, .hero-ann-right { top: 12px !important; } }
-      `}</style>
-        {lang === "mn" ? <>СУДАЛГААНЫ ТЭМДЭГЛЭЛ<br />НЭЭЛТТЭЙ АРХИВ<br />ШИНЖЛЭХ УХААНЫ ТӨЛӨӨ</> : <>FIELD NOTES<br />OPEN ARCHIVE<br />FOR SCIENCE</>}
-      </div>
       {/* Subtle green watercolor blooms */}
-      <div style={{ position: "absolute", top: "30%", left: "20%", width: 220, height: 240, borderRadius: "44% 56% 52% 48% / 48% 52% 56% 44%", background: "radial-gradient(ellipse, rgba(100,140,115,.18), transparent 72%)", filter: "blur(35px)", pointerEvents: "none" }} />
-      <div style={{ position: "absolute", top: "50%", left: "60%", width: 180, height: 200, borderRadius: "52% 48% 44% 56% / 56% 44% 52% 48%", background: "radial-gradient(ellipse, rgba(95,135,110,.15), transparent 70%)", filter: "blur(40px)", pointerEvents: "none" }} />
-      <div style={{ position: "absolute", top: "65%", left: "35%", width: 160, height: 180, borderRadius: "48% 52% 56% 44% / 44% 56% 48% 52%", background: "radial-gradient(ellipse, rgba(90,130,105,.12), transparent 68%)", filter: "blur(38px)", pointerEvents: "none" }} />
+      <div style={{ position: "absolute", top: "18%", left: "55%", width: 320, height: 340, borderRadius: "44% 56% 52% 48% / 48% 52% 56% 44%", background: "radial-gradient(ellipse, rgba(100,140,115,.14), transparent 72%)", filter: "blur(50px)", pointerEvents: "none" }} />
+      <div style={{ position: "absolute", top: "50%", left: "15%", width: 280, height: 300, borderRadius: "52% 48% 44% 56% / 56% 44% 52% 48%", background: "radial-gradient(ellipse, rgba(95,135,110,.12), transparent 70%)", filter: "blur(55px)", pointerEvents: "none" }} />
+      <div style={{ position: "absolute", top: "72%", left: "65%", width: 240, height: 260, borderRadius: "48% 52% 56% 44% / 44% 56% 48% 52%", background: "radial-gradient(ellipse, rgba(90,130,105,.10), transparent 68%)", filter: "blur(45px)", pointerEvents: "none" }} />
       {/* Dust specks */}
-      <svg style={{ position: "absolute", inset: 0, width: "100%", height: "100%", zIndex: 1, pointerEvents: "none", opacity: 0.6 }} preserveAspectRatio="xMidYMid slice" viewBox="0 0 1200 900">
+      <svg style={{ position: "absolute", inset: 0, width: "100%", height: "100%", zIndex: 1, pointerEvents: "none", opacity: 0.5 }} preserveAspectRatio="xMidYMid slice" viewBox="0 0 1200 900">
         {(() => {
           const rnd = (n) => { const x = Math.sin(n * 127.1 + 311.7) * 43758.5453; return x - Math.floor(x); };
           const specks = [];
-          for (let i = 0; i < 45; i++) {
+          for (let i = 0; i < 35; i++) {
             const x = Math.abs(rnd(i)) * 1200, y = Math.abs(rnd(i + 50)) * 900;
-            const r = Math.abs(rnd(i + 100)) * 1.8 + 0.4;
-            const o = Math.abs(rnd(i + 150)) * 0.18 + 0.05;
+            const r = Math.abs(rnd(i + 100)) * 1.5 + 0.3;
+            const o = Math.abs(rnd(i + 150)) * 0.14 + 0.04;
             specks.push(<circle key={"d" + i} cx={x} cy={y} r={r} fill={"rgba(43,54,52," + o.toFixed(2) + ")"} />);
           }
           return specks;
@@ -6787,7 +6774,7 @@ function CinematicHero({ go, t, lang }) {
         @media (min-width: 768px) { .tinkerbell-desktop { display: block !important; } }
         @media (max-width: 767px) { .tinkerbell-mobile { display: block !important; } }
       `}</style>
-      {/* Tinkerbell map -- DESKTOP (>=768px): below hero text, in the gap before [001] */}
+      {/* Tinkerbell map -- DESKTOP */}
       <canvas className="tinkerbell-desktop" ref={el => {
         if(!el || el.dataset.drawn) return;
         el.dataset.drawn = "1";
@@ -6807,8 +6794,8 @@ function CinematicHero({ go, t, lang }) {
           x=nx; y=ny;
           if(i>20){ ctx.fillRect((x-xMin)*sx, (yMax-y)*sy, 0.8, 0.8); }
         }
-      }} style={{ position: "absolute", top: "100%", marginTop: "-520px", left: "55%", transform: "translateX(-50%)", width: 1400, height: 540, zIndex: 1, pointerEvents: "none", opacity: 0.13 }} />
-      {/* Tinkerbell map -- MOBILE (<768px): behind hero text */}
+      }} style={{ position: "absolute", top: "15%", left: "55%", transform: "translateX(-50%)", width: 1400, height: 540, zIndex: 1, pointerEvents: "none", opacity: 0.10 }} />
+      {/* Tinkerbell map -- MOBILE */}
       <canvas className="tinkerbell-mobile" ref={el => {
         if(!el || el.dataset.drawn) return;
         el.dataset.drawn = "1";
@@ -6828,15 +6815,37 @@ function CinematicHero({ go, t, lang }) {
           x=nx; y=ny;
           if(i>20){ ctx.fillRect((x-xMin)*sx, (yMax-y)*sy, 0.8, 0.8); }
         }
-      }} style={{ position: "absolute", bottom: "16%", left: "52%", transform: "translateX(-50%)", width: 560, height: 256, zIndex: 1, pointerEvents: "none", opacity: 0.13 }} />
-      {/* Main content centered */}
-      <div style={{ flex: 1, display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center" }}>
-        <div style={{ position: "relative", zIndex: 2, padding: "0 clamp(24px,6vw,90px)", width: "100%", maxWidth: 1200 }}>
-          <h1 style={{ margin: 0, lineHeight: 0.94, textAlign: "left", maxWidth: 900 }}>
-            <span className="hero-title-line" style={{ display: "block", fontFamily: "'Archivo', 'Montserrat', sans-serif", fontSize: "clamp(48px,10vw,140px)", fontWeight: 800, color: "#2b3634", letterSpacing: "-0.045em" }}>{lang === "mn" ? "СУРАЛЦАХАД" : "ALWAYS MORE"}</span>
-            <span className="hero-title-line" style={{ display: "block", fontFamily: "'Archivo', 'Montserrat', sans-serif", fontSize: "clamp(48px,10vw,140px)", fontWeight: 800, color: "#2b3634", letterSpacing: "-0.045em", marginTop: "-0.04em" }}>{lang === "mn" ? "ХЯЗГААР ҮГҮЙ" : "TO LEARN"}</span>
-            <style>{`@media (min-width: 768px) { .hero-title-line { font-size: clamp(48px,8vw,110px) !important; } }`}</style>
-          </h1>
+      }} style={{ position: "absolute", top: "12%", left: "52%", transform: "translateX(-50%)", width: 560, height: 256, zIndex: 1, pointerEvents: "none", opacity: 0.10 }} />
+      {/* Editorial corner marks */}
+      <div className="hero-corner-tl" style={{ position: "absolute", top: "clamp(80px,12vh,140px)", left: "clamp(24px,5vw,64px)", zIndex: 3 }}>
+        <div style={{ width: 24, height: 1, background: "rgba(43,54,52,.25)", marginBottom: 12 }} />
+        <div style={{ fontFamily: mono, fontSize: 10, letterSpacing: "0.18em", color: "rgba(43,54,52,.45)", lineHeight: 1.8, textTransform: "uppercase" }}>
+          {lang === "mn" ? <><span>Платформ</span><br />STEM</> : <>Platform<br />for STEM</>}
+        </div>
+      </div>
+      <div className="hero-corner-tr" style={{ position: "absolute", top: "clamp(80px,12vh,140px)", right: "clamp(24px,5vw,64px)", zIndex: 3, textAlign: "right" }}>
+        <div style={{ width: 24, height: 1, background: "rgba(43,54,52,.25)", marginBottom: 12, marginLeft: "auto" }} />
+        <div style={{ fontFamily: mono, fontSize: 10, letterSpacing: "0.18em", color: "rgba(43,54,52,.45)", lineHeight: 1.8, textTransform: "uppercase" }}>
+          {lang === "mn" ? <>Нээлттэй<br />Архив</> : <>Open<br />Archive</>}
+        </div>
+      </div>
+      <style>{`
+        @media (max-width: 767px) { .hero-corner-tl, .hero-corner-tr { top: calc(72px + env(safe-area-inset-top, 0px)) !important; } }
+      `}</style>
+      {/* Hero title -- bottom-aligned, editorial */}
+      <div style={{ position: "relative", zIndex: 2, padding: "0 clamp(24px,5vw,64px)", width: "100%", maxWidth: 1200, margin: "0 auto" }}>
+        <h1 style={{ margin: 0, lineHeight: 0.88, textAlign: "left" }}>
+          <span className="hero-title-line" style={{ display: "block", fontFamily: "'Archivo', 'Montserrat', sans-serif", fontSize: "clamp(52px,12vw,160px)", fontWeight: 800, color: "#2b3634", letterSpacing: "-0.05em" }}>{lang === "mn" ? "СУРАЛЦАХАД" : "ALWAYS"}</span>
+          <span className="hero-title-line" style={{ display: "block", fontFamily: "'Archivo', 'Montserrat', sans-serif", fontSize: "clamp(52px,12vw,160px)", fontWeight: 800, color: "#2b3634", letterSpacing: "-0.05em", marginTop: "-0.02em" }}>{lang === "mn" ? "ХЯЗГААР" : "MORE TO"}</span>
+          <span className="hero-title-line" style={{ display: "block", fontFamily: "'Archivo', 'Montserrat', sans-serif", fontSize: "clamp(52px,12vw,160px)", fontWeight: 800, color: "#2b3634", letterSpacing: "-0.05em", marginTop: "-0.02em" }}>{lang === "mn" ? "ҮГҮЙ" : "LEARN"}</span>
+          <style>{`@media (min-width: 768px) { .hero-title-line { font-size: clamp(64px,9vw,130px) !important; } }`}</style>
+        </h1>
+        {/* Scroll indicator */}
+        <div style={{ marginTop: "clamp(32px,5vh,56px)", display: "flex", alignItems: "center", gap: 12 }}>
+          <div style={{ width: 32, height: 1, background: "rgba(43,54,52,.3)" }} />
+          <span style={{ fontFamily: mono, fontSize: 10, letterSpacing: "0.2em", color: "rgba(43,54,52,.4)", textTransform: "uppercase" }}>
+            {lang === "mn" ? "Доош гүйлгэх" : "Scroll"}
+          </span>
         </div>
       </div>
     </section>
@@ -6867,28 +6876,29 @@ function HomePage() {
 
   return (
     <div style={{ position: "relative", background: "transparent" }}>
-      {/* Green atmospheric blooms across full page */}
+      {/* Atmospheric blooms -- softer, larger, more dispersed */}
       <div style={{ position: "absolute", top: 0, left: 0, right: 0, height: "100%", zIndex: 0, pointerEvents: "none", overflow: "hidden" }}>
-        <div style={{ position: "absolute", top: "8%", left: "65%", width: 200, height: 220, borderRadius: "44% 56% 52% 48%", background: "radial-gradient(ellipse, rgba(100,140,115,.16), transparent 72%)", filter: "blur(35px)" }} />
-        <div style={{ position: "absolute", top: "15%", left: "10%", width: 180, height: 200, borderRadius: "52% 48% 44% 56%", background: "radial-gradient(ellipse, rgba(95,135,110,.14), transparent 70%)", filter: "blur(40px)" }} />
-        <div style={{ position: "absolute", top: "35%", left: "50%", width: 220, height: 240, borderRadius: "48% 52% 56% 44%", background: "radial-gradient(ellipse, rgba(90,130,105,.15), transparent 68%)", filter: "blur(38px)" }} />
-        <div style={{ position: "absolute", top: "55%", left: "20%", width: 190, height: 210, borderRadius: "55% 45% 48% 52%", background: "radial-gradient(ellipse, rgba(98,138,112,.13), transparent 70%)", filter: "blur(42px)" }} />
-        <div style={{ position: "absolute", top: "70%", left: "70%", width: 170, height: 190, borderRadius: "45% 55% 50% 50%", background: "radial-gradient(ellipse, rgba(92,132,108,.12), transparent 72%)", filter: "blur(36px)" }} />
-        <div style={{ position: "absolute", top: "85%", left: "35%", width: 200, height: 220, borderRadius: "50% 50% 45% 55%", background: "radial-gradient(ellipse, rgba(96,136,110,.14), transparent 68%)", filter: "blur(40px)" }} />
+        <div style={{ position: "absolute", top: "5%", left: "60%", width: 300, height: 320, borderRadius: "44% 56% 52% 48%", background: "radial-gradient(ellipse, rgba(100,140,115,.12), transparent 72%)", filter: "blur(50px)" }} />
+        <div style={{ position: "absolute", top: "25%", left: "8%", width: 280, height: 300, borderRadius: "52% 48% 44% 56%", background: "radial-gradient(ellipse, rgba(95,135,110,.10), transparent 70%)", filter: "blur(55px)" }} />
+        <div style={{ position: "absolute", top: "50%", left: "45%", width: 340, height: 360, borderRadius: "48% 52% 56% 44%", background: "radial-gradient(ellipse, rgba(90,130,105,.11), transparent 68%)", filter: "blur(50px)" }} />
+        <div style={{ position: "absolute", top: "75%", left: "18%", width: 260, height: 280, borderRadius: "55% 45% 48% 52%", background: "radial-gradient(ellipse, rgba(98,138,112,.10), transparent 70%)", filter: "blur(55px)" }} />
       </div>
 
                   <CinematicHero go={go} t={t} lang={lang} />
-                  {/* ─── WHAT IS QUESTA ─── */}
-      <section style={{ background: "transparent", padding: "clamp(60px,9vh,100px) 0", position: "relative", overflow: "visible", zIndex: 2 }}>
 
-        <div style={{ maxWidth: 860, margin: "0 auto", padding: "0 24px" }}>
+                  {/* ─── WHAT IS QUESTA ─── */}
+      <section style={{ background: "transparent", padding: "clamp(80px,14vh,160px) 0", position: "relative", overflow: "visible", zIndex: 2 }}>
+        <div style={{ maxWidth: 780, margin: "0 auto", padding: "0 clamp(24px,5vw,64px)" }}>
           <div className="qs-reveal">
-            <p className="q-mono" style={{ fontSize: 11, fontWeight: 500, letterSpacing: "0.25em", textTransform: "uppercase", color: "#2b3634", marginBottom: 24 }}>{t.aboutEyebrow}</p>
-            <h2 className="q-display" style={{ fontSize: lang === "mn" ? "clamp(24px,3.4vw,44px)" : "clamp(28px,4vw,52px)", fontWeight: 700, color: "#2b3634", letterSpacing: "-0.03em", lineHeight: 1.12, marginBottom: 28 }}>{t.aboutHeadline}</h2>
-            <p className="q-display" style={{ fontSize: lang === "mn" ? "clamp(16px,1.8vw,20px)" : "clamp(19px,2.2vw,24px)", color: "#2b3634", lineHeight: 1.55, maxWidth: 680, fontWeight: 400, letterSpacing: "-0.01em" }}>
+            <div style={{ display: "flex", alignItems: "center", gap: 14, marginBottom: 32 }}>
+              <div style={{ width: 20, height: 1, background: "rgba(43,54,52,.3)" }} />
+              <p className="q-mono" style={{ fontSize: 10, fontWeight: 500, letterSpacing: "0.25em", textTransform: "uppercase", color: "rgba(43,54,52,.5)", margin: 0 }}>{t.aboutEyebrow}</p>
+            </div>
+            <h2 className="q-display" style={{ fontSize: lang === "mn" ? "clamp(26px,3.6vw,46px)" : "clamp(30px,4.2vw,56px)", fontWeight: 700, color: "#2b3634", letterSpacing: "-0.035em", lineHeight: 1.08, marginBottom: 36 }}>{t.aboutHeadline}</h2>
+            <p className="q-display" style={{ fontSize: lang === "mn" ? "clamp(16px,1.8vw,20px)" : "clamp(18px,2vw,22px)", color: "rgba(43,54,52,.7)", lineHeight: 1.65, maxWidth: 620, fontWeight: 400, letterSpacing: "-0.01em" }}>
               {t.aboutP1}
             </p>
-            <p className="q-display" style={{ fontSize: lang === "mn" ? "clamp(16px,1.8vw,20px)" : "clamp(19px,2.2vw,24px)", color: "#2b3634", lineHeight: 1.55, maxWidth: 680, fontWeight: 400, letterSpacing: "-0.01em", marginTop: 22 }}>
+            <p className="q-display" style={{ fontSize: lang === "mn" ? "clamp(16px,1.8vw,20px)" : "clamp(18px,2vw,22px)", color: "rgba(43,54,52,.7)", lineHeight: 1.65, maxWidth: 620, fontWeight: 400, letterSpacing: "-0.01em", marginTop: 24 }}>
               {t.aboutP2}
             </p>
           </div>
@@ -6896,45 +6906,53 @@ function HomePage() {
       </section>
 
       {/* ─── WHAT YOU CAN DO ─── */}
-      <section id="qs-explore" style={{ background: "transparent", padding: "clamp(60px,9vh,100px) 0", position: "relative", overflow: "visible" }}>
-        <div style={{ maxWidth: 860, margin: "0 auto", padding: "0 24px" }}>
-          <div className="qs-reveal" style={{ marginBottom: "clamp(40px,6vh,64px)" }}>
-            <p className="q-mono" style={{ fontSize: 11, fontWeight: 500, letterSpacing: "0.25em", textTransform: "uppercase", color: "#2b3634", marginBottom: 24 }}>{t.platformEyebrow}</p>
-            <h2 className="q-display" style={{ fontSize: "clamp(28px,4vw,52px)", fontWeight: 700, color: "#2b3634", letterSpacing: "-0.03em", lineHeight: 1.12 }}>{t.exploreTitle}</h2>
+      <section id="qs-explore" style={{ background: "transparent", padding: "clamp(80px,14vh,160px) 0", position: "relative", overflow: "visible" }}>
+        <div style={{ maxWidth: 780, margin: "0 auto", padding: "0 clamp(24px,5vw,64px)" }}>
+          <div className="qs-reveal" style={{ marginBottom: "clamp(48px,8vh,80px)" }}>
+            <div style={{ display: "flex", alignItems: "center", gap: 14, marginBottom: 32 }}>
+              <div style={{ width: 20, height: 1, background: "rgba(43,54,52,.3)" }} />
+              <p className="q-mono" style={{ fontSize: 10, fontWeight: 500, letterSpacing: "0.25em", textTransform: "uppercase", color: "rgba(43,54,52,.5)", margin: 0 }}>{t.platformEyebrow}</p>
+            </div>
+            <h2 className="q-display" style={{ fontSize: "clamp(30px,4.2vw,56px)", fontWeight: 700, color: "#2b3634", letterSpacing: "-0.035em", lineHeight: 1.08 }}>{t.exploreTitle}</h2>
           </div>
           <div style={{ display: "flex", flexDirection: "column", gap: 0 }}>
             {cards.map(([key, Icon, [title, desc], dest], i) => (
               <button key={key} onClick={() => go(dest)}
                 className="qs-reveal text-left"
-                style={{ padding: "clamp(28px,4vh,40px) 0", borderBottom: i < cards.length - 1 ? "1px solid rgba(43,54,52,.08)" : "none", cursor: "pointer", transition: "opacity .15s", width: "100%" }}
-                onMouseOver={e => e.currentTarget.style.opacity = "0.6"}
+                style={{ padding: "clamp(28px,4vh,44px) 0", borderBottom: i < cards.length - 1 ? "1px solid rgba(43,54,52,.07)" : "none", cursor: "pointer", transition: "opacity .25s ease", width: "100%", background: "none", border: "none", borderBottomWidth: i < cards.length - 1 ? 1 : 0, borderBottomStyle: "solid", borderBottomColor: "rgba(43,54,52,.07)" }}
+                onMouseOver={e => e.currentTarget.style.opacity = "0.5"}
                 onMouseOut={e => e.currentTarget.style.opacity = "1"}>
-                <div style={{ display: "flex", alignItems: "baseline", justifyContent: "space-between" }}>
-                  <div className="q-display" style={{ fontSize: "clamp(20px,3vw,28px)", fontWeight: 700, color: "#2b3634", letterSpacing: "-0.02em" }}>{title}</div>
-                  <span style={{ fontSize: 22, color: "#2b3634", flexShrink: 0, fontWeight: 700 }}>{String.fromCharCode(187)}</span>
+                <div style={{ display: "flex", alignItems: "baseline", justifyContent: "space-between", gap: 16 }}>
+                  <div style={{ display: "flex", alignItems: "baseline", gap: 16 }}>
+                    <span className="q-mono" style={{ fontSize: 10, color: "rgba(43,54,52,.35)", letterSpacing: "0.1em", flexShrink: 0 }}>{String(i + 1).padStart(2, "0")}</span>
+                    <div className="q-display" style={{ fontSize: "clamp(22px,3.2vw,32px)", fontWeight: 700, color: "#2b3634", letterSpacing: "-0.025em" }}>{title}</div>
+                  </div>
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="rgba(43,54,52,.3)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" style={{ flexShrink: 0 }}><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>
                 </div>
-                <div className="q-mono" style={{ fontSize: 12, color: "#2b3634", marginTop: 6, lineHeight: 1.5 }}>{desc}</div>
+                <div className="q-mono" style={{ fontSize: 12, color: "rgba(43,54,52,.5)", marginTop: 8, lineHeight: 1.6, paddingLeft: 36 }}>{desc}</div>
               </button>
             ))}
           </div>
-
         </div>
       </section>
 
       {/* ─── HOW IT WORKS ─── */}
-      <section style={{ background: "transparent", padding: "clamp(60px,9vh,100px) 0", position: "relative", overflow: "visible" }}>
-        <div style={{ maxWidth: 860, margin: "0 auto", padding: "0 24px" }}>
-          <div className="qs-reveal" style={{ marginBottom: "clamp(40px,6vh,64px)" }}>
-            <p className="q-mono" style={{ fontSize: 11, fontWeight: 500, letterSpacing: "0.25em", textTransform: "uppercase", color: "#2b3634", marginBottom: 24 }}>{t.guideEyebrow}</p>
-            <h2 className="q-display" style={{ fontSize: "clamp(28px,4vw,52px)", fontWeight: 700, color: "#2b3634", letterSpacing: "-0.03em", lineHeight: 1.12 }}>{t.howTitle}</h2>
+      <section style={{ background: "transparent", padding: "clamp(80px,14vh,160px) 0", position: "relative", overflow: "visible" }}>
+        <div style={{ maxWidth: 780, margin: "0 auto", padding: "0 clamp(24px,5vw,64px)" }}>
+          <div className="qs-reveal" style={{ marginBottom: "clamp(48px,8vh,80px)" }}>
+            <div style={{ display: "flex", alignItems: "center", gap: 14, marginBottom: 32 }}>
+              <div style={{ width: 20, height: 1, background: "rgba(43,54,52,.3)" }} />
+              <p className="q-mono" style={{ fontSize: 10, fontWeight: 500, letterSpacing: "0.25em", textTransform: "uppercase", color: "rgba(43,54,52,.5)", margin: 0 }}>{t.guideEyebrow}</p>
+            </div>
+            <h2 className="q-display" style={{ fontSize: "clamp(30px,4.2vw,56px)", fontWeight: 700, color: "#2b3634", letterSpacing: "-0.035em", lineHeight: 1.08 }}>{t.howTitle}</h2>
           </div>
           <div style={{ display: "flex", flexDirection: "column", gap: 0 }}>
             {t.howSteps.map(([title, desc], i) => (
-              <div key={i} className="qs-reveal" style={{ display: "flex", alignItems: "baseline", gap: "clamp(16px,3vw,28px)", padding: "clamp(24px,3.5vh,36px) 0", borderBottom: i < t.howSteps.length - 1 ? "1px solid rgba(43,54,52,.08)" : "none" }}>
-                <span className="q-mono" style={{ fontSize: 13, color: "#2b3634", flexShrink: 0, width: 28 }}>{String(i + 1).padStart(2, "0")}</span>
+              <div key={i} className="qs-reveal" style={{ display: "flex", alignItems: "flex-start", gap: "clamp(18px,3vw,32px)", padding: "clamp(28px,4vh,44px) 0", borderBottom: i < t.howSteps.length - 1 ? "1px solid rgba(43,54,52,.07)" : "none" }}>
+                <span className="q-mono" style={{ fontSize: 10, color: "rgba(43,54,52,.3)", flexShrink: 0, paddingTop: 6, letterSpacing: "0.1em" }}>{String(i + 1).padStart(2, "0")}</span>
                 <div>
-                  <div className="q-display" style={{ fontSize: "clamp(16px,2vw,22px)", fontWeight: 700, color: "#2b3634", letterSpacing: "-0.02em", marginBottom: 6 }}>{title}</div>
-                  <div className="q-mono" style={{ fontSize: 12, color: "#2b3634", lineHeight: 1.6 }}>{desc}</div>
+                  <div className="q-display" style={{ fontSize: "clamp(18px,2.2vw,24px)", fontWeight: 700, color: "#2b3634", letterSpacing: "-0.02em", marginBottom: 8 }}>{title}</div>
+                  <div className="q-mono" style={{ fontSize: 13, color: "rgba(43,54,52,.5)", lineHeight: 1.65 }}>{desc}</div>
                 </div>
               </div>
             ))}
@@ -7277,35 +7295,41 @@ function Footer() {
   const year = new Date().getFullYear();
   return (
     <>
-      <footer className="relative overflow-hidden mt-auto" style={{ background: "transparent", zIndex: 10 }}>
-        <div style={{ height: 1, background: "rgba(43,54,52,.22)", margin: "0 24px" }} />
-        <div className="max-w-5xl mx-auto px-6 py-8 relative" style={{ display: "flex", flexDirection: "column", gap: 20 }}>
+      <footer className="relative overflow-hidden mt-auto" style={{ background: "transparent", zIndex: 10, paddingBottom: "env(safe-area-inset-bottom, 0px)" }}>
+        <div style={{ height: 1, background: "rgba(43,54,52,.10)", margin: "0 clamp(24px,5vw,64px)" }} />
+        <div style={{ maxWidth: 780, margin: "0 auto", padding: "clamp(40px,6vh,64px) clamp(24px,5vw,64px) clamp(32px,4vh,48px)", display: "flex", flexDirection: "column", gap: 28 }}>
           {/* Top row */}
-          <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", flexWrap: "wrap", gap: 16 }}>
-            <Logo size={20} />
-            <div style={{ display: "flex", alignItems: "center", gap: 20, flexWrap: "wrap" }}>
+          <div style={{ display: "flex", alignItems: "flex-start", justifyContent: "space-between", flexWrap: "wrap", gap: 20 }}>
+            <Logo size={18} />
+            <div style={{ display: "flex", flexDirection: "column", alignItems: "flex-end", gap: 10 }}>
               <a href="https://www.instagram.com/questastem?obrf=OGtqMjkxbHVtbWQw&utm_source=qr" target="_blank" rel="noreferrer"
-                style={{ color: "#2b3634", display: "flex", alignItems: "center", gap: 7, textDecoration: "none", fontSize: 12, fontFamily: mono, fontWeight: 500 }}>
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
-                questastem
+                style={{ color: "rgba(43,54,52,.5)", textDecoration: "none", fontSize: 11, fontFamily: mono, fontWeight: 500, letterSpacing: "0.05em", transition: "color .2s" }}
+                onMouseOver={e => e.currentTarget.style.color = "#2b3634"}
+                onMouseOut={e => e.currentTarget.style.color = "rgba(43,54,52,.5)"}>
+                Instagram
               </a>
               <a href="mailto:hello@questastem.com"
-                style={{ color: "#2b3634", fontSize: 12, fontFamily: mono, fontWeight: 500, textDecoration: "none", display: "flex", alignItems: "center", gap: 7 }}>
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M22 7l-10 7L2 7"/></svg>
+                style={{ color: "rgba(43,54,52,.5)", fontSize: 11, fontFamily: mono, fontWeight: 500, textDecoration: "none", letterSpacing: "0.05em", transition: "color .2s" }}
+                onMouseOver={e => e.currentTarget.style.color = "#2b3634"}
+                onMouseOut={e => e.currentTarget.style.color = "rgba(43,54,52,.5)"}>
                 hello@questastem.com
               </a>
             </div>
           </div>
           {/* Bottom row */}
           <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", flexWrap: "wrap", gap: 12 }}>
-            <div style={{ fontFamily: mono, fontSize: 11, color: "#2b3634", letterSpacing: "0.05em" }}>
-              © {year} Questa. {t.allRights}
+            <div style={{ fontFamily: mono, fontSize: 10, color: "rgba(43,54,52,.35)", letterSpacing: "0.08em" }}>
+              {year} Questa
             </div>
             <div style={{ display: "flex", gap: 20 }}>
-              <button onClick={() => setLegal("terms")} style={{ fontFamily: mono, fontSize: 11, color: "#2b3634", background: "none", border: "none", cursor: "pointer", padding: 0, letterSpacing: "0.05em" }}>
+              <button onClick={() => setLegal("terms")} style={{ fontFamily: mono, fontSize: 10, color: "rgba(43,54,52,.35)", background: "none", border: "none", cursor: "pointer", padding: 0, letterSpacing: "0.08em", transition: "color .2s" }}
+                onMouseOver={e => e.currentTarget.style.color = "#2b3634"}
+                onMouseOut={e => e.currentTarget.style.color = "rgba(43,54,52,.35)"}>
                 {t.legalTerms}
               </button>
-              <button onClick={() => setLegal("privacy")} style={{ fontFamily: mono, fontSize: 11, color: "#2b3634", background: "none", border: "none", cursor: "pointer", padding: 0, letterSpacing: "0.05em" }}>
+              <button onClick={() => setLegal("privacy")} style={{ fontFamily: mono, fontSize: 10, color: "rgba(43,54,52,.35)", background: "none", border: "none", cursor: "pointer", padding: 0, letterSpacing: "0.08em", transition: "color .2s" }}
+                onMouseOver={e => e.currentTarget.style.color = "#2b3634"}
+                onMouseOut={e => e.currentTarget.style.color = "rgba(43,54,52,.35)"}>
                 {t.legalPrivacy}
               </button>
             </div>
@@ -10265,7 +10289,7 @@ export default function App() {
       <div aria-hidden="true" style={{ position:"fixed", inset:0, zIndex:9999, pointerEvents:"none", opacity:0.32, backgroundImage:'url("data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'512\' height=\'512\'%3E%3Cfilter id=\'n\'%3E%3CfeTurbulence type=\'fractalNoise\' baseFrequency=\'0.85\' numOctaves=\'3\' stitchTiles=\'stitch\'/%3E%3CfeColorMatrix type=\'saturate\' values=\'0\'/%3E%3C/filter%3E%3Crect width=\'100%25\' height=\'100%25\' filter=\'url(%23n)\' opacity=\'0.35\'/%3E%3C/svg%3E")', backgroundRepeat:"repeat", backgroundSize:"512px 512px" }} />
       <div className="min-h-screen flex flex-col" style={{ fontFamily: "system-ui, -apple-system, 'Segoe UI', sans-serif", background: "transparent", minHeight: "100dvh", color: "#2b3634", overflowX: "hidden" }}>
         <Navbar />
-        <div style={{ height: "clamp(16px,3vh,32px)" }} />
+        {page !== "home" && <div style={{ height: "clamp(12px,2vh,24px)" }} />}
         <main className="flex-1 relative" style={{ zIndex: 1 }}><Page /></main>
         <Footer />
         <NodeDrawer />
