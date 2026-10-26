@@ -8019,14 +8019,10 @@ function CompetitionsPage() {
           {o.link && <a href={o.link} target="_blank" rel="noreferrer" style={{ display: "block", padding: "14px 0", border: "1.5px solid rgba(43,54,52,.35)", borderRadius: 14, textAlign: "center", fontFamily: mono, fontSize: 13, color: "#2b3634", background: "rgba(43,54,52,.08)", textDecoration: "none", letterSpacing: "0.05em", fontWeight: 600, transition: "all .2s" }}
                     onMouseOver={e => { e.currentTarget.style.background = "rgba(43,54,52,.14)"; e.currentTarget.style.borderColor = "rgba(43,54,52,.5)"; }}
                     onMouseOut={e => { e.currentTarget.style.background = "rgba(43,54,52,.08)"; e.currentTarget.style.borderColor = "rgba(43,54,52,.35)"; }}>{t.view || "Register here"}</a>}
-          {roadmaps.length >= 3 ? (
-            <div style={{ padding: "12px 16px", borderRadius: 12, background: "rgba(43,54,52,.05)", border: "1px solid rgba(43,54,52,.15)", fontFamily: mono, fontSize: 12, color: "rgba(43,54,52,.55)", textAlign: "center" }}>{t.rmLimit}</div>
-          ) : (
-            <button onClick={() => { const rmId = "rm-" + Date.now(); const rm = { id: rmId, title: (lang === "mn" ? "Бэлтгэл: " : "Preparation: ") + (o.name[lang] || o.name.en), created: new Date().toISOString(), type: "competition", targetId: o.id }; setRoadmaps(prev => [...(prev||[]), rm]); setSelected(null); openRoadmap(rmId); }}
+          <button onClick={() => { const ex = roadmaps.find(r => r.targetId === o.id); if (ex) { setSelected(null); openRoadmap(ex.id); return; } const rmId = "rm-" + Date.now(); const rm = { id: rmId, title: (lang === "mn" ? "Бэлтгэл: " : "Preparation: ") + (o.name[lang] || o.name.en), created: new Date().toISOString(), type: "competition", targetId: o.id }; setRoadmaps(prev => [...(prev||[]), rm]); setSelected(null); openRoadmap(rmId); }}
               style={{ padding: "14px 0", border: "1.5px solid rgba(43,54,52,.35)", borderRadius: 14, background: "rgba(43,54,52,.08)", cursor: "pointer", fontFamily: mono, fontSize: 13, color: "#2b3634", letterSpacing: "0.05em", width: "100%", fontWeight: 600, transition: "all .2s" }}
                       onMouseOver={e => { e.currentTarget.style.background = "rgba(43,54,52,.14)"; e.currentTarget.style.borderColor = "rgba(43,54,52,.5)"; }}
                       onMouseOut={e => { e.currentTarget.style.background = "rgba(43,54,52,.08)"; e.currentTarget.style.borderColor = "rgba(43,54,52,.35)"; }}>{t.prepBtn || "Prepare for this"}</button>
-          )}
         </div>
       </div>
     );
@@ -8112,14 +8108,10 @@ function ResearchPage() {
           {o.link && <a href={o.link} target="_blank" rel="noreferrer" style={{ display: "block", padding: "14px 0", border: "1.5px solid rgba(43,54,52,.35)", borderRadius: 14, textAlign: "center", fontFamily: mono, fontSize: 13, color: "#2b3634", background: "rgba(43,54,52,.08)", textDecoration: "none", letterSpacing: "0.05em", fontWeight: 600, transition: "all .2s" }}
                     onMouseOver={e => { e.currentTarget.style.background = "rgba(43,54,52,.14)"; e.currentTarget.style.borderColor = "rgba(43,54,52,.5)"; }}
                     onMouseOut={e => { e.currentTarget.style.background = "rgba(43,54,52,.08)"; e.currentTarget.style.borderColor = "rgba(43,54,52,.35)"; }}>{t.view || "Register here"}</a>}
-          {roadmaps.length >= 3 ? (
-            <div style={{ padding: "12px 16px", borderRadius: 12, background: "rgba(43,54,52,.05)", border: "1px solid rgba(43,54,52,.15)", fontFamily: mono, fontSize: 12, color: "rgba(43,54,52,.55)", textAlign: "center" }}>{t.rmLimit}</div>
-          ) : (
-            <button onClick={() => { const rmId = "rm-" + Date.now(); const rm = { id: rmId, title: (lang === "mn" ? "Бэлтгэл: " : "Preparation: ") + (o.name[lang] || o.name.en), created: new Date().toISOString(), type: "research" }; setRoadmaps(prev => [...(prev||[]), rm]); setSelectedProg(null); openRoadmap(rmId); }}
+          <button onClick={() => { const titleStr = (lang === "mn" ? "Бэлтгэл: " : "Preparation: ") + (o.name[lang] || o.name.en); const ex = roadmaps.find(r => r.title === titleStr); if (ex) { setSelectedProg(null); openRoadmap(ex.id); return; } const rmId = "rm-" + Date.now(); const rm = { id: rmId, title: titleStr, created: new Date().toISOString(), type: "research" }; setRoadmaps(prev => [...(prev||[]), rm]); setSelectedProg(null); openRoadmap(rmId); }}
               style={{ padding: "14px 0", border: "1.5px solid rgba(43,54,52,.35)", borderRadius: 14, background: "rgba(43,54,52,.08)", cursor: "pointer", fontFamily: mono, fontSize: 13, color: "#2b3634", letterSpacing: "0.05em", width: "100%", fontWeight: 600, transition: "all .2s" }}
                       onMouseOver={e => { e.currentTarget.style.background = "rgba(43,54,52,.14)"; e.currentTarget.style.borderColor = "rgba(43,54,52,.5)"; }}
                       onMouseOut={e => { e.currentTarget.style.background = "rgba(43,54,52,.08)"; e.currentTarget.style.borderColor = "rgba(43,54,52,.35)"; }}>{t.prepBtn || "Prepare for this"}</button>
-          )}
         </div>
       </div>
     );
@@ -8387,14 +8379,10 @@ function NasaPage() {
         {nasa.link && <a href={nasa.link} target="_blank" rel="noreferrer" style={{ display: "block", padding: "14px 0", border: "1.5px solid rgba(43,54,52,.35)", borderRadius: 14, textAlign: "center", fontFamily: mono, fontSize: 13, color: "#2b3634", background: "rgba(43,54,52,.08)", textDecoration: "none", letterSpacing: "0.05em", fontWeight: 600, transition: "all .2s" }}
                     onMouseOver={e => { e.currentTarget.style.background = "rgba(43,54,52,.14)"; e.currentTarget.style.borderColor = "rgba(43,54,52,.5)"; }}
                     onMouseOut={e => { e.currentTarget.style.background = "rgba(43,54,52,.08)"; e.currentTarget.style.borderColor = "rgba(43,54,52,.35)"; }}>{t.view || "Register here"}</a>}
-        {roadmaps.length >= 3 ? (
-          <div style={{ padding: "12px 16px", borderRadius: 12, background: "rgba(43,54,52,.05)", border: "1px solid rgba(43,54,52,.15)", fontFamily: mono, fontSize: 12, color: "rgba(43,54,52,.55)", textAlign: "center" }}>{t.rmLimit}</div>
-        ) : (
-          <button onClick={() => { const rmId = "rm-" + Date.now(); const rm = { id: rmId, title: (lang === "mn" ? "Бэлтгэл: " : "Preparation: ") + (nasa.name[lang] || nasa.name.en), created: new Date().toISOString(), type: "competition", targetId: nasa.id }; setRoadmaps(prev => [...(prev||[]), rm]); openRoadmap(rmId); }}
+        <button onClick={() => { const ex = roadmaps.find(r => r.targetId === nasa.id); if (ex) { openRoadmap(ex.id); return; } const rmId = "rm-" + Date.now(); const rm = { id: rmId, title: (lang === "mn" ? "Бэлтгэл: " : "Preparation: ") + (nasa.name[lang] || nasa.name.en), created: new Date().toISOString(), type: "competition", targetId: nasa.id }; setRoadmaps(prev => [...(prev||[]), rm]); openRoadmap(rmId); }}
             style={{ padding: "14px 0", border: "1.5px solid rgba(43,54,52,.35)", borderRadius: 14, background: "rgba(43,54,52,.08)", cursor: "pointer", fontFamily: mono, fontSize: 13, color: "#2b3634", letterSpacing: "0.05em", width: "100%", fontWeight: 600, transition: "all .2s" }}
                       onMouseOver={e => { e.currentTarget.style.background = "rgba(43,54,52,.14)"; e.currentTarget.style.borderColor = "rgba(43,54,52,.5)"; }}
                       onMouseOut={e => { e.currentTarget.style.background = "rgba(43,54,52,.08)"; e.currentTarget.style.borderColor = "rgba(43,54,52,.35)"; }}>{t.prepBtn || "Prepare for this"}</button>
-        )}
       </div>
     </div>
   );
@@ -9436,7 +9424,7 @@ function RoadmapsPage() {
   const inputStyle = { width: "100%", padding: "10px 14px", border: "1.5px solid rgba(43,54,52,.35)", borderRadius: 12, background: "transparent", fontSize: 14, color: "#2b3634", outline: "none", boxSizing: "border-box" };
 
   const handleCreate = (overrideTitle, overrideType) => {
-    if (roadmaps.length >= 3) return;
+    // No hard limit - allow creating roadmaps
     const title = overrideTitle || newTitle.trim();
     const type = overrideType || newType || "general";
     if (!title) return;
@@ -9537,14 +9525,8 @@ function RoadmapsPage() {
       <div style={{ border: "1.5px solid rgba(43,54,52,.35)", borderRadius: 20, padding: "28px 24px", marginBottom: 40, background: "rgba(43,54,52,.02)" }}>
         <div style={{ fontFamily: mono, fontSize: 10, letterSpacing: "0.18em", color: "#2b3634", marginBottom: 16 }}>{t.createNewRoadmap || "CREATE NEW LEARNING PATH"}</div>
 
-        {roadmaps.length >= 3 ? (
-          <div style={{ padding: "16px 20px", borderRadius: 14, background: "rgba(43,54,52,.04)", border: "1px solid rgba(43,54,52,.12)", fontFamily: mono, fontSize: 13, color: "rgba(43,54,52,.6)", textAlign: "center", lineHeight: 1.6 }}>
-            {t.rmLimit}
-          </div>
-        ) : null}
-
         {/* Step: Path selection — archive (collapsed) + custom options */}
-        {roadmaps.length < 3 && step === "path" && (() => {
+        {step === "path" && (() => {
           const active = comps.filter(c => !c.archived && c.cat !== "meta");
           const catOrder = ["olympiad", "hackathon", "research", "robotics"];
           const catLabels = {
@@ -9620,7 +9602,7 @@ function RoadmapsPage() {
         })()}
 
         {/* Step: Title input (for course mastery or manual) */}
-        {roadmaps.length < 3 && step === "title" && (
+        {step === "title" && (
           <div>
             <button onClick={() => setStep("path")} style={{ fontFamily: mono, fontSize: 11, color: "#2b3634", background: "none", border: "none", cursor: "pointer", padding: "0 0 14px", letterSpacing: "0.05em" }}>&larr; {lang === "mn" ? "Буцах" : "Back"}</button>
             <div style={{ marginBottom: 16 }}>
@@ -10223,14 +10205,10 @@ function InternshipsPage() {
           <a href={pr.url} target="_blank" rel="noreferrer" style={{ display: "block", padding: "14px 0", border: "1.5px solid rgba(43,54,52,.35)", borderRadius: 14, textAlign: "center", fontFamily: mono, fontSize: 13, color: "#2b3634", background: "rgba(43,54,52,.08)", textDecoration: "none", letterSpacing: "0.05em", fontWeight: 600, transition: "all .2s" }}
                     onMouseOver={e => { e.currentTarget.style.background = "rgba(43,54,52,.14)"; e.currentTarget.style.borderColor = "rgba(43,54,52,.5)"; }}
                     onMouseOut={e => { e.currentTarget.style.background = "rgba(43,54,52,.08)"; e.currentTarget.style.borderColor = "rgba(43,54,52,.35)"; }}>{t.view || "Register here"}</a>
-          {roadmaps.length >= 3 ? (
-            <div style={{ padding: "12px 16px", borderRadius: 12, background: "rgba(43,54,52,.05)", border: "1px solid rgba(43,54,52,.15)", fontFamily: "'Space Grotesk', ui-monospace, monospace", fontSize: 12, color: "rgba(43,54,52,.55)", textAlign: "center" }}>{t.rmLimit}</div>
-          ) : (
-            <button onClick={() => { const rmId = "rm-" + Date.now(); const rm = { id: rmId, title: (lang === "mn" ? "Бэлтгэл: " : "Preparation: ") + pr.name, created: new Date().toISOString(), type: "internship" }; setRoadmaps(prev => [...(prev||[]), rm]); setSelected(null); openRoadmap(rmId); }}
+          <button onClick={() => { const titleStr = (lang === "mn" ? "Бэлтгэл: " : "Preparation: ") + pr.name; const ex = roadmaps.find(r => r.title === titleStr); if (ex) { setSelected(null); openRoadmap(ex.id); return; } const rmId = "rm-" + Date.now(); const rm = { id: rmId, title: titleStr, created: new Date().toISOString(), type: "internship" }; setRoadmaps(prev => [...(prev||[]), rm]); setSelected(null); openRoadmap(rmId); }}
               style={{ padding: "14px 0", border: "1.5px solid rgba(43,54,52,.35)", borderRadius: 14, background: "rgba(43,54,52,.08)", cursor: "pointer", fontFamily: mono, fontSize: 13, color: "#2b3634", letterSpacing: "0.05em", width: "100%", fontWeight: 600, transition: "all .2s" }}
                       onMouseOver={e => { e.currentTarget.style.background = "rgba(43,54,52,.14)"; e.currentTarget.style.borderColor = "rgba(43,54,52,.5)"; }}
                       onMouseOut={e => { e.currentTarget.style.background = "rgba(43,54,52,.08)"; e.currentTarget.style.borderColor = "rgba(43,54,52,.35)"; }}>{t.prepBtn || "Prepare for this"}</button>
-          )}
         </div>
       </div>
     );
