@@ -430,8 +430,8 @@ en: {
     chatErr: "Sorry, something went wrong. Please try again.",
     chatLimit: (n) => `You've used your ${n} free AI messages for today. Come back tomorrow!`,
     chatRemaining: (n) => `${n} free message${n === 1 ? "" : "s"} remaining today`,
-    rmLimit: "You've reached the free plan limit of 3 learning paths. Delete an existing one to create a new one.",
-    rmLimitShort: (n) => `${n}/3 free learning paths used`,
+    rmLimit: "You have 3 learning paths (max on free plan). Delete one to create a new one.",
+    rmLimitShort: (n) => `${n}/3 learning paths`,
     nasaTitle: "NASA Space Apps Challenge, Ulaanbaatar",
     nasaSub: "The world's largest hackathon, an international competition. Solve real problems with NASA's open data in 48 hours.",
     nasaPrep: "Prep pathway", nasaJoin: "Form a team and join", nasaOfficial: "Register here",
@@ -618,8 +618,8 @@ mn: {
     chatErr: "Уучлаарай, алдаа гарлаа. Дахин оролдоно уу.",
     chatLimit: (n) => `Та өнөөдрийн ${n} үнэгүй AI мессежээ ашигласан байна. Маргааш дахин ирээрэй!`,
     chatRemaining: (n) => `Өнөөдөр ${n} үнэгүй мессеж үлдсэн`,
-    rmLimit: "Та үнэгүй 3 суралцах замын хязгаартаа хүрсэн байна. Шинийг үүсгэхийн тулд одоо байгаагаа устгана уу.",
-    rmLimitShort: (n) => `${n}/3 үнэгүй суралцах зам ашигласан`,
+    rmLimit: "Та 3 суралцах замтай байна (үнэгүй хязгаар). Шинийг үүсгэхийн тулд нэгийг устгана уу.",
+    rmLimitShort: (n) => `${n}/3 суралцах зам`,
     nasaTitle: "NASA Space Apps Challenge, Улаанбаатар",
     nasaSub: "Дэлхийн хамгийн том хакатон, олон улсын тэмцээн. NASA-ийн нээлттэй өгөгдлөөр бодит бодлогуудыг 48 цагийн дотор шийдвэрлээрэй.",
     nasaPrep: "Бэлтгэлийн зам", nasaJoin: "Баг бүрдүүлж нэгдээрэй", nasaOfficial: "Бүртгүүлэх",
@@ -8019,10 +8019,14 @@ function CompetitionsPage() {
           {o.link && <a href={o.link} target="_blank" rel="noreferrer" style={{ display: "block", padding: "14px 0", border: "1.5px solid rgba(43,54,52,.35)", borderRadius: 14, textAlign: "center", fontFamily: mono, fontSize: 13, color: "#2b3634", background: "rgba(43,54,52,.08)", textDecoration: "none", letterSpacing: "0.05em", fontWeight: 600, transition: "all .2s" }}
                     onMouseOver={e => { e.currentTarget.style.background = "rgba(43,54,52,.14)"; e.currentTarget.style.borderColor = "rgba(43,54,52,.5)"; }}
                     onMouseOut={e => { e.currentTarget.style.background = "rgba(43,54,52,.08)"; e.currentTarget.style.borderColor = "rgba(43,54,52,.35)"; }}>{t.view || "Register here"}</a>}
-          <button onClick={() => { const rmId = "rm-" + Date.now(); const rm = { id: rmId, title: (lang === "mn" ? "Бэлтгэл: " : "Preparation: ") + (o.name[lang] || o.name.en), created: new Date().toISOString(), type: "competition", targetId: o.id }; setRoadmaps(prev => [...(prev||[]), rm]); setSelected(null); openRoadmap(rmId); }}
-            style={{ padding: "14px 0", border: "1.5px solid rgba(43,54,52,.35)", borderRadius: 14, background: "rgba(43,54,52,.08)", cursor: "pointer", fontFamily: mono, fontSize: 13, color: "#2b3634", letterSpacing: "0.05em", width: "100%", fontWeight: 600, transition: "all .2s" }}
-                    onMouseOver={e => { e.currentTarget.style.background = "rgba(43,54,52,.14)"; e.currentTarget.style.borderColor = "rgba(43,54,52,.5)"; }}
-                    onMouseOut={e => { e.currentTarget.style.background = "rgba(43,54,52,.08)"; e.currentTarget.style.borderColor = "rgba(43,54,52,.35)"; }}>{t.prepBtn || "Prepare for this"}</button>
+          {roadmaps.length >= 3 ? (
+            <div style={{ padding: "12px 16px", borderRadius: 12, background: "rgba(43,54,52,.05)", border: "1px solid rgba(43,54,52,.15)", fontFamily: mono, fontSize: 12, color: "rgba(43,54,52,.55)", textAlign: "center" }}>{t.rmLimit}</div>
+          ) : (
+            <button onClick={() => { const rmId = "rm-" + Date.now(); const rm = { id: rmId, title: (lang === "mn" ? "Бэлтгэл: " : "Preparation: ") + (o.name[lang] || o.name.en), created: new Date().toISOString(), type: "competition", targetId: o.id }; setRoadmaps(prev => [...(prev||[]), rm]); setSelected(null); openRoadmap(rmId); }}
+              style={{ padding: "14px 0", border: "1.5px solid rgba(43,54,52,.35)", borderRadius: 14, background: "rgba(43,54,52,.08)", cursor: "pointer", fontFamily: mono, fontSize: 13, color: "#2b3634", letterSpacing: "0.05em", width: "100%", fontWeight: 600, transition: "all .2s" }}
+                      onMouseOver={e => { e.currentTarget.style.background = "rgba(43,54,52,.14)"; e.currentTarget.style.borderColor = "rgba(43,54,52,.5)"; }}
+                      onMouseOut={e => { e.currentTarget.style.background = "rgba(43,54,52,.08)"; e.currentTarget.style.borderColor = "rgba(43,54,52,.35)"; }}>{t.prepBtn || "Prepare for this"}</button>
+          )}
         </div>
       </div>
     );
@@ -8108,10 +8112,14 @@ function ResearchPage() {
           {o.link && <a href={o.link} target="_blank" rel="noreferrer" style={{ display: "block", padding: "14px 0", border: "1.5px solid rgba(43,54,52,.35)", borderRadius: 14, textAlign: "center", fontFamily: mono, fontSize: 13, color: "#2b3634", background: "rgba(43,54,52,.08)", textDecoration: "none", letterSpacing: "0.05em", fontWeight: 600, transition: "all .2s" }}
                     onMouseOver={e => { e.currentTarget.style.background = "rgba(43,54,52,.14)"; e.currentTarget.style.borderColor = "rgba(43,54,52,.5)"; }}
                     onMouseOut={e => { e.currentTarget.style.background = "rgba(43,54,52,.08)"; e.currentTarget.style.borderColor = "rgba(43,54,52,.35)"; }}>{t.view || "Register here"}</a>}
-          <button onClick={() => { const rmId = "rm-" + Date.now(); const rm = { id: rmId, title: (lang === "mn" ? "Бэлтгэл: " : "Preparation: ") + (o.name[lang] || o.name.en), created: new Date().toISOString(), type: "research" }; setRoadmaps(prev => [...(prev||[]), rm]); setSelectedProg(null); openRoadmap(rmId); }}
-            style={{ padding: "14px 0", border: "1.5px solid rgba(43,54,52,.35)", borderRadius: 14, background: "rgba(43,54,52,.08)", cursor: "pointer", fontFamily: mono, fontSize: 13, color: "#2b3634", letterSpacing: "0.05em", width: "100%", fontWeight: 600, transition: "all .2s" }}
-                    onMouseOver={e => { e.currentTarget.style.background = "rgba(43,54,52,.14)"; e.currentTarget.style.borderColor = "rgba(43,54,52,.5)"; }}
-                    onMouseOut={e => { e.currentTarget.style.background = "rgba(43,54,52,.08)"; e.currentTarget.style.borderColor = "rgba(43,54,52,.35)"; }}>{t.prepBtn || "Prepare for this"}</button>
+          {roadmaps.length >= 3 ? (
+            <div style={{ padding: "12px 16px", borderRadius: 12, background: "rgba(43,54,52,.05)", border: "1px solid rgba(43,54,52,.15)", fontFamily: mono, fontSize: 12, color: "rgba(43,54,52,.55)", textAlign: "center" }}>{t.rmLimit}</div>
+          ) : (
+            <button onClick={() => { const rmId = "rm-" + Date.now(); const rm = { id: rmId, title: (lang === "mn" ? "Бэлтгэл: " : "Preparation: ") + (o.name[lang] || o.name.en), created: new Date().toISOString(), type: "research" }; setRoadmaps(prev => [...(prev||[]), rm]); setSelectedProg(null); openRoadmap(rmId); }}
+              style={{ padding: "14px 0", border: "1.5px solid rgba(43,54,52,.35)", borderRadius: 14, background: "rgba(43,54,52,.08)", cursor: "pointer", fontFamily: mono, fontSize: 13, color: "#2b3634", letterSpacing: "0.05em", width: "100%", fontWeight: 600, transition: "all .2s" }}
+                      onMouseOver={e => { e.currentTarget.style.background = "rgba(43,54,52,.14)"; e.currentTarget.style.borderColor = "rgba(43,54,52,.5)"; }}
+                      onMouseOut={e => { e.currentTarget.style.background = "rgba(43,54,52,.08)"; e.currentTarget.style.borderColor = "rgba(43,54,52,.35)"; }}>{t.prepBtn || "Prepare for this"}</button>
+          )}
         </div>
       </div>
     );
@@ -8354,7 +8362,7 @@ function ProfessorFinder({ unlocked, open, setOpen }) {
 
 /* ═══ MODULE: components/NasaPage.jsx ═══ */
 function NasaPage() {
-  const { t, lang, comps, go, setRoadmaps, openRoadmap } = useQ();
+  const { t, lang, comps, go, roadmaps, setRoadmaps, openRoadmap } = useQ();
   const nasa = comps.find((c) => c.id === "nasa-space-apps");
   const mono = "'Space Grotesk', ui-monospace, monospace";
   if (!nasa) return <div className="max-w-3xl mx-auto px-6 py-8"><h1 className="q-display" style={{ fontSize: 36, fontWeight: 800, color: "#2b3634" }}>NASA Space Apps Challenge</h1><p style={{ marginTop: 16, color: "#2b3634" }}>Coming soon.</p></div>;
@@ -8379,10 +8387,14 @@ function NasaPage() {
         {nasa.link && <a href={nasa.link} target="_blank" rel="noreferrer" style={{ display: "block", padding: "14px 0", border: "1.5px solid rgba(43,54,52,.35)", borderRadius: 14, textAlign: "center", fontFamily: mono, fontSize: 13, color: "#2b3634", background: "rgba(43,54,52,.08)", textDecoration: "none", letterSpacing: "0.05em", fontWeight: 600, transition: "all .2s" }}
                     onMouseOver={e => { e.currentTarget.style.background = "rgba(43,54,52,.14)"; e.currentTarget.style.borderColor = "rgba(43,54,52,.5)"; }}
                     onMouseOut={e => { e.currentTarget.style.background = "rgba(43,54,52,.08)"; e.currentTarget.style.borderColor = "rgba(43,54,52,.35)"; }}>{t.view || "Register here"}</a>}
-        <button onClick={() => { const rmId = "rm-" + Date.now(); const rm = { id: rmId, title: (lang === "mn" ? "Бэлтгэл: " : "Preparation: ") + (nasa.name[lang] || nasa.name.en), created: new Date().toISOString(), type: "competition", targetId: nasa.id }; setRoadmaps(prev => [...(prev||[]), rm]); openRoadmap(rmId); }}
-          style={{ padding: "14px 0", border: "1.5px solid rgba(43,54,52,.35)", borderRadius: 14, background: "rgba(43,54,52,.08)", cursor: "pointer", fontFamily: mono, fontSize: 13, color: "#2b3634", letterSpacing: "0.05em", width: "100%", fontWeight: 600, transition: "all .2s" }}
-                    onMouseOver={e => { e.currentTarget.style.background = "rgba(43,54,52,.14)"; e.currentTarget.style.borderColor = "rgba(43,54,52,.5)"; }}
-                    onMouseOut={e => { e.currentTarget.style.background = "rgba(43,54,52,.08)"; e.currentTarget.style.borderColor = "rgba(43,54,52,.35)"; }}>{t.prepBtn || "Prepare for this"}</button>
+        {roadmaps.length >= 3 ? (
+          <div style={{ padding: "12px 16px", borderRadius: 12, background: "rgba(43,54,52,.05)", border: "1px solid rgba(43,54,52,.15)", fontFamily: mono, fontSize: 12, color: "rgba(43,54,52,.55)", textAlign: "center" }}>{t.rmLimit}</div>
+        ) : (
+          <button onClick={() => { const rmId = "rm-" + Date.now(); const rm = { id: rmId, title: (lang === "mn" ? "Бэлтгэл: " : "Preparation: ") + (nasa.name[lang] || nasa.name.en), created: new Date().toISOString(), type: "competition", targetId: nasa.id }; setRoadmaps(prev => [...(prev||[]), rm]); openRoadmap(rmId); }}
+            style={{ padding: "14px 0", border: "1.5px solid rgba(43,54,52,.35)", borderRadius: 14, background: "rgba(43,54,52,.08)", cursor: "pointer", fontFamily: mono, fontSize: 13, color: "#2b3634", letterSpacing: "0.05em", width: "100%", fontWeight: 600, transition: "all .2s" }}
+                      onMouseOver={e => { e.currentTarget.style.background = "rgba(43,54,52,.14)"; e.currentTarget.style.borderColor = "rgba(43,54,52,.5)"; }}
+                      onMouseOut={e => { e.currentTarget.style.background = "rgba(43,54,52,.08)"; e.currentTarget.style.borderColor = "rgba(43,54,52,.35)"; }}>{t.prepBtn || "Prepare for this"}</button>
+        )}
       </div>
     </div>
   );
@@ -9422,6 +9434,7 @@ function RoadmapsPage() {
   const inputStyle = { width: "100%", padding: "10px 14px", border: "1.5px solid rgba(43,54,52,.35)", borderRadius: 12, background: "transparent", fontSize: 14, color: "#2b3634", outline: "none", boxSizing: "border-box" };
 
   const handleCreate = (overrideTitle, overrideType) => {
+    if (roadmaps.length >= 3) return;
     const title = overrideTitle || newTitle.trim();
     const type = overrideType || newType || "general";
     if (!title) return;
@@ -9522,8 +9535,14 @@ function RoadmapsPage() {
       <div style={{ border: "1.5px solid rgba(43,54,52,.35)", borderRadius: 20, padding: "28px 24px", marginBottom: 40, background: "rgba(43,54,52,.02)" }}>
         <div style={{ fontFamily: mono, fontSize: 10, letterSpacing: "0.18em", color: "#2b3634", marginBottom: 16 }}>{t.createNewRoadmap || "CREATE NEW LEARNING PATH"}</div>
 
+        {roadmaps.length >= 3 ? (
+          <div style={{ padding: "16px 20px", borderRadius: 14, background: "rgba(43,54,52,.04)", border: "1px solid rgba(43,54,52,.12)", fontFamily: mono, fontSize: 13, color: "rgba(43,54,52,.6)", textAlign: "center", lineHeight: 1.6 }}>
+            {t.rmLimit}
+          </div>
+        ) : null}
+
         {/* Step: Path selection — archive + custom options */}
-        {step === "path" && (() => {
+        {roadmaps.length < 3 && step === "path" && (() => {
           const active = comps.filter(c => !c.archived && c.cat !== "meta");
           const catOrder = ["olympiad", "hackathon", "research", "robotics"];
           const catLabels = {
@@ -9577,7 +9596,7 @@ function RoadmapsPage() {
         })()}
 
         {/* Step: Title input (for course mastery or manual) */}
-        {step === "title" && (
+        {roadmaps.length < 3 && step === "title" && (
           <div>
             <button onClick={() => setStep("path")} style={{ fontFamily: mono, fontSize: 11, color: "#2b3634", background: "none", border: "none", cursor: "pointer", padding: "0 0 14px", letterSpacing: "0.05em" }}>&larr; {lang === "mn" ? "Буцах" : "Back"}</button>
             <div style={{ marginBottom: 16 }}>
@@ -9638,11 +9657,9 @@ function RoadmapDetail() {
   const labelStyle = { fontFamily: mono, fontSize: 11, letterSpacing: "0.15em", color: "#2b3634", display: "block", marginBottom: 8 };
   const inputStyle = { width: "100%", padding: "13px 16px", border: "1.5px solid rgba(43,54,52,.35)", borderRadius: 12, background: "transparent", fontSize: 14, color: "#2b3634", outline: "none", fontFamily: "inherit", boxSizing: "border-box" };
 
-  const RM_FREE_LIMIT = 3;
-  const getRmUsage = () => { try { return Number(localStorage.getItem("q_rm_usage")) || 0; } catch { return 0; } };
-  const bumpRmUsage = () => { try { const n = getRmUsage() + 1; localStorage.setItem("q_rm_usage", String(n)); return n; } catch { return 1; } };
-  const rmUsed = getRmUsage();
-  const rmCanGenerate = rmUsed < RM_FREE_LIMIT;
+  const RM_MAX = 3;
+  const rmCount = roadmaps.length;
+  const rmCanGenerate = rmCount < RM_MAX;
 
   const generateRoadmap = async () => {
     if (!rmCanGenerate) return;
@@ -9663,6 +9680,7 @@ function RoadmapDetail() {
       ].filter(Boolean).join("\n");
 
       // Build knowledge tree course catalog for this target
+      const isMn = lang === "mn";
       let coursesCatalog = "";
       if (target) {
         const reqIds = [...(target.reqs || [])];
@@ -9697,7 +9715,6 @@ Present these as a clear LEARNING PATH: Course A → Course B → Course C, show
 
       // If no target-specific courses, provide full course catalog so AI can pick relevant ones
       if (!coursesCatalog) {
-        const isMn = lang === "mn";
         const allCourses = [];
         Object.values(ALL_NODES).forEach(n => {
           const name = n.name[isMn ? "mn" : "en"] || n.name.en;
@@ -9715,7 +9732,6 @@ IMPORTANT: Only recommend courses that are directly relevant to this student's s
         }
       }
 
-      const isMn = lang === "mn";
       const langInstruction = isMn
         ? `\n\nLANGUAGE REQUIREMENT (STRICT): The student is using the Mongolian version of Questa. You MUST write your ENTIRE response in Mongolian (монгол хэлээр бүгдийг бичнэ үү). Every heading, every sentence, every explanation -- all in Mongolian. Only keep proper nouns in English (course names like "Khan Academy", "MIT OCW", URLs). If you write in English, the student cannot read it. This is non-negotiable.`
         : "\n\nLANGUAGE: Write your entire response in English.";
@@ -9861,7 +9877,6 @@ QUALITY REQUIREMENTS
         : "You are a precise STEM education advisor. Write organized, concise, actionable preparation roadmaps. Keep explanations to 1-2 sentences per course/topic -- the value is in the organized course sequence and resource links, not long paragraphs. CRITICAL: Do NOT use any markdown formatting symbols -- no ###, no **, no *, no ---, no bullet dashes. Write headings in UPPERCASE and separate sections with blank lines. Use numbered lists (1. 2. 3.) instead of bullet points. IMPORTANT: Keep your TOTAL response under 2500 words. Complete ALL sections fully -- never stop mid-sentence or mid-section. Prioritize finishing every section over adding extra detail to any one section.", [{ role: "user", content: prompt }], { maxTokens: 16384 });
       setContent(reply);
       setPhase("done");
-      bumpRmUsage();
       // persist content + all intake fields into roadmap object
       setRoadmaps(prev => prev.map(r => r.id === rm.id ? { ...r, content: reply, level, hoursPerWeek, goal, priorKnowledge, compExp, timeline, biggestChallenge } : r));
     } catch (err) {
@@ -9994,9 +10009,9 @@ QUALITY REQUIREMENTS
               {(!hoursPerWeek || !timeline || !biggestChallenge) ? (lang === "mn" ? "Бүх асуултад хариулна уу" : "Answer all questions to continue") : (lang === "mn" ? "Миний сурах замыг бүтээх" : "Build my personalized learning path")}
             </button>
           )}
-          {rmCanGenerate && rmUsed > 0 && (
+          {rmCanGenerate && rmCount > 0 && (
             <div style={{ fontFamily: mono, fontSize: 11, color: "rgba(43,54,52,.5)", textAlign: "center", marginTop: 4 }}>
-              {t.rmLimitShort(rmUsed)}
+              {t.rmLimitShort(rmCount)}
             </div>
           )}
         </div>
@@ -10149,10 +10164,14 @@ function InternshipsPage() {
           <a href={pr.url} target="_blank" rel="noreferrer" style={{ display: "block", padding: "14px 0", border: "1.5px solid rgba(43,54,52,.35)", borderRadius: 14, textAlign: "center", fontFamily: mono, fontSize: 13, color: "#2b3634", background: "rgba(43,54,52,.08)", textDecoration: "none", letterSpacing: "0.05em", fontWeight: 600, transition: "all .2s" }}
                     onMouseOver={e => { e.currentTarget.style.background = "rgba(43,54,52,.14)"; e.currentTarget.style.borderColor = "rgba(43,54,52,.5)"; }}
                     onMouseOut={e => { e.currentTarget.style.background = "rgba(43,54,52,.08)"; e.currentTarget.style.borderColor = "rgba(43,54,52,.35)"; }}>{t.view || "Register here"}</a>
-          <button onClick={() => { const rmId = "rm-" + Date.now(); const rm = { id: rmId, title: (lang === "mn" ? "Бэлтгэл: " : "Preparation: ") + pr.name, created: new Date().toISOString(), type: "internship" }; setRoadmaps(prev => [...(prev||[]), rm]); setSelected(null); openRoadmap(rmId); }}
-            style={{ padding: "14px 0", border: "1.5px solid rgba(43,54,52,.35)", borderRadius: 14, background: "rgba(43,54,52,.08)", cursor: "pointer", fontFamily: mono, fontSize: 13, color: "#2b3634", letterSpacing: "0.05em", width: "100%", fontWeight: 600, transition: "all .2s" }}
-                    onMouseOver={e => { e.currentTarget.style.background = "rgba(43,54,52,.14)"; e.currentTarget.style.borderColor = "rgba(43,54,52,.5)"; }}
-                    onMouseOut={e => { e.currentTarget.style.background = "rgba(43,54,52,.08)"; e.currentTarget.style.borderColor = "rgba(43,54,52,.35)"; }}>{t.prepBtn || "Prepare for this"}</button>
+          {roadmaps.length >= 3 ? (
+            <div style={{ padding: "12px 16px", borderRadius: 12, background: "rgba(43,54,52,.05)", border: "1px solid rgba(43,54,52,.15)", fontFamily: "'Space Grotesk', ui-monospace, monospace", fontSize: 12, color: "rgba(43,54,52,.55)", textAlign: "center" }}>{t.rmLimit}</div>
+          ) : (
+            <button onClick={() => { const rmId = "rm-" + Date.now(); const rm = { id: rmId, title: (lang === "mn" ? "Бэлтгэл: " : "Preparation: ") + pr.name, created: new Date().toISOString(), type: "internship" }; setRoadmaps(prev => [...(prev||[]), rm]); setSelected(null); openRoadmap(rmId); }}
+              style={{ padding: "14px 0", border: "1.5px solid rgba(43,54,52,.35)", borderRadius: 14, background: "rgba(43,54,52,.08)", cursor: "pointer", fontFamily: mono, fontSize: 13, color: "#2b3634", letterSpacing: "0.05em", width: "100%", fontWeight: 600, transition: "all .2s" }}
+                      onMouseOver={e => { e.currentTarget.style.background = "rgba(43,54,52,.14)"; e.currentTarget.style.borderColor = "rgba(43,54,52,.5)"; }}
+                      onMouseOut={e => { e.currentTarget.style.background = "rgba(43,54,52,.08)"; e.currentTarget.style.borderColor = "rgba(43,54,52,.35)"; }}>{t.prepBtn || "Prepare for this"}</button>
+          )}
         </div>
       </div>
     );
@@ -10360,7 +10379,7 @@ export default function App() {
     setLastDone(id);
   };
 
-  const DAILY_AI_LIMIT = 5;
+  const DAILY_AI_LIMIT = 10;
   const getChatUsage = () => {
     try {
       const raw = localStorage.getItem("q_chat_usage");
