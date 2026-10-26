@@ -8225,26 +8225,25 @@ function ProfessorFinder({ unlocked, open, setOpen }) {
             <input value={interest} onChange={e => setInterest(e.target.value)} onKeyDown={e => e.key === "Enter" && search()}
               placeholder="e.g. quantum computing, cancer biology..."
               style={{ width: "100%", padding: "12px 16px", border: "1.5px solid rgba(43,54,52,.35)", borderRadius: 12, background: "rgba(43,54,52,.02)", fontSize: 14, color: "#2b3634", outline: "none", fontFamily: mono, boxSizing: "border-box" }} />
+            <div style={{ marginTop: 10 }}>
+              <div style={{ fontFamily: mono, fontSize: 10, letterSpacing: "0.15em", color: "#2b3634", marginBottom: 8 }}>EXAMPLE TOPICS</div>
+              <div style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>
+                {RESEARCH_TOPICS.map(tp => (
+                  <button key={tp} onClick={() => { setInterest(tp); search(tp); }}
+                    style={{ padding: "6px 14px", border: `1.5px solid ${interest === tp ? "rgba(43,54,52,.5)" : "rgba(43,54,52,.35)"}`, borderRadius: 8, background: interest === tp ? "rgba(43,54,52,.14)" : "rgba(43,54,52,.08)", cursor: "pointer", fontFamily: mono, fontSize: 12, color: "#2b3634", fontWeight: interest === tp ? 600 : 400, transition: "all .2s" }}
+                    onMouseOver={e => { e.currentTarget.style.background = "rgba(43,54,52,.14)"; e.currentTarget.style.borderColor = "rgba(43,54,52,.5)"; }}
+                    onMouseOut={e => { e.currentTarget.style.background = interest === tp ? "rgba(43,54,52,.14)" : "rgba(43,54,52,.08)"; e.currentTarget.style.borderColor = interest === tp ? "rgba(43,54,52,.5)" : "rgba(43,54,52,.35)"; }}>
+                    {tp}
+                  </button>
+                ))}
+              </div>
+            </div>
           </div>
           <div>
             <label style={{ fontFamily: mono, fontSize: 10, letterSpacing: "0.15em", color: "#2b3634", display: "block", marginBottom: 8 }}>INSTITUTION <span style={{ opacity: 0.75 }}>(optional)</span></label>
             <input value={org} onChange={e => setOrg(e.target.value)} onKeyDown={e => e.key === "Enter" && search()}
               placeholder="MIT, Stanford, NUM..."
               style={{ width: "100%", padding: "12px 16px", border: "1.5px solid rgba(43,54,52,.35)", borderRadius: 12, background: "rgba(43,54,52,.02)", fontSize: 14, color: "#2b3634", outline: "none", fontFamily: mono, boxSizing: "border-box" }} />
-          </div>
-        </div>
-
-        <div style={{ marginBottom: 24 }}>
-          <div style={{ fontFamily: mono, fontSize: 10, letterSpacing: "0.15em", color: "#2b3634", marginBottom: 10 }}>EXAMPLE TOPICS</div>
-          <div style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>
-            {RESEARCH_TOPICS.map(tp => (
-              <button key={tp} onClick={() => { setInterest(tp); search(tp); }}
-                style={{ padding: "6px 14px", border: `1.5px solid ${interest === tp ? "rgba(43,54,52,.5)" : "rgba(43,54,52,.35)"}`, borderRadius: 8, background: interest === tp ? "rgba(43,54,52,.14)" : "rgba(43,54,52,.08)", cursor: "pointer", fontFamily: mono, fontSize: 12, color: "#2b3634", fontWeight: interest === tp ? 600 : 400, transition: "all .2s" }}
-                onMouseOver={e => { e.currentTarget.style.background = "rgba(43,54,52,.14)"; e.currentTarget.style.borderColor = "rgba(43,54,52,.5)"; }}
-                onMouseOut={e => { e.currentTarget.style.background = interest === tp ? "rgba(43,54,52,.14)" : "rgba(43,54,52,.08)"; e.currentTarget.style.borderColor = interest === tp ? "rgba(43,54,52,.5)" : "rgba(43,54,52,.35)"; }}>
-                {tp}
-              </button>
-            ))}
           </div>
         </div>
 
