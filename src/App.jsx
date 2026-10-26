@@ -9699,11 +9699,23 @@ QUALITY REQUIREMENTS
 
   return (
     <div className="max-w-3xl mx-auto px-6 py-8">
-      <div style={{ display: "flex", alignItems: "center", gap: 16, marginBottom: 40 }}>
-        <button onClick={() => go("home")} style={{ fontFamily: mono, fontSize: 12, color: "#2b3634", background: "rgba(43,54,52,.08)", border: "1.5px solid rgba(43,54,52,.35)", borderRadius: 10, cursor: "pointer", padding: "8px 16px", letterSpacing: "0.1em", fontWeight: 600, transition: "all .2s" }}
-          onMouseOver={e => { e.currentTarget.style.background = "rgba(43,54,52,.14)"; e.currentTarget.style.borderColor = "rgba(43,54,52,.5)"; }}
-          onMouseOut={e => { e.currentTarget.style.background = "rgba(43,54,52,.08)"; e.currentTarget.style.borderColor = "rgba(43,54,52,.35)"; }}>{lang === "mn" ? "НҮҮР" : "HOME"}</button>
-        <button onClick={() => go("roadmaps")} style={{ fontFamily: mono, fontSize: 12, color: "#2b3634", background: "none", border: "none", cursor: "pointer", padding: 0, letterSpacing: "0.1em" }}>{String.fromCharCode(8592)} {lang === "mn" ? "СУРАХ ЗАМУУД" : "LEARNING PATHS"}</button>
+      <div style={{ display: "flex", alignItems: "center", gap: 6, fontFamily: mono, fontSize: 11, color: "#2b3634", letterSpacing: "0.1em", padding: "0 0 20px", flexWrap: "wrap" }}>
+        <button onClick={() => go("home")} style={{ fontFamily: "inherit", fontSize: "inherit", color: "inherit", background: "none", border: "none", cursor: "pointer", padding: 0, letterSpacing: "inherit" }}
+          onMouseOver={e => e.currentTarget.style.opacity = "0.5"} onMouseOut={e => e.currentTarget.style.opacity = "1"}>
+          {lang === "mn" ? "НҮҮР" : "HOME"}
+        </button>
+        <span style={{ color: "rgba(43,54,52,.35)" }}>&lt;&lt;</span>
+        <button onClick={() => go("dashboard")} style={{ fontFamily: "inherit", fontSize: "inherit", color: "inherit", background: "none", border: "none", cursor: "pointer", padding: 0, letterSpacing: "inherit" }}
+          onMouseOver={e => e.currentTarget.style.opacity = "0.5"} onMouseOut={e => e.currentTarget.style.opacity = "1"}>
+          {lang === "mn" ? "ХЯНАЛТ" : "DASHBOARD"}
+        </button>
+        <span style={{ color: "rgba(43,54,52,.35)" }}>&lt;&lt;</span>
+        <button onClick={() => go("roadmaps")} style={{ fontFamily: "inherit", fontSize: "inherit", color: "inherit", background: "none", border: "none", cursor: "pointer", padding: 0, letterSpacing: "inherit" }}
+          onMouseOver={e => e.currentTarget.style.opacity = "0.5"} onMouseOut={e => e.currentTarget.style.opacity = "1"}>
+          {lang === "mn" ? "СУРАХ ЗАМУУД" : "LEARNING PATHS"}
+        </button>
+        <span style={{ color: "rgba(43,54,52,.35)" }}>&lt;&lt;</span>
+        <span style={{ fontWeight: 600 }}>{(rm.title || "Learning Path").toUpperCase()}</span>
       </div>
       <h1 className="q-display" style={{ fontSize: "clamp(28px,5vw,44px)", fontWeight: 800, color: "#2b3634", letterSpacing: "-0.04em", marginBottom: 8 }}>{rm.title || "Learning Path"}</h1>
       {rm.created && <div style={{ fontFamily: mono, fontSize: 12, color: "#2b3634", marginBottom: 40 }}>{new Date(rm.created).toLocaleDateString()}</div>}
