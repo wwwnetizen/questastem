@@ -8343,7 +8343,8 @@ function Dashboard() {
 
   const startEdit = () => { setForm({ name: u.name || "", grade: u.grade || "", school: u.school || "", country: u.country || "", bio: u.bio || "" }); setEditing(true); };
   const saveEdit = () => { updateProfile(form); setEditing(false); };
-  const saveStem = () => { updateProfile(stemForm); setStemModal(false); };
+  const [stemSaved, setStemSaved] = useState(false);
+  const saveStem = () => { updateProfile(stemForm); setStemModal(false); setStemSaved(true); setTimeout(() => setStemSaved(false), 2500); };
 
   const initials = (u.name || "?").split(" ").map(w => w[0]).join("").slice(0, 2).toUpperCase();
   const savedComps = comps.filter(c => Array.isArray(saved) && saved.includes(c.id));
@@ -8461,7 +8462,7 @@ function Dashboard() {
             <div style={{ fontFamily: mono, fontSize: 11, fontWeight: 600, color: "#2b3634", letterSpacing: "0.08em", marginBottom: 4 }}>{t.stemRequired || "STEM profile incomplete"}{React.createElement("span", { style: { color: "#c53030", marginLeft: 4, fontSize: 14, fontWeight: 700 } }, "*")}</div>
             <div style={{ fontSize: 13, color: "#2b3634", lineHeight: 1.4 }}>{t.stemRequiredDesc || "Complete your STEM profile for better personalized learning paths."}</div>
           </div>
-          <button onClick={() => { setStemForm({ stemGoal: u.stemGoal || "", stemKnowledge: u.stemKnowledge || "", priorComps: u.priorComps || "", targetOutcomes: u.targetOutcomes || "" }); setStemModal(true); }}
+          <button onClick={() => { setStemForm({ stemGoal: u.stemGoal || "", stemKnowledge: u.stemKnowledge || "", priorComps: u.priorComps || "", targetOutcomes: u.targetOutcomes || "" }); setActiveTab("stem"); }}
             style={{ fontFamily: mono, fontSize: 11, color: "#2b3634", border: "1.5px solid rgba(43,54,52,.35)", borderRadius: 10, padding: "8px 16px", background: "rgba(43,54,52,.08)", cursor: "pointer", fontWeight: 600, whiteSpace: "nowrap", transition: "all .2s" }}
             onMouseOver={e => { e.currentTarget.style.background = "rgba(43,54,52,.14)"; e.currentTarget.style.borderColor = "rgba(43,54,52,.5)"; }}
             onMouseOut={e => { e.currentTarget.style.background = "rgba(43,54,52,.08)"; e.currentTarget.style.borderColor = "rgba(43,54,52,.35)"; }}>
@@ -8481,7 +8482,7 @@ function Dashboard() {
       {/* Tabs */}
       <div style={{ display: "flex", gap: 0, borderBottom: "1px solid rgba(43,54,52,.35)", marginBottom: 36, overflowX: "auto" }}>
         {TABS.map(([id, label]) => (
-          <button key={id} onClick={() => setActiveTab(id)}
+          <button key={id} onClick={() => { setActiveTab(id); if (id === "stem") setStemForm({ stemGoal: u.stemGoal || "", stemKnowledge: u.stemKnowledge || "", priorComps: u.priorComps || "", targetOutcomes: u.targetOutcomes || "" }); }}
             style={{ fontFamily: mono, fontSize: 12, letterSpacing: "0.08em", color: activeTab === id ? "#2b3634" : "rgba(43,54,52,.35)", background: "none", border: "none", borderBottom: `2px solid ${activeTab === id ? "#2b3634" : "transparent"}`, padding: "10px 20px 12px", cursor: "pointer", marginBottom: -1, fontWeight: activeTab === id ? 600 : 400, whiteSpace: "nowrap" }}>
             {label.toUpperCase()}{id === "stem" && !profileComplete ? React.createElement("span", { style: { color: "#c53030", marginLeft: 4, fontSize: 14, fontWeight: 700 } }, "*") : null}
           </button>
@@ -8603,25 +8604,31 @@ function Dashboard() {
         </div>
       )}
 
-      {/* TAB: STEM Profile */}
+      {/* TAB: STEM Profile — inline editable form */}
       {activeTab === "stem" && (
         <div>
           <p style={{ fontSize: 14, color: "#2b3634", marginBottom: 24, lineHeight: 1.5 }}>{lang === "mn" ? "Энэ мэдээлэл таны сурах замыг AI-аар оновчтой болгоход ашиглагдана." : "This data is used by the AI to build smarter, personalized learning paths for you."}</p>
           {[
-            [t.stemGoalLabel || "PRIMARY GOAL", "stemGoal", u.stemGoal],
-            [t.stemKnowledgeLabel || "STEM KNOWLEDGE BASE", "stemKnowledge", u.stemKnowledge],
-            [t.stemCompsLabel || "PRIOR COMPETITIONS & PROGRAMS", "priorComps", u.priorComps],
-            [t.stemOutcomesLabel || "TARGET OUTCOMES", "targetOutcomes", u.targetOutcomes],
-          ].map(([label, key, val]) => (
+            [t.stemGoalLabel || "PRIMARY GOAL", "stemGoal", t.stemGoalPh || "e.g. Competition Prep, Research, General Learning", false, true],
+            [t.stemKnowledgeLabel || "STEM KNOWLEDGE BASE", "stemKnowledge", t.stemKnowledgePh || "What courses/topics do you already know?", true, true],
+            [t.stemCompsLabel || "PRIOR COMPETITIONS & PROGRAMS", "priorComps", t.stemCompsPh || "e.g. National Physics Olympiad, NASA Space Apps", true, false],
+            [t.stemOutcomesLabel || "TARGET OUTCOMES", "targetOutcomes", t.stemOutcomesPh || "e.g. IOAA 2027, MIT OCW Quantum Physics", true, false],
+          ].map(([label, key, ph, multi, required]) => (
             <div key={key} style={{ marginBottom: 20 }}>
-              <div style={{ fontFamily: mono, fontSize: 10, letterSpacing: "0.15em", color: "#2b3634", marginBottom: 6 }}>{label}</div>
-              <div style={{ fontSize: 14, color: val ? "#2b3634" : "rgba(43,54,52,.35)", padding: "10px 14px", background: "rgba(43,54,52,.03)", borderRadius: 12, minHeight: 20, lineHeight: 1.5 }}>{val || (lang === "mn" ? "Бөглөөгүй" : "Not filled in")}</div>
+              <label style={{ fontFamily: mono, fontSize: 10, letterSpacing: "0.15em", color: "#2b3634", display: "block", marginBottom: 6 }}>{label}{required ? React.createElement("span", { style: { color: "#c53030", marginLeft: 3 } }, "*") : null}</label>
+              {multi ? (
+                <textarea value={stemForm[key] || ""} onChange={e => setStemForm(p => ({ ...p, [key]: e.target.value }))} rows={3} placeholder={ph} style={textareaStyle} />
+              ) : (
+                <input value={stemForm[key] || ""} onChange={e => setStemForm(p => ({ ...p, [key]: e.target.value }))} placeholder={ph} style={inputStyle} />
+              )}
             </div>
           ))}
-          <button onClick={() => { setStemForm({ stemGoal: u.stemGoal || "", stemKnowledge: u.stemKnowledge || "", priorComps: u.priorComps || "", targetOutcomes: u.targetOutcomes || "" }); setStemModal(true); }}
-            style={{ ...faintBtn, marginTop: 8 }} onMouseOver={faintHover} onMouseOut={faintOut}>
-            {profileComplete ? (lang === "mn" ? "STEM профайл засах" : "Edit STEM Profile") : (t.stemCompleteProfile || "Complete STEM Profile")}
+          <button onClick={saveStem} disabled={!stemForm.stemGoal || !stemForm.stemKnowledge}
+            style={{ fontFamily: mono, fontSize: 13, color: (!stemForm.stemGoal || !stemForm.stemKnowledge) ? "rgba(43,54,52,.35)" : "#f0f2ee", background: (!stemForm.stemGoal || !stemForm.stemKnowledge) ? "rgba(43,54,52,.08)" : "#2b3634", border: "none", borderRadius: 14, padding: "14px 28px", cursor: (!stemForm.stemGoal || !stemForm.stemKnowledge) ? "default" : "pointer", fontWeight: 600, letterSpacing: "0.04em", transition: "all .2s" }}
+            onMouseOver={e => { if (stemForm.stemGoal && stemForm.stemKnowledge) e.currentTarget.style.opacity = "0.85"; }} onMouseOut={e => e.currentTarget.style.opacity = "1"}>
+            {t.stemSaveProfile || "Save STEM Profile"}
           </button>
+          {stemSaved && <div style={{ fontFamily: mono, fontSize: 12, color: "#2b3634", marginTop: 12, fontWeight: 600 }}>{t.stemProfileSaved || "STEM profile saved"}</div>}
         </div>
       )}
     </div>
