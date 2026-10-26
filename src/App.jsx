@@ -448,9 +448,9 @@ en: {
   },
 mn: {
     nav: { home: "Нүүр", learning: "Сургалт", research: "Судалгаа", competitions: "Тэмцээн", nasa: "NASA Space Apps Challenge", about: "Тухай", dashboard: "Хянах самбар", login: "Нэвтрэх", signin: "Бүртгүүлэх" },
-    heroEyebrow: "STEM боловсролын платформ", heroWhat: "STEM боловсролын платформ", heroChips: ["Хувийн сургалтын зам", "Судалгааны бэлтгэл", "Профессор хайгч", "Тэмцээнүүд", "Тэтгэлэг", "Их сургуулийн бэлтгэл"], heroL1: "STEM-ийг эзэмш,", heroL2: "дэлхийд хүр.",
+    heroEyebrow: "STEM боловсролын платформ", heroWhat: "STEM боловсролын платформ", heroChips: ["Хувийн сурах зам", "Судалгааны бэлтгэл", "Профессор хайгч", "Тэмцээнүүд", "Тэтгэлэг", "Их сургуулийн бэлтгэл"], heroL1: "STEM-ийг эзэмш,", heroL2: "дэлхийд хүр.",
     heroSub: "Questa дэлхийн шилдэг STEM нөөцүүдийг таны түвшинд тохируулан зохион байгуулж, эх хэлээр тань чиглүүлэн, судалгаа, тэмцээн, тэтгэлэг, шилдэг их сургуулиуд хүртэл хүргэнэ.",
-    ctaStart: "Миний сургалтын замыг бий болго",
+    ctaStart: "Миний сурах замыг бий болго",
     statsOpp: "боломж", statsStudents: "суралцагч", statsSubjects: "чиглэл",
     exploreTitle: "Энд юу хийж болох вэ?", exploreEyebrow: "Судлах",
     exploreCards: {
@@ -464,7 +464,7 @@ mn: {
     howTitle: "Хэрхэн ашиглах вэ?",
     howSteps: [
       ["Зорилгоо сонго", "Суралцах мэргэжил, олимпиад, судалгааны ажил эсвэл зүгээр л шинэ зүйл танин мэдэх, юуг зорин суралцахаа бидэнд хэлээрэй."],
-      ["Суралцах зам авах", "Бид таны суралцах ёстой дарааллын дагуу бодит хичээлүүдээс бүрдсэн алхам алхмаар ахих төлөвлөгөөг гаргаж өгнө."],
+      ["Сурах зам авах", "Бид таны суралцах ёстой дарааллын дагуу бодит хичээлүүдээс бүрдсэн алхам алхмаар ахих төлөвлөгөөг гаргаж өгнө."],
       ["Шилдгүүдээс суралц", "Ашиглах материал бүр MIT OpenCourseWare, Stanford, Harvard, Princeton зэрэг дэлхийн шилдэг сургуулиудын нөөц рүү шууд холбогдоно."],
       ["Ойлгосон зүйлсээ хянах", "Судалж дууссан сэдвүүдээ тэмдэглэж, хувийн тэмдэглэл хөтлөн, ахиц дэвшлээ эргэн хараарай."],
       ["Дараагийн алхмаа нээж илрүүл", "Бэлэн болсон цагт таны дараагийн хийх алхам аяндаа тодорхой болно."],
@@ -473,11 +473,11 @@ mn: {
     footNote: "",
     demoNote: "V1 туршилт, ахиц дахин ачааллахад арилна", adminLink: "Админ (туршилт)",
     langBtn: "EN", aiLabel: "AI туслах", aiSub: "Юу ч асуугаарай",
-    subjectsTitle: "Мэдлэгийн сүлжээ", subjectsSub: "Сэдэв бүр салбар чиглэлүүдэд хуваагдана. Салбар бүр одон орны загвартай сургалтын зам юм.",
+    subjectsTitle: "Мэдлэгийн сүлжээ", subjectsSub: "Сэдэв бүр салбар чиглэлүүдэд хуваагдана. Салбар бүр одон орны загвартай сурах зам юм.",
     branchesLabel: "салбар", nodesLabel: "сэдэв", weeksShort: "долоо хоног", hoursShort: "цаг",
-    openTree: "Сургалтын зам нээх", plannedLabel: "Удахгүй", liveBadge: "Идэвхтэй",
-    choosePath: "Эхлээд суралцах замаа сонгоорой", chooseSpec: "Одоо мэргэшлээ сонгоорой", explorePath: "Судлах", tracksLabel: "чиглэл",
-    plannedNote: "Эдгээр салбарын сургалтын замыг боловсруулж байна, бүтэц нь хэдэн зуугыг багтаахад бэлэн.",
+    openTree: "Сурах зам нээх", plannedLabel: "Удахгүй", liveBadge: "Идэвхтэй",
+    choosePath: "Эхлээд сурах замаа сонгоорой", chooseSpec: "Одоо мэргэшлээ сонгоорой", explorePath: "Судлах", tracksLabel: "чиглэл",
+    plannedNote: "Эдгээр салбарын сурах замыг боловсруулж байна, бүтэц нь хэдэн зуугыг багтаахад бэлэн.",
     backTo: "Буцах",
     stageF: "Суурь", stageA: "Гүнзгий", stageO: "Боломж", phF: "Суурь", phA: "Гүнзгий", phO: "Судалгаа ба Төсөл",
     lockedNode: "Түгжээтэй", firstDo: "Эхлээд:", done: "Дууссан",
@@ -533,7 +533,7 @@ mn: {
     entryPh: "Гарчиг... жишээ нь Кино санал болгох ML загвар", portfolioEmpty: "Одоогоор хоосон, эхний бүтээлээ нэмээрэй",
     searchTitle: "Хайлт", searchPh: "Сэдэв, тэмцээн, салбар хайх...", searchEmpty: "Үр дүн олдсонгүй",
     sTopics: "Сэдвүүд", sComps: "Тэмцээнүүд", sBranches: "Салбарууд",
-    obWelcome: "Тавтай морил!", obWelcomeSub: "Таны бэлтгэлийн сургалтын зам.",
+    obWelcome: "Тавтай морил!", obWelcomeSub: "Таны бэлтгэлийн сурах зам.",
     obContinue: "Үргэлжлүүлэх", obBack: "Буцах",
     obName: "Таныг юу гэж дуудах вэ?", obNamePh: "Таны нэр...",
     obGoal: "Таны зорилго юу вэ?", obGrade: "Хэддүгээр ангид сурдаг вэ?",
@@ -554,7 +554,7 @@ mn: {
     expOpts: ["Програмчлал", "Тэмцээн", "Судалгаа", "Лаборатори", "Төсөл", "Илтгэл", "Заах", "Бичих"],
     strengthOpts: ["Математик", "Тууштай байдал", "Сониуч зан", "Бодлого бодох", "Бүтээлч байдал", "Хурд"],
     weakOpts: ["Хойрго байдал", "Математик", "Англи хэл", "Тууштай байдал", "Урам зориг", "Цагийн менежмент"],
-    obGenBtn: "Миний сургалтын замыг бий болго", obGenerating: "Questa AI таны сургалтын замыг бүтээж байна...",
+    obGenBtn: "Миний сурах замыг бий болго", obGenerating: "Questa AI таны сурах замыг бүтээж байна...",
     obDone: "Таны зам бэлэн боллоо.", obStartsAt: "Эхлэх зам:", obKnownSkipped: "Мэдэх зүйлсийг тооцсон:", obGo: "Хянах самбар руу очих",
     gradeOpts: ["9-р анги", "10-р анги", "11-р анги", "12-р анги", "Бусад"],
     subjOpts: ["Математик", "Физик", "Хими", "Биологи", "Мэдээлэл зүй", "Инженерчлэл"],
@@ -564,7 +564,7 @@ mn: {
     engOpts: ["Анхан шат", "Суурь", "Дунд шат", "Дунд дээд шат", "Ахисан шат", "Чөлөөтэй"],
     chatGreet: (n) => `Сайн уу${n ? " " + n : ""}! Би Questa AI. Юугаар туслах вэ?`,
     chatPh: "Асуултаа бичнэ үү...",
-    quick: ["Сургалтын замаа бий болго", "Ойлголт тайлбарлах", "Судалгаа олох", "Дараа нь юу хийх вэ?"],
+    quick: ["Сурах замаа бий болго", "Ойлголт тайлбарлах", "Судалгаа олох", "Дараа нь юу хийх вэ?"],
     chatErr: "Уучлаарай, алдаа гарлаа. Дахин оролдоно уу.",
     nasaTitle: "NASA Space Apps Challenge, Улаанбаатар",
     nasaSub: "Дэлхийн хамгийн том хакатон, олон улсын тэмцээн. NASA-ийн нээлттэй өгөгдлөөр бодит бодлогуудыг 48 цагийн дотор шийдвэрлээрэй.",
@@ -574,8 +574,8 @@ mn: {
     aboutTitle: "Questa гэж юу вэ?",
     aboutHeadline: "Мэдлэг бүхэн дэс дараалалтай байдаг.",
     aboutP1: "Зарим санаа агуулга бусад зүйлсээсээ шалтгаалж, зарим чадвар суурь нь тавигдсан цагт л үнэ цэнтэй болдог. Мөн зарим асуудал таны өмнө нь анзаараагүй байсан мэдлэгийн дутагдлыг ил гаргадаг. Хичээлийн материалууд танд энэ бүхнийг нэг дор санал болгож чадах ч яг ямар дараалалтай суралцах нь илүү оновчтойг зааж өгдөггүй. Questa яг энэ дараалал, логикт анхаарлаа хандуулдаг.",
-    aboutP2: "Бид дэлхийн шилдэг, нээлттэй боловсролын нөөц бололцоонуудыг нэгтгэн, Монголын залууст зориулсан бие даан суралцах цэгцтэй хөтөч замуудыг бүтээж байна. Бидний зорилго бол сурагч, залуус бүрд эхлэх цэгээ хялбархан олох, суурь ойлголтуудыг гүнзгий эзэмших, мөн дэлхийн хэмжээний боломжуудаас суралцаж, хүртэх нөхцөлийг бүрдүүлэх явдал юм.",
-    aboutBody: `Questa бол Монголын оюутнуудыг "хаанаас эхлэхээ мэдэхгүй байна" гэснээс "дэлхийн түвшний боломжид бэлэн" болтол чиглүүлдэг нээлттэй платформ юм. Бид 300 гаруй боломж, нөөцийг нэгтгэсэн.\n\nБид дэлхийн шилдэг нээлттэй боловсролын нөөцүүдийг Монголын залуучуудад зориулсан бүтэцтэй, бие даан суралцах сургалтын замд нэгтгэсэн дижитал платформ бүтээж байна. Манай зорилго бол суралцагч бүрд тодорхой эхлэлийн цэг олж, үндсэн ойлголтуудыг эзэмшиж, дэлхийн боломжуудад хүрэхэд нь туслах явдал юм.`,
+    aboutP2: "Бид дэлхийн шилдэг, нээлттэй боловсролын нөөц бололцоонуудыг нэгтгэн, Монголын залууст зориулсан бие даан суралцах цэгцтэй сурах замуудыг бүтээж байна. Бидний зорилго бол сурагч, залуус бүрд эхлэх цэгээ хялбархан олох, суурь ойлголтуудыг гүнзгий эзэмших, мөн дэлхийн хэмжээний боломжуудаас суралцаж, хүртэх нөхцөлийг бүрдүүлэх явдал юм.",
+    aboutBody: `Questa бол Монголын оюутнуудыг "хаанаас эхлэхээ мэдэхгүй байна" гэснээс "дэлхийн түвшний боломжид бэлэн" болтол чиглүүлдэг нээлттэй платформ юм. Бид 300 гаруй боломж, нөөцийг нэгтгэсэн.\n\nБид дэлхийн шилдэг нээлттэй боловсролын нөөцүүдийг Монголын залуучуудад зориулсан бүтэцтэй, бие даан суралцах сурах замд нэгтгэсэн дижитал платформ бүтээж байна. Манай зорилго бол суралцагч бүрд тодорхой эхлэлийн цэг олж, үндсэн ойлголтуудыг эзэмшиж, дэлхийн боломжуудад хүрэхэд нь туслах явдал юм.`,
     platformEyebrow: "[ 002 ] ПЛАТФОРМ",
     guideEyebrow: "[ 003 ] ХӨТӨЧ",
     aboutMission: "Эрхэм зорилго", aboutMissionBody: "Сониуч суралцагч бүр, хөдөө ч хотод ч, дэлхийн шилдэг боловсролд хүрэх замтай байх ёстой.",
@@ -589,22 +589,22 @@ mn: {
     annNew: "+ Шинэ мэдэгдэл", annTitlePh: "Гарчиг...", annPublish: "Нийтлэх", annNone: "Мэдэгдэл байхгүй",
     annToolbar: "Формат: тод, жагсаалт, холбоос, HTML шаардлагагүй",
     adminSearch: "Хайх...",
-    rmTitle: "Миний суралцах замууд", rmSub: "Зорилго бүрд тохирсон хувийн суралцах зам.", rmNew: "+ Шинэ зам үүсгэх", rmNone: "Одоогоор зам байхгүй, эхнийхээ үүсгээрэй.", rmNoneTitle: "Одоогоор зам байхгүй", rmNoneDesc: "Шинээр үүсгэ, эсвэл тэмцээн, судалгааны хөтөлбөр дээрх \"Бэлтгэл хийх\" товч дар.", rmCreate: "Зам үүсгэх", rmOpen: "Нээх", rmDelete: "Устгах", rmRemove: "Устгах", rmGenerated: "Бэлэн", rmPending: "Хүлээгдэж буй", rmNewRoadmap: "Шинэ зам", rmRoadmapTitle: "ЗАМЫН НЭРС", rmType: "ТӨРӨЛ", rmTypeGeneral: "Ерөнхий суралцах", rmTypeComp: "Тэмцээнд бэлтгэх", rmTypeResearch: "Судалгааны төсөл", rmTypeSkill: "Ур чадвар хөгжүүлэх", rmCancel: "Цуцлах", rmCreateGen: "Үүсгэх", rmSignInMsg: "Нэвтэрч орсноор зам үүсгэж хадгалах боломжтой.", rmRecentRm: "СҮҮЛИЙН ЗАМУУД", rmSavedOpp: "ХАДГАЛСАН БОЛОМЖУУД", rmViewAll: "Бүгдийг харах", rmRoadmaps: "зам", dashProgress: "АХИЦ", dashTopics: "сэдэв гүйцээсэн", dashHours: "цаг суралцсан", dashRoadmaps: "ЗАМУУД",
-    rmOverview: "Тойм", rmGoal: "Зорилго", rmCareer: "Мэргэжил", rmDreamUni: "Мөрөөдлийн их сургууль", rmLevel: "Одоогийн түвшин", rmTarget: "Зорилтот түвшин", rmProgress: "Ахиц", rmCourses: "Хичээлүүд", rmDone: "Гүйцээсэн", rmNext: "Дараагийн хичээл", rmStartNext: "Дараагийг эхлэх", rmComps: "Холбоотой тэмцээнүүд", rmMilestones: "Чухал алхмууд", rmNoComps: "Тохирох тэмцээн одоогоор байхгүй.", rmPhaseCourses: "хичээл", rmAllDone: "Та энэ сургалтын замыг дуусгалаа.",
+    rmTitle: "Миний сурах замууд", rmSub: "Зорилго бүрд тохирсон хувийн сурах зам.", rmNew: "+ Шинэ сурах зам үүсгэх", rmNone: "Одоогоор сурах зам байхгүй, эхнийхээ үүсгээрэй.", rmNoneTitle: "Одоогоор сурах зам байхгүй", rmNoneDesc: "Шинээр үүсгэ, эсвэл тэмцээн, судалгааны хөтөлбөр дээрх \"Бэлтгэл хийх\" товч дар.", rmCreate: "Сурах зам үүсгэх", rmOpen: "Нээх", rmDelete: "Устгах", rmRemove: "Устгах", rmGenerated: "Бэлэн", rmPending: "Хүлээгдэж буй", rmNewRoadmap: "Шинэ сурах зам", rmRoadmapTitle: "СУРАХ ЗАМЫН НЭР", rmType: "ТӨРӨЛ", rmTypeGeneral: "Ерөнхий суралцах", rmTypeComp: "Тэмцээнд бэлтгэх", rmTypeResearch: "Судалгааны төсөл", rmTypeSkill: "Ур чадвар хөгжүүлэх", rmCancel: "Цуцлах", rmCreateGen: "Үүсгэх", rmSignInMsg: "Нэвтэрч орсноор сурах зам үүсгэж хадгалах боломжтой.", rmRecentRm: "СҮҮЛИЙН СУРАХ ЗАМУУД", rmSavedOpp: "ХАДГАЛСАН БОЛОМЖУУД", rmViewAll: "Бүгдийг харах", rmRoadmaps: "сурах зам", dashProgress: "АХИЦ", dashTopics: "сэдэв гүйцээсэн", dashHours: "цаг суралцсан", dashRoadmaps: "СУРАХ ЗАМУУД",
+    rmOverview: "Тойм", rmGoal: "Зорилго", rmCareer: "Мэргэжил", rmDreamUni: "Мөрөөдлийн их сургууль", rmLevel: "Одоогийн түвшин", rmTarget: "Зорилтот түвшин", rmProgress: "Ахиц", rmCourses: "Хичээлүүд", rmDone: "Гүйцээсэн", rmNext: "Дараагийн хичээл", rmStartNext: "Дараагийг эхлэх", rmComps: "Холбоотой тэмцээнүүд", rmMilestones: "Чухал алхмууд", rmNoComps: "Тохирох тэмцээн одоогоор байхгүй.", rmPhaseCourses: "хичээл", rmAllDone: "Та энэ сурах замыг дуусгалаа.",
     phaseT: { foundation: "Суурь", core: "Үндсэн мэдлэг", advanced: "Гүнзгийрүүлсэн", research: "Судалгаа ба Төсөл" },
     phaseWhy: { foundation: "Бүх зам энэ суурин дээр баригддаг.", core: "Таны чиглэлийн үндсэн онол.", advanced: "Гүнзгий, мэргэшсэн сэдвүүд.", research: "Мэдлэгээ хэрэглэ, судалгааны ур чадвар, төсөл, боломжууд." },
     lvlLbl: { beginner: "Анхлан суралцагч", intermediate: "Дунд шат", advanced: "Ахисан шат", competition: "Тэмцээн", university: "Их сургууль", olympiad: "Олимпиад", research: "Судалгаа", balanced: "Тэнцвэртэй", easy: "Хөнгөн", rigorous: "Хатуу" },
     legalTerms: "Үйлчилгээний нөхцөл", legalPrivacy: "Нууцлалын бодлого", legalClose: "ХААХ", legalApplies: "Хамаарах", legalContact: "Холбоо барих", allRights: "Бүх эрх хуулиар хамгаалагдсан",
-    navProfile: "Профайл", navRoadmaps: "Суралцах зам", backHome: "НҮҮР",
+    navProfile: "Профайл", navRoadmaps: "Сурах замууд", backHome: "НҮҮР",
     stemProfileTab: "STEM Профайл", stemGoalLabel: "ҮНДСЭН ЗОРИЛГО", stemGoalPh: "жишээ нь Тэмцээнд бэлтгэх, Судалгаа, Ерөнхий суралцах",
     stemKnowledgeLabel: "STEM МЭДЛЭГИЙН СУУРЬ", stemKnowledgePh: "Ямар хичээл/сэдэв аль хэдийн мэддэг вэ? жишээ нь Механик, Calculus, Python",
     stemCompsLabel: "ТЭМЦЭЭН, ХӨТӨЛБӨРИЙН ТУРШЛАГА", stemCompsPh: "жишээ нь Физикийн олимпиад, NASA Space Apps, AMC",
     stemOutcomesLabel: "ЗОРИЛТОТ ҮР ДҮН", stemOutcomesPh: "жишээ нь IOAA 2027, MIT OCW Квант физик, Судалгааны нийтлэл",
-    stemIncomplete: "Хувийн суралцах зам нээхийн тулд STEM профайлаа бөглөнө үү.",
+    stemIncomplete: "Хувийн сурах зам нээхийн тулд STEM профайлаа бөглөнө үү.",
     stemCompleteProfile: "STEM профайл бөглөх", stemSaveProfile: "STEM профайл хадгалах", stemProfileSaved: "STEM профайл хадгалагдлаа",
-    stemRequired: "STEM профайл бөглөгдөөгүй байна", stemRequiredDesc: "Илүү оновчтой зам авахын тулд STEM профайлаа бөглөнө үү.",
+    stemRequired: "STEM профайл бөглөгдөөгүй байна", stemRequiredDesc: "Илүү оновчтой сурах зам авахын тулд STEM профайлаа бөглөнө үү.",
     tabOverview: "Тойм", tabSaved: "Хадгалсан",
-    manageRoadmaps: "Замуудаа удирдах", myRoadmaps: "Миний замууд", createNewRoadmap: "Шинэ зам үүсгэх", pathSelect: "Замаа сонгоно уу", pathComp: "Тэмцээнд бэлтгэх", pathResearch: "Судалгааны төсөл", pathCourse: "Хичээл эзэмших",
+    manageRoadmaps: "Сурах замуудаа цэгцлэх", myRoadmaps: "Миний сурах замууд", createNewRoadmap: "Шинэ сурах зам үүсгэх", pathSelect: "Замаа сонгоно уу", pathComp: "Тэмцээнд бэлтгэх", pathResearch: "Судалгааны төсөл", pathCourse: "Хичээл эзэмших",
     researchDiagTitle: "Судалгааны оношлогоо", researchDomainLabel: "СУДАЛГААНЫ ЧИГЛЭЛ", researchDomainPh: "жишээ нь Хатуу биетийн физик, Машин сургалт",
     researchExpLabel: "СУДАЛГААНЫ ТУРШЛАГА", researchExpPh: "жишээ нь Эрдмийн нийтлэл уншсан, LaTeX/Python ашигласан",
     researchGoalLabel: "СУДАЛГААНЫ ЗОРИЛГО", researchGoalPh: "жишээ нь Бие даасан нийтлэл, лабораторид нэгдэх, ментор олох",
@@ -6860,7 +6860,7 @@ function HomePage() {
   const aboutFeatures = [
     { Icon: Network, title: isMn ? "Бүтэцтэй мэдлэгийн мод" : "Structured knowledge trees", desc: isMn ? "6 хичээл, 500+ сургалтын зангилаа." : "Six subjects, 500+ learning nodes with prerequisites and vetted resources." },
     { Icon: BookOpen, title: isMn ? "Баталгаажсан эх сурвалж" : "Verified resources", desc: isMn ? "MIT OCW, OpenStax, Khan Academy, CS50." : "MIT OpenCourseWare, OpenStax, Khan Academy, CS50, and more." },
-    { Icon: Compass, title: isMn ? "Хувийн замын зураг" : "Personalized learning paths", desc: isMn ? "Зорилго, түвшинд тохирсон алхам алхмаар зам." : "A step-by-step path tuned to your goal and level." },
+    { Icon: Compass, title: isMn ? "Хувийн сурах зам" : "Personalized learning paths", desc: isMn ? "Зорилго, түвшинд тохирсон алхам алхмаар зам." : "A step-by-step path tuned to your goal and level." },
   ];
   const pinned = anns.filter((a) => a.pinned)[0];
 
@@ -7013,7 +7013,7 @@ function LegalModal({ type, onClose }) {
 
             <Section number={2} title={lang === "mn" ? "Questa-гийн тухай" : "About Questa"}>
               {lang === "mn"
-                ? "Questa нь Монгол оюутан, сурагчдад зориулсан STEM боловсролын платформ юм. Платформ нь хиймэл оюун ухаанаар хувийн сургалтын зам үүсгэх, тэмцээн болон хөтөлбөрийн гарын авлага, судалгааны нөөц, суралцах хэрэгслүүдийг санал болгодог. Questa нь бие даасан үйл ажиллагаа явуулдаг бөгөөд Платформ дээр тодорхой дурдаагүй бол аливаа тэмцээн зохион байгуулагч, их сургууль, засгийн газрын байгууллага, гуравдагч талын агуулга нийлүүлэгчтэй хамтран ажиллахгүй, тэдний дэмжлэг авдаггүй."
+                ? "Questa нь Монгол оюутан, сурагчдад зориулсан STEM боловсролын платформ юм. Платформ нь хиймэл оюун ухаанаар хувийн сурах зам үүсгэх, тэмцээн болон хөтөлбөрийн гарын авлага, судалгааны нөөц, суралцах хэрэгслүүдийг санал болгодог. Questa нь бие даасан үйл ажиллагаа явуулдаг бөгөөд Платформ дээр тодорхой дурдаагүй бол аливаа тэмцээн зохион байгуулагч, их сургууль, засгийн газрын байгууллага, гуравдагч талын агуулга нийлүүлэгчтэй хамтран ажиллахгүй, тэдний дэмжлэг авдаггүй."
                 : "Questa is a STEM education platform built for Mongolian students. The Platform provides AI-generated personalized learning paths, curated competition and program guides, research resources, and study tools designed to support academic and scientific development. Questa operates independently and is not affiliated with, endorsed by, or partnered with any competition organizer, university, government institution, or third-party content provider unless explicitly and specifically stated on the Platform."}
             </Section>
 
@@ -7038,7 +7038,7 @@ function LegalModal({ type, onClose }) {
             <Section number={4} title={lang === "mn" ? "Зөвшөөрөгдсөн хэрэглээ" : "Permitted Use"}>
               <Sub label={lang === "mn" ? "4.1 Зөвхөн боловсролын зорилгоор" : "4.1 Educational Use Only"}>
                 {lang === "mn"
-                  ? "Платформ нь зөвхөн хувийн, ашгийн бус боловсролын зорилгоор ашиглахад зориулагдсан. Та агуулга үзэх, сургалтын зам үүсгэх, нөөц хадгалах, AI хэрэгслийг өөрийн суралцахад ашиглаж болно."
+                  ? "Платформ нь зөвхөн хувийн, ашгийн бус боловсролын зорилгоор ашиглахад зориулагдсан. Та агуулга үзэх, сурах зам үүсгэх, нөөц хадгалах, AI хэрэгслийг өөрийн суралцахад ашиглаж болно."
                   : "The Platform is provided exclusively for personal, non-commercial educational use. You may browse content, generate learning paths, save resources, and use AI tools for your own study and academic planning."}
               </Sub>
               <Sub label={lang === "mn" ? "4.2 Хориглосон үйлдлүүд" : "4.2 Prohibited Conduct"}>
@@ -7051,7 +7051,7 @@ function LegalModal({ type, onClose }) {
             <Section number={5} title={lang === "mn" ? "AI-аар бүтээсэн агуулга ба үнэн зөв байдал" : "AI-Generated Content and Accuracy"}>
               <Sub label={lang === "mn" ? "5.1 AI агуулгын мөн чанар" : "5.1 Nature of AI Content"}>
                 {lang === "mn"
-                  ? "Questa нь хиймэл оюун ухааныг ашиглан хувийн сургалтын зам үүсгэх, сургалтын чиглүүлэг өгөх, AI туслахаар дамжуулан асуултад хариулдаг. AI-аар бүтээсэн агуулга нь зөвхөн мэдээлэл, боловсролын зорилгоор хангагддаг."
+                  ? "Questa нь хиймэл оюун ухааныг ашиглан хувийн сурах зам үүсгэх, сургалтын чиглүүлэг өгөх, AI туслахаар дамжуулан асуултад хариулдаг. AI-аар бүтээсэн агуулга нь зөвхөн мэдээлэл, боловсролын зорилгоор хангагддаг."
                   : "Questa uses artificial intelligence to generate personalized learning paths, provide academic guidance, and answer questions through its integrated AI assistant. AI-generated content is produced algorithmically and is provided for informational and educational purposes only."}
               </Sub>
               <Sub label={lang === "mn" ? "5.2 Үнэн зөв байдлын баталгаагүй" : "5.2 No Guarantee of Accuracy"}>
@@ -7074,7 +7074,7 @@ function LegalModal({ type, onClose }) {
             <Section number={6} title={lang === "mn" ? "Оюуны өмч" : "Intellectual Property"}>
               <Sub label={lang === "mn" ? "6.1 Questa-гийн агуулга" : "6.1 Questa Content"}>
                 {lang === "mn"
-                  ? "Платформ дээрх бүх эх агуулга, тухайлбал текст, дизайн, график, код, өгөгдлийн эмхэтгэл, сургалтын замын бүтэц, хэрэглэгчийн интерфэйсийн элементүүд нь Questa-д эзэмшигддэг буюу лицензтэй бөгөөд зохиогчийн эрх, барааны тэмдэг, оюуны өмчийн хуулиар хамгаалагддаг. Зөвшөөрөлгүй хуулбарлах, түгээх, дериватив бүтээл хийхийг хатуу хориглоно."
+                  ? "Платформ дээрх бүх эх агуулга, тухайлбал текст, дизайн, график, код, өгөгдлийн эмхэтгэл, сурах замын бүтэц, хэрэглэгчийн интерфэйсийн элементүүд нь Questa-д эзэмшигддэг буюу лицензтэй бөгөөд зохиогчийн эрх, барааны тэмдэг, оюуны өмчийн хуулиар хамгаалагддаг. Зөвшөөрөлгүй хуулбарлах, түгээх, дериватив бүтээл хийхийг хатуу хориглоно."
                   : "All original content on the Platform, including but not limited to text, design, graphics, code, data compilations, learning path structures, and user interface elements, is owned by or licensed to Questa and is protected by applicable copyright, trademark, and intellectual property laws. Unauthorized reproduction, distribution, or creation of derivative works is strictly prohibited."}
               </Sub>
               <Sub label={lang === "mn" ? "6.2 Гуравдагч талын агуулга" : "6.2 Third-Party Content"}>
@@ -7146,7 +7146,7 @@ function LegalModal({ type, onClose }) {
               </Sub>
               <Sub label={lang === "mn" ? "2.3 Суралцах өгөгдөл" : "2.3 Learning Data"}>
                 {lang === "mn"
-                  ? "Таны сургалтын зам, дууссан сэдвүүд, хадгалсан нөөцүүд, тэмдэглэл болон холбогдох үйл ажиллагаа зөвхөн таны хөтчийн localStorage-д хадгалагдана. Энэ өгөгдөл таны төхөөрөмж дээр үлдэх бөгөөд Questa хандах боломжгүй."
+                  ? "Таны сурах зам, дууссан сэдвүүд, хадгалсан нөөцүүд, тэмдэглэл болон холбогдох үйл ажиллагаа зөвхөн таны хөтчийн localStorage-д хадгалагдана. Энэ өгөгдөл таны төхөөрөмж дээр үлдэх бөгөөд Questa хандах боломжгүй."
                   : "Your learning paths, completed topics, saved resources, notes, and related activity are stored exclusively in your browser's localStorage. This data remains on your device and is not accessible to Questa."}
               </Sub>
               <Sub label={lang === "mn" ? "2.4 AI харилцааны өгөгдөл" : "2.4 AI Interaction Data"}>
@@ -7168,7 +7168,7 @@ function LegalModal({ type, onClose }) {
 
             <Section number={3} title={lang === "mn" ? "Мэдээллийг хэрхэн ашигладаг" : "How We Use Your Information"}>
               {lang === "mn"
-                ? "Бид цуглуулсан мэдээллийг дараах зорилгоор ашиглана: таны хэрэглэгчийн бүртгэлийг үүсгэх, хөтлөх; платформ дээрх туршлагыг хувийн болгох; платформын функц, контентийг хангах, ажиллуулах, сайжруулах; AI сургалтын зам үүсгэх хүсэлтийг боловсруулах; таны дэмжлэгийн хүсэлт, харилцаанд хариулах; аюулгүй байдлын зөрчлийг хянах, зүй бус хэрэглээнээс сэргийлэх; платформыг сайжруулах дотоод аналитик хийх. Бид таны мэдээллийг зар сурталчилгаанд ашигладаггүй, мөн ямар ч тохиолдолд гуравдагч этгээдэд зардаггүй, түрээслүүлдэггүй, солилцдоггүй."
+                ? "Бид цуглуулсан мэдээллийг дараах зорилгоор ашиглана: таны хэрэглэгчийн бүртгэлийг үүсгэх, хөтлөх; платформ дээрх туршлагыг хувийн болгох; платформын функц, контентийг хангах, ажиллуулах, сайжруулах; AI сурах зам үүсгэх хүсэлтийг боловсруулах; таны дэмжлэгийн хүсэлт, харилцаанд хариулах; аюулгүй байдлын зөрчлийг хянах, зүй бус хэрэглээнээс сэргийлэх; платформыг сайжруулах дотоод аналитик хийх. Бид таны мэдээллийг зар сурталчилгаанд ашигладаггүй, мөн ямар ч тохиолдолд гуравдагч этгээдэд зардаггүй, түрээслүүлдэггүй, солилцдоггүй."
                 : "We use the information we collect for the following purposes: to create and maintain your user account; to personalize your experience on the Platform; to provide, operate, and improve Platform features and content; to process AI learning path generation requests; to respond to your support inquiries and communications; to monitor for security incidents and prevent misuse; and to conduct internal analytics to improve the Platform. We do not use your information for advertising, and we do not sell, rent, or trade your personal information to any third party under any circumstances."}
             </Section>
 
@@ -7181,7 +7181,7 @@ function LegalModal({ type, onClose }) {
             <Section number={5} title={lang === "mn" ? "Өгөгдлийн хадгалалт, аюулгүй байдал" : "Data Storage and Security"}>
               <Sub label={lang === "mn" ? "5.1 Локал хадгалалт" : "5.1 Local Storage"}>
                 {lang === "mn"
-                  ? "Таны хувийн мэдээллийн ихэнх хэсэг, тухайлбал профайлын дэлгэрэнгүй, сургалтын зам, тэмдэглэл, явц нь таны төхөөрөмж дээрх хөтчийн localStorage-д хадгалагдана. Энэ мэдээлэлд Questa хандах боломжгүй бөгөөд бүрэн таны хяналтад байна. Хөтчийн сайтын өгөгдлийг арилгавал бүрмөсөн устана."
+                  ? "Таны хувийн мэдээллийн ихэнх хэсэг, тухайлбал профайлын дэлгэрэнгүй, сурах зам, тэмдэглэл, явц нь таны төхөөрөмж дээрх хөтчийн localStorage-д хадгалагдана. Энэ мэдээлэлд Questa хандах боломжгүй бөгөөд бүрэн таны хяналтад байна. Хөтчийн сайтын өгөгдлийг арилгавал бүрмөсөн устана."
                   : "The majority of your personal data, including your profile details, learning paths, notes, and progress, is stored in your browser's localStorage on your own device. This data is not accessible to Questa and remains entirely under your control. It will be permanently deleted if you clear your browser's site data."}
               </Sub>
               <Sub label={lang === "mn" ? "5.2 Firebase Authentication" : "5.2 Firebase Authentication"}>
@@ -7206,7 +7206,7 @@ function LegalModal({ type, onClose }) {
               </Sub>
               <Sub label="Google Gemini API">
                 {lang === "mn"
-                  ? "AI туслах болон сургалтын зам үүсгэхэд ашиглагдана. Оруулсан асуултууд боловсруулалтын зорилгоор Google руу дамжуулагдана. Google-ийн API нөхцөл болон өгөгдлийн бодлогод хамаарна."
+                  ? "AI туслах болон сурах зам үүсгэхэд ашиглагдана. Оруулсан асуултууд боловсруулалтын зорилгоор Google руу дамжуулагдана. Google-ийн API нөхцөл болон өгөгдлийн бодлогод хамаарна."
                   : "Used to power the AI assistant and learning path generation. Input queries are transmitted to Google for processing. Subject to Google's API terms and data policies."}
               </Sub>
               <Sub label="Vercel">
@@ -8366,7 +8366,7 @@ function Dashboard() {
   if (!user) return (
     <div className="max-w-3xl mx-auto px-6 py-8" style={{ textAlign: "center", paddingTop: 120 }}>
       <h2 style={{ fontSize: 22, fontWeight: 800, color: "#2b3634", marginBottom: 8 }}>{lang === "mn" ? "Нэвтэрч орно уу" : "Sign in to view your dashboard"}</h2>
-      <p style={{ fontSize: 14, color: "#2b3634", marginBottom: 32 }}>{lang === "mn" ? "Ахиц, суралцах зам, хадгалсан тэмцээнүүдээ хянаарай." : "Track your progress, learning paths, and saved competitions."}</p>
+      <p style={{ fontSize: 14, color: "#2b3634", marginBottom: 32 }}>{lang === "mn" ? "Ахиц, сурах замууд, хадгалсан тэмцээнүүдээ хянаарай." : "Track your progress, learning paths, and saved competitions."}</p>
       <button onClick={() => setObOpen(true)} style={{ ...faintBtn }} onMouseOver={faintHover} onMouseOut={faintOut}>{lang === "mn" ? "Нэвтрэх" : "Sign in"}</button>
     </div>
   );
@@ -8376,7 +8376,7 @@ function Dashboard() {
     <div style={{ position: "fixed", inset: 0, zIndex: 9999, display: "flex", alignItems: "center", justifyContent: "center", background: "rgba(0,0,0,.45)" }} onClick={() => setStemModal(false)}>
       <div onClick={e => e.stopPropagation()} style={{ background: "#f0f2ee", borderRadius: 24, padding: "36px 32px", maxWidth: 520, width: "90vw", maxHeight: "85vh", overflowY: "auto" }}>
         <h2 style={{ fontSize: 20, fontWeight: 800, color: "#2b3634", marginBottom: 6 }}>{t.stemCompleteProfile || "Complete STEM Profile"}</h2>
-        <p style={{ fontSize: 13, color: "#2b3634", marginBottom: 24, lineHeight: 1.5 }}>{lang === "mn" ? "Энэ мэдээлэл таны суралцах замыг оновчтой болгоно." : "This information helps us build smarter, personalized learning paths."}</p>
+        <p style={{ fontSize: 13, color: "#2b3634", marginBottom: 24, lineHeight: 1.5 }}>{lang === "mn" ? "Энэ мэдээлэл таны сурах замыг оновчтой болгоно." : "This information helps us build smarter, personalized learning paths."}</p>
         {[
           [t.stemGoalLabel || "PRIMARY GOAL", "stemGoal", t.stemGoalPh || "e.g. Competition Prep, Research, General Learning", false],
           [t.stemKnowledgeLabel || "STEM KNOWLEDGE BASE", "stemKnowledge", t.stemKnowledgePh || "What courses/topics do you already know?", true],
@@ -8473,7 +8473,7 @@ function Dashboard() {
       {/* Stats row */}
       <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 10, marginBottom: 32 }}>
         {statCard(completedCount, lang === "mn" ? "СЭДЭВ" : "TOPICS DONE")}
-        {statCard(roadmaps.length, lang === "mn" ? "ЗАМУУД" : "LEARNING PATHS")}
+        {statCard(roadmaps.length, lang === "mn" ? "СУРАХ ЗАМУУД" : "LEARNING PATHS")}
         {statCard(savedComps.length, lang === "mn" ? "ХАДГАЛСАН" : "SAVED")}
         {statCard(notesCount, lang === "mn" ? "ТЭМДЭГЛЭЛ" : "NOTES")}
       </div>
@@ -8542,7 +8542,7 @@ function Dashboard() {
           )}
           {completedCount === 0 && roadmaps.length === 0 && savedComps.length === 0 && (
             <div style={{ textAlign: "center", padding: "48px 0", color: "#2b3634", fontSize: 14 }}>
-              {lang === "mn" ? "Суралцаж эхлээрэй. Сэдэв гүйцээж, зам бий болгоод, тэмцээн хадгалаарай." : "Start learning to build your profile. Complete topics, create learning paths, and save competitions."}
+              {lang === "mn" ? "Суралцаж эхлээрэй. Сэдэв гүйцээж, сурах зам бий болгоод, тэмцээн хадгалаарай." : "Start learning to build your profile. Complete topics, create learning paths, and save competitions."}
             </div>
           )}
         </div>
@@ -8606,7 +8606,7 @@ function Dashboard() {
       {/* TAB: STEM Profile */}
       {activeTab === "stem" && (
         <div>
-          <p style={{ fontSize: 14, color: "#2b3634", marginBottom: 24, lineHeight: 1.5 }}>{lang === "mn" ? "Энэ мэдээлэл таны суралцах замыг AI-аар оновчтой болгоход ашиглагдана." : "This data is used by the AI to build smarter, personalized learning paths for you."}</p>
+          <p style={{ fontSize: 14, color: "#2b3634", marginBottom: 24, lineHeight: 1.5 }}>{lang === "mn" ? "Энэ мэдээлэл таны сурах замыг AI-аар оновчтой болгоход ашиглагдана." : "This data is used by the AI to build smarter, personalized learning paths for you."}</p>
           {[
             [t.stemGoalLabel || "PRIMARY GOAL", "stemGoal", u.stemGoal],
             [t.stemKnowledgeLabel || "STEM KNOWLEDGE BASE", "stemKnowledge", u.stemKnowledge],
@@ -9278,7 +9278,7 @@ function RoadmapsPage() {
     <div style={{ position: "fixed", inset: 0, zIndex: 9999, display: "flex", alignItems: "center", justifyContent: "center", background: "rgba(0,0,0,.45)" }} onClick={() => setResearchModal(false)}>
       <div onClick={e => e.stopPropagation()} style={{ background: "#f0f2ee", borderRadius: 24, padding: "36px 32px", maxWidth: 520, width: "90vw", maxHeight: "85vh", overflowY: "auto" }}>
         <h2 style={{ fontSize: 20, fontWeight: 800, color: "#2b3634", marginBottom: 6 }}>{t.researchDiagTitle || "Research Diagnostic"}</h2>
-        <p style={{ fontSize: 13, color: "#2b3634", marginBottom: 24, lineHeight: 1.5 }}>{lang === "mn" ? "Таны судалгааны замыг оновчтой болгохын тулд хэдэн асуулт хариулна уу." : "Answer a few questions so we can build the right research learning path for you."}</p>
+        <p style={{ fontSize: 13, color: "#2b3634", marginBottom: 24, lineHeight: 1.5 }}>{lang === "mn" ? "Таны судалгааны сурах замыг оновчтой болгохын тулд хэдэн асуулт хариулна уу." : "Answer a few questions so we can build the right research learning path for you."}</p>
         {[
           [t.researchDomainLabel || "RESEARCH DOMAIN", "domain", t.researchDomainPh || "e.g. Condensed Matter Physics, ML"],
           [t.researchExpLabel || "PRIOR RESEARCH EXPERIENCE", "experience", t.researchExpPh || "e.g. Read academic papers, used LaTeX/Python"],
@@ -9418,7 +9418,7 @@ function RoadmapsPage() {
       {/* Existing roadmaps list */}
       {roadmaps.length > 0 && (
         <div>
-          <div style={{ fontFamily: mono, fontSize: 10, letterSpacing: "0.2em", color: "#2b3634", marginBottom: 16 }}>{lang === "mn" ? "МИНИЙ ЗАМУУД" : "MY LEARNING PATHS"}</div>
+          <div style={{ fontFamily: mono, fontSize: 10, letterSpacing: "0.2em", color: "#2b3634", marginBottom: 16 }}>{lang === "mn" ? "МИНИЙ СУРАХ ЗАМУУД" : "MY LEARNING PATHS"}</div>
           <div style={{ display: "flex", flexDirection: "column" }}>
             {roadmaps.map((rm, i) => (
               <div key={rm.id} style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "clamp(16px,2.5vh,24px) 0", borderBottom: i < roadmaps.length - 1 ? "1px solid rgba(43,54,52,.08)" : "none" }}>
@@ -9676,7 +9676,7 @@ QUALITY REQUIREMENTS
 
 
       const reply = await callAI(isMn
-        ? "Та STEM боловсролын ахлах зөвлөх юм. Зохион байгуулалттай, товч, практик суралцах зам бичнэ. Хичээл бүрт 1-2 өгүүлбэрээр тайлбар бичиж, нөөцийн линкүүдийг оруулна. Урт эссэ БҮҮ бич. БҮГДИЙГ МОНГОЛ ХЭЛЭЭР БИЧНЭ. ЧУХАЛ: Markdown тэмдэгт ОГТХОН ашиглахгүй -- ###, **, *, ---, - гэх мэт тэмдэгт бүү хэрэглэ. Гарчгийг ТОМ ҮСГЭЭР бич, хоосон мөрөөр салга. Жагсаалтад тоо (1. 2. 3.) эсвэл хоосон мөр ашигла. ЧУХАЛ: Нийт хариултаа 2500 үгэнд багтааж бичнэ үү. Бүх хэсгийг бүрэн дуусгах нь чухал -- дундаас нь таслахгүй."
+        ? "Та STEM боловсролын ахлах зөвлөх юм. Зохион байгуулалттай, товч, практик сурах зам бичнэ. Хичээл бүрт 1-2 өгүүлбэрээр тайлбар бичиж, нөөцийн линкүүдийг оруулна. Урт эссэ БҮҮ бич. БҮГДИЙГ МОНГОЛ ХЭЛЭЭР БИЧНЭ. ЧУХАЛ: Markdown тэмдэгт ОГТХОН ашиглахгүй -- ###, **, *, ---, - гэх мэт тэмдэгт бүү хэрэглэ. Гарчгийг ТОМ ҮСГЭЭР бич, хоосон мөрөөр салга. Жагсаалтад тоо (1. 2. 3.) эсвэл хоосон мөр ашигла. ЧУХАЛ: Нийт хариултаа 2500 үгэнд багтааж бичнэ үү. Бүх хэсгийг бүрэн дуусгах нь чухал -- дундаас нь таслахгүй."
         : "You are a precise STEM education advisor. Write organized, concise, actionable preparation roadmaps. Keep explanations to 1-2 sentences per course/topic -- the value is in the organized course sequence and resource links, not long paragraphs. CRITICAL: Do NOT use any markdown formatting symbols -- no ###, no **, no *, no ---, no bullet dashes. Write headings in UPPERCASE and separate sections with blank lines. Use numbered lists (1. 2. 3.) instead of bullet points. IMPORTANT: Keep your TOTAL response under 2500 words. Complete ALL sections fully -- never stop mid-sentence or mid-section. Prioritize finishing every section over adding extra detail to any one section.", [{ role: "user", content: prompt }], { maxTokens: 16384 });
       setContent(reply);
       setPhase("done");
@@ -9689,7 +9689,7 @@ QUALITY REQUIREMENTS
           : "Traffic is high right now. This is temporary -- please try again in a moment.");
       } else {
         setContent(lang === "mn"
-          ? "Суралцах зам үүсгэхэд алдаа гарлаа. Дахин оролдоно уу."
+          ? "Сурах зам үүсгэхэд алдаа гарлаа. Дахин оролдоно уу."
           : "Could not generate learning path. Please try again.");
       }
       setPhase("done");
@@ -9710,7 +9710,7 @@ QUALITY REQUIREMENTS
         <button onClick={() => go("home")} style={{ fontFamily: mono, fontSize: 12, color: "#2b3634", background: "rgba(43,54,52,.08)", border: "1.5px solid rgba(43,54,52,.35)", borderRadius: 10, cursor: "pointer", padding: "8px 16px", letterSpacing: "0.1em", fontWeight: 600, transition: "all .2s" }}
           onMouseOver={e => { e.currentTarget.style.background = "rgba(43,54,52,.14)"; e.currentTarget.style.borderColor = "rgba(43,54,52,.5)"; }}
           onMouseOut={e => { e.currentTarget.style.background = "rgba(43,54,52,.08)"; e.currentTarget.style.borderColor = "rgba(43,54,52,.35)"; }}>{lang === "mn" ? "НҮҮР" : "HOME"}</button>
-        <button onClick={() => go("roadmaps")} style={{ fontFamily: mono, fontSize: 12, color: "#2b3634", background: "none", border: "none", cursor: "pointer", padding: 0, letterSpacing: "0.1em" }}>{String.fromCharCode(8592)} {lang === "mn" ? "ЗАМУУД" : "LEARNING PATHS"}</button>
+        <button onClick={() => go("roadmaps")} style={{ fontFamily: mono, fontSize: 12, color: "#2b3634", background: "none", border: "none", cursor: "pointer", padding: 0, letterSpacing: "0.1em" }}>{String.fromCharCode(8592)} {lang === "mn" ? "СУРАХ ЗАМУУД" : "LEARNING PATHS"}</button>
       </div>
       <h1 className="q-display" style={{ fontSize: "clamp(28px,5vw,44px)", fontWeight: 800, color: "#2b3634", letterSpacing: "-0.04em", marginBottom: 8 }}>{rm.title || "Learning Path"}</h1>
       {rm.created && <div style={{ fontFamily: mono, fontSize: 12, color: "#2b3634", marginBottom: 40 }}>{new Date(rm.created).toLocaleDateString()}</div>}
@@ -9731,7 +9731,7 @@ QUALITY REQUIREMENTS
             </div>
           )}
 
-          <p style={{ fontSize: 14, color: "#2b3634", lineHeight: 1.7, margin: 0 }}>{lang === "mn" ? "Эдгээр асуултад хариулснаар таны нөхцөл байдалд тохирсон суралцах зам бүтээнэ. Дэлгэрэнгүй хариулах тусам төлөвлөгөө илүү нарийвчлалтай болно." : "Answer these questions so the learning path is built around your exact situation. The more you share, the more specific and useful the plan."}</p>
+          <p style={{ fontSize: 14, color: "#2b3634", lineHeight: 1.7, margin: 0 }}>{lang === "mn" ? "Эдгээр асуултад хариулснаар таны нөхцөл байдалд тохирсон сурах зам бүтээнэ. Дэлгэрэнгүй хариулах тусам төлөвлөгөө илүү нарийвчлалтай болно." : "Answer these questions so the learning path is built around your exact situation. The more you share, the more specific and useful the plan."}</p>
 
           {/* Q1: Current level */}
           <div>
@@ -9831,7 +9831,7 @@ QUALITY REQUIREMENTS
 
           <button onClick={generateRoadmap} disabled={!level || !hoursPerWeek || !compExp || !timeline || !biggestChallenge || !goal.trim()}
             style={{ padding: "15px 0", border: "1.5px solid rgba(43,54,52,.2)", borderRadius: 14, background: "transparent", cursor: (!level || !hoursPerWeek || !compExp || !timeline || !biggestChallenge || !goal.trim()) ? "default" : "pointer", fontFamily: mono, fontSize: 13, fontWeight: 600, color: (!level || !hoursPerWeek || !compExp || !timeline || !biggestChallenge || !goal.trim()) ? "rgba(43,54,52,.4)" : "#2b3634", letterSpacing: "0.05em" }}>
-            {(!level || !hoursPerWeek || !compExp || !timeline || !biggestChallenge || !goal.trim()) ? (lang === "mn" ? "Бүх асуултад хариулна уу" : "Answer all questions to continue") : (lang === "mn" ? "Миний суралцах замыг бүтээх" : "Build my personalized learning path")}
+            {(!level || !hoursPerWeek || !compExp || !timeline || !biggestChallenge || !goal.trim()) ? (lang === "mn" ? "Бүх асуултад хариулна уу" : "Answer all questions to continue") : (lang === "mn" ? "Миний сурах замыг бүтээх" : "Build my personalized learning path")}
           </button>
         </div>
       )}
