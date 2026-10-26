@@ -115,9 +115,12 @@ async function callAI(system, messages, opts = {}) {
       err.traffic = true;
       throw err;
     }
-    throw new Error("AI request failed");
+    let errMsg = "AI request failed";
+    try { const eb = await r.json(); errMsg = eb.error || errMsg; } catch {}
+    throw new Error(errMsg);
   }
   const data = await r.json();
+  if (!data.text) throw new Error("Empty response from AI");
   return data.text;
 }
 
@@ -10304,7 +10307,8 @@ export default function App() {
       const trafficMsg = lang === "mn"
         ? "Одоогоор хандалт ихтэй байна. Түр хүлээгээд дахин оролдоно уу."
         : "Traffic is high right now. This is temporary, please try again shortly.";
-      setBranchChats((bc) => ({ ...bc, [key]: [...next, { role: "assistant", content: err?.traffic ? trafficMsg : t.chatErr }] }));
+      const fallback = err?.message && err.message !== "AI request failed" ? err.message : t.chatErr;
+      setBranchChats((bc) => ({ ...bc, [key]: [...next, { role: "assistant", content: err?.traffic ? trafficMsg : fallback }] }));
     }
     setChatLoading(false);
   };
