@@ -9796,7 +9796,9 @@ QUALITY REQUIREMENTS
           </div>
 
           <button onClick={generateRoadmap} disabled={!hoursPerWeek || !timeline || !biggestChallenge}
-            style={{ padding: "15px 0", border: "1.5px solid rgba(43,54,52,.2)", borderRadius: 14, background: "transparent", cursor: (!hoursPerWeek || !timeline || !biggestChallenge) ? "default" : "pointer", fontFamily: mono, fontSize: 13, fontWeight: 600, color: (!hoursPerWeek || !timeline || !biggestChallenge) ? "rgba(43,54,52,.4)" : "#2b3634", letterSpacing: "0.05em" }}>
+            style={{ padding: "15px 0", border: "none", borderRadius: 14, background: (!hoursPerWeek || !timeline || !biggestChallenge) ? "rgba(43,54,52,.08)" : "#2b3634", cursor: (!hoursPerWeek || !timeline || !biggestChallenge) ? "default" : "pointer", fontFamily: mono, fontSize: 13, fontWeight: 600, color: (!hoursPerWeek || !timeline || !biggestChallenge) ? "rgba(43,54,52,.35)" : "#f0f2ee", letterSpacing: "0.05em", transition: "all .2s" }}
+            onMouseOver={e => { if (hoursPerWeek && timeline && biggestChallenge) e.currentTarget.style.opacity = "0.85"; }}
+            onMouseOut={e => e.currentTarget.style.opacity = "1"}>
             {(!hoursPerWeek || !timeline || !biggestChallenge) ? (lang === "mn" ? "Бүх асуултад хариулна уу" : "Answer all questions to continue") : (lang === "mn" ? "Миний сурах замыг бүтээх" : "Build my personalized learning path")}
           </button>
         </div>
