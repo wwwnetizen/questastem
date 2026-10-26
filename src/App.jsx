@@ -310,7 +310,7 @@ function Starfield({ count = 48, dark = false, glyphs = true }) {
 const I18N = {
 en: {
     nav: { home: "Home", learning: "Learning", research: "Research", competitions: "Competitions", nasa: "NASA Space Apps Challenge", about: "About", dashboard: "Dashboard", login: "Log In", signin: "Sign In" },
-    heroEyebrow: "STEM learning platform", heroWhat: "STEM learning platform", heroChips: ["Personalized learning paths", "Research prep", "Professor finder", "Competitions", "Scholarships", "University prep"], heroL1: "Master STEM", heroL2: "reach the world's best.",
+    heroEyebrow: "STEM learning platform", heroWhat: "STEM learning platform", heroChips: ["Personalized learning paths", "Research prep", "Professor finder", "Competitions", "Scholarships", "University prep"], heroL1: "Create your", heroL2: "learning path.",
     heroSub: "Questa turns the world's best STEM resources into a personalized learning path, with guidance in your own language, and takes you from your current level to research, competitions, scholarships, and top universities.",
     ctaStart: "Generate my tailored learning path",
     statsOpp: "opportunities", statsStudents: "students", statsSubjects: "subjects",
@@ -498,7 +498,7 @@ en: {
   },
 mn: {
     nav: { home: "Нүүр", learning: "Сургалт", research: "Судалгаа", competitions: "Тэмцээн", nasa: "NASA Space Apps Challenge", about: "Тухай", dashboard: "Хянах самбар", login: "Нэвтрэх", signin: "Бүртгүүлэх" },
-    heroEyebrow: "STEM боловсролын платформ", heroWhat: "STEM боловсролын платформ", heroChips: ["Хувийн сурах зам", "Судалгааны бэлтгэл", "Профессор хайгч", "Тэмцээнүүд", "Тэтгэлэг", "Их сургуулийн бэлтгэл"], heroL1: "STEM-ийг эзэмш,", heroL2: "дэлхийд хүр.",
+    heroEyebrow: "STEM боловсролын платформ", heroWhat: "STEM боловсролын платформ", heroChips: ["Хувийн сурах зам", "Судалгааны бэлтгэл", "Профессор хайгч", "Тэмцээнүүд", "Тэтгэлэг", "Их сургуулийн бэлтгэл"], heroL1: "Сурах замаа", heroL2: "бүтээ.",
     heroSub: "Questa дэлхийн шилдэг STEM нөөцүүдийг таны түвшинд тохируулан зохион байгуулж, эх хэлээр тань чиглүүлэн, судалгаа, тэмцээн, тэтгэлэг, шилдэг их сургуулиуд хүртэл хүргэнэ.",
     ctaStart: "Миний сурах замыг бий болго",
     statsOpp: "боломж", statsStudents: "суралцагч", statsSubjects: "чиглэл",
@@ -6646,9 +6646,10 @@ function MdLite({ text }) {
 function Navbar() {
   const { t, lang, toggleLang, go, page, user, setSearchOpen, setObOpen } = useQ();
   const [open, setOpen] = useState(false);
+  const isHome = page === "home";
   const items = [["home", t.nav.home], ["learning", t.nav.learning], ["research", t.nav.research], ["competitions", t.nav.competitions], ["nasa", t.nav.nasa]];
   return (
-    <header className="sticky top-0" style={{ padding: "calc(10px + env(safe-area-inset-top, 0px)) calc(10px + env(safe-area-inset-right, 0px)) 10px calc(10px + env(safe-area-inset-left, 0px))", background: "transparent", pointerEvents: "none", zIndex: 10001, position: "sticky" }}>
+    <header style={{ padding: "calc(10px + env(safe-area-inset-top, 0px)) calc(10px + env(safe-area-inset-right, 0px)) 10px calc(10px + env(safe-area-inset-left, 0px))", background: "transparent", pointerEvents: "none", zIndex: 10001, position: isHome ? "fixed" : "sticky", top: 0, left: 0, right: 0 }}>
       <div aria-hidden="true" style={{ position: "absolute", top: 0, left: 0, right: 0, height: "env(safe-area-inset-top, 0px)", background: "#ffffff" }} />
       <div className="max-w-5xl mx-auto flex items-center justify-between" style={{ pointerEvents: "auto", background: "rgba(62,78,72,.65)", backdropFilter: "blur(20px)", WebkitBackdropFilter: "blur(20px)", borderRadius: 14, padding: "0 8px 0 20px", height: 50 }}>
         <button onClick={() => { go("home"); setOpen(false); }} className="shrink-0" style={{ background: "none", border: "none", cursor: "pointer", opacity: 0.9 }}><Logo size={26} onDark /></button>
@@ -6810,10 +6811,10 @@ function useScrollReveal() {
 function CinematicHero({ go, t, lang }) {
     const mono = "'Space Grotesk', 'Roboto Mono', ui-monospace, monospace";
   return (
-    <section className="hero-section" style={{ position: "relative", minHeight: "100dvh", width: "100%", display: "flex", flexDirection: "column", justifyContent: "space-between", overflow: "visible", background: "transparent", paddingTop: "calc(80px + env(safe-area-inset-top, 0px))", paddingBottom: "4rem" }}>
+    <section className="hero-section" style={{ position: "relative", minHeight: "70dvh", width: "100%", display: "flex", flexDirection: "column", justifyContent: "center", overflow: "visible", background: "transparent", paddingTop: "calc(80px + env(safe-area-inset-top, 0px))", paddingBottom: "3rem" }}>
       <style>{`
-        @supports not (min-height: 100dvh) { .hero-section { min-height: -webkit-fill-available !important; } }
-        @media (min-width: 768px) { .hero-section { padding-top: clamp(180px,28vh,300px) !important; } }
+        @supports not (min-height: 70dvh) { .hero-section { min-height: 520px !important; } }
+        @media (min-width: 768px) { .hero-section { min-height: 65dvh !important; padding-top: clamp(120px,18vh,200px) !important; } }
       `}</style>
       {/* Editorial annotations */}
       <div className="hero-ann-left" style={{ position: "absolute", top: "clamp(80px,12vh,120px)", left: "clamp(24px,5vw,64px)", zIndex: 3, fontFamily: "'Space Grotesk', monospace", fontSize: 11, letterSpacing: "0.1em", color: "#2b3634", lineHeight: 1.7 }}>
@@ -6897,9 +6898,9 @@ function CinematicHero({ go, t, lang }) {
       <div style={{ flex: 1, display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center" }}>
         <div style={{ position: "relative", zIndex: 2, padding: "0 clamp(24px,6vw,90px)", width: "100%", maxWidth: 1200 }}>
           <h1 style={{ margin: 0, lineHeight: 0.94, textAlign: "left", maxWidth: 900 }}>
-            <span className="hero-title-line" style={{ display: "block", fontFamily: "'Archivo', 'Montserrat', sans-serif", fontSize: "clamp(48px,10vw,140px)", fontWeight: 800, color: "#2b3634", letterSpacing: "-0.045em" }}>{lang === "mn" ? "СУРАЛЦАХАД" : "ALWAYS MORE"}</span>
-            <span className="hero-title-line" style={{ display: "block", fontFamily: "'Archivo', 'Montserrat', sans-serif", fontSize: "clamp(48px,10vw,140px)", fontWeight: 800, color: "#2b3634", letterSpacing: "-0.045em", marginTop: "-0.04em" }}>{lang === "mn" ? "ХЯЗГААР ҮГҮЙ" : "TO LEARN"}</span>
-            <style>{`@media (min-width: 768px) { .hero-title-line { font-size: clamp(48px,8vw,110px) !important; } }`}</style>
+            <span className="hero-title-line" style={{ display: "block", fontFamily: "'Archivo', 'Montserrat', sans-serif", fontSize: "clamp(32px,7vw,80px)", fontWeight: 800, color: "#2b3634", letterSpacing: "-0.04em" }}>{lang === "mn" ? "СУРАХ ЗАМАА" : "CREATE YOUR"}</span>
+            <span className="hero-title-line" style={{ display: "block", fontFamily: "'Archivo', 'Montserrat', sans-serif", fontSize: "clamp(32px,7vw,80px)", fontWeight: 800, color: "#2b3634", letterSpacing: "-0.04em", marginTop: "-0.04em" }}>{lang === "mn" ? "БҮТЭЭ" : "LEARNING PATH"}</span>
+            <style>{`@media (min-width: 768px) { .hero-title-line { font-size: clamp(40px,5.5vw,72px) !important; } }`}</style>
           </h1>
         </div>
       </div>
