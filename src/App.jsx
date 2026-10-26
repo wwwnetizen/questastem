@@ -9669,6 +9669,7 @@ function RoadmapDetail() {
   const rm = roadmaps.find((r) => r.id === activeRoadmap) || roadmaps[0];
   const [content, setContent] = useState(rm?.content || null);
   const [phase, setPhase] = useState(rm?.content ? "done" : "intake"); // intake | generating | done
+  const [genError, setGenError] = useState(false);
   const [level, setLevel] = useState(rm?.level || "");
   const [hoursPerWeek, setHoursPerWeek] = useState(rm?.hoursPerWeek || "");
   const [goal, setGoal] = useState(rm?.goal || "");
@@ -9687,6 +9688,7 @@ function RoadmapDetail() {
 
   const generateRoadmap = async () => {
     if (!rmCanGenerate) return;
+    setGenError(false);
     setPhase("generating");
     try {
       const u = user || {};
@@ -9904,6 +9906,7 @@ QUALITY REQUIREMENTS
       // persist content + all intake fields into roadmap object
       setRoadmaps(prev => prev.map(r => r.id === rm.id ? { ...r, content: reply, level, hoursPerWeek, goal, priorKnowledge, compExp, timeline, biggestChallenge } : r));
     } catch (err) {
+      setGenError(true);
       if (err?.traffic) {
         setContent(lang === "mn"
           ? "Одоогоор хандалт ихтэй байна. Энэ нь түр зуурынх тул дахин оролдоно уу."
@@ -10025,14 +10028,17 @@ QUALITY REQUIREMENTS
               {t.rmLimit}
             </div>
           )}
-          {rmCanGenerate && (
-            <button onClick={generateRoadmap} disabled={!hoursPerWeek || !timeline || !biggestChallenge}
-              style={{ padding: "15px 0", border: "none", borderRadius: 14, background: (!hoursPerWeek || !timeline || !biggestChallenge) ? "rgba(43,54,52,.08)" : "#2b3634", cursor: (!hoursPerWeek || !timeline || !biggestChallenge) ? "default" : "pointer", fontFamily: mono, fontSize: 13, fontWeight: 600, color: (!hoursPerWeek || !timeline || !biggestChallenge) ? "rgba(43,54,52,.35)" : "#f0f2ee", letterSpacing: "0.05em", transition: "all .2s" }}
-              onMouseOver={e => { if (hoursPerWeek && timeline && biggestChallenge) e.currentTarget.style.opacity = "0.85"; }}
-              onMouseOut={e => e.currentTarget.style.opacity = "1"}>
-              {(!hoursPerWeek || !timeline || !biggestChallenge) ? (lang === "mn" ? "Бүх асуултад хариулна уу" : "Answer all questions to continue") : (lang === "mn" ? "Миний сурах замыг бүтээх" : "Build my personalized learning path")}
+          {rmCanGenerate && (() => {
+            const ready = hoursPerWeek && timeline && biggestChallenge;
+            return (
+            <button onClick={generateRoadmap} disabled={!ready}
+              style={{ padding: "15px 0", borderRadius: 14, border: ready ? "1.5px solid rgba(43,54,52,.35)" : "1.5px solid rgba(43,54,52,.12)", background: ready ? "rgba(43,54,52,.08)" : "rgba(43,54,52,.03)", cursor: ready ? "pointer" : "default", fontFamily: mono, fontSize: 13, fontWeight: 600, color: ready ? "#2b3634" : "rgba(43,54,52,.35)", letterSpacing: "0.05em", transition: "all .2s" }}
+              onMouseOver={e => { if (ready) { e.currentTarget.style.background = "rgba(43,54,52,.14)"; e.currentTarget.style.borderColor = "rgba(43,54,52,.5)"; } }}
+              onMouseOut={e => { e.currentTarget.style.background = ready ? "rgba(43,54,52,.08)" : "rgba(43,54,52,.03)"; e.currentTarget.style.borderColor = ready ? "rgba(43,54,52,.35)" : "rgba(43,54,52,.12)"; }}>
+              {!ready ? (lang === "mn" ? "Бүх асуултад хариулна уу" : "Answer all questions to continue") : (lang === "mn" ? "Миний сурах замыг бүтээх" : "Build my personalized learning path")}
             </button>
-          )}
+            );
+          })()}
           {rmCanGenerate && rmCount > 0 && (
             <div style={{ fontFamily: mono, fontSize: 11, color: "rgba(43,54,52,.5)", textAlign: "center", marginTop: 4 }}>
               {t.rmLimitShort(rmCount)}
@@ -10137,12 +10143,21 @@ QUALITY REQUIREMENTS
           )}
 
           <div style={{ height: 1, background: "rgba(43,54,52,.22)", margin: "40px 0 24px" }} />
-          <button onClick={() => { setContent(null); setPhase("intake"); setLevel(rm.level || ""); setHoursPerWeek(rm.hoursPerWeek || ""); setGoal(rm.goal || ""); setPriorKnowledge(rm.priorKnowledge || ""); setCompExp(rm.compExp || ""); setTimeline(rm.timeline || ""); setBiggestChallenge(rm.biggestChallenge || ""); }}
-            style={{ padding: "10px 20px", fontFamily: mono, fontSize: 12, color: "#2b3634", background: "rgba(43,54,52,.08)", border: "1.5px solid rgba(43,54,52,.35)", borderRadius: 10, cursor: "pointer", letterSpacing: "0.1em", fontWeight: 600, transition: "all .2s" }}
-            onMouseOver={e => { e.currentTarget.style.background = "rgba(43,54,52,.14)"; e.currentTarget.style.borderColor = "rgba(43,54,52,.5)"; }}
-            onMouseOut={e => { e.currentTarget.style.background = "rgba(43,54,52,.08)"; e.currentTarget.style.borderColor = "rgba(43,54,52,.35)"; }}>
-            {lang === "mn" ? "Дахин үүсгэх" : "Regenerate"}
-          </button>
+          {genError ? (
+            <button onClick={() => generateRoadmap()}
+              style={{ padding: "10px 20px", fontFamily: mono, fontSize: 12, color: "#2b3634", background: "rgba(43,54,52,.08)", border: "1.5px solid rgba(43,54,52,.35)", borderRadius: 10, cursor: "pointer", letterSpacing: "0.1em", fontWeight: 600, transition: "all .2s" }}
+              onMouseOver={e => { e.currentTarget.style.background = "rgba(43,54,52,.14)"; e.currentTarget.style.borderColor = "rgba(43,54,52,.5)"; }}
+              onMouseOut={e => { e.currentTarget.style.background = "rgba(43,54,52,.08)"; e.currentTarget.style.borderColor = "rgba(43,54,52,.35)"; }}>
+              {lang === "mn" ? "Дахин оролдох" : "Try again"}
+            </button>
+          ) : (
+            <button onClick={() => { setContent(null); setPhase("intake"); setLevel(rm.level || ""); setHoursPerWeek(rm.hoursPerWeek || ""); setGoal(rm.goal || ""); setPriorKnowledge(rm.priorKnowledge || ""); setCompExp(rm.compExp || ""); setTimeline(rm.timeline || ""); setBiggestChallenge(rm.biggestChallenge || ""); }}
+              style={{ padding: "10px 20px", fontFamily: mono, fontSize: 12, color: "#2b3634", background: "rgba(43,54,52,.08)", border: "1.5px solid rgba(43,54,52,.35)", borderRadius: 10, cursor: "pointer", letterSpacing: "0.1em", fontWeight: 600, transition: "all .2s" }}
+              onMouseOver={e => { e.currentTarget.style.background = "rgba(43,54,52,.14)"; e.currentTarget.style.borderColor = "rgba(43,54,52,.5)"; }}
+              onMouseOut={e => { e.currentTarget.style.background = "rgba(43,54,52,.08)"; e.currentTarget.style.borderColor = "rgba(43,54,52,.35)"; }}>
+              {lang === "mn" ? "Дахин үүсгэх" : "Regenerate"}
+            </button>
+          )}
         </>
         );
       })()}
