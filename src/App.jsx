@@ -9682,7 +9682,7 @@ QUALITY REQUIREMENTS
       if (err?.traffic) {
         setContent(lang === "mn"
           ? "Одоогоор хандалт ихтэй байна. Энэ нь түр зуурынх тул дахин оролдоно уу."
-          : "Traffic is high right now. This is temporary -- please try again in a moment.");
+          : "Traffic is high right now. This is temporary, please try again in a moment.");
       } else {
         setContent(lang === "mn"
           ? "Сурах зам үүсгэхэд алдаа гарлаа. Дахин оролдоно уу."
@@ -10172,7 +10172,7 @@ export default function App() {
     } catch (err) {
       const trafficMsg = lang === "mn"
         ? "Одоогоор хандалт ихтэй байна. Түр хүлээгээд дахин оролдоно уу."
-        : "Traffic is high right now. This is temporary -- please try again shortly.";
+        : "Traffic is high right now. This is temporary, please try again shortly.";
       setBranchChats((bc) => ({ ...bc, [key]: [...next, { role: "assistant", content: err?.traffic ? trafficMsg : t.chatErr }] }));
     }
     setChatLoading(false);
