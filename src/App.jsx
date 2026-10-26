@@ -7971,7 +7971,7 @@ function NodeDrawer() {
 
 /* ═══ MODULE: components/CompetitionsPage.jsx ═══ */
 function CompetitionsPage() {
-  const { t, lang, comps, go, roadmaps, setRoadmaps, saved, toggleSaved } = useQ();
+  const { t, lang, comps, go, roadmaps, setRoadmaps, saved, toggleSaved, openRoadmap } = useQ();
   const [selected, setSelected] = useState(null);
   const [activeCat, setActiveCat] = useState("all");
   const mono = "'Space Grotesk', ui-monospace, monospace";
@@ -8354,7 +8354,7 @@ function ProfessorFinder({ unlocked, open, setOpen }) {
 
 /* ═══ MODULE: components/NasaPage.jsx ═══ */
 function NasaPage() {
-  const { t, lang, comps, go } = useQ();
+  const { t, lang, comps, go, setRoadmaps, openRoadmap } = useQ();
   const nasa = comps.find((c) => c.id === "nasa-space-apps");
   const mono = "'Space Grotesk', ui-monospace, monospace";
   if (!nasa) return <div className="max-w-3xl mx-auto px-6 py-8"><h1 className="q-display" style={{ fontSize: 36, fontWeight: 800, color: "#2b3634" }}>NASA Space Apps Challenge</h1><p style={{ marginTop: 16, color: "#2b3634" }}>Coming soon.</p></div>;
@@ -8379,7 +8379,8 @@ function NasaPage() {
         {nasa.link && <a href={nasa.link} target="_blank" rel="noreferrer" style={{ display: "block", padding: "14px 0", border: "1.5px solid rgba(43,54,52,.35)", borderRadius: 14, textAlign: "center", fontFamily: mono, fontSize: 13, color: "#2b3634", background: "rgba(43,54,52,.08)", textDecoration: "none", letterSpacing: "0.05em", fontWeight: 600, transition: "all .2s" }}
                     onMouseOver={e => { e.currentTarget.style.background = "rgba(43,54,52,.14)"; e.currentTarget.style.borderColor = "rgba(43,54,52,.5)"; }}
                     onMouseOut={e => { e.currentTarget.style.background = "rgba(43,54,52,.08)"; e.currentTarget.style.borderColor = "rgba(43,54,52,.35)"; }}>{t.view || "Register here"}</a>}
-        <button style={{ padding: "14px 0", border: "1.5px solid rgba(43,54,52,.35)", borderRadius: 14, background: "rgba(43,54,52,.08)", cursor: "pointer", fontFamily: mono, fontSize: 13, color: "#2b3634", letterSpacing: "0.05em", width: "100%", fontWeight: 600, transition: "all .2s" }}
+        <button onClick={() => { const rmId = "rm-" + Date.now(); const rm = { id: rmId, title: (lang === "mn" ? "Бэлтгэл: " : "Preparation: ") + (nasa.name[lang] || nasa.name.en), created: new Date().toISOString(), type: "competition", targetId: nasa.id }; setRoadmaps(prev => [...(prev||[]), rm]); openRoadmap(rmId); }}
+          style={{ padding: "14px 0", border: "1.5px solid rgba(43,54,52,.35)", borderRadius: 14, background: "rgba(43,54,52,.08)", cursor: "pointer", fontFamily: mono, fontSize: 13, color: "#2b3634", letterSpacing: "0.05em", width: "100%", fontWeight: 600, transition: "all .2s" }}
                     onMouseOver={e => { e.currentTarget.style.background = "rgba(43,54,52,.14)"; e.currentTarget.style.borderColor = "rgba(43,54,52,.5)"; }}
                     onMouseOut={e => { e.currentTarget.style.background = "rgba(43,54,52,.08)"; e.currentTarget.style.borderColor = "rgba(43,54,52,.35)"; }}>{t.prepBtn || "Prepare for this"}</button>
       </div>
@@ -9339,7 +9340,7 @@ function Onboarding() {
 
 /* ═══ MODULE: components/ChatWidget.jsx ═══  (Questa AI, bottom-LEFT robot) */
 function ChatWidget() {
-  const { t, lang, chatOpen, setChatOpen, chatMsgs, chatLoading, sendChat, activeChatLabel, chatRemaining } = useQ();
+  const { t, lang, chatOpen, setChatOpen, chatMsgs, chatLoading, sendChat, activeChatLabel, chatRemaining, clearChat } = useQ();
   const [input, setInput] = useState("");
   const scrollRef = useRef(null);
   useEffect(() => { if (scrollRef.current) scrollRef.current.scrollTop = scrollRef.current.scrollHeight; }, [chatMsgs, chatLoading]);
@@ -9355,7 +9356,12 @@ function ChatWidget() {
             <div style={{ fontFamily: mono, fontSize: 11, letterSpacing: "0.2em", color: "#2b3634" }}>AI ASSISTANT</div>
             {activeChatLabel && <div style={{ fontSize: 12, color: "#2b3634", marginTop: 2 }}>{activeChatLabel}</div>}
           </div>
-          <button onClick={() => setChatOpen(false)} style={{ background: "none", border: "none", cursor: "pointer", color: "#2b3634", fontSize: 18 }}>{String.fromCharCode(10005)}</button>
+          <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+            {chatMsgs.length > 0 && <button onClick={clearChat} style={{ background: "none", border: "1px solid rgba(43,54,52,.25)", borderRadius: 8, cursor: "pointer", color: "rgba(43,54,52,.55)", fontSize: 11, fontFamily: mono, padding: "4px 10px", letterSpacing: "0.05em", transition: "all .2s" }}
+              onMouseOver={e => { e.currentTarget.style.color = "#2b3634"; e.currentTarget.style.borderColor = "rgba(43,54,52,.5)"; }}
+              onMouseOut={e => { e.currentTarget.style.color = "rgba(43,54,52,.55)"; e.currentTarget.style.borderColor = "rgba(43,54,52,.25)"; }}>{lang === "mn" ? "Устгах" : "Clear"}</button>}
+            <button onClick={() => setChatOpen(false)} style={{ background: "none", border: "none", cursor: "pointer", color: "#2b3634", fontSize: 18 }}>{String.fromCharCode(10005)}</button>
+          </div>
         </div>
         <div ref={scrollRef} style={{ flex: 1, overflowY: "auto", padding: "20px 24px", display: "flex", flexDirection: "column", gap: 16 }}>
           {chatMsgs.map((m, i) => (
@@ -10115,7 +10121,7 @@ const INTERN_PROGRAMS = [
   { name: "Google Summer of Code", org: "Google", url: "https://summerofcode.withgoogle.com/", en: "Google Summer of Code is a global program that pairs contributors with open-source software organizations for a paid summer coding project. Participants are matched with a mentor organization, agree on a project scope, and spend 10 to 22 weeks implementing their contribution to a real open-source codebase. The program is open to participants aged 18 and older, making it a strong target to work toward during high school. Past participants have contributed to projects including Linux, Python, Mozilla, and hundreds of other widely used tools. Acceptance requires both a competitive written proposal and demonstrated programming ability, so building a strong GitHub portfolio before applying is important.", mn: "Google Summer of Code бол хувь нэмэр оруулагчдыг нээлттэй эхийн програм хангамжийн байгууллагуудтай хослуулж, цалинтай зуны кодчиллын төсөл хийлгэдэг дэлхийн хөтөлбөр юм. Оролцогчдыг ментор байгууллагатай холбож, төслийн хамрах хүрээг тохиролцож, 10-22 долоо хоногийн турш бодит нээлттэй эхийн кодод хувь нэмрээ оруулдаг. Хөтөлбөр нь 18 ба түүнээс дээш насныханд нээлттэй бөгөөд ахлах сургуулийн үед чиглэх хүчтэй зорилт юм. Өмнөх оролцогчид Linux, Python, Mozilla болон бусад өргөн хэрэглэгддэг хэдэн зуун хэрэгсэлд хувь нэмэр оруулсан. Хүлээн авалтад өрсөлдөх чадвартай бичгийн санал болон програмчлалын чадварыг харуулсан байх шаардлагатай тул бүртгүүлэхийн өмнө GitHub-ийн хүчтэй портфолио бүрдүүлэх нь чухал." },
 ];
 function InternshipsPage() {
-  const { t, lang, go, roadmaps, setRoadmaps, saved, toggleSaved } = useQ();
+  const { t, lang, go, roadmaps, setRoadmaps, saved, toggleSaved, openRoadmap } = useQ();
   const [selected, setSelected] = useState(null);
   const mono = "'Space Grotesk', ui-monospace, monospace";
 
@@ -10375,6 +10381,7 @@ export default function App() {
     } catch { return 1; }
   };
   const chatRemaining = () => Math.max(0, DAILY_AI_LIMIT - getChatUsage().count);
+  const clearChat = () => { setBranchChats(prev => { const next = { ...prev }; delete next[activeChat]; return next; }); };
 
   const sendChat = async (msg, branchKey) => {
     const key = branchKey || activeChat;
@@ -10448,7 +10455,7 @@ export default function App() {
   const ctx = {
     t, lang, toggleLang, page, go, startOnboarding, scrollTarget,
     subjectId, branchId, user, setUser, completed, lastDone,
-    obOpen, setObOpen, chatOpen, setChatOpen, chatMsgs, chatLoading, sendChat, askAI, activeChat, setActiveChat, activeChatLabel, setActiveChatLabel, chatRemaining,
+    obOpen, setObOpen, chatOpen, setChatOpen, chatMsgs, chatLoading, sendChat, askAI, activeChat, setActiveChat, activeChatLabel, setActiveChatLabel, chatRemaining, clearChat,
     finderOpen, setFinderOpen, searchOpen, setSearchOpen, drawerNode, setDrawerNode,
     comps, setComps, anns, setAnns, saved, toggleSaved, savedProfs, toggleProf,
     notes, setNote, nodeChecks, setNodeChecks, feedback, giveFeedback, portfolio, addPortfolio, delPortfolio,
