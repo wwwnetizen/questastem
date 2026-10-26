@@ -6089,7 +6089,7 @@ function subjectsForProfile(p) {
   return out;
 }
 /* Returns { id, name, goalKey, career, dreamUni, currentLevel, targetLevel, subjects, phases:[{key,ids}], comps, createdAt } */
-function roadmapAllIds(rm) { return rm.phases.reduce((a, ph) => a.concat(ph.ids), []); }
+function roadmapAllIds(rm) { return (rm.phases || []).reduce((a, ph) => a.concat(ph.ids || []), []); }
 function buildCompRoadmap(opp, lang) {
   const collected = {};
   const add = (id) => { if (collected[id] || !ALL_NODES[id]) return; collected[id] = ALL_NODES[id]; (ALL_NODES[id].prereqs || []).forEach(add); };
