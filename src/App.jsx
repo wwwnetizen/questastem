@@ -9422,6 +9422,8 @@ function RoadmapsPage() {
   const [newType, setNewType] = useState("");
   const [step, setStep] = useState("path"); // path | title | stemCheck
   const [selectedComp, setSelectedComp] = useState(null);
+  const [archiveOpen, setArchiveOpen] = useState(false);
+  const [openCat, setOpenCat] = useState(null);
   const [researchModal, setResearchModal] = useState(false);
   const [researchForm, setResearchForm] = useState({ domain: "", experience: "", goal: "" });
   const mono = "'Space Grotesk', ui-monospace, monospace";
@@ -9541,56 +9543,78 @@ function RoadmapsPage() {
           </div>
         ) : null}
 
-        {/* Step: Path selection — archive + custom options */}
+        {/* Step: Path selection — archive (collapsed) + custom options */}
         {roadmaps.length < 3 && step === "path" && (() => {
           const active = comps.filter(c => !c.archived && c.cat !== "meta");
           const catOrder = ["olympiad", "hackathon", "research", "robotics"];
           const catLabels = {
-            olympiad: lang === "mn" ? "ОЛИМПИАД" : "OLYMPIAD",
-            hackathon: lang === "mn" ? "ХАКАТОН" : "HACKATHON",
-            research: lang === "mn" ? "СУДАЛГАА / ДАДЛАГА" : "RESEARCH / INTERNSHIPS",
-            robotics: lang === "mn" ? "РОБОТ ТЕХНИК" : "ROBOTICS"
+            olympiad: lang === "mn" ? "Олимпиад" : "Olympiad",
+            hackathon: lang === "mn" ? "Хакатон" : "Hackathon",
+            research: lang === "mn" ? "Судалгаа / Дадлага" : "Research / Internships",
+            robotics: lang === "mn" ? "Робот техник" : "Robotics"
           };
           const grouped = {};
           active.forEach(c => { const cat = c.cat || "other"; if (!grouped[cat]) grouped[cat] = []; grouped[cat].push(c); });
           const otherCats = Object.keys(grouped).filter(c => !catOrder.includes(c));
           const cats = [...catOrder, ...otherCats].filter(c => grouped[c]?.length);
           return (
-          <div>
-            <div style={{ fontFamily: mono, fontSize: 10, letterSpacing: "0.15em", color: "#2b3634", marginBottom: 16 }}>{lang === "mn" ? "QUESTA АРХИВААС СОНГОХ" : "SELECT FROM QUESTA ARCHIVE"}</div>
-            <div style={{ maxHeight: 420, overflowY: "auto", marginBottom: 16 }}>
-              {cats.map(cat => (
-                <div key={cat} style={{ marginBottom: 20 }}>
-                  <div style={{ fontFamily: mono, fontSize: 10, letterSpacing: "0.15em", color: "rgba(43,54,52,.5)", marginBottom: 8 }}>{catLabels[cat] || cat.toUpperCase()}</div>
-                  <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
-                    {grouped[cat].map(c => (
-                      <button key={c.id} onClick={() => selectComp(c)}
-                        style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "12px 16px", borderRadius: 12, border: "1.5px solid rgba(43,54,52,.25)", background: "rgba(43,54,52,.02)", cursor: "pointer", textAlign: "left", transition: "all .2s" }}
-                        onMouseOver={e => { e.currentTarget.style.background = "rgba(43,54,52,.1)"; e.currentTarget.style.borderColor = "rgba(43,54,52,.5)"; }}
-                        onMouseOut={e => { e.currentTarget.style.background = "rgba(43,54,52,.02)"; e.currentTarget.style.borderColor = "rgba(43,54,52,.25)"; }}>
-                        <div style={{ fontSize: 14, fontWeight: 600, color: "#2b3634" }}>{c.name?.[lang] || c.name?.en || c.id}</div>
-                        <span style={{ fontFamily: mono, fontSize: 11, color: "#2b3634" }}>&rarr;</span>
-                      </button>
-                    ))}
+          <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
+            {/* Main archive button — expands into categories */}
+            <button onClick={() => { setArchiveOpen(!archiveOpen); setOpenCat(null); }}
+              style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "16px 20px", borderRadius: 14, border: "1.5px solid rgba(43,54,52,.35)", background: archiveOpen ? "rgba(43,54,52,.08)" : "rgba(43,54,52,.02)", cursor: "pointer", textAlign: "left", transition: "all .2s", width: "100%" }}
+              onMouseOver={e => { e.currentTarget.style.background = "rgba(43,54,52,.12)"; e.currentTarget.style.borderColor = "rgba(43,54,52,.5)"; }}
+              onMouseOut={e => { e.currentTarget.style.background = archiveOpen ? "rgba(43,54,52,.08)" : "rgba(43,54,52,.02)"; e.currentTarget.style.borderColor = "rgba(43,54,52,.35)"; }}>
+              <div>
+                <div style={{ fontSize: 15, fontWeight: 700, color: "#2b3634" }}>{lang === "mn" ? "Questa архиваас сонгох" : "Select from Questa Archive"}</div>
+                <div style={{ fontFamily: mono, fontSize: 11, color: "rgba(43,54,52,.45)", marginTop: 2 }}>{lang === "mn" ? "Олимпиад, хакатон, судалгаа, робот техник" : "Olympiads, hackathons, research, robotics"}</div>
+              </div>
+              <span style={{ fontFamily: mono, fontSize: 14, color: "#2b3634", transition: "transform .2s", transform: archiveOpen ? "rotate(90deg)" : "none" }}>&rarr;</span>
+            </button>
+
+            {/* Expanded: show category buttons */}
+            {archiveOpen && (
+              <div style={{ paddingLeft: 12, display: "flex", flexDirection: "column", gap: 6 }}>
+                {cats.map(cat => (
+                  <div key={cat}>
+                    <button onClick={() => setOpenCat(openCat === cat ? null : cat)}
+                      style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "12px 16px", borderRadius: 12, border: "1.5px solid rgba(43,54,52,.22)", background: openCat === cat ? "rgba(43,54,52,.06)" : "rgba(43,54,52,.02)", cursor: "pointer", textAlign: "left", transition: "all .2s", width: "100%" }}
+                      onMouseOver={e => { e.currentTarget.style.background = "rgba(43,54,52,.1)"; e.currentTarget.style.borderColor = "rgba(43,54,52,.45)"; }}
+                      onMouseOut={e => { e.currentTarget.style.background = openCat === cat ? "rgba(43,54,52,.06)" : "rgba(43,54,52,.02)"; e.currentTarget.style.borderColor = "rgba(43,54,52,.22)"; }}>
+                      <div style={{ fontSize: 14, fontWeight: 600, color: "#2b3634" }}>{catLabels[cat] || cat.charAt(0).toUpperCase() + cat.slice(1)}</div>
+                      <span style={{ fontFamily: mono, fontSize: 11, color: "rgba(43,54,52,.4)", transition: "transform .2s", transform: openCat === cat ? "rotate(90deg)" : "none" }}>&rarr;</span>
+                    </button>
+                    {/* Expanded category: show individual competitions */}
+                    {openCat === cat && grouped[cat] && (
+                      <div style={{ paddingLeft: 14, paddingTop: 6, display: "flex", flexDirection: "column", gap: 4 }}>
+                        {grouped[cat].map(c => (
+                          <button key={c.id} onClick={() => selectComp(c)}
+                            style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "10px 14px", borderRadius: 10, border: "1px solid rgba(43,54,52,.18)", background: "rgba(43,54,52,.01)", cursor: "pointer", textAlign: "left", transition: "all .2s", width: "100%" }}
+                            onMouseOver={e => { e.currentTarget.style.background = "rgba(43,54,52,.1)"; e.currentTarget.style.borderColor = "rgba(43,54,52,.45)"; }}
+                            onMouseOut={e => { e.currentTarget.style.background = "rgba(43,54,52,.01)"; e.currentTarget.style.borderColor = "rgba(43,54,52,.18)"; }}>
+                            <div style={{ fontSize: 13, fontWeight: 500, color: "#2b3634" }}>{c.name?.[lang] || c.name?.en || c.id}</div>
+                            <span style={{ fontFamily: mono, fontSize: 11, color: "rgba(43,54,52,.35)" }}>&rarr;</span>
+                          </button>
+                        ))}
+                      </div>
+                    )}
                   </div>
-                </div>
-              ))}
-            </div>
-            <div style={{ borderTop: "1px solid rgba(43,54,52,.15)", paddingTop: 16, display: "flex", flexDirection: "column", gap: 10 }}>
-              <div style={{ fontFamily: mono, fontSize: 10, letterSpacing: "0.15em", color: "rgba(43,54,52,.5)", marginBottom: 4 }}>{lang === "mn" ? "БУСАД СОНГОЛТ" : "OTHER OPTIONS"}</div>
-              {[
-                ["course", t.pathCourse || "Course Mastery", lang === "mn" ? "Тодорхой сэдэв, хичээлийг гүнзгийрүүлэх" : "Deep-dive into a specific topic or course"],
-                ["custom", lang === "mn" ? "Гараар оруулах" : "Enter manually", lang === "mn" ? "Жагсаалтад байхгүй бол өөрөө бичих" : "Type your own title if not listed above"],
-              ].map(([key, label, desc]) => (
-                <button key={key} onClick={() => { if (key === "custom") { setNewType("general"); setStep("title"); } else { selectPath(key); } }}
-                  style={{ display: "flex", flexDirection: "column", gap: 2, padding: "14px 18px", borderRadius: 12, border: "1.5px solid rgba(43,54,52,.25)", background: "rgba(43,54,52,.02)", cursor: "pointer", textAlign: "left", transition: "all .2s" }}
-                  onMouseOver={e => { e.currentTarget.style.background = "rgba(43,54,52,.1)"; e.currentTarget.style.borderColor = "rgba(43,54,52,.5)"; }}
-                  onMouseOut={e => { e.currentTarget.style.background = "rgba(43,54,52,.02)"; e.currentTarget.style.borderColor = "rgba(43,54,52,.25)"; }}>
-                  <span style={{ fontSize: 14, fontWeight: 700, color: "#2b3634" }}>{label}</span>
-                  <span style={{ fontFamily: mono, fontSize: 11, color: "rgba(43,54,52,.5)" }}>{desc}</span>
-                </button>
-              ))}
-            </div>
+                ))}
+              </div>
+            )}
+
+            {/* Other options */}
+            {[
+              ["course", t.pathCourse || "Course Mastery", lang === "mn" ? "Тодорхой сэдэв, хичээлийг гүнзгийрүүлэх" : "Deep-dive into a specific topic or course"],
+              ["custom", lang === "mn" ? "Гараар оруулах" : "Enter manually", lang === "mn" ? "Жагсаалтад байхгүй бол өөрөө бичих" : "Type your own title if not listed above"],
+            ].map(([key, label, desc]) => (
+              <button key={key} onClick={() => { if (key === "custom") { setNewType("general"); setStep("title"); } else { selectPath(key); } }}
+                style={{ display: "flex", flexDirection: "column", gap: 2, padding: "14px 18px", borderRadius: 14, border: "1.5px solid rgba(43,54,52,.25)", background: "rgba(43,54,52,.02)", cursor: "pointer", textAlign: "left", transition: "all .2s" }}
+                onMouseOver={e => { e.currentTarget.style.background = "rgba(43,54,52,.1)"; e.currentTarget.style.borderColor = "rgba(43,54,52,.5)"; }}
+                onMouseOut={e => { e.currentTarget.style.background = "rgba(43,54,52,.02)"; e.currentTarget.style.borderColor = "rgba(43,54,52,.25)"; }}>
+                <span style={{ fontSize: 14, fontWeight: 700, color: "#2b3634" }}>{label}</span>
+                <span style={{ fontFamily: mono, fontSize: 11, color: "rgba(43,54,52,.5)" }}>{desc}</span>
+              </button>
+            ))}
           </div>
           );
         })()}
