@@ -9709,7 +9709,22 @@ QUALITY REQUIREMENTS
       {rm.created && <div style={{ fontFamily: mono, fontSize: 12, color: "#2b3634", marginBottom: 40 }}>{new Date(rm.created).toLocaleDateString()}</div>}
 
       {/* INTAKE */}
-      {phase === "intake" && (
+      {phase === "intake" && (() => {
+        const u = user || {};
+        const profileOk = u.stemGoal && u.stemKnowledge;
+        if (!profileOk) return (
+          <div style={{ display: "flex", flexDirection: "column", gap: 20, padding: "24px 0" }}>
+            <div style={{ padding: "20px 24px", background: "rgba(43,54,52,.04)", border: "1.5px solid rgba(43,54,52,.25)", borderRadius: 16 }}>
+              <div style={{ fontFamily: mono, fontSize: 11, fontWeight: 700, color: "#2b3634", letterSpacing: "0.08em", marginBottom: 8 }}>{lang === "mn" ? "STEM ПРОФАЙЛ ШААРДЛАГАТАЙ" : "STEM PROFILE REQUIRED"}</div>
+              <p style={{ fontSize: 14, color: "#2b3634", lineHeight: 1.6, margin: "0 0 20px" }}>{lang === "mn" ? "Сурах зам үүсгэхийн тулд эхлээд STEM профайлаа бөглөх шаардлагатай. Профайл нь AI-д таны зорилго, мэдлэгийн түвшинд тохирсон хувийн төлөвлөгөө гаргахад тусална." : "You need to complete your STEM profile before creating a learning path. Your profile helps the AI build a plan tailored to your goals and current knowledge level."}</p>
+              <button onClick={() => go("dashboard")} style={{ fontFamily: mono, fontSize: 13, color: "#f0f2ee", background: "#2b3634", border: "none", borderRadius: 12, padding: "13px 28px", cursor: "pointer", fontWeight: 600, letterSpacing: "0.04em", transition: "all .2s" }}
+                onMouseOver={e => e.currentTarget.style.opacity = "0.85"} onMouseOut={e => e.currentTarget.style.opacity = "1"}>
+                {lang === "mn" ? "STEM профайл бөглөх" : "Complete STEM Profile"} &rarr;
+              </button>
+            </div>
+          </div>
+        );
+        return (
         <div style={{ display: "flex", flexDirection: "column", gap: 32 }}>
           <div style={{ height: 1, background: "rgba(43,54,52,.22)", marginBottom: 4 }} />
 
@@ -9827,7 +9842,8 @@ QUALITY REQUIREMENTS
             {(!level || !hoursPerWeek || !compExp || !timeline || !biggestChallenge || !goal.trim()) ? (lang === "mn" ? "Бүх асуултад хариулна уу" : "Answer all questions to continue") : (lang === "mn" ? "Миний сурах замыг бүтээх" : "Build my personalized learning path")}
           </button>
         </div>
-      )}
+        );
+      })()}
 
       {/* GENERATING */}
       {phase === "generating" && (
