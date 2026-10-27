@@ -497,6 +497,17 @@ en: {
     obResetPassword: "Reset password", obResetSub: "Enter your email and we'll send you a reset link.",
     obSendReset: "Send reset link", obBackToSignIn: "Back to sign in",
     obVerifyEmail: "We sent a verification email to {email}. Please check your inbox.",
+    obConfirmPasswordLabel: "CONFIRM PASSWORD",
+    obSetPassword: "Set your password",
+    obSetPasswordSub: "Create a secure password for your account.",
+    obPasswordReqs: "Password must contain:",
+    obPwMin8: "At least 8 characters",
+    obPwUppercase: "An uppercase letter",
+    obPwNumber: "A number",
+    obPwSymbol: "A symbol (!@#$%...)",
+    obPwMatch: "Passwords match",
+    obPwNoMatch: "Passwords do not match",
+    obEmailOrUsername: "EMAIL OR USERNAME",
   },
 mn: {
     nav: { home: "Нүүр", learning: "Сургалт", research: "Судалгаа", competitions: "Тэмцээн", nasa: "NASA Space Apps Challenge", about: "Тухай", dashboard: "Хянах самбар", login: "Нэвтрэх", signin: "Бүртгүүлэх" },
@@ -685,6 +696,17 @@ mn: {
     obResetPassword: "Нууц үг сэргээх", obResetSub: "Имэйл хаягаа оруулбал сэргээх холбоос илгээнэ.",
     obSendReset: "Сэргээх холбоос илгээх", obBackToSignIn: "Нэвтрэх хэсэг рүү буцах",
     obVerifyEmail: "{email} хаяг руу баталгаажуулах имэйл илгээлээ. Ирсэн хайрцгаа шалгана уу.",
+    obConfirmPasswordLabel: "НУУЦ ҮГ ДАВТАХ",
+    obSetPassword: "Нууц үгээ тохируулна уу",
+    obSetPasswordSub: "Бүртгэлдээ найдвартай нууц үг үүсгэнэ үү.",
+    obPasswordReqs: "Нууц үг дараах шаардлагыг хангасан байх:",
+    obPwMin8: "Хамгийн багадаа 8 тэмдэгт",
+    obPwUppercase: "Том үсэг",
+    obPwNumber: "Тоо",
+    obPwSymbol: "Тэмдэг (!@#$%...)",
+    obPwMatch: "Нууц үг таарч байна",
+    obPwNoMatch: "Нууц үг таарахгүй байна",
+    obEmailOrUsername: "ИМЭЙЛ ЭСВЭЛ ХЭРЭГЛЭГЧИЙН НЭР",
   },
 };
 
@@ -9076,6 +9098,7 @@ function Onboarding() {
   const [dir, setDir] = useState(1);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [username, setUsername] = useState("");
@@ -9108,6 +9131,13 @@ function Onboarding() {
     }, 500);
   };
 
+  const pwHas8 = password.length >= 8;
+  const pwHasUpper = /[A-Z]/.test(password);
+  const pwHasNumber = /[0-9]/.test(password);
+  const pwHasSymbol = /[^A-Za-z0-9]/.test(password);
+  const pwValid = pwHas8 && pwHasUpper && pwHasNumber && pwHasSymbol;
+  const pwMatch = password && confirmPassword && password === confirmPassword;
+
   if (!obOpen) return null;
 
   const next = (s) => { setDir(1); setStep(s); setAuthError(""); };
@@ -9136,6 +9166,7 @@ function Onboarding() {
       }
       setOauthUser(u);
       if (u.displayName) setFirstName(u.displayName);
+      setPassword(""); setConfirmPassword("");
       next(1);
     } catch (err) {
       if (err.code === "auth/popup-closed-by-user") { setAuthLoading(false); return; }
@@ -9163,6 +9194,7 @@ function Onboarding() {
       }
       setOauthUser(u);
       if (u.displayName) setFirstName(u.displayName);
+      setPassword(""); setConfirmPassword("");
       next(1);
     } catch (err) {
       if (err.code === "auth/popup-closed-by-user") { setAuthLoading(false); return; }
@@ -9174,24 +9206,38 @@ function Onboarding() {
     } finally { setAuthLoading(false); }
   };
 
-  const handleEmailAuth = async () => {
-    if (!email.trim() || !password.trim()) return;
+  const handleEmailLogin = async () => {
+    const loginId = email.trim();
+    if (!loginId || !password.trim()) return;
     try {
       setAuthError(""); setAuthLoading(true);
       const auth = await getFbAuth();
       if (!auth) { setAuthError(lang === "mn" ? "Нэвтрэлт ачаалагдсангүй." : "Could not load authentication."); setAuthLoading(false); return; }
-      if (isLogin) {
-        await auth.signInWithEmailAndPassword(email.trim(), password);
-        updateProfile({ email: email.trim() });
-        finishOnboarding();
-      } else {
-        if (password.length < 6) {
-          setAuthError(lang === "mn" ? "Нууц үг хамгийн багадаа 6 тэмдэгт байх ёстой." : "Password must be at least 6 characters.");
-          setAuthLoading(false);
-          return;
+      // If loginId doesn't look like an email, try to resolve username to email
+      let loginEmail = loginId;
+      if (!loginId.includes("@")) {
+        const db = await getDb();
+        if (db) {
+          const uSnap = await db.collection("usernames").doc(loginId.toLowerCase()).get();
+          if (uSnap.exists && uSnap.data().uid) {
+            const uDoc = await db.collection("users").doc(uSnap.data().uid).get();
+            if (uDoc.exists && uDoc.data().email) {
+              loginEmail = uDoc.data().email;
+            } else {
+              setAuthError(lang === "mn" ? "Хэрэглэгчийн нэр эсвэл нууц үг буруу байна." : "Incorrect username or password.");
+              setAuthLoading(false);
+              return;
+            }
+          } else {
+            setAuthError(lang === "mn" ? "Хэрэглэгчийн нэр эсвэл нууц үг буруу байна." : "Incorrect username or password.");
+            setAuthLoading(false);
+            return;
+          }
         }
-        next(1);
       }
+      await auth.signInWithEmailAndPassword(loginEmail, password);
+      updateProfile({ email: loginEmail });
+      finishOnboarding();
     } catch (err) {
       const code = err.code || "";
       if (code === "auth/user-not-found" || code === "auth/wrong-password" || code === "auth/invalid-credential") {
@@ -9204,6 +9250,17 @@ function Onboarding() {
         setAuthError(lang === "mn" ? "Нэвтрэлт амжилтгүй. Дахин оролдоно уу." : (err.message || "Sign in failed."));
       }
     } finally { setAuthLoading(false); }
+  };
+
+  const handleEmailSignup = () => {
+    if (!email.trim()) return;
+    // Validate email format
+    if (!email.includes("@")) {
+      setAuthError(lang === "mn" ? "Имэйл хаяг буруу байна." : "Invalid email address.");
+      return;
+    }
+    // Go to password step
+    next(1);
   };
 
   const handleForgotPassword = async () => {
@@ -9247,8 +9304,18 @@ function Onboarding() {
       }
       let uid = null;
       if (oauthUser) {
-        // OAuth user already authenticated
+        // OAuth user already authenticated - link email+password credential
         uid = oauthUser.uid;
+        try {
+          const emailCred = firebase.auth.EmailAuthProvider.credential(oauthUser.email || email.trim(), password);
+          await oauthUser.linkWithCredential(emailCred);
+        } catch (linkErr) {
+          // If linking fails (e.g. email already in use), continue - the OAuth auth is still valid
+          if (linkErr.code === "auth/email-already-in-use" || linkErr.code === "auth/provider-already-linked") {
+            // Update password for existing linked account
+            try { await oauthUser.updatePassword(password); } catch (upErr) { /* non-blocking */ }
+          }
+        }
       } else {
         const auth = await getFbAuth();
         if (auth && !isLogin && email && password) {
@@ -9281,8 +9348,8 @@ function Onboarding() {
         setAuthError(lang === "mn" ? "Энэ имэйл аль хэдийн бүртгэлтэй байна. Нэвтэрч ороно уу." : "This email is already registered. Please sign in instead.");
         setStep(0); setIsLogin(true);
       } else if (code === "auth/weak-password") {
-        setAuthError(lang === "mn" ? "Нууц үг хэт богино байна. 6-аас дээш тэмдэгт ашиглана уу." : "Password is too weak. Use at least 6 characters.");
-        setStep(0);
+        setAuthError(lang === "mn" ? "Нууц үг хэт богино байна." : "Password is too weak.");
+        setStep(1);
       } else if (code === "auth/invalid-email") {
         setAuthError(lang === "mn" ? "Имэйл хаяг буруу байна." : "Invalid email address.");
         setStep(0);
@@ -9352,25 +9419,65 @@ function Onboarding() {
               <span style={{ fontFamily: mono, fontSize: 10, color: "#2b3634", letterSpacing: "0.15em" }}>{t.obOr}</span>
               <div style={{ flex: 1, height: 1, background: "rgba(43,54,52,.22)" }} />
             </div>
+            {isLogin ? <>
             <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
               <div>
-                <label style={labelStyle}>{t.obEmailLabel}</label>
-                <input value={email} onChange={e => setEmail(e.target.value)} placeholder="..." type="email" autoFocus style={inputStyle} onKeyDown={e => { if (e.key === "Enter" && email.trim() && password.trim()) handleEmailAuth(); }} />
+                <label style={labelStyle}>{t.obEmailOrUsername}</label>
+                <input value={email} onChange={e => setEmail(e.target.value)} placeholder="..." autoFocus style={inputStyle} onKeyDown={e => { if (e.key === "Enter" && email.trim() && password.trim()) handleEmailLogin(); }} />
               </div>
               <div>
                 <label style={labelStyle}>{t.obPasswordLabel}</label>
-                <input value={password} onChange={e => setPassword(e.target.value)} placeholder="..." type="password" style={inputStyle} onKeyDown={e => { if (e.key === "Enter" && email.trim() && password.trim()) handleEmailAuth(); }} />
+                <input value={password} onChange={e => setPassword(e.target.value)} placeholder="..." type="password" style={inputStyle} onKeyDown={e => { if (e.key === "Enter" && email.trim() && password.trim()) handleEmailLogin(); }} />
               </div>
             </div>
-            {isLogin && <button onClick={() => { setForgotMode(true); setAuthError(""); setResetSent(false); }} style={{ width: "100%", padding: "6px 0", background: "none", border: "none", cursor: "pointer", fontFamily: mono, fontSize: 13, color: "#2b3634", textAlign: "right", marginTop: 4, textDecoration: "underline", textUnderlineOffset: 3 }}>{t.obForgotPassword}</button>}
-            <button onClick={handleEmailAuth} disabled={!email.trim() || !password.trim() || authLoading} style={{ ...btnStyle(email.trim() && password.trim() && !authLoading), opacity: authLoading ? 0.5 : undefined }}>{authLoading ? "..." : (isLogin ? t.obSignIn : t.obCreateAccount)}</button>
+            <button onClick={() => { setForgotMode(true); setAuthError(""); setResetSent(false); }} style={{ width: "100%", padding: "6px 0", background: "none", border: "none", cursor: "pointer", fontFamily: mono, fontSize: 13, color: "#2b3634", textAlign: "right", marginTop: 4, textDecoration: "underline", textUnderlineOffset: 3 }}>{t.obForgotPassword}</button>
+            <button onClick={handleEmailLogin} disabled={!email.trim() || !password.trim() || authLoading} style={{ ...btnStyle(email.trim() && password.trim() && !authLoading), opacity: authLoading ? 0.5 : undefined }}>{authLoading ? "..." : t.obSignIn}</button>
+            </> : <>
+            <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
+              <div>
+                <label style={labelStyle}>{t.obEmailLabel}</label>
+                <input value={email} onChange={e => setEmail(e.target.value)} placeholder="..." type="email" autoFocus style={inputStyle} onKeyDown={e => { if (e.key === "Enter" && email.trim()) handleEmailSignup(); }} />
+              </div>
+            </div>
+            <button onClick={handleEmailSignup} disabled={!email.trim() || authLoading} style={{ ...btnStyle(email.trim() && !authLoading), opacity: authLoading ? 0.5 : undefined }}>{authLoading ? "..." : t.obContinue}</button>
+            </>}
             <button onClick={() => { setIsLogin(!isLogin); setAuthError(""); setForgotMode(false); setResetSent(false); }} style={{ width: "100%", padding: "10px 0", background: "none", border: "none", cursor: "pointer", fontFamily: mono, fontSize: 12, color: "rgba(43,54,52,.55)", marginTop: 8 }}>{isLogin ? <>{t.obNeedAccount} <span style={{ color: "#2b3634", fontWeight: 600 }}>{t.obSignUpLink}</span></> : <>{t.obHaveAccount} <span style={{ color: "#2b3634", fontWeight: 600 }}>{t.obSignInLink}</span></>}</button>
             {errBox}
             </>}
           </div>
 
-          {/* Step 1: Registration */}
+          {/* Step 1: Set Password */}
           <div style={slideStyle(step === 1)}>
+            <h1 className="q-display" style={{ fontSize: "clamp(24px,6vw,36px)", fontWeight: 800, color: "#2b3634", letterSpacing: "-0.04em", marginBottom: 12, lineHeight: 1.1 }}>{t.obSetPassword}</h1>
+            <p style={{ fontFamily: mono, fontSize: 12, color: "#2b3634", marginBottom: 24 }}>{t.obSetPasswordSub}</p>
+            <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
+              <div>
+                <label style={labelStyle}>{t.obPasswordLabel}</label>
+                <input value={password} onChange={e => setPassword(e.target.value)} placeholder="..." type="password" autoFocus style={inputStyle} />
+              </div>
+              <div>
+                <label style={labelStyle}>{t.obConfirmPasswordLabel}</label>
+                <input value={confirmPassword} onChange={e => setConfirmPassword(e.target.value)} placeholder="..." type="password" style={inputStyle} onKeyDown={e => { if (e.key === "Enter" && pwValid && pwMatch) next(2); }} />
+              </div>
+              <div style={{ fontFamily: mono, fontSize: 11, lineHeight: 1.8, marginTop: 4 }}>
+                <div style={{ color: "#2b3634", fontWeight: 600, marginBottom: 4 }}>{t.obPasswordReqs}</div>
+                <div style={{ color: pwHas8 ? "#3a6b4a" : "rgba(43,54,52,.45)" }}>{pwHas8 ? "+" : "-"} {t.obPwMin8}</div>
+                <div style={{ color: pwHasUpper ? "#3a6b4a" : "rgba(43,54,52,.45)" }}>{pwHasUpper ? "+" : "-"} {t.obPwUppercase}</div>
+                <div style={{ color: pwHasNumber ? "#3a6b4a" : "rgba(43,54,52,.45)" }}>{pwHasNumber ? "+" : "-"} {t.obPwNumber}</div>
+                <div style={{ color: pwHasSymbol ? "#3a6b4a" : "rgba(43,54,52,.45)" }}>{pwHasSymbol ? "+" : "-"} {t.obPwSymbol}</div>
+                {confirmPassword && <div style={{ color: pwMatch ? "#3a6b4a" : "#c44", marginTop: 4 }}>{pwMatch ? "+ " + t.obPwMatch : "- " + t.obPwNoMatch}</div>}
+              </div>
+            </div>
+            {(() => {
+              const canContinue = pwValid && pwMatch && !authLoading;
+              return <button onClick={() => { if (canContinue) next(2); }} disabled={!canContinue} style={{ ...btnStyle(canContinue), marginTop: 16 }}>{t.obContinue}</button>;
+            })()}
+            {authError && <div style={{ fontFamily: mono, fontSize: 12, color: "#9b4d4d", background: "rgba(155,77,77,.06)", padding: "10px 14px", borderRadius: 10, marginTop: 12 }}>{authError}</div>}
+            {backBtn(0)}
+          </div>
+
+          {/* Step 2: Registration */}
+          <div style={slideStyle(step === 2)}>
             <h1 className="q-display" style={{ fontSize: "clamp(24px,6vw,36px)", fontWeight: 800, color: "#2b3634", letterSpacing: "-0.04em", marginBottom: 12, lineHeight: 1.1 }}>{t.obWhatName}</h1>
             <p style={{ fontFamily: mono, fontSize: 12, color: "#2b3634", marginBottom: 24 }}>{t.obNameSub}</p>
             <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
@@ -9409,7 +9516,7 @@ function Onboarding() {
               return <button onClick={() => { if (canFinish) finish(); }} disabled={!canFinish} style={{ ...btnStyle(canFinish), marginTop: 20, background: canFinish ? "rgba(43,54,52,.85)" : "transparent", color: canFinish ? "#fff" : undefined, opacity: authLoading ? 0.5 : undefined }}>{authLoading ? "..." : t.obEnterQuesta}</button>;
             })()}
             {authError && <div style={{ fontFamily: mono, fontSize: 12, color: "#9b4d4d", background: "rgba(155,77,77,.06)", padding: "10px 14px", borderRadius: 10, marginTop: 12 }}>{authError}</div>}
-            {!oauthUser && backBtn(0)}
+            {backBtn(1)}
           </div>
 
         </div>
