@@ -6821,8 +6821,8 @@ function CinematicHero({ go, t, lang }) {
       </div>
       <div className="hero-ann-right" style={{ position: "absolute", top: "clamp(80px,12vh,120px)", right: "clamp(24px,5vw,64px)", zIndex: 3, fontFamily: "'Space Grotesk', monospace", fontSize: 11, letterSpacing: "0.1em", color: "#2b3634", lineHeight: 1.7, textAlign: "right" }}>
       <style>{`
-        @media (min-width: 768px) { .hero-ann-left, .hero-ann-right { top: 16px !important; } }
-        @media (max-width: 767px) { .hero-ann-left, .hero-ann-right { top: 12px !important; } }
+        @media (min-width: 768px) { .hero-ann-left, .hero-ann-right { top: clamp(100px,16vh,180px) !important; } }
+        @media (max-width: 767px) { .hero-ann-left, .hero-ann-right { top: clamp(80px,14vh,130px) !important; } }
       `}</style>
         {lang === "mn" ? <>СУДАЛГААНЫ ТЭМДЭГЛЭЛ<br />НЭЭЛТТЭЙ АРХИВ<br />ШИНЖЛЭХ УХААНЫ ТӨЛӨӨ</> : <>FIELD NOTES<br />OPEN ARCHIVE<br />FOR SCIENCE</>}
       </div>
