@@ -153,9 +153,9 @@ async function callAI(system, messages, opts = {}) {
 const GlobalStyles = () => (
   <style>{`
     @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Archivo:wght@600;700;800;900&family=Montserrat:wght@600;700;800;900&display=swap');
-    html { min-height: 100dvh; background: #e8ebe5; }
-    body { min-height: 100dvh; margin: 0; background: #e8ebe5; }
-    .safari-tint-bottom { position:fixed; bottom:0; left:0; width:100%; height:4px; background-color:#e8ebe5; z-index:10000; pointer-events:none; }
+    html { min-height: 100dvh; background: #edf0ea; }
+    body { min-height: 100dvh; margin: 0; background: #edf0ea; }
+    .safari-tint-bottom { position:fixed; bottom:0; left:0; width:100%; height:4px; background-color:#edf0ea; z-index:10000; pointer-events:none; }
     body::before { content:''; position:fixed; inset:0; z-index:9999; pointer-events:none; opacity:0.32; background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='512' height='512'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.35'/%3E%3C/svg%3E"); background-repeat:repeat; background-size:512px 512px; }
     body::after { content:''; position:fixed; inset:0; z-index:1; pointer-events:none; background: radial-gradient(max(1100px,140vw) max(800px,110vh) at 85% 0%, rgba(55,68,64,.20), transparent 55%), radial-gradient(max(900px,120vw) max(700px,100vh) at 0% 95%, rgba(55,68,64,.15), transparent 58%), radial-gradient(max(800px,110vw) max(600px,85vh) at 50% 40%, rgba(55,68,64,.07), transparent 50%); }
     #root { overflow-x: hidden; max-width: 100vw; min-height: 100dvh; }
@@ -627,7 +627,7 @@ mn: {
     aboutEyebrow: "[ 001 ] QUESTA-ГИЙН ТУХАЙ",
     aboutTitle: "Questa гэж юу вэ?",
     aboutHeadline: "Мэдлэг бүхэн дэс дараалалтай байдаг.",
-    aboutP1: "Санаа бүр суурь дээрээ босдог. Чадвар бүр зөв бэлтгэлийг шаарддаг. Мэдлэгийн эх сурвалж хаа сайгүй байдаг ч юуг эхлээд сурахаа мэдэх нь хамгийн хэцүү. Questa яг энэ дарааллыг баримталж бүтээгдсэн.",
+    aboutP1: "Санаа бүр суурь дээрээ бүтээгддэг. Чадвар бүр зөв бэлтгэлийг шаарддаг. Мэдлэгийн эх сурвалж хаа сайгүй байдаг ч юуг эхлээд сурахаа мэдэх нь хамгийн хэцүү. Questa яг энэ дарааллыг баримталж бүтээгдсэн.",
     aboutP2: "Бид дэлхийн шилдэг, нээлттэй боловсролын нөөц бололцоонуудыг нэгтгэн, Монголын залууст зориулсан бие даан суралцах цэгцтэй сурах замуудыг бүтээж байна. Бидний зорилго бол сурагч, залуус бүрд эхлэх цэгээ хялбархан олох, суурь ойлголтуудыг гүнзгий эзэмших, мөн дэлхийн хэмжээний боломжуудаас суралцаж, хүртэх нөхцөлийг бүрдүүлэх явдал юм.",
     aboutBody: `Questa бол Монголын оюутнуудыг "хаанаас эхлэхээ мэдэхгүй байна" гэснээс "дэлхийн түвшний боломжид бэлэн" болтол чиглүүлдэг нээлттэй платформ юм. Бид 300 гаруй боломж, нөөцийг нэгтгэсэн.\n\nБид дэлхийн шилдэг нээлттэй боловсролын нөөцүүдийг Монголын залуучуудад зориулсан бүтэцтэй, бие даан суралцах сурах замд нэгтгэсэн дижитал платформ бүтээж байна. Манай зорилго бол суралцагч бүрд тодорхой эхлэлийн цэг олж, үндсэн ойлголтуудыг эзэмшиж, дэлхийн боломжуудад хүрэхэд нь туслах явдал юм.`,
     platformEyebrow: "[ 002 ] ПЛАТФОРМ",
@@ -6650,7 +6650,7 @@ function Navbar() {
   const items = [["home", t.nav.home], ["learning", t.nav.learning], ["research", t.nav.research], ["competitions", t.nav.competitions], ["nasa", t.nav.nasa]];
   return (
     <header style={{ padding: "calc(10px + env(safe-area-inset-top, 0px)) calc(10px + env(safe-area-inset-right, 0px)) 10px calc(10px + env(safe-area-inset-left, 0px))", background: "transparent", pointerEvents: "none", zIndex: 10001, position: isHome ? "fixed" : "sticky", top: 0, left: 0, right: 0 }}>
-      <div aria-hidden="true" style={{ position: "absolute", top: 0, left: 0, right: 0, height: "env(safe-area-inset-top, 0px)", background: "#e8ebe5" }} />
+      <div aria-hidden="true" style={{ position: "absolute", top: 0, left: 0, right: 0, height: "env(safe-area-inset-top, 0px)", background: "#edf0ea" }} />
       <div className="max-w-5xl mx-auto flex items-center justify-between" style={{ pointerEvents: "auto", background: "rgba(62,78,72,.65)", backdropFilter: "blur(20px)", WebkitBackdropFilter: "blur(20px)", borderRadius: 14, padding: "0 8px 0 20px", height: 50 }}>
         <button onClick={() => { go("home"); setOpen(false); }} className="shrink-0" style={{ background: "none", border: "none", cursor: "pointer", opacity: 0.9 }}><Logo size={26} onDark /></button>
         <div style={{ flex: 1 }} />
@@ -9412,7 +9412,7 @@ function Toasts({ toasts }) {
   return (
     <div className="fixed bottom-5 right-5 z-50 flex flex-col gap-2 items-end">
       {toasts.map((t) => (
-        <div key={t.id} style={t.type === "gold" ? {} : t.type === "unlock" ? {} : { background: "rgba(43,54,52,.92)", color: "#e8ebe5", border: "1px solid rgba(43,54,52,.5)", fontFamily: "'Space Grotesk', ui-monospace, monospace" }} className={cx("px-5 py-3 rounded-2xl shadow-xl font-extrabold text-sm q-pop flex items-center gap-2",
+        <div key={t.id} style={t.type === "gold" ? {} : t.type === "unlock" ? {} : { background: "rgba(43,54,52,.92)", color: "#edf0ea", border: "1px solid rgba(43,54,52,.5)", fontFamily: "'Space Grotesk', ui-monospace, monospace" }} className={cx("px-5 py-3 rounded-2xl shadow-xl font-extrabold text-sm q-pop flex items-center gap-2",
           t.type === "gold" ? "bg-gradient-to-r from-amber-400 to-amber-500 q-ink" : t.type === "unlock" ? "bg-gradient-to-r from-indigo-600 to-violet-600 q-ink" : "")}>
           {t.type === "gold" && <Medal size={16} />}{t.type === "unlock" && <Trophy size={16} />}{t.msg}
         </div>
@@ -9665,7 +9665,7 @@ function RoadmapsPage() {
 }
 
 function RoadmapDetail() {
-  const { t, lang, roadmaps, activeRoadmap, go, user, comps, setRoadmaps, setDrawerNode, setFromRoadmap } = useQ();
+  const { t, lang, roadmaps, activeRoadmap, go, user, comps, setRoadmaps, setDrawerNode, setFromRoadmap, completed, completeNode } = useQ();
   const rm = roadmaps.find((r) => r.id === activeRoadmap) || roadmaps[0];
   const [content, setContent] = useState(() => {
     const c = rm?.content;
@@ -10052,40 +10052,79 @@ RULES:
         const phases = data.phases || [];
         const milestones = data.milestones || [];
 
-        const PhaseBar = () => (
-          <div style={{ display: "flex", gap: 4, marginBottom: 32 }}>
-            {phases.map((p, i) => (
-              <div key={i} style={{ flex: 1, display: "flex", flexDirection: "column", gap: 4 }}>
-                <div style={{ height: 3, borderRadius: 2, background: "rgba(43,54,52,.15)" }} />
-                <div style={{ fontFamily: mono, fontSize: 9, letterSpacing: "0.12em", color: "rgba(43,54,52,.45)", textAlign: "center" }}>
-                  {(p.name || "Phase " + (i + 1)).toUpperCase()}
-                </div>
+        const PhaseBar = () => {
+          const phaseProg = phases.map(p => {
+            const courses = p.courses || [];
+            if (courses.length === 0) return { total: 0, done: 0 };
+            let done = 0;
+            courses.forEach(c => {
+              const node = findNode(c.name);
+              if (node && completed[node.id]) done++;
+            });
+            return { total: courses.length, done };
+          });
+          const totalCourses = phaseProg.reduce((a, p) => a + p.total, 0);
+          const totalDone = phaseProg.reduce((a, p) => a + p.done, 0);
+          return (
+          <div style={{ marginBottom: 32 }}>
+            <div style={{ display: "flex", alignItems: "baseline", justifyContent: "space-between", marginBottom: 8 }}>
+              <div style={{ fontFamily: mono, fontSize: 10, letterSpacing: "0.12em", color: "rgba(43,54,52,.5)" }}>
+                {lang === "mn" ? "АХИЦ" : "PROGRESS"}
               </div>
-            ))}
+              <div style={{ fontFamily: mono, fontSize: 11, color: "#2b3634", fontWeight: 600 }}>
+                {totalDone}/{totalCourses}
+              </div>
+            </div>
+            <div style={{ display: "flex", gap: 4 }}>
+              {phases.map((p, i) => {
+                const prog = phaseProg[i];
+                const pct = prog.total > 0 ? (prog.done / prog.total) * 100 : 0;
+                return (
+                <div key={i} style={{ flex: 1, display: "flex", flexDirection: "column", gap: 4 }}>
+                  <div style={{ height: 4, borderRadius: 2, background: "rgba(43,54,52,.1)", overflow: "hidden" }}>
+                    <div style={{ height: "100%", width: pct + "%", borderRadius: 2, background: "#2b3634", transition: "width .4s ease" }} />
+                  </div>
+                  <div style={{ fontFamily: mono, fontSize: 9, letterSpacing: "0.12em", color: pct === 100 ? "#2b3634" : "rgba(43,54,52,.45)", textAlign: "center", fontWeight: pct === 100 ? 600 : 400 }}>
+                    {(p.name || "Phase " + (i + 1)).toUpperCase()}
+                  </div>
+                </div>
+                );
+              })}
+            </div>
           </div>
-        );
+          );
+        };
 
         const CourseCard = ({ course }) => {
           const node = findNode(course.name);
           const nb = node ? NODE_BRANCH[node.id] : null;
           const clickable = !!nb;
+          const done = node && completed[node.id];
           return (
-            <div onClick={() => { if (nb) { setFromRoadmap(activeRoadmap); go("tree", nb.branchId); setTimeout(() => setDrawerNode(node), 80); } }}
-              style={{ padding: "14px 18px", border: "1.5px solid rgba(43,54,52,.25)", borderRadius: 14, background: "rgba(43,54,52,.03)", cursor: clickable ? "pointer" : "default", transition: "all .2s", marginBottom: 8 }}
-              onMouseOver={e => { if (clickable) { e.currentTarget.style.background = "rgba(43,54,52,.1)"; e.currentTarget.style.borderColor = "rgba(43,54,52,.5)"; } }}
-              onMouseOut={e => { e.currentTarget.style.background = "rgba(43,54,52,.03)"; e.currentTarget.style.borderColor = "rgba(43,54,52,.25)"; }}>
+            <div style={{ padding: "14px 18px", border: done ? "1.5px solid rgba(43,54,52,.35)" : "1.5px solid rgba(43,54,52,.25)", borderRadius: 14, background: done ? "rgba(43,54,52,.08)" : "rgba(43,54,52,.03)", transition: "all .2s", marginBottom: 8 }}>
               <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 4 }}>
-                <div style={{ fontSize: 14, fontWeight: 700, color: "#2b3634" }}>
+                <div onClick={() => { if (nb) { setFromRoadmap(activeRoadmap); go("tree", nb.branchId); setTimeout(() => setDrawerNode(node), 80); } }}
+                  style={{ fontSize: 14, fontWeight: 700, color: done ? "rgba(43,54,52,.55)" : "#2b3634", textDecoration: done ? "line-through" : "none", cursor: clickable ? "pointer" : "default", flex: 1 }}
+                  onMouseOver={e => { if (clickable) e.currentTarget.style.opacity = "0.6"; }}
+                  onMouseOut={e => { e.currentTarget.style.opacity = "1"; }}>
                   {course.name}
                   {clickable && <span style={{ fontFamily: mono, fontSize: 10, color: "rgba(43,54,52,.35)", marginLeft: 8 }}>&rarr;</span>}
                 </div>
                 {(course.hours || course.weeks) && (
-                  <div style={{ fontFamily: mono, fontSize: 11, color: "rgba(43,54,52,.45)", flexShrink: 0 }}>
+                  <div style={{ fontFamily: mono, fontSize: 11, color: "rgba(43,54,52,.45)", flexShrink: 0, marginLeft: 8 }}>
                     {course.hours ? `~${course.hours}h` : ""}{course.hours && course.weeks ? " / " : ""}{course.weeks ? `${course.weeks}w` : ""}
                   </div>
                 )}
               </div>
-              {course.why && <div style={{ fontSize: 13, color: "rgba(43,54,52,.65)", lineHeight: 1.5 }}>{course.why}</div>}
+              {course.why && <div style={{ fontSize: 13, color: "rgba(43,54,52,.65)", lineHeight: 1.5, marginBottom: node ? 8 : 0 }}>{course.why}</div>}
+              {node && (
+                <button onClick={(e) => { e.stopPropagation(); completeNode(node.id); }}
+                  style={{ fontFamily: mono, fontSize: 11, letterSpacing: "0.06em", color: done ? "rgba(43,54,52,.5)" : "#2b3634", background: done ? "rgba(43,54,52,.05)" : "rgba(43,54,52,.08)", border: done ? "1px solid rgba(43,54,52,.15)" : "1.5px solid rgba(43,54,52,.3)", borderRadius: 10, padding: "7px 14px", cursor: "pointer", fontWeight: 600, transition: "all .2s", marginTop: 4 }}
+                  onMouseOver={e => { e.currentTarget.style.background = "rgba(43,54,52,.14)"; e.currentTarget.style.borderColor = "rgba(43,54,52,.5)"; }}
+                  onMouseOut={e => { e.currentTarget.style.background = done ? "rgba(43,54,52,.05)" : "rgba(43,54,52,.08)"; e.currentTarget.style.borderColor = done ? "rgba(43,54,52,.15)" : "rgba(43,54,52,.3)"; }}>
+                  {done ? (lang === "mn" ? "БУЦААХ" : "UNDO") : (lang === "mn" ? "ГҮЙЦЭЭСЭН" : "MARK COMPLETE")}
+                </button>
+              )}
             </div>
           );
         };
