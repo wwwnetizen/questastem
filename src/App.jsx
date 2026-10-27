@@ -6811,9 +6811,9 @@ function useScrollReveal() {
 function CinematicHero({ go, t, lang }) {
     const mono = "'Space Grotesk', 'Roboto Mono', ui-monospace, monospace";
   return (
-    <section className="hero-section" style={{ position: "relative", minHeight: "100dvh", width: "100%", display: "flex", flexDirection: "column", justifyContent: "center", overflow: "visible", background: "transparent", paddingTop: "calc(80px + env(safe-area-inset-top, 0px))", paddingBottom: "3rem" }}>
+    <section className="hero-section" style={{ position: "relative", minHeight: "80dvh", width: "100%", display: "flex", flexDirection: "column", justifyContent: "center", overflow: "visible", background: "transparent", paddingTop: "calc(80px + env(safe-area-inset-top, 0px))", paddingBottom: "2rem" }}>
       <style>{`
-        @supports not (min-height: 100dvh) { .hero-section { min-height: -webkit-fill-available !important; } }
+        @supports not (min-height: 80dvh) { .hero-section { min-height: 580px !important; } }
       `}</style>
       {/* Editorial annotations */}
       <div className="hero-ann-left" style={{ position: "absolute", top: "clamp(80px,12vh,120px)", left: "clamp(24px,5vw,64px)", zIndex: 3, fontFamily: "'Space Grotesk', monospace", fontSize: 11, letterSpacing: "0.1em", color: "#2b3634", lineHeight: 1.7 }}>
