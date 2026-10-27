@@ -6894,7 +6894,7 @@ function CinematicHero({ go, t, lang }) {
         }
       }} style={{ position: "absolute", bottom: "16%", left: "52%", transform: "translateX(-50%)", width: 560, height: 256, zIndex: 1, pointerEvents: "none", opacity: 0.13 }} />
       {/* Main content centered */}
-      <div style={{ flex: 1, display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center" }}>
+      <div style={{ flex: 1, display: "flex", flexDirection: "column", justifyContent: "flex-end", alignItems: "center", paddingBottom: "clamp(40px,8vh,100px)" }}>
         <div style={{ position: "relative", zIndex: 2, padding: "0 clamp(24px,6vw,90px)", width: "100%", maxWidth: 1200 }}>
           <h1 style={{ margin: 0, lineHeight: 0.94, textAlign: "left", maxWidth: 900 }}>
             <span className="hero-title-line" style={{ display: "block", fontFamily: "'Archivo', 'Montserrat', sans-serif", fontSize: "clamp(32px,7vw,80px)", fontWeight: 800, color: "#2b3634", letterSpacing: "-0.04em" }}>{lang === "mn" ? "СУРАХ ЗАМАА" : "CREATE YOUR"}</span>
