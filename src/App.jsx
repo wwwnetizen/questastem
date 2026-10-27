@@ -6653,6 +6653,7 @@ function Navbar() {
   return (
     <header style={{ padding: "calc(10px + env(safe-area-inset-top, 0px)) calc(10px + env(safe-area-inset-right, 0px)) 10px calc(10px + env(safe-area-inset-left, 0px))", background: "transparent", pointerEvents: "none", zIndex: 10001, position: isHome ? "fixed" : "sticky", top: 0, left: 0, right: 0 }}>
       <div aria-hidden="true" style={{ position: "absolute", top: 0, left: 0, right: 0, height: "env(safe-area-inset-top, 0px)", background: "#f2f4f0" }} />
+      <div aria-hidden="true" style={{ position: "absolute", top: -8, left: -8, right: -8, bottom: -12, backdropFilter: "blur(6px)", WebkitBackdropFilter: "blur(6px)", maskImage: "radial-gradient(ellipse 90% 80% at 50% 40%, black 40%, transparent 70%)", WebkitMaskImage: "radial-gradient(ellipse 90% 80% at 50% 40%, black 40%, transparent 70%)", pointerEvents: "none", zIndex: -1 }} />
       <div className="max-w-5xl mx-auto flex items-center justify-between" style={{ pointerEvents: "auto", background: "rgba(62,78,72,.65)", backdropFilter: "blur(20px)", WebkitBackdropFilter: "blur(20px)", borderRadius: 14, padding: "0 8px 0 20px", height: 50 }}>
         <button onClick={() => { go("home"); setOpen(false); }} className="shrink-0" style={{ background: "none", border: "none", cursor: "pointer", opacity: 0.9 }}><Logo size={26} onDark /></button>
         <div style={{ flex: 1 }} />
