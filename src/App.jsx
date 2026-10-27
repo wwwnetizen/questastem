@@ -6664,7 +6664,7 @@ function Navbar() {
           {!user && <button onClick={() => setObOpen(true)} style={{ width: 34, height: 34, borderRadius: 12, background: "rgba(255,255,255,.12)", border: "1px solid rgba(255,255,255,.15)", cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center", color: "rgba(255,255,255,.85)" }}>
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
           </button>}
-          {user && <button onClick={() => go("dashboard")} style={{ width: 30, height: 30, borderRadius: 14, background: "rgba(255,255,255,.15)", border: "none", cursor: "pointer", fontSize: 12, fontWeight: 600, color: "#fff", display: "flex", alignItems: "center", justifyContent: "center" }}>{(user.name||"?")[0].toUpperCase()}</button>}
+          {user && <button onClick={() => go("dashboard")} style={{ width: 30, height: 30, borderRadius: 14, background: "rgba(255,255,255,.15)", border: "none", cursor: "pointer", fontSize: 12, fontWeight: 600, color: "#fff", display: "flex", alignItems: "center", justifyContent: "center", overflow: "hidden", padding: 0 }}>{(user.photoURL || user.avatar) ? <img src={user.avatar || user.photoURL} alt="" style={{ width: "100%", height: "100%", objectFit: "cover" }} referrerPolicy="no-referrer" /> : (user.name||"?")[0].toUpperCase()}</button>}
           <button onClick={() => setOpen(!open)} style={{ width: 38, height: 38, borderRadius: 12, background: "none", border: "none", cursor: "pointer", color: "rgba(255,255,255,.85)", display: "flex", alignItems: "center", justifyContent: "center" }}>{open ? <X size={18} /> : <Menu size={18} />}</button>
         </div>
       </div>
@@ -8422,8 +8422,30 @@ function Dashboard() {
   const [stemForm, setStemForm] = useState({ stemGoal: u.stemGoal || "", stemKnowledge: u.stemKnowledge || "", priorComps: u.priorComps || "", targetOutcomes: u.targetOutcomes || "" });
   const profileComplete = u.stemGoal && u.stemKnowledge;
 
-  const startEdit = () => { setForm({ name: u.name || "", grade: u.grade || "", school: u.school || "", country: u.country || "", bio: u.bio || "" }); setEditing(true); };
+  const avatarRef = React.useRef(null);
+  const startEdit = () => { setForm({ name: u.name || "", grade: u.grade || "", school: u.school || "", country: u.country || "", bio: u.bio || "", avatar: u.avatar || "" }); setEditing(true); };
   const saveEdit = () => { updateProfile(form); setEditing(false); };
+  const handleAvatarPick = (e) => {
+    const file = e.target.files && e.target.files[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = () => {
+      const img = new Image();
+      img.onload = () => {
+        const size = 128;
+        const canvas = document.createElement("canvas");
+        canvas.width = size; canvas.height = size;
+        const ctx = canvas.getContext("2d");
+        const min = Math.min(img.width, img.height);
+        const sx = (img.width - min) / 2, sy = (img.height - min) / 2;
+        ctx.drawImage(img, sx, sy, min, min, 0, 0, size, size);
+        const dataUrl = canvas.toDataURL("image/jpeg", 0.8);
+        setForm(p => ({ ...p, avatar: dataUrl }));
+      };
+      img.src = reader.result;
+    };
+    reader.readAsDataURL(file);
+  };
   const [stemSaved, setStemSaved] = useState(false);
   const saveStem = () => { updateProfile(stemForm); setStemModal(false); setStemSaved(true); setTimeout(() => setStemSaved(false), 2500); };
 
@@ -8499,7 +8521,7 @@ function Dashboard() {
         <div style={{ display: "flex", alignItems: "center", gap: 20 }}>
           <div onClick={startEdit} style={{ width: 72, height: 72, borderRadius: 20, background: "#2b3634", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 24, fontWeight: 800, color: "#f0f2ee", flexShrink: 0, cursor: "pointer", position: "relative", overflow: "hidden", transition: "opacity .2s" }}
             onMouseOver={e => e.currentTarget.style.opacity = "0.8"} onMouseOut={e => e.currentTarget.style.opacity = "1"}>
-            {u.photoURL ? <img src={u.photoURL} alt="" style={{ width: "100%", height: "100%", objectFit: "cover" }} referrerPolicy="no-referrer" /> : initials}
+            {(u.avatar || u.photoURL) ? <img src={u.avatar || u.photoURL} alt="" style={{ width: "100%", height: "100%", objectFit: "cover" }} referrerPolicy="no-referrer" /> : initials}
           </div>
           <div>
             <h1 className="q-display" style={{ fontSize: "clamp(22px,4vw,34px)", fontWeight: 800, color: "#2b3634", letterSpacing: "-0.04em", marginBottom: 4 }}>{u.name || "Student"}</h1>
@@ -8528,6 +8550,24 @@ function Dashboard() {
               onMouseOver={e => e.currentTarget.style.color = "#2b3634"} onMouseOut={e => e.currentTarget.style.color = "rgba(43,54,52,.5)"}>
               &#x2715;
             </button>
+          </div>
+          <div style={{ display: "flex", alignItems: "center", gap: 16, marginBottom: 20 }}>
+            <div onClick={() => avatarRef.current && avatarRef.current.click()} style={{ width: 64, height: 64, borderRadius: 18, background: "#2b3634", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 20, fontWeight: 800, color: "#f0f2ee", flexShrink: 0, cursor: "pointer", overflow: "hidden", position: "relative", border: "2px dashed rgba(43,54,52,.3)" }}
+              onMouseOver={e => e.currentTarget.style.opacity = "0.8"} onMouseOut={e => e.currentTarget.style.opacity = "1"}>
+              {(form.avatar || u.photoURL) ? <img src={form.avatar || u.photoURL} alt="" style={{ width: "100%", height: "100%", objectFit: "cover" }} referrerPolicy="no-referrer" /> : initials}
+              <div style={{ position: "absolute", inset: 0, background: "rgba(0,0,0,.35)", display: "flex", alignItems: "center", justifyContent: "center", opacity: 0, transition: "opacity .2s" }}
+                onMouseOver={e => e.currentTarget.style.opacity = "1"} onMouseOut={e => e.currentTarget.style.opacity = "0"}>
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>
+              </div>
+            </div>
+            <input ref={avatarRef} type="file" accept="image/*" onChange={handleAvatarPick} style={{ display: "none" }} />
+            <div>
+              <button onClick={() => avatarRef.current && avatarRef.current.click()} style={{ fontFamily: mono, fontSize: 11, color: "#2b3634", background: "rgba(43,54,52,.08)", border: "1.5px solid rgba(43,54,52,.35)", borderRadius: 10, padding: "7px 14px", cursor: "pointer", letterSpacing: "0.08em", fontWeight: 600, transition: "all .2s" }}
+                onMouseOver={e => { e.currentTarget.style.background = "rgba(43,54,52,.14)"; }} onMouseOut={e => { e.currentTarget.style.background = "rgba(43,54,52,.08)"; }}>
+                {lang === "mn" ? "ЗУРАГ СОЛИХ" : "CHANGE PHOTO"}
+              </button>
+              {form.avatar && <button onClick={() => setForm(p => ({ ...p, avatar: "" }))} style={{ fontFamily: mono, fontSize: 11, color: "rgba(43,54,52,.5)", background: "none", border: "none", cursor: "pointer", marginLeft: 8 }}>{lang === "mn" ? "Устгах" : "Remove"}</button>}
+            </div>
           </div>
           <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16, marginBottom: 16 }}>
             {[[lang === "mn" ? "БҮТЭН НЭР" : "FULL NAME","name"],[lang === "mn" ? "АНГИ / КУРС" : "GRADE / YEAR","grade"],[lang === "mn" ? "СУРГУУЛЬ" : "SCHOOL","school"],[lang === "mn" ? "УЛС" : "COUNTRY","country"]].map(([label, key]) => (
