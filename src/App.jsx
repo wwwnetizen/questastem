@@ -8495,7 +8495,10 @@ function Dashboard() {
       {/* Hero section */}
       <div style={{ display: "flex", alignItems: "flex-start", justifyContent: "space-between", marginBottom: 32, gap: 16, flexWrap: "wrap" }}>
         <div style={{ display: "flex", alignItems: "center", gap: 20 }}>
-          <div style={{ width: 72, height: 72, borderRadius: 20, background: "#2b3634", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 24, fontWeight: 800, color: "#f0f2ee", flexShrink: 0 }}>{initials}</div>
+          <div onClick={startEdit} style={{ width: 72, height: 72, borderRadius: 20, background: "#2b3634", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 24, fontWeight: 800, color: "#f0f2ee", flexShrink: 0, cursor: "pointer", position: "relative", overflow: "hidden", transition: "opacity .2s" }}
+            onMouseOver={e => e.currentTarget.style.opacity = "0.8"} onMouseOut={e => e.currentTarget.style.opacity = "1"}>
+            {u.photoURL ? <img src={u.photoURL} alt="" style={{ width: "100%", height: "100%", objectFit: "cover" }} referrerPolicy="no-referrer" /> : initials}
+          </div>
           <div>
             <h1 className="q-display" style={{ fontSize: "clamp(22px,4vw,34px)", fontWeight: 800, color: "#2b3634", letterSpacing: "-0.04em", marginBottom: 4 }}>{u.name || "Student"}</h1>
             {u.grade && <div style={{ fontFamily: mono, fontSize: 12, color: "#2b3634", marginBottom: 2 }}>{u.grade}{u.school ? ` · ${u.school}` : ""}</div>}
@@ -8504,9 +8507,11 @@ function Dashboard() {
           </div>
         </div>
         <div style={{ display: "flex", gap: 8, alignItems: "center" }}>
-          <button onClick={() => editing ? saveEdit() : startEdit()}
-            style={{ fontFamily: mono, fontSize: 11, color: editing ? "#f0f2ee" : "rgba(43,54,52,.5)", background: editing ? "#2b3634" : "transparent", border: "1.5px solid rgba(43,54,52,.35)", borderRadius: 10, padding: "8px 16px", cursor: "pointer", letterSpacing: "0.1em" }}>
-            {editing ? (lang === "mn" ? "ХАДГАЛАХ" : "SAVE") : (lang === "mn" ? "ПРОФАЙЛ ЗАСАХ" : "EDIT PROFILE")}
+          <button onClick={startEdit}
+            style={{ fontFamily: mono, fontSize: 11, color: "#2b3634", background: "rgba(43,54,52,.08)", border: "1.5px solid rgba(43,54,52,.35)", borderRadius: 10, padding: "8px 16px", cursor: "pointer", letterSpacing: "0.1em", fontWeight: 600, transition: "all .2s" }}
+            onMouseOver={e => { e.currentTarget.style.background = "rgba(43,54,52,.14)"; e.currentTarget.style.borderColor = "rgba(43,54,52,.5)"; }}
+            onMouseOut={e => { e.currentTarget.style.background = "rgba(43,54,52,.08)"; e.currentTarget.style.borderColor = "rgba(43,54,52,.35)"; }}>
+            {lang === "mn" ? "ПРОФАЙЛ ЗАСАХ" : "EDIT PROFILE"}
           </button>
           <button onClick={handleSignOut} style={{ fontFamily: mono, fontSize: 11, color: "#2b3634", background: "transparent", border: "1.5px solid rgba(43,54,52,.35)", borderRadius: 10, padding: "8px 14px", cursor: "pointer", letterSpacing: "0.08em" }}>{lang === "mn" ? "ГАРАХ" : "SIGN OUT"}</button>
         </div>
@@ -8514,21 +8519,37 @@ function Dashboard() {
 
       {/* Edit form */}
       {editing && (
-        <div style={{ background: "rgba(43,54,52,.03)", border: "1.5px solid rgba(43,54,52,.35)", borderRadius: 18, padding: "24px 24px", marginBottom: 36 }}>
+        <div style={{ background: "rgba(43,54,52,.03)", border: "1.5px solid rgba(43,54,52,.35)", borderRadius: 18, padding: "28px 24px", marginBottom: 36 }}>
+          <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 20 }}>
+            <div style={{ fontFamily: mono, fontSize: 11, letterSpacing: "0.15em", color: "#2b3634", fontWeight: 600 }}>{lang === "mn" ? "ПРОФАЙЛ ЗАСАХ" : "EDIT PROFILE"}</div>
+            <button onClick={() => setEditing(false)} style={{ background: "none", border: "none", cursor: "pointer", fontFamily: mono, fontSize: 18, color: "rgba(43,54,52,.5)", padding: "0 4px", lineHeight: 1 }}
+              onMouseOver={e => e.currentTarget.style.color = "#2b3634"} onMouseOut={e => e.currentTarget.style.color = "rgba(43,54,52,.5)"}>
+              &#x2715;
+            </button>
+          </div>
           <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16, marginBottom: 16 }}>
-            {[["FULL NAME","name"],["GRADE / YEAR","grade"],["SCHOOL","school"],["COUNTRY","country"]].map(([label, key]) => (
+            {[[lang === "mn" ? "БҮТЭН НЭР" : "FULL NAME","name"],[lang === "mn" ? "АНГИ / КУРС" : "GRADE / YEAR","grade"],[lang === "mn" ? "СУРГУУЛЬ" : "SCHOOL","school"],[lang === "mn" ? "УЛС" : "COUNTRY","country"]].map(([label, key]) => (
               <div key={key}>
-                <label style={{ fontFamily: mono, fontSize: 10, letterSpacing: "0.15em", color: "#2b3634", display: "block", marginBottom: 6 }}>{label}</label>
+                <label style={{ fontFamily: mono, fontSize: 10, letterSpacing: "0.15em", color: "rgba(43,54,52,.6)", display: "block", marginBottom: 6 }}>{label}</label>
                 <input value={form[key] || ""} onChange={e => setForm(p => ({...p,[key]:e.target.value}))} style={inputStyle} />
               </div>
             ))}
           </div>
-          <div>
-            <label style={{ fontFamily: mono, fontSize: 10, letterSpacing: "0.15em", color: "#2b3634", display: "block", marginBottom: 6 }}>SHORT BIO</label>
-            <textarea value={form.bio || ""} onChange={e => setForm(p => ({...p, bio: e.target.value}))} rows={2} placeholder={lang === "mn" ? "Өөрийнхөө тухай товч бичнэ үү..." : "Tell us about yourself..."} style={textareaStyle} />
+          <div style={{ marginBottom: 16 }}>
+            <label style={{ fontFamily: mono, fontSize: 10, letterSpacing: "0.15em", color: "rgba(43,54,52,.6)", display: "block", marginBottom: 6 }}>{lang === "mn" ? "ТОВЧ ТАНИЛЦУУЛГА" : "SHORT BIO"}</label>
+            <textarea value={form.bio || ""} onChange={e => setForm(p => ({...p, bio: e.target.value}))} rows={2} placeholder={lang === "mn" ? "Oорийнхоо тухай товч бичнэ уу..." : "Tell us about yourself..."} style={textareaStyle} />
           </div>
-          <div style={{ display: "flex", gap: 8, marginTop: 16 }}>
-            <button onClick={saveEdit} style={{ fontFamily: mono, fontSize: 12, color: "#f0f2ee", background: "#2b3634", border: "none", borderRadius: 10, padding: "10px 20px", cursor: "pointer" }}>{lang === "mn" ? "Хадгалах" : "Save changes"}</button>
+          {u.email && (
+            <div style={{ marginBottom: 16 }}>
+              <label style={{ fontFamily: mono, fontSize: 10, letterSpacing: "0.15em", color: "rgba(43,54,52,.6)", display: "block", marginBottom: 6 }}>{lang === "mn" ? "ИМЭЙЛ" : "EMAIL"}</label>
+              <div style={{ ...inputStyle, background: "rgba(43,54,52,.04)", color: "rgba(43,54,52,.55)", cursor: "default" }}>{u.email}</div>
+            </div>
+          )}
+          <div style={{ display: "flex", gap: 8, marginTop: 20 }}>
+            <button onClick={saveEdit} style={{ fontFamily: mono, fontSize: 12, color: "#f0f2ee", background: "#2b3634", border: "none", borderRadius: 10, padding: "10px 20px", cursor: "pointer", fontWeight: 600, letterSpacing: "0.04em", transition: "opacity .2s" }}
+              onMouseOver={e => e.currentTarget.style.opacity = "0.8"} onMouseOut={e => e.currentTarget.style.opacity = "1"}>
+              {lang === "mn" ? "Хадгалах" : "Save changes"}
+            </button>
             <button onClick={() => setEditing(false)} style={{ fontFamily: mono, fontSize: 12, color: "#2b3634", background: "transparent", border: "1.5px solid rgba(43,54,52,.35)", borderRadius: 10, padding: "10px 16px", cursor: "pointer" }}>{t.cancel || "Cancel"}</button>
           </div>
         </div>
