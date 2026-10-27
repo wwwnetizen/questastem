@@ -9,12 +9,12 @@
     <meta name="color-scheme" content="light" />
     <title>questastem</title>
     <style>
-      html { margin: 0; padding: 0; width: 100%; min-height: 100dvh; background-color: #f2f4f0; overscroll-behavior-y: none; }
-      body { margin: 0; padding: 0; width: 100%; min-height: 100dvh; background: #f2f4f0; overscroll-behavior-y: none; }
+      html { margin: 0; padding: 0; width: 100%; min-height: 100dvh; background-color: #f2f4f0; }
+      body { margin: 0; padding: 0; width: 100%; min-height: 100dvh; background: #f2f4f0; }
     </style>
   </head>
   <body>
-    <div id="safari-top" style="position:fixed;top:0;left:0;width:100%;height:env(safe-area-inset-top,4px);min-height:4px;background-color:#f2f4f0;z-index:10000;pointer-events:none"></div>
+    <div id="safari-top" style="position:fixed;top:-50vh;left:0;width:100%;height:calc(100vh + 50vh);background-color:#f2f4f0;z-index:-1;pointer-events:none"></div>
     <div id="root"></div>
     <script type="module" src="/src/main.jsx"></script>
   </body>
