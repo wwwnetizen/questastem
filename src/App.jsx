@@ -10622,7 +10622,7 @@ export default function App() {
         <ChatWidget />
         <SearchModal />
         <Toasts toasts={toasts} />
-        <Analytics />
+        <Analytics mode="production" />
       </div>
     </QuestaCtx.Provider>
   );
