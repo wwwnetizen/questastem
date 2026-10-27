@@ -10101,7 +10101,7 @@ RULES:
           const clickable = !!nb;
           const done = node && completed[node.id];
           return (
-            <div style={{ padding: "14px 18px", border: done ? "1.5px solid rgba(43,54,52,.22)" : "1px solid rgba(43,54,52,.12)", borderRadius: 14, background: done ? "rgba(43,54,52,.05)" : "rgba(255,255,255,.35)", transition: "all .2s", marginBottom: 8 }}>
+            <div style={{ padding: "14px 18px", border: done ? "1.5px solid rgba(43,54,52,.35)" : "1.5px solid rgba(43,54,52,.25)", borderRadius: 14, background: done ? "rgba(43,54,52,.08)" : "rgba(43,54,52,.03)", transition: "all .2s", marginBottom: 8 }}>
               <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 4 }}>
                 <div onClick={() => { if (nb) { setFromRoadmap(activeRoadmap); go("tree", nb.branchId); setTimeout(() => setDrawerNode(node), 80); } }}
                   style={{ fontSize: 14, fontWeight: 700, color: done ? "rgba(43,54,52,.55)" : "#2b3634", textDecoration: done ? "line-through" : "none", cursor: clickable ? "pointer" : "default", flex: 1 }}
@@ -10144,7 +10144,7 @@ RULES:
           {detailTab === "overview" && (
             <div>
               {data.overview && (
-                <div style={{ fontSize: 15, color: "#2b3634", lineHeight: 1.8, marginBottom: 40, padding: "20px 24px", background: "rgba(255,255,255,.3)", borderRadius: 16, border: "1px solid rgba(43,54,52,.08)" }}>
+                <div style={{ fontSize: 15, color: "#2b3634", lineHeight: 1.8, marginBottom: 40, padding: "20px 24px", background: "rgba(43,54,52,.03)", borderRadius: 16, border: "1px solid rgba(43,54,52,.1)" }}>
                   {data.overview}
                 </div>
               )}
@@ -10179,7 +10179,7 @@ RULES:
                     </div>
                   )}
                   {p.checkpoint && (
-                    <div style={{ padding: "12px 18px", borderRadius: 12, background: "rgba(255,255,255,.3)", border: "1px solid rgba(43,54,52,.08)", fontSize: 13, color: "#2b3634", lineHeight: 1.5 }}>
+                    <div style={{ padding: "12px 18px", borderRadius: 12, background: "rgba(43,54,52,.05)", border: "1px solid rgba(43,54,52,.12)", fontSize: 13, color: "#2b3634", lineHeight: 1.5 }}>
                       <span style={{ fontFamily: mono, fontSize: 10, letterSpacing: "0.12em", color: "rgba(43,54,52,.4)", marginRight: 8 }}>{lang === "mn" ? "ШАЛГАХ ЦЭГ:" : "CHECKPOINT:"}</span>
                       {p.checkpoint}
                     </div>
