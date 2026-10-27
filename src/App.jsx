@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useLayoutEffect, useRef, useMemo, useContext, createContext } from "react";
+import { Analytics } from "@vercel/analytics/react";
 
 const FB_CONFIG = { apiKey: "AIzaSyDTFiy07edMQHrF6Qc3K2CcLmWc3Z5-vPk", authDomain: "questa-c7bff.firebaseapp.com", projectId: "questa-c7bff", appId: "1:748121591788:web:3775a3301f0c2bb7ec7ac9" };
 
@@ -10619,6 +10620,7 @@ export default function App() {
         <ChatWidget />
         <SearchModal />
         <Toasts toasts={toasts} />
+        <Analytics />
       </div>
     </QuestaCtx.Provider>
   );
