@@ -6709,7 +6709,7 @@ function SearchModal() {
       <div className="absolute inset-0" style={{ background: "rgba(43,54,52,.22)", backdropFilter: "blur(4px)" }} onClick={close} />
       <div className="q-card" style={{ position: "fixed", top: 16, left: 16, right: 16, margin: "0 auto", maxWidth: 520, borderRadius: 14, overflow: "hidden", boxShadow: "0 20px 60px rgba(43,54,52,.22)", zIndex: 10002 }} onClick={e => e.stopPropagation()}>
         {/* Search input */}
-        <div style={{ display: "flex", alignItems: "center", gap: 12, padding: "16px 20px", borderBottom: "1px solid rgba(43,54,52,.08)" }}>
+        <div style={{ display: "flex", alignItems: "center", gap: 12, padding: "16px 20px", borderBottom: "1px solid rgba(43,54,52,.14)" }}>
           <Search size={16} style={{ color: "#2b3634", flexShrink: 0 }} />
           <input ref={inputRef} value={q} onChange={e => setQ(e.target.value)}
             placeholder={t.searchPh}
@@ -7024,7 +7024,7 @@ function LegalModal({ type, onClose }) {
 
   const Section = ({ number, title, children }) => (
     <div style={{ marginBottom: 44 }}>
-      <h3 style={{ fontFamily: display, fontSize: 17, fontWeight: 700, color: "#2b3634", letterSpacing: "-0.01em", margin: "0 0 14px 0", paddingBottom: 10, borderBottom: "1px solid rgba(43,54,52,.08)" }}>
+      <h3 style={{ fontFamily: display, fontSize: 17, fontWeight: 700, color: "#2b3634", letterSpacing: "-0.01em", margin: "0 0 14px 0", paddingBottom: 10, borderBottom: "1px solid rgba(43,54,52,.14)" }}>
         {number && <span style={{ color: "rgba(43,54,52,.35)", marginRight: 8 }}>{number}.</span>}{title}
       </h3>
       <div style={{ fontSize: 14.5, color: "rgba(43,54,52,.82)", lineHeight: 1.9, fontFamily: mono }}>{children}</div>
@@ -7058,7 +7058,7 @@ function LegalModal({ type, onClose }) {
 
         {/* Document meta */}
         <div style={{ marginBottom: 44, padding: "20px 24px", background: "rgba(43,54,52,.03)", borderRadius: 12, border: "1px solid rgba(43,54,52,.35)" }}>
-          <div style={{ fontFamily: mono, fontSize: 12, color: "rgba(43,54,52,.5)", lineHeight: 1.8 }}>
+          <div style={{ fontFamily: mono, fontSize: 12, color: "rgba(43,54,52,.65)", lineHeight: 1.8 }}>
             <span style={{ fontWeight: 600, color: "#2b3634" }}>{t.legalApplies}</span>  ·  questastem.com<br />
             <span style={{ fontWeight: 600, color: "#2b3634" }}>{t.legalContact}</span>  ·  hello@questastem.com
           </div>
@@ -7325,7 +7325,7 @@ function LegalModal({ type, onClose }) {
             </Section>
           </>
         )}
-        <div style={{ fontFamily: mono, fontSize: 11, color: "rgba(43,54,52,.4)", marginTop: 56, paddingTop: 20, borderTop: "1.5px solid rgba(43,54,52,.08)", letterSpacing: "0.06em" }}>© {year} Questa  ·  {t.allRights}</div>
+        <div style={{ fontFamily: mono, fontSize: 11, color: "rgba(43,54,52,.55)", marginTop: 56, paddingTop: 20, borderTop: "1.5px solid rgba(43,54,52,.15)", letterSpacing: "0.06em" }}>© {year} Questa  ·  {t.allRights}</div>
         </div>
         </div>
       </div>
@@ -7416,11 +7416,11 @@ function LearningPage() {
               <span className="q-display" style={{ fontSize: "clamp(22px,3vw,36px)", fontWeight: 700, color: "#2b3634", letterSpacing: "-0.03em" }}>{s.name[lang] || s.name.en}</span>
               {doneN > 0 && (
                 <div style={{ display: "flex", alignItems: "center", gap: 8, marginTop: 6 }}>
-                  <div style={{ width: 48, height: 2, background: "rgba(43,54,52,.15)", borderRadius: 1, position: "relative" }}>
-                    <div style={{ position: "absolute", left: 0, top: 0, height: 2, width: Math.round(doneN / allN * 100) + "%", background: "rgba(43,54,52,.5)", borderRadius: 1 }} />
-                    <div style={{ position: "absolute", top: -3, height: 8, width: 1.5, background: "rgba(43,54,52,.6)", left: Math.round(doneN / allN * 100) + "%", transform: "translateX(-50%)" }} />
+                  <div style={{ width: 48, height: 3, background: "rgba(43,54,52,.22)", borderRadius: 1.5, position: "relative" }}>
+                    <div style={{ position: "absolute", left: 0, top: 0, height: 3, width: Math.round(doneN / allN * 100) + "%", background: "rgba(43,54,52,.7)", borderRadius: 1.5 }} />
+                    <div style={{ position: "absolute", top: -3, height: 9, width: 1.5, background: "rgba(43,54,52,.75)", left: Math.round(doneN / allN * 100) + "%", transform: "translateX(-50%)" }} />
                   </div>
-                  <span className="q-mono" style={{ fontSize: 10, color: "rgba(43,54,52,.45)", letterSpacing: "0.08em" }}>{String(doneN).padStart(2, "0")} / {String(allN).padStart(2, "0")}</span>
+                  <span className="q-mono" style={{ fontSize: 10, color: "rgba(43,54,52,.65)", letterSpacing: "0.08em" }}>{String(doneN).padStart(2, "0")} / {String(allN).padStart(2, "0")}</span>
                 </div>
               )}
             </div>
@@ -7771,11 +7771,11 @@ function SubjectPage() {
                 <span className="q-display" style={{ fontSize: "clamp(16px,2vw,22px)", fontWeight: 600, color: "#2b3634", letterSpacing: "-0.02em" }}>{b.name[lang] || b.name.en}</span>
                 {bpr.done > 0 && (
                   <div style={{ display: "flex", alignItems: "center", gap: 8, marginTop: 6 }}>
-                    <div style={{ width: 48, height: 2, background: "rgba(43,54,52,.15)", borderRadius: 1, position: "relative" }}>
-                      <div style={{ position: "absolute", left: 0, top: 0, height: 2, width: bpr.pct + "%", background: "rgba(43,54,52,.5)", borderRadius: 1 }} />
-                      <div style={{ position: "absolute", top: -3, height: 8, width: 1.5, background: "rgba(43,54,52,.6)", left: bpr.pct + "%", transform: "translateX(-50%)" }} />
+                    <div style={{ width: 48, height: 3, background: "rgba(43,54,52,.22)", borderRadius: 1.5, position: "relative" }}>
+                      <div style={{ position: "absolute", left: 0, top: 0, height: 3, width: bpr.pct + "%", background: "rgba(43,54,52,.7)", borderRadius: 1.5 }} />
+                      <div style={{ position: "absolute", top: -3, height: 9, width: 1.5, background: "rgba(43,54,52,.75)", left: bpr.pct + "%", transform: "translateX(-50%)" }} />
                     </div>
-                    <span className="q-mono" style={{ fontSize: 10, color: "rgba(43,54,52,.5)", letterSpacing: "0.08em" }}>{String(bpr.done).padStart(2, "0")} / {String(bpr.total).padStart(2, "0")}</span>
+                    <span className="q-mono" style={{ fontSize: 10, color: "rgba(43,54,52,.65)", letterSpacing: "0.08em" }}>{String(bpr.done).padStart(2, "0")} / {String(bpr.total).padStart(2, "0")}</span>
                   </div>
                 )}
               </div>
@@ -7844,8 +7844,8 @@ function TreePage() {
         {/* Progress indicator - editorial measurement line */}
         <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 20 }}>
           <span style={{ fontFamily: mono, fontSize: 12, color: "#2b3634", letterSpacing: "0.1em" }}>{String(pr.done).padStart(2, "0")} / {String(pr.total).padStart(2, "0")}</span>
-          <div style={{ flex: 1, height: 2, background: "rgba(43,54,52,.15)", borderRadius: 1, position: "relative" }}>
-            <div style={{ position: "absolute", left: 0, top: 0, height: 2, width: (pr.pct || 0) + "%", background: "rgba(43,54,52,.5)", borderRadius: 1 }} />
+          <div style={{ flex: 1, height: 3, background: "rgba(43,54,52,.22)", borderRadius: 1.5, position: "relative" }}>
+            <div style={{ position: "absolute", left: 0, top: 0, height: 3, width: (pr.pct || 0) + "%", background: "rgba(43,54,52,.7)", borderRadius: 1 }} />
             {pr.done > 0 && <div style={{ position: "absolute", top: -3, height: 8, width: 1.5, background: "rgba(43,54,52,.6)", left: (pr.pct || 0) + "%", transform: "translateX(-50%)" }} />}
           </div>
         </div>
@@ -7914,7 +7914,7 @@ function NodeDrawer() {
           <p style={{ fontSize: 14, color: "#2b3634", lineHeight: 1.7, marginBottom: 32, fontWeight: 500 }}>{node.why ? (node.why[lang] || node.why.en) : (node.desc[lang] || node.desc.en)}</p>
 
           {/* Hairline */}
-          <div style={{ height: 1, background: "rgba(43,54,52,.08)", marginBottom: 32 }} />
+          <div style={{ height: 1, background: "rgba(43,54,52,.14)", marginBottom: 32 }} />
 
           {/* Resources */}
           <div style={{ fontFamily: mono, fontSize: 11, letterSpacing: "0.2em", color: "#2b3634", fontWeight: 500, marginBottom: 16 }}>{t.resourcesTitle?.toUpperCase?.() || "RESOURCES"}</div>
@@ -8022,7 +8022,7 @@ function CompetitionsPage() {
         </div>
         {fields && <div style={{ fontFamily: mono, fontSize: 13, color: "#2b3634", marginBottom: 24 }}>{fields}</div>}
         <p style={{ fontSize: 15, color: "#2b3634", lineHeight: 1.7, marginBottom: 40 }}>{o.desc[lang] || o.desc.en}</p>
-        <div style={{ height: 1, background: "rgba(43,54,52,.08)", marginBottom: 32 }} />
+        <div style={{ height: 1, background: "rgba(43,54,52,.14)", marginBottom: 32 }} />
 
         {o.elig && o.elig.note && <><div style={{ fontFamily: mono, fontSize: 11, letterSpacing: "0.2em", color: "#2b3634", marginBottom: 10 }}>{lang === "mn" ? "ТОХИРОХ ЭСЭХ" : "ELIGIBILITY"}</div><p style={{ fontSize: 14, color: "#2b3634", lineHeight: 1.7, marginBottom: 28 }}>{o.elig.ok ? (lang === "mn" ? "Монголоос оролцох боломжтой" : "Open to Mongolia") : (lang === "mn" ? "Тохирох эсэхийг шалгах" : "Check eligibility")}{o.elig.note ? " " + (o.elig.note[lang] || o.elig.note.en || o.elig.note) : ""}</p></>}
 
@@ -8032,7 +8032,7 @@ function CompetitionsPage() {
 
         {o.prep && <><div style={{ fontFamily: mono, fontSize: 11, letterSpacing: "0.2em", color: "#2b3634", marginBottom: 10 }}>{lang === "mn" ? "БЭЛТГЭЛ" : "PREPARATION"}</div><p style={{ fontSize: 14, color: "#2b3634", lineHeight: 1.7, marginBottom: 28 }}>{lang === "mn" ? `Ойролцоогоор ${o.prep} сар` : `Approximately ${o.prep} months`}</p></>}
 
-        <div style={{ height: 1, background: "rgba(43,54,52,.08)", marginBottom: 32 }} />
+        <div style={{ height: 1, background: "rgba(43,54,52,.14)", marginBottom: 32 }} />
         <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
           {o.link && <a href={o.link} target="_blank" rel="noreferrer" style={{ display: "block", padding: "14px 0", border: "1.5px solid rgba(43,54,52,.35)", borderRadius: 14, textAlign: "center", fontFamily: mono, fontSize: 13, color: "#2b3634", background: "rgba(43,54,52,.08)", textDecoration: "none", letterSpacing: "0.05em", fontWeight: 600, transition: "all .2s" }}
                     onMouseOver={e => { e.currentTarget.style.background = "rgba(43,54,52,.14)"; e.currentTarget.style.borderColor = "rgba(43,54,52,.5)"; }}
@@ -8121,7 +8121,7 @@ function ResearchPage() {
         </div>
         {fields && <div style={{ fontFamily: mono, fontSize: 13, color: "#2b3634", marginBottom: 24 }}>{fields}</div>}
         <p style={{ fontSize: 15, color: "#2b3634", lineHeight: 1.7, marginBottom: 40 }}>{o.desc[lang] || o.desc.en}</p>
-        <div style={{ height: 1, background: "rgba(43,54,52,.08)", marginBottom: 32 }} />
+        <div style={{ height: 1, background: "rgba(43,54,52,.14)", marginBottom: 32 }} />
         <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
           {o.link && <a href={o.link} target="_blank" rel="noreferrer" style={{ display: "block", padding: "14px 0", border: "1.5px solid rgba(43,54,52,.35)", borderRadius: 14, textAlign: "center", fontFamily: mono, fontSize: 13, color: "#2b3634", background: "rgba(43,54,52,.08)", textDecoration: "none", letterSpacing: "0.05em", fontWeight: 600, transition: "all .2s" }}
                     onMouseOver={e => { e.currentTarget.style.background = "rgba(43,54,52,.14)"; e.currentTarget.style.borderColor = "rgba(43,54,52,.5)"; }}
@@ -8386,12 +8386,12 @@ function NasaPage() {
         {fields && <span style={{ color: "rgba(43,54,52,.5)" }}>{fields}</span>}
       </div>
       <p style={{ fontSize: 15, color: "#2b3634", lineHeight: 1.7, marginBottom: 40 }}>{nasa.desc[lang] || nasa.desc.en}</p>
-      <div style={{ height: 1, background: "rgba(43,54,52,.08)", marginBottom: 32 }} />
+      <div style={{ height: 1, background: "rgba(43,54,52,.14)", marginBottom: 32 }} />
       {nasa.elig && nasa.elig.note && <><div style={{ fontFamily: mono, fontSize: 11, letterSpacing: "0.2em", color: "#2b3634", marginBottom: 10 }}>{lang === "mn" ? "ТОХИРОХ ЭСЭХ" : "ELIGIBILITY"}</div><p style={{ fontSize: 14, color: "#2b3634", lineHeight: 1.7, marginBottom: 28 }}>{nasa.elig.ok ? (lang === "mn" ? "Монголоос оролцох боломжтой" : "Open to Mongolia") : (lang === "mn" ? "Тохирох эсэхийг шалгах" : "Check eligibility")}{nasa.elig.note ? " " + (nasa.elig.note[lang] || nasa.elig.note.en || "") : ""}</p></>}
       {nasa.timeline && <><div style={{ fontFamily: mono, fontSize: 11, letterSpacing: "0.2em", color: "#2b3634", marginBottom: 10 }}>PATH</div><p style={{ fontSize: 14, color: "#2b3634", lineHeight: 1.7, marginBottom: 28 }}>{nasa.timeline[lang] || nasa.timeline.en}</p></>}
       {nasa.win && nasa.win.note && <><div style={{ fontFamily: mono, fontSize: 11, letterSpacing: "0.2em", color: "#2b3634", marginBottom: 10 }}>TIMELINE</div><p style={{ fontSize: 14, color: "#2b3634", lineHeight: 1.7, marginBottom: 28 }}>{nasa.win.note[lang] || nasa.win.note.en || ""}</p></>}
       {nasa.prep && <><div style={{ fontFamily: mono, fontSize: 11, letterSpacing: "0.2em", color: "#2b3634", marginBottom: 10 }}>{lang === "mn" ? "БЭЛТГЭЛ" : "PREPARATION"}</div><p style={{ fontSize: 14, color: "#2b3634", lineHeight: 1.7, marginBottom: 28 }}>{lang === "mn" ? `Ойролцоогоор ${nasa.prep} сар` : `Approximately ${nasa.prep} months`}</p></>}
-      <div style={{ height: 1, background: "rgba(43,54,52,.08)", marginBottom: 32 }} />
+      <div style={{ height: 1, background: "rgba(43,54,52,.14)", marginBottom: 32 }} />
       <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
         <a href="https://www.spaceappsulaanbaatar.com/" target="_blank" rel="noreferrer" style={{ display: "block", padding: "14px 0", border: "1.5px solid #2b3634", borderRadius: 14, textAlign: "center", fontFamily: mono, fontSize: 13, color: "#f0f2ee", background: "#2b3634", textDecoration: "none", letterSpacing: "0.05em", fontWeight: 700 }}>Space Apps Ulaanbaatar</a>
         {nasa.link && <a href={nasa.link} target="_blank" rel="noreferrer" style={{ display: "block", padding: "14px 0", border: "1.5px solid rgba(43,54,52,.35)", borderRadius: 14, textAlign: "center", fontFamily: mono, fontSize: 13, color: "#2b3634", background: "rgba(43,54,52,.08)", textDecoration: "none", letterSpacing: "0.05em", fontWeight: 600, transition: "all .2s" }}
@@ -8562,7 +8562,7 @@ function Dashboard() {
       <div style={{ display: "flex", gap: 0, borderBottom: "1px solid rgba(43,54,52,.35)", marginBottom: 36, overflowX: "auto" }}>
         {TABS.map(([id, label]) => (
           <button key={id} onClick={() => { setActiveTab(id); if (id === "stem") setStemForm({ stemGoal: u.stemGoal || "", stemKnowledge: u.stemKnowledge || "", priorComps: u.priorComps || "", targetOutcomes: u.targetOutcomes || "" }); }}
-            style={{ fontFamily: mono, fontSize: 12, letterSpacing: "0.08em", color: activeTab === id ? "#2b3634" : "rgba(43,54,52,.35)", background: "none", border: "none", borderBottom: `2px solid ${activeTab === id ? "#2b3634" : "transparent"}`, padding: "10px 20px 12px", cursor: "pointer", marginBottom: -1, fontWeight: activeTab === id ? 600 : 400, whiteSpace: "nowrap" }}>
+            style={{ fontFamily: mono, fontSize: 12, letterSpacing: "0.08em", color: activeTab === id ? "#2b3634" : "rgba(43,54,52,.5)", background: "none", border: "none", borderBottom: `2px solid ${activeTab === id ? "#2b3634" : "transparent"}`, padding: "10px 20px 12px", cursor: "pointer", marginBottom: -1, fontWeight: activeTab === id ? 600 : 400, whiteSpace: "nowrap" }}>
             {label.toUpperCase()}{id === "stem" && !profileComplete ? React.createElement("span", { style: { color: "#c53030", marginLeft: 4, fontSize: 14, fontWeight: 700 } }, "*") : null}
           </button>
         ))}
@@ -8584,10 +8584,10 @@ function Dashboard() {
                     style={{ display: "flex", alignItems: "center", gap: 12, padding: "12px 0", background: "none", border: "none", borderBottom: "1px solid rgba(43,54,52,.06)", cursor: "pointer", width: "100%", textAlign: "left", transition: "opacity .2s" }}
                     onMouseOver={e => e.currentTarget.style.opacity = "0.6"} onMouseOut={e => e.currentTarget.style.opacity = "1"}>
                     <span style={{ fontSize: 14, fontWeight: 600, color: "#2b3634", flex: 1, minWidth: 0 }}>{s.name[lang] || s.name.en}</span>
-                    <div style={{ width: 48, height: 2, background: "rgba(43,54,52,.15)", borderRadius: 1, position: "relative", flexShrink: 0 }}>
-                      <div style={{ position: "absolute", left: 0, top: 0, height: 2, width: Math.round(doneNodes / allNodes * 100) + "%", background: "rgba(43,54,52,.5)", borderRadius: 1 }} />
+                    <div style={{ width: 48, height: 3, background: "rgba(43,54,52,.22)", borderRadius: 1.5, position: "relative", flexShrink: 0 }}>
+                      <div style={{ position: "absolute", left: 0, top: 0, height: 3, width: Math.round(doneNodes / allNodes * 100) + "%", background: "rgba(43,54,52,.7)", borderRadius: 1 }} />
                     </div>
-                    <span style={{ fontFamily: mono, fontSize: 10, color: "rgba(43,54,52,.45)", flexShrink: 0, width: 52, textAlign: "right" }}>{String(doneNodes).padStart(2, "0")} / {String(allNodes).padStart(2, "0")}</span>
+                    <span style={{ fontFamily: mono, fontSize: 10, color: "rgba(43,54,52,.65)", flexShrink: 0, width: 52, textAlign: "right" }}>{String(doneNodes).padStart(2, "0")} / {String(allNodes).padStart(2, "0")}</span>
                   </button>
                 );
               }).filter(Boolean)}
@@ -9369,7 +9369,7 @@ function ChatWidget() {
     <div className="q-modal">
       <div className="absolute inset-0" style={{ background: "rgba(43,54,52,.2)", backdropFilter: "blur(3px)" }} onClick={() => setChatOpen(false)} />
       <div className="q-card" style={{ position: "fixed", top: 16, left: 16, right: 16, bottom: 16, margin: "auto", maxWidth: 540, borderRadius: 14, display: "flex", flexDirection: "column", overflow: "hidden", zIndex: 10002 }}>
-        <div style={{ padding: "20px 24px", display: "flex", alignItems: "center", justifyContent: "space-between", borderBottom: "1px solid rgba(43,54,52,.08)" }}>
+        <div style={{ padding: "20px 24px", display: "flex", alignItems: "center", justifyContent: "space-between", borderBottom: "1px solid rgba(43,54,52,.14)" }}>
           <div>
             <div style={{ fontFamily: mono, fontSize: 11, letterSpacing: "0.2em", color: "#2b3634" }}>AI ASSISTANT</div>
             {activeChatLabel && <div style={{ fontSize: 12, color: "#2b3634", marginTop: 2 }}>{activeChatLabel}</div>}
@@ -9566,7 +9566,7 @@ function RoadmapsPage() {
               onMouseOut={e => { e.currentTarget.style.background = archiveOpen ? "rgba(43,54,52,.08)" : "rgba(43,54,52,.02)"; e.currentTarget.style.borderColor = "rgba(43,54,52,.35)"; }}>
               <div>
                 <div style={{ fontSize: 15, fontWeight: 700, color: "#2b3634" }}>{lang === "mn" ? "Questa архиваас сонгох" : "Select from Questa Archive"}</div>
-                <div style={{ fontFamily: mono, fontSize: 11, color: "rgba(43,54,52,.45)", marginTop: 2 }}>{lang === "mn" ? "Олимпиад, хакатон, судалгаа, робот техник" : "Olympiads, hackathons, research, robotics"}</div>
+                <div style={{ fontFamily: mono, fontSize: 11, color: "rgba(43,54,52,.6)", marginTop: 2 }}>{lang === "mn" ? "Олимпиад, хакатон, судалгаа, робот техник" : "Olympiads, hackathons, research, robotics"}</div>
               </div>
               <span style={{ fontFamily: mono, fontSize: 14, color: "#2b3634", transition: "transform .2s", transform: archiveOpen ? "rotate(90deg)" : "none" }}>&rarr;</span>
             </button>
@@ -10068,7 +10068,7 @@ RULES:
           return (
           <div style={{ marginBottom: 32 }}>
             <div style={{ display: "flex", alignItems: "baseline", justifyContent: "space-between", marginBottom: 8 }}>
-              <div style={{ fontFamily: mono, fontSize: 10, letterSpacing: "0.12em", color: "rgba(43,54,52,.5)" }}>
+              <div style={{ fontFamily: mono, fontSize: 10, letterSpacing: "0.12em", color: "rgba(43,54,52,.65)" }}>
                 {lang === "mn" ? "АХИЦ" : "PROGRESS"}
               </div>
               <div style={{ fontFamily: mono, fontSize: 11, color: "#2b3634", fontWeight: 600 }}>
@@ -10081,10 +10081,10 @@ RULES:
                 const pct = prog.total > 0 ? (prog.done / prog.total) * 100 : 0;
                 return (
                 <div key={i} style={{ flex: 1, display: "flex", flexDirection: "column", gap: 4 }}>
-                  <div style={{ height: 4, borderRadius: 2, background: "rgba(43,54,52,.1)", overflow: "hidden" }}>
+                  <div style={{ height: 4, borderRadius: 2, background: "rgba(43,54,52,.18)", overflow: "hidden" }}>
                     <div style={{ height: "100%", width: pct + "%", borderRadius: 2, background: "#2b3634", transition: "width .4s ease" }} />
                   </div>
-                  <div style={{ fontFamily: mono, fontSize: 9, letterSpacing: "0.12em", color: pct === 100 ? "#2b3634" : "rgba(43,54,52,.45)", textAlign: "center", fontWeight: pct === 100 ? 600 : 400 }}>
+                  <div style={{ fontFamily: mono, fontSize: 9, letterSpacing: "0.12em", color: pct === 100 ? "#2b3634" : "rgba(43,54,52,.6)", textAlign: "center", fontWeight: pct === 100 ? 600 : 400 }}>
                     {(p.name || "Phase " + (i + 1)).toUpperCase()}
                   </div>
                 </div>
@@ -10108,15 +10108,15 @@ RULES:
                   onMouseOver={e => { if (clickable) e.currentTarget.style.opacity = "0.6"; }}
                   onMouseOut={e => { e.currentTarget.style.opacity = "1"; }}>
                   {course.name}
-                  {clickable && <span style={{ fontFamily: mono, fontSize: 10, color: "rgba(43,54,52,.35)", marginLeft: 8 }}>&rarr;</span>}
+                  {clickable && <span style={{ fontFamily: mono, fontSize: 10, color: "rgba(43,54,52,.5)", marginLeft: 8 }}>&rarr;</span>}
                 </div>
                 {(course.hours || course.weeks) && (
-                  <div style={{ fontFamily: mono, fontSize: 11, color: "rgba(43,54,52,.45)", flexShrink: 0, marginLeft: 8 }}>
+                  <div style={{ fontFamily: mono, fontSize: 11, color: "rgba(43,54,52,.6)", flexShrink: 0, marginLeft: 8 }}>
                     {course.hours ? `~${course.hours}h` : ""}{course.hours && course.weeks ? " / " : ""}{course.weeks ? `${course.weeks}w` : ""}
                   </div>
                 )}
               </div>
-              {course.why && <div style={{ fontSize: 13, color: "rgba(43,54,52,.65)", lineHeight: 1.5, marginBottom: node ? 8 : 0 }}>{course.why}</div>}
+              {course.why && <div style={{ fontSize: 13, color: "rgba(43,54,52,.75)", lineHeight: 1.5, marginBottom: node ? 8 : 0 }}>{course.why}</div>}
               {node && (
                 <button onClick={(e) => { e.stopPropagation(); completeNode(node.id); }}
                   style={{ fontFamily: mono, fontSize: 11, letterSpacing: "0.06em", color: done ? "rgba(43,54,52,.5)" : "#2b3634", background: done ? "rgba(43,54,52,.05)" : "rgba(43,54,52,.08)", border: done ? "1px solid rgba(43,54,52,.15)" : "1.5px solid rgba(43,54,52,.3)", borderRadius: 10, padding: "7px 14px", cursor: "pointer", fontWeight: 600, transition: "all .2s", marginTop: 4 }}
@@ -10135,7 +10135,7 @@ RULES:
           <div style={{ display: "flex", gap: 0, borderBottom: "1px solid rgba(43,54,52,.35)", marginBottom: 32, overflowX: "auto" }}>
             {[["overview", lang === "mn" ? "ТОЙМ" : "OVERVIEW"], ["milestones", lang === "mn" ? "ЗОРИЛТУУД" : "MILESTONES"]].map(([id, label]) => (
               <button key={id} onClick={() => setDetailTab(id)}
-                style={{ fontFamily: mono, fontSize: 12, letterSpacing: "0.08em", color: detailTab === id ? "#2b3634" : "rgba(43,54,52,.35)", background: "none", border: "none", borderBottom: `2px solid ${detailTab === id ? "#2b3634" : "transparent"}`, padding: "10px 24px 12px", cursor: "pointer", marginBottom: -1, fontWeight: detailTab === id ? 600 : 400, whiteSpace: "nowrap" }}>
+                style={{ fontFamily: mono, fontSize: 12, letterSpacing: "0.08em", color: detailTab === id ? "#2b3634" : "rgba(43,54,52,.5)", background: "none", border: "none", borderBottom: `2px solid ${detailTab === id ? "#2b3634" : "transparent"}`, padding: "10px 24px 12px", cursor: "pointer", marginBottom: -1, fontWeight: detailTab === id ? 600 : 400, whiteSpace: "nowrap" }}>
                 {label}
               </button>
             ))}
@@ -10151,28 +10151,28 @@ RULES:
               {phases.map((p, pi) => (
                 <div key={pi} style={{ marginBottom: 48 }}>
                   <div style={{ display: "flex", alignItems: "baseline", gap: 12, marginBottom: 8 }}>
-                    <div style={{ fontFamily: mono, fontSize: 11, letterSpacing: "0.15em", color: "rgba(43,54,52,.4)", flexShrink: 0 }}>
+                    <div style={{ fontFamily: mono, fontSize: 11, letterSpacing: "0.15em", color: "rgba(43,54,52,.55)", flexShrink: 0 }}>
                       {(lang === "mn" ? "ШАТ" : "PHASE") + " " + (pi + 1)}
                     </div>
-                    <div style={{ height: 1, flex: 1, background: "rgba(43,54,52,.12)" }} />
+                    <div style={{ height: 1, flex: 1, background: "rgba(43,54,52,.2)" }} />
                   </div>
                   <h2 style={{ fontSize: "clamp(20px,3.5vw,28px)", fontWeight: 800, color: "#2b3634", letterSpacing: "-0.03em", margin: "0 0 4px" }}>
                     {p.name || "Phase " + (pi + 1)}
                   </h2>
                   {p.timeline && (
-                    <div style={{ fontFamily: mono, fontSize: 11, color: "rgba(43,54,52,.45)", letterSpacing: "0.08em", marginBottom: 12 }}>
+                    <div style={{ fontFamily: mono, fontSize: 11, color: "rgba(43,54,52,.6)", letterSpacing: "0.08em", marginBottom: 12 }}>
                       {p.timeline.toUpperCase()}
                     </div>
                   )}
                   {p.goal && (
-                    <div style={{ fontSize: 14, color: "#2b3634", lineHeight: 1.6, marginBottom: 20, paddingLeft: 16, borderLeft: "2px solid rgba(43,54,52,.15)" }}>
-                      <span style={{ fontFamily: mono, fontSize: 10, letterSpacing: "0.15em", color: "rgba(43,54,52,.4)", display: "block", marginBottom: 4 }}>{lang === "mn" ? "ЗОРИЛГО" : "GOAL"}</span>
+                    <div style={{ fontSize: 14, color: "#2b3634", lineHeight: 1.6, marginBottom: 20, paddingLeft: 16, borderLeft: "2px solid rgba(43,54,52,.25)" }}>
+                      <span style={{ fontFamily: mono, fontSize: 10, letterSpacing: "0.15em", color: "rgba(43,54,52,.55)", display: "block", marginBottom: 4 }}>{lang === "mn" ? "ЗОРИЛГО" : "GOAL"}</span>
                       {p.goal}
                     </div>
                   )}
                   {p.courses && p.courses.length > 0 && (
                     <div style={{ marginBottom: 16 }}>
-                      <div style={{ fontFamily: mono, fontSize: 10, letterSpacing: "0.15em", color: "rgba(43,54,52,.4)", marginBottom: 10 }}>
+                      <div style={{ fontFamily: mono, fontSize: 10, letterSpacing: "0.15em", color: "rgba(43,54,52,.55)", marginBottom: 10 }}>
                         {lang === "mn" ? "ХИЧЭЭЛҮҮД" : "COURSES"}
                       </div>
                       {p.courses.map((c, ci) => <CourseCard key={ci} course={c} />)}
@@ -10257,7 +10257,7 @@ function InternshipsPage() {
         </div>
         <div style={{ fontFamily: mono, fontSize: 13, color: "#2b3634", marginBottom: 24 }}>{pr.org}</div>
         <p style={{ fontSize: 15, color: "#2b3634", lineHeight: 1.7, marginBottom: 40 }}>{pr[lang] || pr.en}</p>
-        <div style={{ height: 1, background: "rgba(43,54,52,.08)", marginBottom: 32 }} />
+        <div style={{ height: 1, background: "rgba(43,54,52,.14)", marginBottom: 32 }} />
         <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
           <a href={pr.url} target="_blank" rel="noreferrer" style={{ display: "block", padding: "14px 0", border: "1.5px solid rgba(43,54,52,.35)", borderRadius: 14, textAlign: "center", fontFamily: mono, fontSize: 13, color: "#2b3634", background: "rgba(43,54,52,.08)", textDecoration: "none", letterSpacing: "0.05em", fontWeight: 600, transition: "all .2s" }}
                     onMouseOver={e => { e.currentTarget.style.background = "rgba(43,54,52,.14)"; e.currentTarget.style.borderColor = "rgba(43,54,52,.5)"; }}
