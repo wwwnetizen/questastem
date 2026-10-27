@@ -10185,7 +10185,7 @@ RULES:
                   style={{ fontFamily: mono, fontSize: 11, letterSpacing: "0.06em", color: done ? "rgba(43,54,52,.5)" : "#2b3634", background: done ? "rgba(43,54,52,.05)" : "rgba(43,54,52,.08)", border: done ? "1px solid rgba(43,54,52,.15)" : "1.5px solid rgba(43,54,52,.3)", borderRadius: 10, padding: "7px 14px", cursor: "pointer", fontWeight: 600, transition: "all .2s", marginTop: 4 }}
                   onMouseOver={e => { e.currentTarget.style.background = "rgba(43,54,52,.14)"; e.currentTarget.style.borderColor = "rgba(43,54,52,.5)"; }}
                   onMouseOut={e => { e.currentTarget.style.background = done ? "rgba(43,54,52,.05)" : "rgba(43,54,52,.08)"; e.currentTarget.style.borderColor = done ? "rgba(43,54,52,.15)" : "rgba(43,54,52,.3)"; }}>
-                  {done ? (lang === "mn" ? "БУЦААХ" : "UNDO") : (lang === "mn" ? "ГҮЙЦЭЭСЭН" : "MARK COMPLETE")}
+                  {done ? (t.undoLabel || "Undo").toUpperCase() : (t.markDone || "Mark complete").toUpperCase()}
                 </button>
               )}
             </div>
