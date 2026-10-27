@@ -10610,8 +10610,6 @@ export default function App() {
     <QuestaCtx.Provider value={ctx}>
       <GlobalStyles />
       <div className="q-overscroll-bg" aria-hidden="true" />
-      <div aria-hidden="true" style={{ position: "fixed", top: 0, left: 0, right: 0, height: "calc(env(safe-area-inset-top, 0px) + 20px)", backdropFilter: "blur(10px)", WebkitBackdropFilter: "blur(10px)", maskImage: "linear-gradient(to bottom, black 0%, black 40%, transparent 100%)", WebkitMaskImage: "linear-gradient(to bottom, black 0%, black 40%, transparent 100%)", zIndex: 10002, pointerEvents: "none" }} />
-      <div aria-hidden="true" style={{ position: "fixed", bottom: 0, left: 0, right: 0, height: "calc(env(safe-area-inset-bottom, 0px) + 20px)", backdropFilter: "blur(10px)", WebkitBackdropFilter: "blur(10px)", maskImage: "linear-gradient(to top, black 0%, black 40%, transparent 100%)", WebkitMaskImage: "linear-gradient(to top, black 0%, black 40%, transparent 100%)", zIndex: 10002, pointerEvents: "none" }} />
       <div className="min-h-screen flex flex-col" style={{ fontFamily: "system-ui, -apple-system, 'Segoe UI', sans-serif", background: "transparent", minHeight: "100dvh", color: "#2b3634", overflowX: "hidden" }}>
         <Navbar />
         <div style={{ height: "clamp(16px,3vh,32px)" }} />
