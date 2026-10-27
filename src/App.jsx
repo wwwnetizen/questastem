@@ -8434,9 +8434,9 @@ function Dashboard() {
   const faintOut = e => { e.currentTarget.style.background = "rgba(43,54,52,.08)"; e.currentTarget.style.borderColor = "rgba(43,54,52,.35)"; };
 
   const statCard = (val, label) => (
-    <div style={{ flex: 1, minWidth: 90, padding: "18px 16px", background: "rgba(43,54,52,.04)", borderRadius: 14, textAlign: "center" }}>
+    <div style={{ flex: 1, minWidth: 90, padding: "18px 16px", background: "rgba(43,54,52,.10)", borderRadius: 14, textAlign: "center", border: "1px solid rgba(43,54,52,.12)" }}>
       <div style={{ fontSize: 26, fontWeight: 800, color: "#2b3634", letterSpacing: "-0.03em" }}>{val}</div>
-      <div style={{ fontFamily: mono, fontSize: 10, color: "#2b3634", marginTop: 4, letterSpacing: "0.1em" }}>{label}</div>
+      <div style={{ fontFamily: mono, fontSize: 10, color: "rgba(43,54,52,.7)", marginTop: 4, letterSpacing: "0.1em", fontWeight: 600 }}>{label}</div>
     </div>
   );
 
@@ -9412,8 +9412,8 @@ function Toasts({ toasts }) {
   return (
     <div className="fixed bottom-5 right-5 z-50 flex flex-col gap-2 items-end">
       {toasts.map((t) => (
-        <div key={t.id} className={cx("px-5 py-3 rounded-2xl shadow-xl font-extrabold text-sm q-pop flex items-center gap-2",
-          t.type === "gold" ? "bg-gradient-to-r from-amber-400 to-amber-500 q-ink" : t.type === "unlock" ? "bg-gradient-to-r from-indigo-600 to-violet-600 q-ink" : "q-lp text-slate-800 border border-indigo-100")}>
+        <div key={t.id} style={t.type === "gold" ? {} : t.type === "unlock" ? {} : { background: "rgba(43,54,52,.92)", color: "#e8ebe5", border: "1px solid rgba(43,54,52,.5)", fontFamily: "'Space Grotesk', ui-monospace, monospace" }} className={cx("px-5 py-3 rounded-2xl shadow-xl font-extrabold text-sm q-pop flex items-center gap-2",
+          t.type === "gold" ? "bg-gradient-to-r from-amber-400 to-amber-500 q-ink" : t.type === "unlock" ? "bg-gradient-to-r from-indigo-600 to-violet-600 q-ink" : "")}>
           {t.type === "gold" && <Medal size={16} />}{t.type === "unlock" && <Trophy size={16} />}{t.msg}
         </div>
       ))}
