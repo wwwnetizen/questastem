@@ -8457,16 +8457,18 @@ function Dashboard() {
         const size = 128;
         const canvas = document.createElement("canvas");
         canvas.width = size; canvas.height = size;
-        const ctx = canvas.getContext("2d");
+        const ctx2d = canvas.getContext("2d");
         const min = Math.min(img.width, img.height);
         const sx = (img.width - min) / 2, sy = (img.height - min) / 2;
-        ctx.drawImage(img, sx, sy, min, min, 0, 0, size, size);
+        ctx2d.drawImage(img, sx, sy, min, min, 0, 0, size, size);
         const dataUrl = canvas.toDataURL("image/jpeg", 0.8);
         setForm(p => ({ ...p, avatar: dataUrl }));
       };
       img.src = reader.result;
     };
     reader.readAsDataURL(file);
+    // Reset input so the same file can be selected again
+    e.target.value = "";
   };
   const [stemSaved, setStemSaved] = useState(false);
   const saveStem = () => { updateProfile(stemForm); setStemModal(false); setStemSaved(true); setTimeout(() => setStemSaved(false), 2500); };
@@ -10725,15 +10727,24 @@ export default function App() {
       try { await saveUserData(uidRef.current, { user, roadmaps, completed, notes, nodeChecks, saved, savedProfs, portfolio, updatedAt: Date.now() }); } catch {}
     }
     uidRef.current = null;
-    try { await fbSignOut(); } catch (e) {}
-    setUser(null);
-    setFirebaseUser(null);
-    setPage("home");
-    // Clear user-specific localStorage on sign out
+    // Clear user-specific localStorage FIRST before state changes
     try {
       ["q_user","q_roadmaps","q_completed","q_notes","q_nodeChecks","q_saved","q_savedProfs","q_portfolio"].forEach(k => localStorage.removeItem(k));
     } catch {}
-    addToast("Signed out");
+    // Reset all state
+    setUser(null);
+    setFirebaseUser(null);
+    setRoadmaps([]);
+    setCompleted({});
+    setNotes({});
+    setNodeChecks({});
+    setSaved([]);
+    setSavedProfs([]);
+    setPortfolio([]);
+    setPage("home");
+    // Sign out from Firebase last (triggers onAuthStateChanged)
+    try { await fbSignOut(); } catch (e) {}
+    addToast(lang === "mn" ? "Гарлаа" : "Signed out");
   };
 
   const [fromRoadmap, setFromRoadmap] = useState(null);
