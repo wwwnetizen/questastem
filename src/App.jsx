@@ -9243,7 +9243,20 @@ function Onboarding() {
     } catch (err) {
       const code = err.code || "";
       if (code === "auth/user-not-found" || code === "auth/wrong-password" || code === "auth/invalid-credential") {
-        setAuthError(lang === "mn" ? "Имэйл эсвэл нууц үг буруу байна." : "Incorrect email or password.");
+        // Check if this email exists with a different sign-in method (Google/GitHub)
+        try {
+          const methods = await auth.fetchSignInMethodsForEmail(loginEmail);
+          if (methods && methods.length > 0 && !methods.includes("password")) {
+            const provider = methods.includes("google.com") ? "Google" : methods.includes("github.com") ? "GitHub" : methods[0];
+            setAuthError(lang === "mn"
+              ? "Энэ имэйл " + provider + "-ээр бүртгэлтэй байна. " + provider + " товч ашиглан нэвтэрнэ үү."
+              : "This email is registered with " + provider + ". Please use the " + provider + " button above to sign in.");
+          } else {
+            setAuthError(lang === "mn" ? "Имэйл эсвэл нууц үг буруу байна." : "Incorrect email or password.");
+          }
+        } catch {
+          setAuthError(lang === "mn" ? "Имэйл эсвэл нууц үг буруу байна." : "Incorrect email or password.");
+        }
       } else if (code === "auth/invalid-email") {
         setAuthError(lang === "mn" ? "Имэйл хаяг буруу байна." : "Invalid email address.");
       } else if (code === "auth/too-many-requests") {
